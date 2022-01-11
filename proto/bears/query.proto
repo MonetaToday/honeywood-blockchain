@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "bears/params.proto";
+import "bears/bear_names.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -15,7 +16,17 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/MonetaToday/honeywood/bears/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a BearNames by index.
+	rpc BearNames(QueryGetBearNamesRequest) returns (QueryGetBearNamesResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/bear_names/{name}";
+	}
+
+	// Queries a list of BearNames items.
+	rpc BearNamesAll(QueryAllBearNamesRequest) returns (QueryAllBearNamesResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/bear_names";
+	}
+
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -25,6 +36,24 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetBearNamesRequest {
+	  string name = 1;
+
+}
+
+message QueryGetBearNamesResponse {
+	BearNames bearNames = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllBearNamesRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBearNamesResponse {
+	repeated BearNames bearNames = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3
