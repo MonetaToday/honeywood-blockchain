@@ -1,0 +1,12 @@
+syntax = "proto3";
+package MonetaToday.honeywood.bears;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
