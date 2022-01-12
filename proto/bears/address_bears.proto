@@ -1,0 +1,11 @@
+syntax = "proto3";
+package MonetaToday.honeywood.bears;
+
+option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
+
+message AddressBears {
+  string address = 1; 
+  repeated uint64 bears = 2; 
+  
+}
+
