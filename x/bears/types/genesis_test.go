@@ -39,6 +39,14 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				BearsCount: 2,
+				AddressBearsList: []types.AddressBears{
+					{
+						Address: "0",
+					},
+					{
+						Address: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -80,6 +88,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				BearsCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated addressBears",
+			genState: &types.GenesisState{
+				AddressBearsList: []types.AddressBears{
+					{
+						Address: "0",
+					},
+					{
+						Address: "0",
+					},
+				},
 			},
 			valid: false,
 		},

@@ -10,8 +10,9 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		BearNamesList: []BearNames{},
-		BearsList:     []Bears{},
+		BearNamesList:    []BearNames{},
+		BearsList:        []Bears{},
+		AddressBearsList: []AddressBears{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -41,6 +42,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("bears id should be lower or equal than the last id")
 		}
 		bearsIdMap[elem.Id] = true
+	}
+	// Check for duplicated index in addressBears
+	addressBearsIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.AddressBearsList {
+		index := string(AddressBearsKey(elem.Address))
+		if _, ok := addressBearsIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for addressBears")
+		}
+		addressBearsIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

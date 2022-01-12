@@ -7,6 +7,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "bears/params.proto";
 import "bears/bear_names.proto";
 import "bears/bears.proto";
+import "bears/address_bears.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -35,6 +36,16 @@ service Query {
 	// Queries a list of Bears items.
 	rpc BearsAll(QueryAllBearsRequest) returns (QueryAllBearsResponse) {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/bears";
+	}
+
+// Queries a AddressBears by index.
+	rpc AddressBears(QueryGetAddressBearsRequest) returns (QueryGetAddressBearsResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/address_bears/{address}";
+	}
+
+	// Queries a list of AddressBears items.
+	rpc AddressBearsAll(QueryAllAddressBearsRequest) returns (QueryAllAddressBearsResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/address_bears";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -81,6 +92,24 @@ message QueryAllBearsRequest {
 
 message QueryAllBearsResponse {
 	repeated Bears Bears = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAddressBearsRequest {
+	  string address = 1;
+
+}
+
+message QueryGetAddressBearsResponse {
+	AddressBears addressBears = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllAddressBearsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAddressBearsResponse {
+	repeated AddressBears addressBears = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

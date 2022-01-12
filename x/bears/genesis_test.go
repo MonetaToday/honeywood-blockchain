@@ -31,6 +31,14 @@ func TestGenesis(t *testing.T) {
 			},
 		},
 		BearsCount: 2,
+		AddressBearsList: []types.AddressBears{
+			{
+				Address: "0",
+			},
+			{
+				Address: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -45,5 +53,6 @@ func TestGenesis(t *testing.T) {
 	require.ElementsMatch(t, genesisState.BearNamesList, got.BearNamesList)
 	require.ElementsMatch(t, genesisState.BearsList, got.BearsList)
 	require.Equal(t, genesisState.BearsCount, got.BearsCount)
+	require.ElementsMatch(t, genesisState.AddressBearsList, got.AddressBearsList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

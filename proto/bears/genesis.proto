@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "bears/params.proto";
 import "bears/bear_names.proto";
 import "bears/bears.proto";
+import "bears/address_bears.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -15,5 +16,6 @@ message GenesisState {
   repeated BearNames bearNamesList = 2 [(gogoproto.nullable) = false];
   repeated Bears bearsList = 3 [(gogoproto.nullable) = false];
   uint64 bearsCount = 4;
+  repeated AddressBears addressBearsList = 5 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

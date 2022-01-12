@@ -20,6 +20,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set bears count
 	k.SetBearsCount(ctx, genState.BearsCount)
+	// Set all the addressBears
+	for _, elem := range genState.AddressBearsList {
+		k.SetAddressBears(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -32,6 +36,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.BearNamesList = k.GetAllBearNames(ctx)
 	genesis.BearsList = k.GetAllBears(ctx)
 	genesis.BearsCount = k.GetBearsCount(ctx)
+	genesis.AddressBearsList = k.GetAllAddressBears(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis
