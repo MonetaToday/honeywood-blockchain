@@ -1,0 +1,16 @@
+syntax = "proto3";
+package MonetaToday.honeywood.bears;
+
+option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
+
+message Bears {
+  uint64 id = 1;
+  string owner = 2; 
+  string name = 3; 
+  repeated uint64 places = 4; 
+  repeated uint64 apiaries = 5; 
+  repeated uint64 bees = 6; 
+  repeated uint64 trees = 7; 
+  repeated uint64 decorations = 8; 
+  
+}

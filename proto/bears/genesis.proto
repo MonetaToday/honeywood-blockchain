@@ -4,6 +4,7 @@ package MonetaToday.honeywood.bears;
 import "gogoproto/gogo.proto";
 import "bears/params.proto";
 import "bears/bear_names.proto";
+import "bears/bears.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -12,5 +13,7 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
   repeated BearNames bearNamesList = 2 [(gogoproto.nullable) = false];
+  repeated Bears bearsList = 3 [(gogoproto.nullable) = false];
+  uint64 bearsCount = 4;
   // this line is used by starport scaffolding # genesis/proto/state
 }

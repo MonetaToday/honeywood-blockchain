@@ -30,6 +30,15 @@ func TestGenesisState_Validate(t *testing.T) {
 						Name: "1",
 					},
 				},
+				BearsList: []types.Bears{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				BearsCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -45,6 +54,32 @@ func TestGenesisState_Validate(t *testing.T) {
 						Name: "0",
 					},
 				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated bears",
+			genState: &types.GenesisState{
+				BearsList: []types.Bears{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid bears count",
+			genState: &types.GenesisState{
+				BearsList: []types.Bears{
+					{
+						Id: 1,
+					},
+				},
+				BearsCount: 0,
 			},
 			valid: false,
 		},
