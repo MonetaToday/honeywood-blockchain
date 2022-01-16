@@ -1,11 +1,11 @@
 accounts:
   - name: alice
-    coins: ["20000token", "200000000stake"]
+    coins: ["20000token", "200000000cone"]
   - name: bob
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000token", "100000000cone"]
 validator:
   name: alice
-  staked: "100000000stake"
+  staked: "100000000cone"
 client:
   openapi:
     path: "docs/static/openapi.yml"
@@ -14,3 +14,8 @@ client:
 faucet:
   name: bob
   coins: ["5token", "100000stake"]
+genesis:
+  app_state:
+    staking:
+      params:
+        bond_denom: "cone"
