@@ -11,6 +11,11 @@ import (
 func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitGameAndSetName) (*types.MsgInitGameAndSetNameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	newBear, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	if initGameErr != nil {
+		return nil, initGameErr
+	}
+
 	_, found := k.Keeper.GetBearNames(ctx, msg.Name)
 	if found {
 		return nil, types.ErrNameIsAlreadyExisted
@@ -22,11 +27,6 @@ func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitG
 	err := k.Keeper.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.Keeper.feeCollectorName, sdk.NewCoins(setNamePrice))
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
-	}
-
-	newBear, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
-	if initGameErr != nil {
-		return nil, initGameErr
 	}
 
 	k.Keeper.RemoveBearNames(ctx, newBear.Name)
