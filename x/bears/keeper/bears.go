@@ -107,7 +107,7 @@ func GetBearsIDFromBytes(bz []byte) uint64 {
 
 // GetBears returns a bears from its id
 func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, error) {
- 	_, found := k.GetAddressBears(ctx, address)
+	_, found := k.GetAddressBears(ctx, address)
 	if found {
 		return nil, types.ErrInitGameIsAlreadyExisted
 	}
@@ -117,28 +117,28 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, error) 
 	name := address
 
 	bearName := types.BearNames{
-		Name: name,
+		Name:   name,
 		BearId: bearId,
 	}
 	k.SetBearNames(ctx, bearName)
 
 	newBear := types.Bears{
-		Id: bearId,
-		Owner: address,
-		Name: name,
-		Places: []uint64{},
-		Apiaries: []uint64{},
-		Bees: []uint64{},
-		Trees: []uint64{},
+		Id:          bearId,
+		Owner:       address,
+		Name:        name,
+		Places:      []uint64{},
+		Apiaries:    []uint64{},
+		Bees:        []uint64{},
+		Trees:       []uint64{},
 		Decorations: []uint64{},
 	}
 	if bearId != k.AppendBears(ctx, newBear) {
-		return  nil, types.ErrInitGameMismatchBearIds
+		return nil, types.ErrInitGameMismatchBearIds
 	}
 
 	addressBears := types.AddressBears{
 		Address: address,
-		Bears: []uint64{bearId},
+		Bears:   []uint64{bearId},
 	}
 	k.SetAddressBears(ctx, addressBears)
 

@@ -8,7 +8,8 @@ import (
 
 // x/bears module sentinel errors
 var (
-	ErrInitGameMismatchBearIds = sdkerrors.Register(ModuleName, 2, "Init game mismatch bear ids")
+	ErrInitGameMismatchBearIds  = sdkerrors.Register(ModuleName, 2, "Init game mismatch bear ids")
 	ErrInitGameIsAlreadyExisted = sdkerrors.Register(ModuleName, 3, "Init game is already existed")
-	ErrNameIsAlreadyExisted = sdkerrors.Register(ModuleName, 4, "Name is already existed")
+	ErrNameIsAlreadyExisted     = sdkerrors.Register(ModuleName, 4, "Name is already existed")
+	ErrBearIsNotExisted         = sdkerrors.Register(ModuleName, 5, "Bear is not existed yet")
 )

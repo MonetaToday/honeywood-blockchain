@@ -8,6 +8,7 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 // Msg defines the Msg service.
 service Msg {
       rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
+  rpc SetName(MsgSetName) returns (MsgSetNameResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -17,6 +18,15 @@ message MsgInitGameAndSetName {
 }
 
 message MsgInitGameAndSetNameResponse {
+}
+
+message MsgSetName {
+  string creator = 1;
+  uint64 bearId = 2;
+  string name = 3;
+}
+
+message MsgSetNameResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

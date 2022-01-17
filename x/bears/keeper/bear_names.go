@@ -4,6 +4,7 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // SetBearNames set a specific bearNames in the store from its index
@@ -62,11 +63,35 @@ func (k Keeper) GetAllBearNames(ctx sdk.Context) (list []types.BearNames) {
 	return
 }
 
-// SetBearName for specific bear
-func (k Keeper) SetBearName(ctx sdk.Context, bearId uint64, name string) {
+// BuyBearName for specific bear
+func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name string) error {
+	bear, bearFound := k.GetBears(ctx, bearId)
+	if !bearFound {
+		return types.ErrBearIsNotExisted
+	}
+
+	_, nameFound := k.GetBearNames(ctx, name)
+	if nameFound {
+		return types.ErrNameIsAlreadyExisted
+	}
+
+	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
+	setNamePrice := k.SetNamePrice(ctx)
+
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, sdk.NewCoins(setNamePrice))
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	k.RemoveBearNames(ctx, bear.Name)
 	bearName := types.BearNames{
-		Name: name,
+		Name:   name,
 		BearId: bearId,
 	}
 	k.SetBearNames(ctx, bearName)
+
+	bear.Name = name
+	k.SetBears(ctx, bear)
+
+	return nil
 }

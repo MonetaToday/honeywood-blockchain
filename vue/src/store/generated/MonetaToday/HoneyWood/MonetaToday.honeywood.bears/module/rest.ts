@@ -35,6 +35,8 @@ export interface BearsBears {
 
 export type BearsMsgInitGameAndSetNameResponse = object;
 
+export type BearsMsgSetNameResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

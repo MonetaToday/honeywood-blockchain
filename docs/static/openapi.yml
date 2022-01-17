@@ -20591,6 +20591,8 @@ definitions:
           format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse:
     type: object
+  MonetaToday.honeywood.bears.MsgSetNameResponse:
+    type: object
   MonetaToday.honeywood.bears.Params:
     type: object
     properties:
