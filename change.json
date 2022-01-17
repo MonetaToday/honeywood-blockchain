@@ -1,0 +1,15 @@
+{
+  "title": "Bears Param Change",
+  "description": "Update SetNamePrice",
+  "changes": [
+    {
+      "subspace": "bears",
+      "key": "SetNamePrice",
+      "value": {
+        "denom": "honey",
+        "amount": "300"
+      }
+    }
+  ],
+  "deposit": "10000cone"
+}

@@ -5,7 +5,7 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
 message BearNames {
   string name = 1; 
-  string bearId = 2; 
+  uint64 bearId = 2; 
   
 }
 
