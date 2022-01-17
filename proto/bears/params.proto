@@ -10,6 +10,6 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 message Params {
   option (gogoproto.goproto_stringer) = false;
   
-  cosmos.base.v1beta1.Coin set_name_price = 1
+  cosmos.base.v1beta1.Coin setNamePrice = 1
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"set_name_price\""];
 }
