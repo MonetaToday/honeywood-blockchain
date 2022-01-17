@@ -61,3 +61,12 @@ func (k Keeper) GetAllBearNames(ctx sdk.Context) (list []types.BearNames) {
 
 	return
 }
+
+// SetBearName for specific bear
+func (k Keeper) SetBearName(ctx sdk.Context, bearId uint64, name string) {
+	bearName := types.BearNames{
+		Name: name,
+		BearId: bearId,
+	}
+	k.SetBearNames(ctx, bearName)
+}

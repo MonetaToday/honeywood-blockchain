@@ -353,6 +353,8 @@ func New(
 		keys[bearsmoduletypes.StoreKey],
 		keys[bearsmoduletypes.MemStoreKey],
 		app.GetSubspace(bearsmoduletypes.ModuleName),
+		app.BankKeeper,
+		authtypes.FeeCollectorName,
 	)
 	bearsModule := bearsmodule.NewAppModule(appCodec, app.BearsKeeper, app.AccountKeeper, app.BankKeeper)
 
