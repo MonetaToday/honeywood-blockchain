@@ -64,10 +64,15 @@ func (k Keeper) GetAllBearNames(ctx sdk.Context) (list []types.BearNames) {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name string) error {
+func (k Keeper) BuyBearNameForBear(ctx sdk.Context, buyer string, bearId uint64, name string) error {
 	bear, bearFound := k.GetBears(ctx, bearId)
 	if !bearFound {
 		return types.ErrBearIsNotExisted
+	}
+
+	hasRights := k.HasRightsToBear(ctx, buyer, bearId)
+	if !hasRights {
+		return types.ErrAddressHasNoRights
 	}
 
 	_, nameFound := k.GetBearNames(ctx, name)

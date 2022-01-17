@@ -15,7 +15,7 @@ func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitG
 		return nil, initGameErr
 	}
 
-	buyErr := k.Keeper.BuyBearName(ctx, msg.Creator, newBear.Id, msg.Name)
+	buyErr := k.Keeper.BuyBearNameForBear(ctx, msg.Creator, newBear.Id, msg.Name)
 	if buyErr != nil {
 		return nil, buyErr
 	}

@@ -12,4 +12,5 @@ var (
 	ErrInitGameIsAlreadyExisted = sdkerrors.Register(ModuleName, 3, "Init game is already existed")
 	ErrNameIsAlreadyExisted     = sdkerrors.Register(ModuleName, 4, "Name is already existed")
 	ErrBearIsNotExisted         = sdkerrors.Register(ModuleName, 5, "Bear is not existed yet")
+	ErrAddressHasNoRights       = sdkerrors.Register(ModuleName, 6, "Address has no rights to the bear")
 )
