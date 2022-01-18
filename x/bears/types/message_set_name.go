@@ -44,10 +44,5 @@ func (msg *MsgSetName) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	_, errName := sdk.AccAddressFromBech32(msg.Name)
-	if errName == nil {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not be like an address")
-	}
-
-	return nil
+	return ValidateBearNameInput(msg.Name)
 }

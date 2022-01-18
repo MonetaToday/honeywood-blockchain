@@ -1,6 +1,7 @@
 package types
 
 import (
+	"strings"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -8,6 +9,31 @@ import (
 const TypeMsgInitGameAndSetName = "init_game_and_set_name"
 
 var _ sdk.Msg = &MsgInitGameAndSetName{}
+
+func ValidateBearNameInput(name string) error {
+	if len(name) > MaxNameLength {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Name must not be greater than %d", MaxNameLength)
+	}
+
+	if len(name) == 0 {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not be empty")
+	}
+
+	if len(strings.TrimSpace(name)) < len(name) {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not have any spaces around")
+	}
+
+	if (!sdk.IsAlphaNumeric(name)) {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name can only contain alphanumeric characters")
+	}
+
+	_, errName := sdk.AccAddressFromBech32(name)
+	if errName == nil {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not be like an address")
+	}
+
+	return nil
+}
 
 func NewMsgInitGameAndSetName(creator string, name string) *MsgInitGameAndSetName {
 	return &MsgInitGameAndSetName{
@@ -43,10 +69,5 @@ func (msg *MsgInitGameAndSetName) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	_, errName := sdk.AccAddressFromBech32(msg.Name)
-	if errName == nil {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not be like an address")
-	}
-
-	return nil
+	return ValidateBearNameInput(msg.Name)
 }

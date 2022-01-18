@@ -12,6 +12,7 @@ var _ paramtypes.ParamSet = (*Params)(nil)
 var (
 	KeySetNamePrice              = []byte("SetNamePrice")
 	DefaultSetNamePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+	MaxNameLength								 = 100
 )
 
 // NewParams creates a new Params instance
