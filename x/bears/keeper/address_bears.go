@@ -62,11 +62,10 @@ func (k Keeper) GetAllAddressBears(ctx sdk.Context) (list []types.AddressBears) 
 	return
 }
 
-
 // GetBears returns a bears from its id
 func (k Keeper) HasRightsToBear(ctx sdk.Context, address string, bearId uint64) bool {
 	addressBears, found := k.GetAddressBears(ctx, address)
-	if (!found) {
+	if !found {
 		return false
 	}
 

@@ -1,9 +1,9 @@
 package types
 
 import (
-	"strings"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"strings"
 )
 
 const TypeMsgInitGameAndSetName = "init_game_and_set_name"
@@ -23,7 +23,7 @@ func ValidateBearNameInput(name string) error {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not have any spaces around")
 	}
 
-	if (!sdk.IsAlphaNumeric(name)) {
+	if !sdk.IsAlphaNumeric(name) {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name can only contain alphanumeric characters")
 	}
 
