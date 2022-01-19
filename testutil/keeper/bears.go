@@ -3,10 +3,6 @@ package keeper
 import (
 	"testing"
 
-	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
-	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
-	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/MonetaToday/HoneyWood/x/bears/keeper"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -14,6 +10,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/store"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/log"
@@ -38,7 +38,6 @@ func BearsKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
 
-	
 	authParamsSubspace := typesparams.NewSubspace(cdc,
 		types.Amino,
 		authStoreKey,
@@ -52,16 +51,15 @@ func BearsKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		authParamsSubspace,
 		authtypes.ProtoBaseAccount,
 
-
 		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), authtypes.ProtoBaseAccount, maccPerms,
 	)
 
 	// bankKeeper.newKeeper(
 	// 	cdc,
 	// 	bankStoreKey,
-		// TODO
+	// TODO
 	// )
-	
+
 	paramsSubspace := typesparams.NewSubspace(cdc,
 		types.Amino,
 		storeKey,

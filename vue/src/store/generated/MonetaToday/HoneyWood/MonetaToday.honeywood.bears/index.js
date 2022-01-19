@@ -4,8 +4,9 @@ import { SpVuexError } from '@starport/vuex';
 import { AddressBears } from "./module/types/bears/address_bears";
 import { BearNames } from "./module/types/bears/bear_names";
 import { Bears } from "./module/types/bears/bears";
+import { Grounds } from "./module/types/bears/grounds";
 import { Params } from "./module/types/bears/params";
-export { AddressBears, BearNames, Bears, Params };
+export { AddressBears, BearNames, Bears, Grounds, Params };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -50,6 +51,7 @@ const getDefaultState = () => {
             AddressBears: getStructure(AddressBears.fromPartial({})),
             BearNames: getStructure(BearNames.fromPartial({})),
             Bears: getStructure(Bears.fromPartial({})),
+            Grounds: getStructure(Grounds.fromPartial({})),
             Params: getStructure(Params.fromPartial({})),
         },
         _Registry: registry,
