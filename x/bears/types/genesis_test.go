@@ -16,7 +16,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc:     "default is valid",
 			genState: types.DefaultGenesis(),
-			valid:    true,
+			valid:    false,
 		},
 		{
 			desc: "valid genesis state",
