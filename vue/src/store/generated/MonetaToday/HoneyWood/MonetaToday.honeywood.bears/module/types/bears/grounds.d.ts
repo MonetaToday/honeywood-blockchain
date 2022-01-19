@@ -2,16 +2,8 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Grounds {
     itemId: number;
-    itemType: Grounds_ItemTypes;
+    itemType: number;
 }
-export declare enum Grounds_ItemTypes {
-    APIARY = 0,
-    TREE = 1,
-    DECORATION = 2,
-    UNRECOGNIZED = -1
-}
-export declare function grounds_ItemTypesFromJSON(object: any): Grounds_ItemTypes;
-export declare function grounds_ItemTypesToJSON(object: Grounds_ItemTypes): string;
 export declare const Grounds: {
     encode(message: Grounds, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Grounds;

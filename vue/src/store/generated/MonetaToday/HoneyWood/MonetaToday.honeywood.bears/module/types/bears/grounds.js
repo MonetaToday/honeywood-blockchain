@@ -2,42 +2,6 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var Grounds_ItemTypes;
-(function (Grounds_ItemTypes) {
-    Grounds_ItemTypes[Grounds_ItemTypes["APIARY"] = 0] = "APIARY";
-    Grounds_ItemTypes[Grounds_ItemTypes["TREE"] = 1] = "TREE";
-    Grounds_ItemTypes[Grounds_ItemTypes["DECORATION"] = 2] = "DECORATION";
-    Grounds_ItemTypes[Grounds_ItemTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Grounds_ItemTypes || (Grounds_ItemTypes = {}));
-export function grounds_ItemTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "APIARY":
-            return Grounds_ItemTypes.APIARY;
-        case 1:
-        case "TREE":
-            return Grounds_ItemTypes.TREE;
-        case 2:
-        case "DECORATION":
-            return Grounds_ItemTypes.DECORATION;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return Grounds_ItemTypes.UNRECOGNIZED;
-    }
-}
-export function grounds_ItemTypesToJSON(object) {
-    switch (object) {
-        case Grounds_ItemTypes.APIARY:
-            return "APIARY";
-        case Grounds_ItemTypes.TREE:
-            return "TREE";
-        case Grounds_ItemTypes.DECORATION:
-            return "DECORATION";
-        default:
-            return "UNKNOWN";
-    }
-}
 const baseGrounds = { itemId: 0, itemType: 0 };
 export const Grounds = {
     encode(message, writer = Writer.create()) {
@@ -45,7 +9,7 @@ export const Grounds = {
             writer.uint32(8).uint64(message.itemId);
         }
         if (message.itemType !== 0) {
-            writer.uint32(16).int32(message.itemType);
+            writer.uint32(16).uint64(message.itemType);
         }
         return writer;
     },
@@ -60,7 +24,7 @@ export const Grounds = {
                     message.itemId = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.itemType = reader.int32();
+                    message.itemType = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -78,7 +42,7 @@ export const Grounds = {
             message.itemId = 0;
         }
         if (object.itemType !== undefined && object.itemType !== null) {
-            message.itemType = grounds_ItemTypesFromJSON(object.itemType);
+            message.itemType = Number(object.itemType);
         }
         else {
             message.itemType = 0;
@@ -88,8 +52,7 @@ export const Grounds = {
     toJSON(message) {
         const obj = {};
         message.itemId !== undefined && (obj.itemId = message.itemId);
-        message.itemType !== undefined &&
-            (obj.itemType = grounds_ItemTypesToJSON(message.itemType));
+        message.itemType !== undefined && (obj.itemType = message.itemType);
         return obj;
     },
     fromPartial(object) {

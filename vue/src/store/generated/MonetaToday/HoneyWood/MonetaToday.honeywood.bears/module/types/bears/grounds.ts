@@ -6,45 +6,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface Grounds {
   itemId: number;
-  itemType: Grounds_ItemTypes;
-}
-
-export enum Grounds_ItemTypes {
-  APIARY = 0,
-  TREE = 1,
-  DECORATION = 2,
-  UNRECOGNIZED = -1,
-}
-
-export function grounds_ItemTypesFromJSON(object: any): Grounds_ItemTypes {
-  switch (object) {
-    case 0:
-    case "APIARY":
-      return Grounds_ItemTypes.APIARY;
-    case 1:
-    case "TREE":
-      return Grounds_ItemTypes.TREE;
-    case 2:
-    case "DECORATION":
-      return Grounds_ItemTypes.DECORATION;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Grounds_ItemTypes.UNRECOGNIZED;
-  }
-}
-
-export function grounds_ItemTypesToJSON(object: Grounds_ItemTypes): string {
-  switch (object) {
-    case Grounds_ItemTypes.APIARY:
-      return "APIARY";
-    case Grounds_ItemTypes.TREE:
-      return "TREE";
-    case Grounds_ItemTypes.DECORATION:
-      return "DECORATION";
-    default:
-      return "UNKNOWN";
-  }
+  itemType: number;
 }
 
 const baseGrounds: object = { itemId: 0, itemType: 0 };
@@ -55,7 +17,7 @@ export const Grounds = {
       writer.uint32(8).uint64(message.itemId);
     }
     if (message.itemType !== 0) {
-      writer.uint32(16).int32(message.itemType);
+      writer.uint32(16).uint64(message.itemType);
     }
     return writer;
   },
@@ -71,7 +33,7 @@ export const Grounds = {
           message.itemId = longToNumber(reader.uint64() as Long);
           break;
         case 2:
-          message.itemType = reader.int32() as any;
+          message.itemType = longToNumber(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -89,7 +51,7 @@ export const Grounds = {
       message.itemId = 0;
     }
     if (object.itemType !== undefined && object.itemType !== null) {
-      message.itemType = grounds_ItemTypesFromJSON(object.itemType);
+      message.itemType = Number(object.itemType);
     } else {
       message.itemType = 0;
     }
@@ -99,8 +61,7 @@ export const Grounds = {
   toJSON(message: Grounds): unknown {
     const obj: any = {};
     message.itemId !== undefined && (obj.itemId = message.itemId);
-    message.itemType !== undefined &&
-      (obj.itemType = grounds_ItemTypesToJSON(message.itemType));
+    message.itemType !== undefined && (obj.itemType = message.itemType);
     return obj;
   },
 
