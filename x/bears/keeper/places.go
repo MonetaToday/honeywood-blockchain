@@ -1,11 +1,13 @@
 package keeper
 
 import (
+	"fmt"
 	"encoding/binary"
-
+	"math"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // GetPlacesCount get the total number of places
@@ -103,4 +105,40 @@ func GetPlacesIDBytes(id uint64) []byte {
 // GetPlacesIDFromBytes returns ID in uint64 format from a byte array
 func GetPlacesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
+}
+
+
+// BuyBearName for specific bear
+func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uint64, error) {
+	place, placeFound := k.GetPlaces(ctx, placeId)
+	if !placeFound {
+		return nil, types.ErrPlaceIsNotExisted
+	}
+
+	hasRights := k.HasRightsToBear(ctx, buyer, place.BearId)
+	if !hasRights {
+		return nil, types.ErrAddressHasNoRights
+	}
+
+	newCountGrounds := int64(math.Pow(2, math.Sqrt(float64(place.CountGrounds)) + 1))
+	differenceGrounds := newCountGrounds - int64(place.CountGrounds)
+	k.Logger(ctx).Debug(fmt.Sprintf("newCountGrounds is %d", newCountGrounds))
+
+	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
+	// TODO
+	setNamePrice := k.SetNamePrice(ctx)
+	priceForExtending := sdk.NewCoins(
+		sdk.NewCoin(
+			setNamePrice.Denom,
+			setNamePrice.Amount.MulRaw(differenceGrounds),
+		),
+	)
+
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceForExtending)
+	if err != nil {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	result := uint64(newCountGrounds)
+	return &result, nil
 }

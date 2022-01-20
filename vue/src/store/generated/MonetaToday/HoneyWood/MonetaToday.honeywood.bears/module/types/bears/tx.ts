@@ -19,6 +19,14 @@ export interface MsgSetName {
 
 export interface MsgSetNameResponse {}
 
+export interface MsgInitGameAndExtend {
+  creator: string;
+}
+
+export interface MsgInitGameAndExtendResponse {
+  countGrounds: number;
+}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -275,13 +283,144 @@ export const MsgSetNameResponse = {
   },
 };
 
+const baseMsgInitGameAndExtend: object = { creator: "" };
+
+export const MsgInitGameAndExtend = {
+  encode(
+    message: MsgInitGameAndExtend,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtend {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndExtend {
+    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndExtend): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgInitGameAndExtend>): MsgInitGameAndExtend {
+    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgInitGameAndExtendResponse: object = { countGrounds: 0 };
+
+export const MsgInitGameAndExtendResponse = {
+  encode(
+    message: MsgInitGameAndExtendResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.countGrounds !== 0) {
+      writer.uint32(8).uint64(message.countGrounds);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndExtendResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndExtendResponse,
+    } as MsgInitGameAndExtendResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.countGrounds = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndExtendResponse {
+    const message = {
+      ...baseMsgInitGameAndExtendResponse,
+    } as MsgInitGameAndExtendResponse;
+    if (object.countGrounds !== undefined && object.countGrounds !== null) {
+      message.countGrounds = Number(object.countGrounds);
+    } else {
+      message.countGrounds = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndExtendResponse): unknown {
+    const obj: any = {};
+    message.countGrounds !== undefined &&
+      (obj.countGrounds = message.countGrounds);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndExtendResponse>
+  ): MsgInitGameAndExtendResponse {
+    const message = {
+      ...baseMsgInitGameAndExtendResponse,
+    } as MsgInitGameAndExtendResponse;
+    if (object.countGrounds !== undefined && object.countGrounds !== null) {
+      message.countGrounds = object.countGrounds;
+    } else {
+      message.countGrounds = 0;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
     request: MsgInitGameAndSetName
   ): Promise<MsgInitGameAndSetNameResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  InitGameAndExtend(
+    request: MsgInitGameAndExtend
+  ): Promise<MsgInitGameAndExtendResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -311,6 +450,20 @@ export class MsgClientImpl implements Msg {
       data
     );
     return promise.then((data) => MsgSetNameResponse.decode(new Reader(data)));
+  }
+
+  InitGameAndExtend(
+    request: MsgInitGameAndExtend
+  ): Promise<MsgInitGameAndExtendResponse> {
+    const data = MsgInitGameAndExtend.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "InitGameAndExtend",
+      data
+    );
+    return promise.then((data) =>
+      MsgInitGameAndExtendResponse.decode(new Reader(data))
+    );
   }
 }
 

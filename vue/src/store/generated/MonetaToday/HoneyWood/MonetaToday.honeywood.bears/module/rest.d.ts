@@ -34,6 +34,10 @@ export interface BearsBears {
 export interface BearsGrounds {
     item?: GroundsItems;
 }
+export interface BearsMsgInitGameAndExtendResponse {
+    /** @format uint64 */
+    countGrounds?: string;
+}
 export declare type BearsMsgInitGameAndSetNameResponse = object;
 export declare type BearsMsgSetNameResponse = object;
 /**

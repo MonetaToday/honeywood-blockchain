@@ -20847,6 +20847,12 @@ definitions:
       - TREE
       - DECORATION
     default: APIARY
+  MonetaToday.honeywood.bears.MsgInitGameAndExtendResponse:
+    type: object
+    properties:
+      countGrounds:
+        type: string
+        format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse:
     type: object
   MonetaToday.honeywood.bears.MsgSetNameResponse:

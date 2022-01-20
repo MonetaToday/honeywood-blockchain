@@ -231,6 +231,115 @@ export const MsgSetNameResponse = {
         return message;
     },
 };
+const baseMsgInitGameAndExtend = { creator: "" };
+export const MsgInitGameAndExtend = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgInitGameAndExtend };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgInitGameAndExtend };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgInitGameAndExtend };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        return message;
+    },
+};
+const baseMsgInitGameAndExtendResponse = { countGrounds: 0 };
+export const MsgInitGameAndExtendResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.countGrounds !== 0) {
+            writer.uint32(8).uint64(message.countGrounds);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndExtendResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.countGrounds = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndExtendResponse,
+        };
+        if (object.countGrounds !== undefined && object.countGrounds !== null) {
+            message.countGrounds = Number(object.countGrounds);
+        }
+        else {
+            message.countGrounds = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.countGrounds !== undefined &&
+            (obj.countGrounds = message.countGrounds);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndExtendResponse,
+        };
+        if (object.countGrounds !== undefined && object.countGrounds !== null) {
+            message.countGrounds = object.countGrounds;
+        }
+        else {
+            message.countGrounds = 0;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -244,6 +353,11 @@ export class MsgClientImpl {
         const data = MsgSetName.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "SetName", data);
         return promise.then((data) => MsgSetNameResponse.decode(new Reader(data)));
+    }
+    InitGameAndExtend(request) {
+        const data = MsgInitGameAndExtend.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtend", data);
+        return promise.then((data) => MsgInitGameAndExtendResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -53,6 +53,11 @@ export interface BearsGrounds {
   item?: GroundsItems;
 }
 
+export interface BearsMsgInitGameAndExtendResponse {
+  /** @format uint64 */
+  countGrounds?: string;
+}
+
 export type BearsMsgInitGameAndSetNameResponse = object;
 
 export type BearsMsgSetNameResponse = object;

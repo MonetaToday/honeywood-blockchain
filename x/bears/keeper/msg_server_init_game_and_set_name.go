@@ -10,7 +10,7 @@ import (
 func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitGameAndSetName) (*types.MsgInitGameAndSetNameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	newBear, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	newBear, _, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}

@@ -13,6 +13,12 @@ export interface MsgSetName {
 }
 export interface MsgSetNameResponse {
 }
+export interface MsgInitGameAndExtend {
+    creator: string;
+}
+export interface MsgInitGameAndExtendResponse {
+    countGrounds: number;
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -41,17 +47,33 @@ export declare const MsgSetNameResponse: {
     toJSON(_: MsgSetNameResponse): unknown;
     fromPartial(_: DeepPartial<MsgSetNameResponse>): MsgSetNameResponse;
 };
+export declare const MsgInitGameAndExtend: {
+    encode(message: MsgInitGameAndExtend, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtend;
+    fromJSON(object: any): MsgInitGameAndExtend;
+    toJSON(message: MsgInitGameAndExtend): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndExtend>): MsgInitGameAndExtend;
+};
+export declare const MsgInitGameAndExtendResponse: {
+    encode(message: MsgInitGameAndExtendResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtendResponse;
+    fromJSON(object: any): MsgInitGameAndExtendResponse;
+    toJSON(message: MsgInitGameAndExtendResponse): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndExtendResponse>): MsgInitGameAndExtendResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    InitGameAndExtend(request: MsgInitGameAndExtend): Promise<MsgInitGameAndExtendResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
+    InitGameAndExtend(request: MsgInitGameAndExtend): Promise<MsgInitGameAndExtendResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
