@@ -36,6 +36,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgInitGameAndExtend int = 100
 
+	opWeightMsgExtendPlace = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgExtendPlace int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -110,6 +114,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgInitGameAndExtend,
 		bearssimulation.SimulateMsgInitGameAndExtend(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgExtendPlace int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendPlace, &weightMsgExtendPlace, nil,
+		func(_ *rand.Rand) {
+			weightMsgExtendPlace = defaultWeightMsgExtendPlace
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgExtendPlace,
+		bearssimulation.SimulateMsgExtendPlace(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

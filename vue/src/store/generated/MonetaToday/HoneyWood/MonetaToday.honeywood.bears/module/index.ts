@@ -4,15 +4,17 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgInitGameAndExtendPlace } from "./types/bears/tx";
+import { MsgExtendPlace } from "./types/bears/tx";
 import { MsgInitGameAndSetName } from "./types/bears/tx";
 import { MsgSetName } from "./types/bears/tx";
+import { MsgInitGameAndExtendPlace } from "./types/bears/tx";
 
 
 const types = [
-  ["/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", MsgInitGameAndExtendPlace],
+  ["/MonetaToday.honeywood.bears.MsgExtendPlace", MsgExtendPlace],
   ["/MonetaToday.honeywood.bears.MsgInitGameAndSetName", MsgInitGameAndSetName],
   ["/MonetaToday.honeywood.bears.MsgSetName", MsgSetName],
+  ["/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", MsgInitGameAndExtendPlace],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -45,9 +47,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgInitGameAndExtendPlace: (data: MsgInitGameAndExtendPlace): EncodeObject => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", value: MsgInitGameAndExtendPlace.fromPartial( data ) }),
+    msgExtendPlace: (data: MsgExtendPlace): EncodeObject => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgExtendPlace", value: MsgExtendPlace.fromPartial( data ) }),
     msgInitGameAndSetName: (data: MsgInitGameAndSetName): EncodeObject => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndSetName", value: MsgInitGameAndSetName.fromPartial( data ) }),
     msgSetName: (data: MsgSetName): EncodeObject => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgSetName", value: MsgSetName.fromPartial( data ) }),
+    msgInitGameAndExtendPlace: (data: MsgInitGameAndExtendPlace): EncodeObject => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", value: MsgInitGameAndExtendPlace.fromPartial( data ) }),
     
   };
 };

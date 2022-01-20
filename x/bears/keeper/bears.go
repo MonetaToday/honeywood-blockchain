@@ -154,10 +154,5 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	}
 	k.SetAddressBears(ctx, addressBears)
 
-	// Item: &types.Grounds_Items{
-	// 	ItemId: 0,
-	// 	ItemType: types.Grounds_Items_APIARY,
-	// },
-
 	return &newBear, &newPlace, nil
 }

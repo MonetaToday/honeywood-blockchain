@@ -10,6 +10,7 @@ service Msg {
       rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
   rpc SetName(MsgSetName) returns (MsgSetNameResponse);
   rpc InitGameAndExtendPlace(MsgInitGameAndExtendPlace) returns (MsgInitGameAndExtendPlaceResponse);
+  rpc ExtendPlace(MsgExtendPlace) returns (MsgExtendPlaceResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -35,6 +36,15 @@ message MsgInitGameAndExtendPlace {
 }
 
 message MsgInitGameAndExtendPlaceResponse {
+  uint64 countGrounds = 1;
+}
+
+message MsgExtendPlace {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgExtendPlaceResponse {
   uint64 countGrounds = 1;
 }
 

@@ -299,6 +299,102 @@ func (m *MsgInitGameAndExtendPlaceResponse) GetCountGrounds() uint64 {
 	return 0
 }
 
+type MsgExtendPlace struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgExtendPlace) Reset()         { *m = MsgExtendPlace{} }
+func (m *MsgExtendPlace) String() string { return proto.CompactTextString(m) }
+func (*MsgExtendPlace) ProtoMessage()    {}
+func (*MsgExtendPlace) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0b4b1de47af2539c, []int{6}
+}
+func (m *MsgExtendPlace) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgExtendPlace) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgExtendPlace.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgExtendPlace) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendPlace.Merge(m, src)
+}
+func (m *MsgExtendPlace) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgExtendPlace) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendPlace.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgExtendPlace proto.InternalMessageInfo
+
+func (m *MsgExtendPlace) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgExtendPlace) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgExtendPlaceResponse struct {
+	CountGrounds uint64 `protobuf:"varint,1,opt,name=countGrounds,proto3" json:"countGrounds,omitempty"`
+}
+
+func (m *MsgExtendPlaceResponse) Reset()         { *m = MsgExtendPlaceResponse{} }
+func (m *MsgExtendPlaceResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgExtendPlaceResponse) ProtoMessage()    {}
+func (*MsgExtendPlaceResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0b4b1de47af2539c, []int{7}
+}
+func (m *MsgExtendPlaceResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgExtendPlaceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgExtendPlaceResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgExtendPlaceResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendPlaceResponse.Merge(m, src)
+}
+func (m *MsgExtendPlaceResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgExtendPlaceResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendPlaceResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgExtendPlaceResponse proto.InternalMessageInfo
+
+func (m *MsgExtendPlaceResponse) GetCountGrounds() uint64 {
+	if m != nil {
+		return m.CountGrounds
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*MsgInitGameAndSetName)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndSetName")
 	proto.RegisterType((*MsgInitGameAndSetNameResponse)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse")
@@ -306,34 +402,39 @@ func init() {
 	proto.RegisterType((*MsgSetNameResponse)(nil), "MonetaToday.honeywood.bears.MsgSetNameResponse")
 	proto.RegisterType((*MsgInitGameAndExtendPlace)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace")
 	proto.RegisterType((*MsgInitGameAndExtendPlaceResponse)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse")
+	proto.RegisterType((*MsgExtendPlace)(nil), "MonetaToday.honeywood.bears.MsgExtendPlace")
+	proto.RegisterType((*MsgExtendPlaceResponse)(nil), "MonetaToday.honeywood.bears.MsgExtendPlaceResponse")
 }
 
 func init() { proto.RegisterFile("bears/tx.proto", fileDescriptor_0b4b1de47af2539c) }
 
 var fileDescriptor_0b4b1de47af2539c = []byte{
-	// 349 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x93, 0xcf, 0x4b, 0x02, 0x41,
-	0x14, 0xc7, 0x9d, 0x14, 0xa5, 0x47, 0x74, 0x18, 0x4a, 0xcc, 0x68, 0xab, 0xbd, 0xd4, 0x69, 0x16,
-	0x8c, 0x3a, 0x74, 0x08, 0x0a, 0x44, 0x3d, 0x6c, 0xc4, 0x16, 0x04, 0xdd, 0xc6, 0x9d, 0x61, 0x15,
-	0xda, 0x79, 0xb2, 0x33, 0x92, 0xde, 0xfd, 0x03, 0xfc, 0xb3, 0x3a, 0x7a, 0xec, 0x18, 0xfa, 0x8f,
-	0x84, 0x8b, 0xbb, 0x29, 0xf8, 0x23, 0xbb, 0xcd, 0x7b, 0xbc, 0xef, 0xf7, 0xf3, 0xe5, 0x0d, 0x0f,
-	0xf6, 0x9b, 0x92, 0x47, 0xda, 0x31, 0x3d, 0xd6, 0x89, 0xd0, 0x20, 0x3d, 0x76, 0x51, 0x49, 0xc3,
-	0x5f, 0x50, 0xf0, 0x3e, 0x6b, 0xa1, 0x92, 0xfd, 0x0f, 0x44, 0xc1, 0xe2, 0x29, 0xbb, 0x0a, 0x87,
-	0xae, 0x0e, 0x1a, 0xaa, 0x6d, 0x6a, 0x3c, 0x94, 0xf7, 0x4a, 0x3c, 0x4b, 0xf3, 0xc8, 0x43, 0x49,
-	0x4b, 0x50, 0xf0, 0x23, 0xc9, 0x0d, 0x46, 0x25, 0x72, 0x46, 0x2e, 0x77, 0xbd, 0xa4, 0xa4, 0x14,
-	0x72, 0x8a, 0x87, 0xb2, 0xb4, 0x13, 0xb7, 0xe3, 0xb7, 0x7d, 0x0a, 0x27, 0x4b, 0x6d, 0x3c, 0xa9,
-	0x3b, 0xa8, 0xb4, 0xb4, 0x3d, 0x00, 0x57, 0x07, 0x9b, 0xcd, 0x8b, 0x90, 0x9f, 0x06, 0x6b, 0x88,
-	0xd8, 0x3e, 0xe7, 0xcd, 0xaa, 0x14, 0x9a, 0x9d, 0x83, 0x1e, 0x00, 0xfd, 0xf5, 0x4c, 0x49, 0xd7,
-	0x70, 0xb4, 0x18, 0xa5, 0xda, 0x33, 0x52, 0x89, 0xa7, 0x77, 0xee, 0xaf, 0x01, 0xdb, 0x35, 0x38,
-	0x5f, 0x29, 0x4b, 0xbc, 0xa9, 0x0d, 0x7b, 0x3e, 0x76, 0x95, 0xa9, 0x45, 0xd8, 0x55, 0x42, 0xc7,
-	0x1e, 0x39, 0x6f, 0xa1, 0x57, 0x19, 0x64, 0x21, 0xeb, 0xea, 0x80, 0x0e, 0x08, 0xd0, 0x25, 0x7b,
-	0xad, 0xb0, 0x35, 0xdf, 0xc1, 0x96, 0x2e, 0xb1, 0x7c, 0xbb, 0xbd, 0x26, 0x8d, 0xec, 0x43, 0x21,
-	0x41, 0x5f, 0x6c, 0xb2, 0x49, 0x78, 0xce, 0x1f, 0x07, 0x53, 0xc8, 0x90, 0x40, 0x71, 0xc5, 0xc6,
-	0x6f, 0xb6, 0xc8, 0x3e, 0xa7, 0x2b, 0xdf, 0xfd, 0x4f, 0x97, 0x44, 0x7a, 0xa8, 0x7f, 0x8e, 0x2d,
-	0x32, 0x1a, 0x5b, 0xe4, 0x7b, 0x6c, 0x91, 0xe1, 0xc4, 0xca, 0x8c, 0x26, 0x56, 0xe6, 0x6b, 0x62,
-	0x65, 0xde, 0x58, 0xd0, 0x36, 0xad, 0x6e, 0x93, 0xf9, 0x18, 0x3a, 0x73, 0x0c, 0xa7, 0x3e, 0x65,
-	0xbc, 0x22, 0x0a, 0xa7, 0xe7, 0xcc, 0x4e, 0xa8, 0xdf, 0x91, 0xba, 0x99, 0x8f, 0xcf, 0xe8, 0xea,
-	0x27, 0x00, 0x00, 0xff, 0xff, 0x34, 0xa5, 0x4c, 0x14, 0x58, 0x03, 0x00, 0x00,
+	// 393 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0x4f, 0x6b, 0xe2, 0x40,
+	0x18, 0xc6, 0x8d, 0x8a, 0xb2, 0xef, 0x2e, 0x1e, 0x86, 0x5d, 0x71, 0x5d, 0x36, 0xbb, 0x9b, 0xcb,
+	0x16, 0x0a, 0x09, 0x28, 0xed, 0x41, 0x4a, 0xa1, 0x05, 0x51, 0x0f, 0x29, 0x25, 0x2d, 0x14, 0x7a,
+	0x1b, 0x33, 0x43, 0x0c, 0x34, 0xf3, 0x4a, 0x66, 0xa4, 0x7a, 0xef, 0x07, 0xf0, 0x63, 0xf5, 0xe8,
+	0xb1, 0xc7, 0xa2, 0x9f, 0xa1, 0xf7, 0x62, 0x30, 0x69, 0x04, 0xff, 0xa5, 0x37, 0x67, 0x78, 0x9f,
+	0xdf, 0xef, 0x91, 0x37, 0x0c, 0x54, 0xfa, 0x9c, 0x86, 0xd2, 0x52, 0x63, 0x73, 0x18, 0xa2, 0x42,
+	0xf2, 0xcb, 0x46, 0xc1, 0x15, 0xbd, 0x45, 0x46, 0x27, 0xe6, 0x00, 0x05, 0x9f, 0x3c, 0x22, 0x32,
+	0x33, 0x9a, 0x32, 0xda, 0xf0, 0xc3, 0x96, 0x5e, 0x4f, 0xf8, 0xaa, 0x43, 0x03, 0x7e, 0x21, 0xd8,
+	0x0d, 0x57, 0x57, 0x34, 0xe0, 0xa4, 0x06, 0x65, 0x37, 0xe4, 0x54, 0x61, 0x58, 0xd3, 0xfe, 0x6a,
+	0x47, 0x5f, 0x9c, 0xf8, 0x48, 0x08, 0x14, 0x05, 0x0d, 0x78, 0x2d, 0x1f, 0x5d, 0x47, 0xbf, 0x8d,
+	0x3f, 0xf0, 0x7b, 0x23, 0xc6, 0xe1, 0x72, 0x88, 0x42, 0x72, 0xc3, 0x01, 0xb0, 0xa5, 0xb7, 0x1f,
+	0x5e, 0x85, 0xd2, 0xb2, 0x58, 0x8f, 0x45, 0xf8, 0xa2, 0xb3, 0x3a, 0x25, 0xd2, 0x42, 0x4a, 0xfa,
+	0x1d, 0xc8, 0x07, 0x33, 0x31, 0x9d, 0xc0, 0xcf, 0xf5, 0x2a, 0xed, 0xb1, 0xe2, 0x82, 0x5d, 0x3f,
+	0x50, 0x77, 0x87, 0xd8, 0xe8, 0xc0, 0xbf, 0xad, 0xb1, 0x98, 0x4d, 0x0c, 0xf8, 0xe6, 0xe2, 0x48,
+	0xa8, 0x4e, 0x88, 0x23, 0xc1, 0x64, 0xc4, 0x28, 0x3a, 0x6b, 0x77, 0x46, 0x0b, 0x2a, 0xb6, 0xf4,
+	0x0e, 0x92, 0x92, 0x0a, 0xe4, 0xfd, 0xf8, 0x9f, 0xe6, 0x7d, 0x66, 0x9c, 0x41, 0x75, 0x3d, 0x9b,
+	0xc5, 0xdc, 0x78, 0x2b, 0x40, 0xc1, 0x96, 0x1e, 0x79, 0xd2, 0x80, 0x6c, 0xd8, 0x68, 0xc3, 0xdc,
+	0xf1, 0x21, 0x98, 0x1b, 0xd7, 0x57, 0x6f, 0x65, 0xcf, 0x24, 0x95, 0x5d, 0x28, 0xc7, 0xea, 0xff,
+	0xfb, 0x30, 0xb1, 0xcf, 0x3a, 0x70, 0x30, 0x91, 0x4c, 0x35, 0xa8, 0x6e, 0xd9, 0xf5, 0x69, 0x86,
+	0xee, 0xa9, 0x5c, 0xfd, 0xfc, 0x73, 0xb9, 0xa4, 0x12, 0xc2, 0xd7, 0x74, 0x8d, 0xe3, 0x7d, 0xb8,
+	0xb4, 0xbb, 0x99, 0x61, 0x38, 0x16, 0x5e, 0x76, 0x9f, 0xe7, 0xba, 0x36, 0x9b, 0xeb, 0xda, 0xeb,
+	0x5c, 0xd7, 0xa6, 0x0b, 0x3d, 0x37, 0x5b, 0xe8, 0xb9, 0x97, 0x85, 0x9e, 0xbb, 0x37, 0x3d, 0x5f,
+	0x0d, 0x46, 0x7d, 0xd3, 0xc5, 0xc0, 0x4a, 0x81, 0xad, 0xee, 0x12, 0x7c, 0x87, 0xc8, 0xac, 0xb1,
+	0xb5, 0x7a, 0x2d, 0x26, 0x43, 0x2e, 0xfb, 0xa5, 0xe8, 0xc5, 0x68, 0xbe, 0x07, 0x00, 0x00, 0xff,
+	0xff, 0xd9, 0xa0, 0xa4, 0xb0, 0x43, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -351,6 +452,7 @@ type MsgClient interface {
 	InitGameAndSetName(ctx context.Context, in *MsgInitGameAndSetName, opts ...grpc.CallOption) (*MsgInitGameAndSetNameResponse, error)
 	SetName(ctx context.Context, in *MsgSetName, opts ...grpc.CallOption) (*MsgSetNameResponse, error)
 	InitGameAndExtendPlace(ctx context.Context, in *MsgInitGameAndExtendPlace, opts ...grpc.CallOption) (*MsgInitGameAndExtendPlaceResponse, error)
+	ExtendPlace(ctx context.Context, in *MsgExtendPlace, opts ...grpc.CallOption) (*MsgExtendPlaceResponse, error)
 }
 
 type msgClient struct {
@@ -388,11 +490,21 @@ func (c *msgClient) InitGameAndExtendPlace(ctx context.Context, in *MsgInitGameA
 	return out, nil
 }
 
+func (c *msgClient) ExtendPlace(ctx context.Context, in *MsgExtendPlace, opts ...grpc.CallOption) (*MsgExtendPlaceResponse, error) {
+	out := new(MsgExtendPlaceResponse)
+	err := c.cc.Invoke(ctx, "/MonetaToday.honeywood.bears.Msg/ExtendPlace", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	InitGameAndSetName(context.Context, *MsgInitGameAndSetName) (*MsgInitGameAndSetNameResponse, error)
 	SetName(context.Context, *MsgSetName) (*MsgSetNameResponse, error)
 	InitGameAndExtendPlace(context.Context, *MsgInitGameAndExtendPlace) (*MsgInitGameAndExtendPlaceResponse, error)
+	ExtendPlace(context.Context, *MsgExtendPlace) (*MsgExtendPlaceResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -407,6 +519,9 @@ func (*UnimplementedMsgServer) SetName(ctx context.Context, req *MsgSetName) (*M
 }
 func (*UnimplementedMsgServer) InitGameAndExtendPlace(ctx context.Context, req *MsgInitGameAndExtendPlace) (*MsgInitGameAndExtendPlaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitGameAndExtendPlace not implemented")
+}
+func (*UnimplementedMsgServer) ExtendPlace(ctx context.Context, req *MsgExtendPlace) (*MsgExtendPlaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExtendPlace not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -467,6 +582,24 @@ func _Msg_InitGameAndExtendPlace_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_ExtendPlace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgExtendPlace)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ExtendPlace(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MonetaToday.honeywood.bears.Msg/ExtendPlace",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ExtendPlace(ctx, req.(*MsgExtendPlace))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "MonetaToday.honeywood.bears.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -482,6 +615,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InitGameAndExtendPlace",
 			Handler:    _Msg_InitGameAndExtendPlace_Handler,
+		},
+		{
+			MethodName: "ExtendPlace",
+			Handler:    _Msg_ExtendPlace_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -671,6 +808,69 @@ func (m *MsgInitGameAndExtendPlaceResponse) MarshalToSizedBuffer(dAtA []byte) (i
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgExtendPlace) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgExtendPlace) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgExtendPlace) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgExtendPlaceResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgExtendPlaceResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgExtendPlaceResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.CountGrounds != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.CountGrounds))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -751,6 +951,34 @@ func (m *MsgInitGameAndExtendPlace) Size() (n int) {
 }
 
 func (m *MsgInitGameAndExtendPlaceResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CountGrounds != 0 {
+		n += 1 + sovTx(uint64(m.CountGrounds))
+	}
+	return n
+}
+
+func (m *MsgExtendPlace) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgExtendPlaceResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1224,6 +1452,176 @@ func (m *MsgInitGameAndExtendPlaceResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgInitGameAndExtendPlaceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CountGrounds", wireType)
+			}
+			m.CountGrounds = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CountGrounds |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgExtendPlace) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgExtendPlace: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgExtendPlace: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgExtendPlaceResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgExtendPlaceResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgExtendPlaceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

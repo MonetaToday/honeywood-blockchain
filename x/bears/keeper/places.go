@@ -1,13 +1,13 @@
 package keeper
 
 import (
-	"fmt"
 	"encoding/binary"
-	"math"
+	"fmt"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"math"
 )
 
 // GetPlacesCount get the total number of places
@@ -107,7 +107,6 @@ func GetPlacesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-
 // BuyBearName for specific bear
 func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uint64, error) {
 	place, placeFound := k.GetPlaces(ctx, placeId)
@@ -120,7 +119,7 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	newCountGrounds := int64(math.Pow(2, math.Sqrt(float64(place.CountGrounds)) + 1))
+	newCountGrounds := int64(math.Pow(math.Sqrt(float64(place.CountGrounds)) + 1, 2))
 	differenceGrounds := newCountGrounds - int64(place.CountGrounds)
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountGrounds is %d", newCountGrounds))
 
@@ -138,6 +137,19 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	result := uint64(newCountGrounds)
-	return &result, nil
+	for i := 0; i < int(differenceGrounds); i++ {
+		place.Grounds = append(place.Grounds, types.Grounds{})
+	}
+	place.CountGrounds = uint64(len(place.Grounds))
+
+	// place.Grounds[10] = types.Grounds{
+	// 	Item: &types.Grounds_Items{
+	// 		ItemId: 0,
+	// 		ItemType: types.Grounds_Items_APIARY,
+	// 	},
+	// }
+	
+	k.SetPlaces(ctx, place)
+
+	return &place.CountGrounds, nil
 }

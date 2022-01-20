@@ -313,20 +313,20 @@ export default {
                 throw new SpVuexError('QueryClient:QueryPlacesAll', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
-        async sendMsgInitGameAndExtendPlace({ rootGetters }, { value, fee = [], memo = '' }) {
+        async sendMsgExtendPlace({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndExtendPlace(value);
+                const msg = await txClient.msgExtendPlace(value);
                 const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
                         gas: "200000" }, memo });
                 return result;
             }
             catch (e) {
                 if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Init', 'Could not initialize signing client. Wallet is required.');
+                    throw new SpVuexError('TxClient:MsgExtendPlace:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgExtendPlace:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -364,18 +364,35 @@ export default {
                 }
             }
         },
-        async MsgInitGameAndExtendPlace({ rootGetters }, { value }) {
+        async sendMsgInitGameAndExtendPlace({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgInitGameAndExtendPlace(value);
-                return msg;
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
             }
             catch (e) {
                 if (e == MissingWalletError) {
                     throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Create', 'Could not create message: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async MsgExtendPlace({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgExtendPlace(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgExtendPlace:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgExtendPlace:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -406,6 +423,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgSetName:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgInitGameAndExtendPlace({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndExtendPlace(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendPlace:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

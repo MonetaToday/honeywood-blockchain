@@ -19,6 +19,13 @@ export interface MsgInitGameAndExtendPlace {
 export interface MsgInitGameAndExtendPlaceResponse {
     countGrounds: number;
 }
+export interface MsgExtendPlace {
+    creator: string;
+    id: number;
+}
+export interface MsgExtendPlaceResponse {
+    countGrounds: number;
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -61,12 +68,27 @@ export declare const MsgInitGameAndExtendPlaceResponse: {
     toJSON(message: MsgInitGameAndExtendPlaceResponse): unknown;
     fromPartial(object: DeepPartial<MsgInitGameAndExtendPlaceResponse>): MsgInitGameAndExtendPlaceResponse;
 };
+export declare const MsgExtendPlace: {
+    encode(message: MsgExtendPlace, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgExtendPlace;
+    fromJSON(object: any): MsgExtendPlace;
+    toJSON(message: MsgExtendPlace): unknown;
+    fromPartial(object: DeepPartial<MsgExtendPlace>): MsgExtendPlace;
+};
+export declare const MsgExtendPlaceResponse: {
+    encode(message: MsgExtendPlaceResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgExtendPlaceResponse;
+    fromJSON(object: any): MsgExtendPlaceResponse;
+    toJSON(message: MsgExtendPlaceResponse): unknown;
+    fromPartial(object: DeepPartial<MsgExtendPlaceResponse>): MsgExtendPlaceResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -74,6 +96,7 @@ export declare class MsgClientImpl implements Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
     InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
+    ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

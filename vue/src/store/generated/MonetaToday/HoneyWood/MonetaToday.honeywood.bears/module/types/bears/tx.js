@@ -346,6 +346,128 @@ export const MsgInitGameAndExtendPlaceResponse = {
         return message;
     },
 };
+const baseMsgExtendPlace = { creator: "", id: 0 };
+export const MsgExtendPlace = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgExtendPlace };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgExtendPlace };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgExtendPlace };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseMsgExtendPlaceResponse = { countGrounds: 0 };
+export const MsgExtendPlaceResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.countGrounds !== 0) {
+            writer.uint32(8).uint64(message.countGrounds);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgExtendPlaceResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.countGrounds = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgExtendPlaceResponse };
+        if (object.countGrounds !== undefined && object.countGrounds !== null) {
+            message.countGrounds = Number(object.countGrounds);
+        }
+        else {
+            message.countGrounds = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.countGrounds !== undefined &&
+            (obj.countGrounds = message.countGrounds);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgExtendPlaceResponse };
+        if (object.countGrounds !== undefined && object.countGrounds !== null) {
+            message.countGrounds = object.countGrounds;
+        }
+        else {
+            message.countGrounds = 0;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -364,6 +486,11 @@ export class MsgClientImpl {
         const data = MsgInitGameAndExtendPlace.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtendPlace", data);
         return promise.then((data) => MsgInitGameAndExtendPlaceResponse.decode(new Reader(data)));
+    }
+    ExtendPlace(request) {
+        const data = MsgExtendPlace.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "ExtendPlace", data);
+        return promise.then((data) => MsgExtendPlaceResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

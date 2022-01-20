@@ -34,6 +34,10 @@ export interface BearsBears {
 export interface BearsGrounds {
     item?: GroundsItems;
 }
+export interface BearsMsgExtendPlaceResponse {
+    /** @format uint64 */
+    countGrounds?: string;
+}
 export interface BearsMsgInitGameAndExtendPlaceResponse {
     /** @format uint64 */
     countGrounds?: string;

@@ -27,6 +27,15 @@ export interface MsgInitGameAndExtendPlaceResponse {
   countGrounds: number;
 }
 
+export interface MsgExtendPlace {
+  creator: string;
+  id: number;
+}
+
+export interface MsgExtendPlaceResponse {
+  countGrounds: number;
+}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -422,16 +431,150 @@ export const MsgInitGameAndExtendPlaceResponse = {
   },
 };
 
+const baseMsgExtendPlace: object = { creator: "", id: 0 };
+
+export const MsgExtendPlace = {
+  encode(message: MsgExtendPlace, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgExtendPlace {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgExtendPlace } as MsgExtendPlace;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgExtendPlace {
+    const message = { ...baseMsgExtendPlace } as MsgExtendPlace;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgExtendPlace): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgExtendPlace>): MsgExtendPlace {
+    const message = { ...baseMsgExtendPlace } as MsgExtendPlace;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgExtendPlaceResponse: object = { countGrounds: 0 };
+
+export const MsgExtendPlaceResponse = {
+  encode(
+    message: MsgExtendPlaceResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.countGrounds !== 0) {
+      writer.uint32(8).uint64(message.countGrounds);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgExtendPlaceResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgExtendPlaceResponse } as MsgExtendPlaceResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.countGrounds = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgExtendPlaceResponse {
+    const message = { ...baseMsgExtendPlaceResponse } as MsgExtendPlaceResponse;
+    if (object.countGrounds !== undefined && object.countGrounds !== null) {
+      message.countGrounds = Number(object.countGrounds);
+    } else {
+      message.countGrounds = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgExtendPlaceResponse): unknown {
+    const obj: any = {};
+    message.countGrounds !== undefined &&
+      (obj.countGrounds = message.countGrounds);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgExtendPlaceResponse>
+  ): MsgExtendPlaceResponse {
+    const message = { ...baseMsgExtendPlaceResponse } as MsgExtendPlaceResponse;
+    if (object.countGrounds !== undefined && object.countGrounds !== null) {
+      message.countGrounds = object.countGrounds;
+    } else {
+      message.countGrounds = 0;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
     request: MsgInitGameAndSetName
   ): Promise<MsgInitGameAndSetNameResponse>;
   SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   InitGameAndExtendPlace(
     request: MsgInitGameAndExtendPlace
   ): Promise<MsgInitGameAndExtendPlaceResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -474,6 +617,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgInitGameAndExtendPlaceResponse.decode(new Reader(data))
+    );
+  }
+
+  ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse> {
+    const data = MsgExtendPlace.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "ExtendPlace",
+      data
+    );
+    return promise.then((data) =>
+      MsgExtendPlaceResponse.decode(new Reader(data))
     );
   }
 }

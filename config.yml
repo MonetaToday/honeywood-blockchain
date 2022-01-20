@@ -39,4 +39,4 @@ genesis:
           amount: "100"
         one_ground_price: 
           denom: "honey"
-          amount: "1"
+          amount: "1000"

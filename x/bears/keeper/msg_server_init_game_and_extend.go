@@ -15,9 +15,12 @@ func (k msgServer) InitGameAndExtendPlace(goCtx context.Context, msg *types.MsgI
 		return nil, initGameErr
 	}
 
-	k.Keeper.ExtendPlace(ctx, msg.Creator, newPlace.Id)
+	countGrounds, extendPlaceErr := k.Keeper.ExtendPlace(ctx, msg.Creator, newPlace.Id)
+	if extendPlaceErr != nil {
+		return nil, extendPlaceErr
+	}
 
 	return &types.MsgInitGameAndExtendPlaceResponse{
-		CountGrounds: newPlace.CountGrounds,
+		CountGrounds: *countGrounds,
 	}, nil
 }

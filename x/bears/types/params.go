@@ -24,7 +24,7 @@ func NewParams(
 	oneGroundPrice sdk.Coin,
 ) Params {
 	return Params{
-		SetNamePrice: setNamePrice,
+		SetNamePrice:   setNamePrice,
 		OneGroundPrice: oneGroundPrice,
 	}
 }
