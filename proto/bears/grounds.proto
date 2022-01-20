@@ -4,6 +4,15 @@ package MonetaToday.honeywood.bears;
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
 message Grounds {
-  uint64 itemId = 1;
-  uint64 itemType = 2; 
+  message Items {
+    uint64 itemId = 1;
+    enum ItemTypes {
+      APIARY = 0;
+      TREE = 1;
+      DECORATION = 2;
+    }
+    ItemTypes itemType = 2; 
+  }
+
+  Items item = 2;
 }

@@ -22,9 +22,36 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type Grounds_Items_ItemTypes int32
+
+const (
+	Grounds_Items_APIARY     Grounds_Items_ItemTypes = 0
+	Grounds_Items_TREE       Grounds_Items_ItemTypes = 1
+	Grounds_Items_DECORATION Grounds_Items_ItemTypes = 2
+)
+
+var Grounds_Items_ItemTypes_name = map[int32]string{
+	0: "APIARY",
+	1: "TREE",
+	2: "DECORATION",
+}
+
+var Grounds_Items_ItemTypes_value = map[string]int32{
+	"APIARY":     0,
+	"TREE":       1,
+	"DECORATION": 2,
+}
+
+func (x Grounds_Items_ItemTypes) String() string {
+	return proto.EnumName(Grounds_Items_ItemTypes_name, int32(x))
+}
+
+func (Grounds_Items_ItemTypes) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_59e580121fd30612, []int{0, 0, 0}
+}
+
 type Grounds struct {
-	ItemId   uint64 `protobuf:"varint,1,opt,name=itemId,proto3" json:"itemId,omitempty"`
-	ItemType uint64 `protobuf:"varint,2,opt,name=itemType,proto3" json:"itemType,omitempty"`
+	Item *Grounds_Items `protobuf:"bytes,2,opt,name=item,proto3" json:"item,omitempty"`
 }
 
 func (m *Grounds) Reset()         { *m = Grounds{} }
@@ -60,40 +87,92 @@ func (m *Grounds) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Grounds proto.InternalMessageInfo
 
-func (m *Grounds) GetItemId() uint64 {
+func (m *Grounds) GetItem() *Grounds_Items {
+	if m != nil {
+		return m.Item
+	}
+	return nil
+}
+
+type Grounds_Items struct {
+	ItemId   uint64                  `protobuf:"varint,1,opt,name=itemId,proto3" json:"itemId,omitempty"`
+	ItemType Grounds_Items_ItemTypes `protobuf:"varint,2,opt,name=itemType,proto3,enum=MonetaToday.honeywood.bears.Grounds_Items_ItemTypes" json:"itemType,omitempty"`
+}
+
+func (m *Grounds_Items) Reset()         { *m = Grounds_Items{} }
+func (m *Grounds_Items) String() string { return proto.CompactTextString(m) }
+func (*Grounds_Items) ProtoMessage()    {}
+func (*Grounds_Items) Descriptor() ([]byte, []int) {
+	return fileDescriptor_59e580121fd30612, []int{0, 0}
+}
+func (m *Grounds_Items) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Grounds_Items) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Grounds_Items.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Grounds_Items) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Grounds_Items.Merge(m, src)
+}
+func (m *Grounds_Items) XXX_Size() int {
+	return m.Size()
+}
+func (m *Grounds_Items) XXX_DiscardUnknown() {
+	xxx_messageInfo_Grounds_Items.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Grounds_Items proto.InternalMessageInfo
+
+func (m *Grounds_Items) GetItemId() uint64 {
 	if m != nil {
 		return m.ItemId
 	}
 	return 0
 }
 
-func (m *Grounds) GetItemType() uint64 {
+func (m *Grounds_Items) GetItemType() Grounds_Items_ItemTypes {
 	if m != nil {
 		return m.ItemType
 	}
-	return 0
+	return Grounds_Items_APIARY
 }
 
 func init() {
+	proto.RegisterEnum("MonetaToday.honeywood.bears.Grounds_Items_ItemTypes", Grounds_Items_ItemTypes_name, Grounds_Items_ItemTypes_value)
 	proto.RegisterType((*Grounds)(nil), "MonetaToday.honeywood.bears.Grounds")
+	proto.RegisterType((*Grounds_Items)(nil), "MonetaToday.honeywood.bears.Grounds.Items")
 }
 
 func init() { proto.RegisterFile("bears/grounds.proto", fileDescriptor_59e580121fd30612) }
 
 var fileDescriptor_59e580121fd30612 = []byte{
-	// 179 bytes of a gzipped FileDescriptorProto
+	// 268 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4e, 0x4a, 0x4d, 0x2c,
 	0x2a, 0xd6, 0x4f, 0x2f, 0xca, 0x2f, 0xcd, 0x4b, 0x29, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17,
 	0x92, 0xf6, 0xcd, 0xcf, 0x4b, 0x2d, 0x49, 0x0c, 0xc9, 0x4f, 0x49, 0xac, 0xd4, 0xcb, 0xc8, 0xcf,
-	0x4b, 0xad, 0x2c, 0xcf, 0xcf, 0x4f, 0xd1, 0x03, 0x2b, 0x55, 0xb2, 0xe5, 0x62, 0x77, 0x87, 0xa8,
-	0x16, 0x12, 0xe3, 0x62, 0xcb, 0x2c, 0x49, 0xcd, 0xf5, 0x4c, 0x91, 0x60, 0x54, 0x60, 0xd4, 0x60,
-	0x09, 0x82, 0xf2, 0x84, 0xa4, 0xb8, 0x38, 0x40, 0xac, 0x90, 0xca, 0x82, 0x54, 0x09, 0x26, 0xb0,
-	0x0c, 0x9c, 0xef, 0xe4, 0x71, 0xe2, 0x91, 0x1c, 0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9,
-	0x31, 0x4e, 0x78, 0x2c, 0xc7, 0x70, 0xe1, 0xb1, 0x1c, 0xc3, 0x8d, 0xc7, 0x72, 0x0c, 0x51, 0x7a,
-	0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a, 0xc9, 0xf9, 0xb9, 0xfa, 0x48, 0x0e, 0xd0, 0xf7, 0x00,
-	0x39, 0x20, 0x3c, 0x3f, 0x3f, 0x45, 0xbf, 0x42, 0x1f, 0xe2, 0xda, 0x92, 0xca, 0x82, 0xd4, 0xe2,
-	0x24, 0x36, 0xb0, 0x63, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa9, 0x18, 0xeb, 0x9d, 0xc3,
-	0x00, 0x00, 0x00,
+	0x4b, 0xad, 0x2c, 0xcf, 0xcf, 0x4f, 0xd1, 0x03, 0x2b, 0x55, 0xfa, 0xc0, 0xc8, 0xc5, 0xee, 0x0e,
+	0x51, 0x2e, 0x64, 0xc7, 0xc5, 0x92, 0x59, 0x92, 0x9a, 0x2b, 0xc1, 0xa4, 0xc0, 0xa8, 0xc1, 0x6d,
+	0xa4, 0xa5, 0x87, 0x47, 0x9f, 0x1e, 0x54, 0x8f, 0x9e, 0x67, 0x49, 0x6a, 0x6e, 0x71, 0x10, 0x58,
+	0x9f, 0xd4, 0x12, 0x46, 0x2e, 0x56, 0x30, 0x5f, 0x48, 0x8c, 0x8b, 0x0d, 0x24, 0xe2, 0x99, 0x22,
+	0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x12, 0x04, 0xe5, 0x09, 0x05, 0x70, 0x71, 0x80, 0x58, 0x21, 0x95,
+	0x05, 0xa9, 0x60, 0x5b, 0xf8, 0x8c, 0x4c, 0x88, 0xb7, 0x05, 0x4c, 0x82, 0xb4, 0x16, 0x07, 0xc1,
+	0x4d, 0x51, 0x32, 0xe4, 0xe2, 0x84, 0x0b, 0x0b, 0x71, 0x71, 0xb1, 0x39, 0x06, 0x78, 0x3a, 0x06,
+	0x45, 0x0a, 0x30, 0x08, 0x71, 0x70, 0xb1, 0x84, 0x04, 0xb9, 0xba, 0x0a, 0x30, 0x0a, 0xf1, 0x71,
+	0x71, 0xb9, 0xb8, 0x3a, 0xfb, 0x07, 0x39, 0x86, 0x78, 0xfa, 0xfb, 0x09, 0x30, 0x39, 0x79, 0x9c,
+	0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31,
+	0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x5e, 0x7a, 0x66, 0x49, 0x46, 0x69,
+	0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0x92, 0xb3, 0xf4, 0x3d, 0x40, 0xce, 0x0a, 0xcf, 0xcf, 0x4f,
+	0xd1, 0xaf, 0xd0, 0x87, 0x84, 0x70, 0x09, 0xc8, 0xbe, 0x24, 0x36, 0x70, 0x00, 0x1b, 0x03, 0x02,
+	0x00, 0x00, 0xff, 0xff, 0x9c, 0xb1, 0xaf, 0xa9, 0x77, 0x01, 0x00, 0x00,
 }
 
 func (m *Grounds) Marshal() (dAtA []byte, err error) {
@@ -112,6 +191,41 @@ func (m *Grounds) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *Grounds) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Item != nil {
+		{
+			size, err := m.Item.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGrounds(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Grounds_Items) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Grounds_Items) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Grounds_Items) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -141,6 +255,19 @@ func encodeVarintGrounds(dAtA []byte, offset int, v uint64) int {
 	return base
 }
 func (m *Grounds) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Item != nil {
+		l = m.Item.Size()
+		n += 1 + l + sovGrounds(uint64(l))
+	}
+	return n
+}
+
+func (m *Grounds_Items) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -190,6 +317,92 @@ func (m *Grounds) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: Grounds: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Item", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGrounds
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGrounds
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGrounds
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Item == nil {
+				m.Item = &Grounds_Items{}
+			}
+			if err := m.Item.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGrounds(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGrounds
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Grounds_Items) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGrounds
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Items: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Items: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
 		case 1:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ItemId", wireType)
@@ -223,7 +436,7 @@ func (m *Grounds) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ItemType |= uint64(b&0x7F) << shift
+				m.ItemType |= Grounds_Items_ItemTypes(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

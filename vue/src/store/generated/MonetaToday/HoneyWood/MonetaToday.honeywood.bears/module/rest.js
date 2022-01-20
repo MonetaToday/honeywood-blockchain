@@ -8,6 +8,16 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var ItemsItemTypes;
+(function (ItemsItemTypes) {
+    ItemsItemTypes["APIARY"] = "APIARY";
+    ItemsItemTypes["TREE"] = "TREE";
+    ItemsItemTypes["DECORATION"] = "DECORATION";
+})(ItemsItemTypes || (ItemsItemTypes = {}));
+export var PlacesPlaceTypes;
+(function (PlacesPlaceTypes) {
+    PlacesPlaceTypes["DEFAULT"] = "DEFAULT";
+})(PlacesPlaceTypes || (PlacesPlaceTypes = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";
@@ -233,6 +243,35 @@ export class Api extends HttpClient {
          */
         this.queryParams = (params = {}) => this.request({
             path: `/MonetaToday/honeywood/bears/params`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPlacesAll
+         * @summary Queries a list of Places items.
+         * @request GET:/MonetaToday/honeywood/bears/places
+         */
+        this.queryPlacesAll = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/places`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPlaces
+         * @summary Queries a Places by id.
+         * @request GET:/MonetaToday/honeywood/bears/places/{id}
+         */
+        this.queryPlaces = (id, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/places/${id}`,
             method: "GET",
             format: "json",
             ...params,

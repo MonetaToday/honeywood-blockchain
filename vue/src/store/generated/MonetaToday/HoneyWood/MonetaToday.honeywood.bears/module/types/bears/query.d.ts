@@ -4,6 +4,7 @@ import { BearNames } from "../bears/bear_names";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
+import { Places } from "../bears/places";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -50,6 +51,19 @@ export interface QueryAllAddressBearsRequest {
 }
 export interface QueryAllAddressBearsResponse {
     addressBears: AddressBears[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetPlacesRequest {
+    id: number;
+}
+export interface QueryGetPlacesResponse {
+    Places: Places | undefined;
+}
+export interface QueryAllPlacesRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllPlacesResponse {
+    Places: Places[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryParamsRequest: {
@@ -150,6 +164,34 @@ export declare const QueryAllAddressBearsResponse: {
     toJSON(message: QueryAllAddressBearsResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllAddressBearsResponse>): QueryAllAddressBearsResponse;
 };
+export declare const QueryGetPlacesRequest: {
+    encode(message: QueryGetPlacesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesRequest;
+    fromJSON(object: any): QueryGetPlacesRequest;
+    toJSON(message: QueryGetPlacesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetPlacesRequest>): QueryGetPlacesRequest;
+};
+export declare const QueryGetPlacesResponse: {
+    encode(message: QueryGetPlacesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesResponse;
+    fromJSON(object: any): QueryGetPlacesResponse;
+    toJSON(message: QueryGetPlacesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetPlacesResponse>): QueryGetPlacesResponse;
+};
+export declare const QueryAllPlacesRequest: {
+    encode(message: QueryAllPlacesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesRequest;
+    fromJSON(object: any): QueryAllPlacesRequest;
+    toJSON(message: QueryAllPlacesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllPlacesRequest>): QueryAllPlacesRequest;
+};
+export declare const QueryAllPlacesResponse: {
+    encode(message: QueryAllPlacesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesResponse;
+    fromJSON(object: any): QueryAllPlacesResponse;
+    toJSON(message: QueryAllPlacesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllPlacesResponse>): QueryAllPlacesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -166,6 +208,10 @@ export interface Query {
     AddressBears(request: QueryGetAddressBearsRequest): Promise<QueryGetAddressBearsResponse>;
     /** Queries a list of AddressBears items. */
     AddressBearsAll(request: QueryAllAddressBearsRequest): Promise<QueryAllAddressBearsResponse>;
+    /** Queries a Places by id. */
+    Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
+    /** Queries a list of Places items. */
+    PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -177,6 +223,8 @@ export declare class QueryClientImpl implements Query {
     BearsAll(request: QueryAllBearsRequest): Promise<QueryAllBearsResponse>;
     AddressBears(request: QueryGetAddressBearsRequest): Promise<QueryGetAddressBearsResponse>;
     AddressBearsAll(request: QueryAllAddressBearsRequest): Promise<QueryAllAddressBearsResponse>;
+    Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
+    PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

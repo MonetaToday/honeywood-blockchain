@@ -116,6 +116,18 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, error) 
 	bearId := k.GetBearsCount(ctx)
 	name := address
 
+	// One empty ground.
+	grounds := []types.Grounds{
+		{},
+	}
+	newPlace := types.Places{
+		BearId: bearId,
+		PlaceType:   types.Places_DEFAULT,
+		Grounds: grounds,
+		CountGrounds: uint64(len(grounds)),
+	}
+	newPlaceId := k.AppendPlaces(ctx, newPlace)
+
 	bearName := types.BearNames{
 		Name:   name,
 		BearId: bearId,
@@ -126,7 +138,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, error) 
 		Id:          bearId,
 		Owner:       address,
 		Name:        name,
-		Places:      []uint64{},
+		Places:      []uint64{newPlaceId},
 		Apiaries:    []uint64{},
 		Bees:        []uint64{},
 		Trees:       []uint64{},
@@ -141,6 +153,15 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, error) 
 		Bears:   []uint64{bearId},
 	}
 	k.SetAddressBears(ctx, addressBears)
+
+	
+
+	// Item: &types.Grounds_Items{
+	// 	ItemId: 0,
+	// 	ItemType: types.Grounds_Items_APIARY,
+	// },
+
+	
 
 	return &newBear, nil
 }

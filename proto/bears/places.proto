@@ -1,0 +1,18 @@
+syntax = "proto3";
+package MonetaToday.honeywood.bears;
+
+option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
+import "gogoproto/gogo.proto"; 
+import "bears/grounds.proto";
+
+message Places {
+  uint64 id = 1;
+  uint64 bearId = 2; 
+  enum PlaceTypes {
+    DEFAULT = 0;
+  }
+  PlaceTypes placeType = 3; 
+  repeated Grounds grounds = 4 [(gogoproto.nullable) = false]; 
+  uint64 countGrounds = 5; 
+  
+}

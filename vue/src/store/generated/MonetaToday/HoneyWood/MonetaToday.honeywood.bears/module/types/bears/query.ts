@@ -9,6 +9,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
+import { Places } from "../bears/places";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -69,6 +70,23 @@ export interface QueryAllAddressBearsRequest {
 
 export interface QueryAllAddressBearsResponse {
   addressBears: AddressBears[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetPlacesRequest {
+  id: number;
+}
+
+export interface QueryGetPlacesResponse {
+  Places: Places | undefined;
+}
+
+export interface QueryAllPlacesRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllPlacesResponse {
+  Places: Places[];
   pagination: PageResponse | undefined;
 }
 
@@ -1072,6 +1090,282 @@ export const QueryAllAddressBearsResponse = {
   },
 };
 
+const baseQueryGetPlacesRequest: object = { id: 0 };
+
+export const QueryGetPlacesRequest = {
+  encode(
+    message: QueryGetPlacesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetPlacesRequest {
+    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetPlacesRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetPlacesRequest>
+  ): QueryGetPlacesRequest {
+    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetPlacesResponse: object = {};
+
+export const QueryGetPlacesResponse = {
+  encode(
+    message: QueryGetPlacesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.Places !== undefined) {
+      Places.encode(message.Places, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Places = Places.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetPlacesResponse {
+    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
+    if (object.Places !== undefined && object.Places !== null) {
+      message.Places = Places.fromJSON(object.Places);
+    } else {
+      message.Places = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetPlacesResponse): unknown {
+    const obj: any = {};
+    message.Places !== undefined &&
+      (obj.Places = message.Places ? Places.toJSON(message.Places) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetPlacesResponse>
+  ): QueryGetPlacesResponse {
+    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
+    if (object.Places !== undefined && object.Places !== null) {
+      message.Places = Places.fromPartial(object.Places);
+    } else {
+      message.Places = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllPlacesRequest: object = {};
+
+export const QueryAllPlacesRequest = {
+  encode(
+    message: QueryAllPlacesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllPlacesRequest {
+    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllPlacesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllPlacesRequest>
+  ): QueryAllPlacesRequest {
+    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllPlacesResponse: object = {};
+
+export const QueryAllPlacesResponse = {
+  encode(
+    message: QueryAllPlacesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.Places) {
+      Places.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
+    message.Places = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Places.push(Places.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllPlacesResponse {
+    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
+    message.Places = [];
+    if (object.Places !== undefined && object.Places !== null) {
+      for (const e of object.Places) {
+        message.Places.push(Places.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllPlacesResponse): unknown {
+    const obj: any = {};
+    if (message.Places) {
+      obj.Places = message.Places.map((e) =>
+        e ? Places.toJSON(e) : undefined
+      );
+    } else {
+      obj.Places = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllPlacesResponse>
+  ): QueryAllPlacesResponse {
+    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
+    message.Places = [];
+    if (object.Places !== undefined && object.Places !== null) {
+      for (const e of object.Places) {
+        message.Places.push(Places.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1096,6 +1390,10 @@ export interface Query {
   AddressBearsAll(
     request: QueryAllAddressBearsRequest
   ): Promise<QueryAllAddressBearsResponse>;
+  /** Queries a Places by id. */
+  Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
+  /** Queries a list of Places items. */
+  PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1190,6 +1488,30 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllAddressBearsResponse.decode(new Reader(data))
+    );
+  }
+
+  Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse> {
+    const data = QueryGetPlacesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "Places",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetPlacesResponse.decode(new Reader(data))
+    );
+  }
+
+  PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse> {
+    const data = QueryAllPlacesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "PlacesAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllPlacesResponse.decode(new Reader(data))
     );
   }
 }

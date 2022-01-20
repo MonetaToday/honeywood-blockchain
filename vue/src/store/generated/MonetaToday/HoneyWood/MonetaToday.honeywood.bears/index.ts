@@ -6,10 +6,12 @@ import { AddressBears } from "./module/types/bears/address_bears"
 import { BearNames } from "./module/types/bears/bear_names"
 import { Bears } from "./module/types/bears/bears"
 import { Grounds } from "./module/types/bears/grounds"
+import { Grounds_Items } from "./module/types/bears/grounds"
 import { Params } from "./module/types/bears/params"
+import { Places } from "./module/types/bears/places"
 
 
-export { AddressBears, BearNames, Bears, Grounds, Params };
+export { AddressBears, BearNames, Bears, Grounds, Grounds_Items, Params, Places };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -54,13 +56,17 @@ const getDefaultState = () => {
 				BearsAll: {},
 				AddressBears: {},
 				AddressBearsAll: {},
+				Places: {},
+				PlacesAll: {},
 				
 				_Structure: {
 						AddressBears: getStructure(AddressBears.fromPartial({})),
 						BearNames: getStructure(BearNames.fromPartial({})),
 						Bears: getStructure(Bears.fromPartial({})),
 						Grounds: getStructure(Grounds.fromPartial({})),
+						Grounds_Items: getStructure(Grounds_Items.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
+						Places: getStructure(Places.fromPartial({})),
 						
 		},
 		_Registry: registry,
@@ -130,6 +136,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.AddressBearsAll[JSON.stringify(params)] ?? {}
+		},
+				getPlaces: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Places[JSON.stringify(params)] ?? {}
+		},
+				getPlacesAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.PlacesAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -326,6 +344,54 @@ export default {
 				return getters['getAddressBearsAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
 				throw new SpVuexError('QueryClient:QueryAddressBearsAll', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryPlaces({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryPlaces( key.id)).data
+				
+					
+				commit('QUERY', { query: 'Places', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryPlaces', payload: { options: { all }, params: {...key},query }})
+				return getters['getPlaces']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryPlaces', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryPlacesAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryPlacesAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryPlacesAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'PlacesAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryPlacesAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getPlacesAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryPlacesAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},

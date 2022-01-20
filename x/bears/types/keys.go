@@ -25,3 +25,8 @@ const (
 	BearsKey      = "Bears-value-"
 	BearsCountKey = "Bears-count-"
 )
+
+const (
+	PlacesKey      = "Places-value-"
+	PlacesCountKey = "Places-count-"
+)

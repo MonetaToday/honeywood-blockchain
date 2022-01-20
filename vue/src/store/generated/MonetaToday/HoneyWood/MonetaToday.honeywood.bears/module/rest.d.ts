@@ -1,3 +1,16 @@
+export interface GroundsItems {
+    /** @format uint64 */
+    itemId?: string;
+    itemType?: ItemsItemTypes;
+}
+export declare enum ItemsItemTypes {
+    APIARY = "APIARY",
+    TREE = "TREE",
+    DECORATION = "DECORATION"
+}
+export declare enum PlacesPlaceTypes {
+    DEFAULT = "DEFAULT"
+}
 export interface BearsAddressBears {
     address?: string;
     bears?: string[];
@@ -18,6 +31,9 @@ export interface BearsBears {
     trees?: string[];
     decorations?: string[];
 }
+export interface BearsGrounds {
+    item?: GroundsItems;
+}
 export declare type BearsMsgInitGameAndSetNameResponse = object;
 export declare type BearsMsgSetNameResponse = object;
 /**
@@ -31,6 +47,16 @@ export interface BearsParams {
      * signatures required by gogoproto.
      */
     setNamePrice?: V1Beta1Coin;
+}
+export interface BearsPlaces {
+    /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
+    bearId?: string;
+    placeType?: PlacesPlaceTypes;
+    grounds?: BearsGrounds[];
+    /** @format uint64 */
+    countGrounds?: string;
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];
@@ -71,6 +97,19 @@ export interface BearsQueryAllBearsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface BearsQueryAllPlacesResponse {
+    Places?: BearsPlaces[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface BearsQueryGetAddressBearsResponse {
     addressBears?: BearsAddressBears;
 }
@@ -79,6 +118,9 @@ export interface BearsQueryGetBearNamesResponse {
 }
 export interface BearsQueryGetBearsResponse {
     Bears?: BearsBears;
+}
+export interface BearsQueryGetPlacesResponse {
+    Places?: BearsPlaces;
 }
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
@@ -301,5 +343,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/params
      */
     queryParams: (params?: RequestParams) => Promise<HttpResponse<BearsQueryParamsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPlacesAll
+     * @summary Queries a list of Places items.
+     * @request GET:/MonetaToday/honeywood/bears/places
+     */
+    queryPlacesAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllPlacesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPlaces
+     * @summary Queries a Places by id.
+     * @request GET:/MonetaToday/honeywood/bears/places/{id}
+     */
+    queryPlaces: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetPlacesResponse, RpcStatus>>;
 }
 export {};
