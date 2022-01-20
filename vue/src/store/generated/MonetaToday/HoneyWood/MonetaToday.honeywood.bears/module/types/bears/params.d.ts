@@ -4,6 +4,7 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
     setNamePrice: Coin | undefined;
+    oneGroundPrice: Coin | undefined;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

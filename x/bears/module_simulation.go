@@ -66,6 +66,9 @@ func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
 		simulation.NewSimParamChange(types.ModuleName, string(types.KeySetNamePrice), func(r *rand.Rand) string {
 			return string(types.Amino.MustMarshalJSON(bearsParams.SetNamePrice))
 		}),
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneGroundPrice), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.OneGroundPrice))
+		}),
 	}
 }
 

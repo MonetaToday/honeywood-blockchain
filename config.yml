@@ -37,3 +37,6 @@ genesis:
         set_name_price: 
           denom: "honey"
           amount: "100"
+        one_ground_price: 
+          denom: "honey"
+          amount: "1"

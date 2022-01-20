@@ -13,14 +13,19 @@ var (
 	KeySetNamePrice              = []byte("SetNamePrice")
 	DefaultSetNamePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 	MaxNameLength                = 100
+
+	KeyOneGroundPrice              = []byte("OneGroundPrice")
+	DefaultOneGroundPrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 )
 
 // NewParams creates a new Params instance
 func NewParams(
 	setNamePrice sdk.Coin,
+	oneGroundPrice sdk.Coin,
 ) Params {
 	return Params{
 		SetNamePrice: setNamePrice,
+		OneGroundPrice: oneGroundPrice,
 	}
 }
 
@@ -28,6 +33,7 @@ func NewParams(
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(KeySetNamePrice, &p.SetNamePrice, validateSetNamePrice),
+		paramtypes.NewParamSetPair(KeyOneGroundPrice, &p.OneGroundPrice, validateOneGroundPrice),
 	}
 }
 
@@ -44,12 +50,13 @@ func (p Params) Validate() error {
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
 		paramtypes.NewParamSetPair(KeySetNamePrice, sdk.Coin{}, validateSetNamePrice),
+		paramtypes.NewParamSetPair(KeyOneGroundPrice, sdk.Coin{}, validateOneGroundPrice),
 	)
 }
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams(DefaultSetNamePrice)
+	return NewParams(DefaultSetNamePrice, DefaultOneGroundPrice)
 }
 
 // String implements the Stringer interface.
@@ -66,6 +73,19 @@ func validateSetNamePrice(i interface{}) error {
 
 	if !v.IsValid() {
 		return fmt.Errorf("invalid set_name_price: %s", v)
+	}
+
+	return nil
+}
+
+func validateOneGroundPrice(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if !v.IsValid() {
+		return fmt.Errorf("invalid one_ground_price: %s", v)
 	}
 
 	return nil

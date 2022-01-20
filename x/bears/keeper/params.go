@@ -9,6 +9,7 @@ import (
 func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 	return types.NewParams(
 		k.SetNamePrice(ctx),
+		k.OneGroundPrice(ctx),
 	)
 }
 
@@ -17,8 +18,14 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.SetParamSet(ctx, &params)
 }
 
-// Asdasd returns the Asdasd param
+// SetNamePrice returns the SetNamePrice param
 func (k Keeper) SetNamePrice(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeySetNamePrice, &res)
+	return
+}
+
+// OneGroundPrice returns the OneGroundPrice param
+func (k Keeper) OneGroundPrice(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyOneGroundPrice, &res)
 	return
 }

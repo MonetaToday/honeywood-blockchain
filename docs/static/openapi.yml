@@ -13163,6 +13163,21 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
+                  oneGroundPrice:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -20872,6 +20887,18 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+      oneGroundPrice:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
     description: Params defines the parameters for the module.
   MonetaToday.honeywood.bears.Places:
     type: object
@@ -21229,6 +21256,21 @@ definitions:
         type: object
         properties:
           setNamePrice:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          oneGroundPrice:
             type: object
             properties:
               denom:

@@ -8,6 +8,9 @@ export const Params = {
         if (message.setNamePrice !== undefined) {
             Coin.encode(message.setNamePrice, writer.uint32(10).fork()).ldelim();
         }
+        if (message.oneGroundPrice !== undefined) {
+            Coin.encode(message.oneGroundPrice, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -19,6 +22,9 @@ export const Params = {
             switch (tag >>> 3) {
                 case 1:
                     message.setNamePrice = Coin.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.oneGroundPrice = Coin.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -35,6 +41,12 @@ export const Params = {
         else {
             message.setNamePrice = undefined;
         }
+        if (object.oneGroundPrice !== undefined && object.oneGroundPrice !== null) {
+            message.oneGroundPrice = Coin.fromJSON(object.oneGroundPrice);
+        }
+        else {
+            message.oneGroundPrice = undefined;
+        }
         return message;
     },
     toJSON(message) {
@@ -42,6 +54,10 @@ export const Params = {
         message.setNamePrice !== undefined &&
             (obj.setNamePrice = message.setNamePrice
                 ? Coin.toJSON(message.setNamePrice)
+                : undefined);
+        message.oneGroundPrice !== undefined &&
+            (obj.oneGroundPrice = message.oneGroundPrice
+                ? Coin.toJSON(message.oneGroundPrice)
                 : undefined);
         return obj;
     },
@@ -52,6 +68,12 @@ export const Params = {
         }
         else {
             message.setNamePrice = undefined;
+        }
+        if (object.oneGroundPrice !== undefined && object.oneGroundPrice !== null) {
+            message.oneGroundPrice = Coin.fromPartial(object.oneGroundPrice);
+        }
+        else {
+            message.oneGroundPrice = undefined;
         }
         return message;
     },

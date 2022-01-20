@@ -125,12 +125,11 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountGrounds is %d", newCountGrounds))
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	// TODO
-	setNamePrice := k.SetNamePrice(ctx)
+	oneGroundPrice := k.OneGroundPrice(ctx)
 	priceForExtending := sdk.NewCoins(
 		sdk.NewCoin(
-			setNamePrice.Denom,
-			setNamePrice.Amount.MulRaw(differenceGrounds),
+			oneGroundPrice.Denom,
+			oneGroundPrice.Amount.MulRaw(differenceGrounds),
 		),
 	)
 
