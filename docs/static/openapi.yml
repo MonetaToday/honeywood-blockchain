@@ -20862,7 +20862,7 @@ definitions:
       - TREE
       - DECORATION
     default: APIARY
-  MonetaToday.honeywood.bears.MsgInitGameAndExtendResponse:
+  MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse:
     type: object
     properties:
       countGrounds:

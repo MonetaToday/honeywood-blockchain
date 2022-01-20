@@ -11,18 +11,18 @@ import (
 func TestMsgInitGameAndExtend_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgInitGameAndExtend
+		msg  MsgInitGameAndExtendPlace
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgInitGameAndExtend{
+			msg: MsgInitGameAndExtendPlace{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgInitGameAndExtend{
+			msg: MsgInitGameAndExtendPlace{
 				Creator: sample.AccAddress(),
 			},
 		},

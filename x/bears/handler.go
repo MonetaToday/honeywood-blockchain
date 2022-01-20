@@ -23,8 +23,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgSetName:
 			res, err := msgServer.SetName(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgInitGameAndExtend:
-			res, err := msgServer.InitGameAndExtend(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgInitGameAndExtendPlace:
+			res, err := msgServer.InitGameAndExtendPlace(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:

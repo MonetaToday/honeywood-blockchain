@@ -7,23 +7,23 @@ import (
 
 const TypeMsgInitGameAndExtend = "init_game_and_extend"
 
-var _ sdk.Msg = &MsgInitGameAndExtend{}
+var _ sdk.Msg = &MsgInitGameAndExtendPlace{}
 
-func NewMsgInitGameAndExtend(creator string) *MsgInitGameAndExtend {
-	return &MsgInitGameAndExtend{
+func NewMsgInitGameAndExtend(creator string) *MsgInitGameAndExtendPlace {
+	return &MsgInitGameAndExtendPlace{
 		Creator: creator,
 	}
 }
 
-func (msg *MsgInitGameAndExtend) Route() string {
+func (msg *MsgInitGameAndExtendPlace) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgInitGameAndExtend) Type() string {
+func (msg *MsgInitGameAndExtendPlace) Type() string {
 	return TypeMsgInitGameAndExtend
 }
 
-func (msg *MsgInitGameAndExtend) GetSigners() []sdk.AccAddress {
+func (msg *MsgInitGameAndExtendPlace) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -31,12 +31,12 @@ func (msg *MsgInitGameAndExtend) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgInitGameAndExtend) GetSignBytes() []byte {
+func (msg *MsgInitGameAndExtendPlace) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgInitGameAndExtend) ValidateBasic() error {
+func (msg *MsgInitGameAndExtendPlace) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

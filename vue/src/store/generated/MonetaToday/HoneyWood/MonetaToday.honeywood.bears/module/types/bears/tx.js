@@ -231,8 +231,8 @@ export const MsgSetNameResponse = {
         return message;
     },
 };
-const baseMsgInitGameAndExtend = { creator: "" };
-export const MsgInitGameAndExtend = {
+const baseMsgInitGameAndExtendPlace = { creator: "" };
+export const MsgInitGameAndExtendPlace = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
@@ -242,7 +242,9 @@ export const MsgInitGameAndExtend = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgInitGameAndExtend };
+        const message = {
+            ...baseMsgInitGameAndExtendPlace,
+        };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -257,7 +259,9 @@ export const MsgInitGameAndExtend = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgInitGameAndExtend };
+        const message = {
+            ...baseMsgInitGameAndExtendPlace,
+        };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
@@ -272,7 +276,9 @@ export const MsgInitGameAndExtend = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgInitGameAndExtend };
+        const message = {
+            ...baseMsgInitGameAndExtendPlace,
+        };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
@@ -282,8 +288,8 @@ export const MsgInitGameAndExtend = {
         return message;
     },
 };
-const baseMsgInitGameAndExtendResponse = { countGrounds: 0 };
-export const MsgInitGameAndExtendResponse = {
+const baseMsgInitGameAndExtendPlaceResponse = { countGrounds: 0 };
+export const MsgInitGameAndExtendPlaceResponse = {
     encode(message, writer = Writer.create()) {
         if (message.countGrounds !== 0) {
             writer.uint32(8).uint64(message.countGrounds);
@@ -294,7 +300,7 @@ export const MsgInitGameAndExtendResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgInitGameAndExtendResponse,
+            ...baseMsgInitGameAndExtendPlaceResponse,
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -311,7 +317,7 @@ export const MsgInitGameAndExtendResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseMsgInitGameAndExtendResponse,
+            ...baseMsgInitGameAndExtendPlaceResponse,
         };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = Number(object.countGrounds);
@@ -329,7 +335,7 @@ export const MsgInitGameAndExtendResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseMsgInitGameAndExtendResponse,
+            ...baseMsgInitGameAndExtendPlaceResponse,
         };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = object.countGrounds;
@@ -354,10 +360,10 @@ export class MsgClientImpl {
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "SetName", data);
         return promise.then((data) => MsgSetNameResponse.decode(new Reader(data)));
     }
-    InitGameAndExtend(request) {
-        const data = MsgInitGameAndExtend.encode(request).finish();
-        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtend", data);
-        return promise.then((data) => MsgInitGameAndExtendResponse.decode(new Reader(data)));
+    InitGameAndExtendPlace(request) {
+        const data = MsgInitGameAndExtendPlace.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtendPlace", data);
+        return promise.then((data) => MsgInitGameAndExtendPlaceResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -19,11 +19,11 @@ export interface MsgSetName {
 
 export interface MsgSetNameResponse {}
 
-export interface MsgInitGameAndExtend {
+export interface MsgInitGameAndExtendPlace {
   creator: string;
 }
 
-export interface MsgInitGameAndExtendResponse {
+export interface MsgInitGameAndExtendPlaceResponse {
   countGrounds: number;
 }
 
@@ -283,11 +283,11 @@ export const MsgSetNameResponse = {
   },
 };
 
-const baseMsgInitGameAndExtend: object = { creator: "" };
+const baseMsgInitGameAndExtendPlace: object = { creator: "" };
 
-export const MsgInitGameAndExtend = {
+export const MsgInitGameAndExtendPlace = {
   encode(
-    message: MsgInitGameAndExtend,
+    message: MsgInitGameAndExtendPlace,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.creator !== "") {
@@ -296,10 +296,15 @@ export const MsgInitGameAndExtend = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtend {
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndExtendPlace {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+    const message = {
+      ...baseMsgInitGameAndExtendPlace,
+    } as MsgInitGameAndExtendPlace;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -314,8 +319,10 @@ export const MsgInitGameAndExtend = {
     return message;
   },
 
-  fromJSON(object: any): MsgInitGameAndExtend {
-    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+  fromJSON(object: any): MsgInitGameAndExtendPlace {
+    const message = {
+      ...baseMsgInitGameAndExtendPlace,
+    } as MsgInitGameAndExtendPlace;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -324,14 +331,18 @@ export const MsgInitGameAndExtend = {
     return message;
   },
 
-  toJSON(message: MsgInitGameAndExtend): unknown {
+  toJSON(message: MsgInitGameAndExtendPlace): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgInitGameAndExtend>): MsgInitGameAndExtend {
-    const message = { ...baseMsgInitGameAndExtend } as MsgInitGameAndExtend;
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndExtendPlace>
+  ): MsgInitGameAndExtendPlace {
+    const message = {
+      ...baseMsgInitGameAndExtendPlace,
+    } as MsgInitGameAndExtendPlace;
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -341,11 +352,11 @@ export const MsgInitGameAndExtend = {
   },
 };
 
-const baseMsgInitGameAndExtendResponse: object = { countGrounds: 0 };
+const baseMsgInitGameAndExtendPlaceResponse: object = { countGrounds: 0 };
 
-export const MsgInitGameAndExtendResponse = {
+export const MsgInitGameAndExtendPlaceResponse = {
   encode(
-    message: MsgInitGameAndExtendResponse,
+    message: MsgInitGameAndExtendPlaceResponse,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.countGrounds !== 0) {
@@ -357,12 +368,12 @@ export const MsgInitGameAndExtendResponse = {
   decode(
     input: Reader | Uint8Array,
     length?: number
-  ): MsgInitGameAndExtendResponse {
+  ): MsgInitGameAndExtendPlaceResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = {
-      ...baseMsgInitGameAndExtendResponse,
-    } as MsgInitGameAndExtendResponse;
+      ...baseMsgInitGameAndExtendPlaceResponse,
+    } as MsgInitGameAndExtendPlaceResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -377,10 +388,10 @@ export const MsgInitGameAndExtendResponse = {
     return message;
   },
 
-  fromJSON(object: any): MsgInitGameAndExtendResponse {
+  fromJSON(object: any): MsgInitGameAndExtendPlaceResponse {
     const message = {
-      ...baseMsgInitGameAndExtendResponse,
-    } as MsgInitGameAndExtendResponse;
+      ...baseMsgInitGameAndExtendPlaceResponse,
+    } as MsgInitGameAndExtendPlaceResponse;
     if (object.countGrounds !== undefined && object.countGrounds !== null) {
       message.countGrounds = Number(object.countGrounds);
     } else {
@@ -389,7 +400,7 @@ export const MsgInitGameAndExtendResponse = {
     return message;
   },
 
-  toJSON(message: MsgInitGameAndExtendResponse): unknown {
+  toJSON(message: MsgInitGameAndExtendPlaceResponse): unknown {
     const obj: any = {};
     message.countGrounds !== undefined &&
       (obj.countGrounds = message.countGrounds);
@@ -397,11 +408,11 @@ export const MsgInitGameAndExtendResponse = {
   },
 
   fromPartial(
-    object: DeepPartial<MsgInitGameAndExtendResponse>
-  ): MsgInitGameAndExtendResponse {
+    object: DeepPartial<MsgInitGameAndExtendPlaceResponse>
+  ): MsgInitGameAndExtendPlaceResponse {
     const message = {
-      ...baseMsgInitGameAndExtendResponse,
-    } as MsgInitGameAndExtendResponse;
+      ...baseMsgInitGameAndExtendPlaceResponse,
+    } as MsgInitGameAndExtendPlaceResponse;
     if (object.countGrounds !== undefined && object.countGrounds !== null) {
       message.countGrounds = object.countGrounds;
     } else {
@@ -418,9 +429,9 @@ export interface Msg {
   ): Promise<MsgInitGameAndSetNameResponse>;
   SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
   /** this line is used by starport scaffolding # proto/tx/rpc */
-  InitGameAndExtend(
-    request: MsgInitGameAndExtend
-  ): Promise<MsgInitGameAndExtendResponse>;
+  InitGameAndExtendPlace(
+    request: MsgInitGameAndExtendPlace
+  ): Promise<MsgInitGameAndExtendPlaceResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -452,17 +463,17 @@ export class MsgClientImpl implements Msg {
     return promise.then((data) => MsgSetNameResponse.decode(new Reader(data)));
   }
 
-  InitGameAndExtend(
-    request: MsgInitGameAndExtend
-  ): Promise<MsgInitGameAndExtendResponse> {
-    const data = MsgInitGameAndExtend.encode(request).finish();
+  InitGameAndExtendPlace(
+    request: MsgInitGameAndExtendPlace
+  ): Promise<MsgInitGameAndExtendPlaceResponse> {
+    const data = MsgInitGameAndExtendPlace.encode(request).finish();
     const promise = this.rpc.request(
       "MonetaToday.honeywood.bears.Msg",
-      "InitGameAndExtend",
+      "InitGameAndExtendPlace",
       data
     );
     return promise.then((data) =>
-      MsgInitGameAndExtendResponse.decode(new Reader(data))
+      MsgInitGameAndExtendPlaceResponse.decode(new Reader(data))
     );
   }
 }

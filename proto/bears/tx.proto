@@ -9,7 +9,7 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 service Msg {
       rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
   rpc SetName(MsgSetName) returns (MsgSetNameResponse);
-  rpc InitGameAndExtend(MsgInitGameAndExtend) returns (MsgInitGameAndExtendResponse);
+  rpc InitGameAndExtendPlace(MsgInitGameAndExtendPlace) returns (MsgInitGameAndExtendPlaceResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -30,11 +30,11 @@ message MsgSetName {
 message MsgSetNameResponse {
 }
 
-message MsgInitGameAndExtend {
+message MsgInitGameAndExtendPlace {
   string creator = 1;
 }
 
-message MsgInitGameAndExtendResponse {
+message MsgInitGameAndExtendPlaceResponse {
   uint64 countGrounds = 1;
 }
 

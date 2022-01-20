@@ -2,12 +2,12 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgInitGameAndExtendPlace } from "./types/bears/tx";
 import { MsgInitGameAndSetName } from "./types/bears/tx";
-import { MsgInitGameAndExtend } from "./types/bears/tx";
 import { MsgSetName } from "./types/bears/tx";
 const types = [
+    ["/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", MsgInitGameAndExtendPlace],
     ["/MonetaToday.honeywood.bears.MsgInitGameAndSetName", MsgInitGameAndSetName],
-    ["/MonetaToday.honeywood.bears.MsgInitGameAndExtend", MsgInitGameAndExtend],
     ["/MonetaToday.honeywood.bears.MsgSetName", MsgSetName],
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -29,8 +29,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
+        msgInitGameAndExtendPlace: (data) => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace", value: MsgInitGameAndExtendPlace.fromPartial(data) }),
         msgInitGameAndSetName: (data) => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndSetName", value: MsgInitGameAndSetName.fromPartial(data) }),
-        msgInitGameAndExtend: (data) => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgInitGameAndExtend", value: MsgInitGameAndExtend.fromPartial(data) }),
         msgSetName: (data) => ({ typeUrl: "/MonetaToday.honeywood.bears.MsgSetName", value: MsgSetName.fromPartial(data) }),
     };
 };

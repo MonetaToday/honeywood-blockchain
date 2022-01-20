@@ -211,22 +211,22 @@ func (m *MsgSetNameResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgSetNameResponse proto.InternalMessageInfo
 
-type MsgInitGameAndExtend struct {
+type MsgInitGameAndExtendPlace struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
-func (m *MsgInitGameAndExtend) Reset()         { *m = MsgInitGameAndExtend{} }
-func (m *MsgInitGameAndExtend) String() string { return proto.CompactTextString(m) }
-func (*MsgInitGameAndExtend) ProtoMessage()    {}
-func (*MsgInitGameAndExtend) Descriptor() ([]byte, []int) {
+func (m *MsgInitGameAndExtendPlace) Reset()         { *m = MsgInitGameAndExtendPlace{} }
+func (m *MsgInitGameAndExtendPlace) String() string { return proto.CompactTextString(m) }
+func (*MsgInitGameAndExtendPlace) ProtoMessage()    {}
+func (*MsgInitGameAndExtendPlace) Descriptor() ([]byte, []int) {
 	return fileDescriptor_0b4b1de47af2539c, []int{4}
 }
-func (m *MsgInitGameAndExtend) XXX_Unmarshal(b []byte) error {
+func (m *MsgInitGameAndExtendPlace) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgInitGameAndExtend) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgInitGameAndExtendPlace) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgInitGameAndExtend.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgInitGameAndExtendPlace.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -236,41 +236,41 @@ func (m *MsgInitGameAndExtend) XXX_Marshal(b []byte, deterministic bool) ([]byte
 		return b[:n], nil
 	}
 }
-func (m *MsgInitGameAndExtend) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgInitGameAndExtend.Merge(m, src)
+func (m *MsgInitGameAndExtendPlace) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgInitGameAndExtendPlace.Merge(m, src)
 }
-func (m *MsgInitGameAndExtend) XXX_Size() int {
+func (m *MsgInitGameAndExtendPlace) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgInitGameAndExtend) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgInitGameAndExtend.DiscardUnknown(m)
+func (m *MsgInitGameAndExtendPlace) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgInitGameAndExtendPlace.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgInitGameAndExtend proto.InternalMessageInfo
+var xxx_messageInfo_MsgInitGameAndExtendPlace proto.InternalMessageInfo
 
-func (m *MsgInitGameAndExtend) GetCreator() string {
+func (m *MsgInitGameAndExtendPlace) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-type MsgInitGameAndExtendResponse struct {
+type MsgInitGameAndExtendPlaceResponse struct {
 	CountGrounds uint64 `protobuf:"varint,1,opt,name=countGrounds,proto3" json:"countGrounds,omitempty"`
 }
 
-func (m *MsgInitGameAndExtendResponse) Reset()         { *m = MsgInitGameAndExtendResponse{} }
-func (m *MsgInitGameAndExtendResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgInitGameAndExtendResponse) ProtoMessage()    {}
-func (*MsgInitGameAndExtendResponse) Descriptor() ([]byte, []int) {
+func (m *MsgInitGameAndExtendPlaceResponse) Reset()         { *m = MsgInitGameAndExtendPlaceResponse{} }
+func (m *MsgInitGameAndExtendPlaceResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgInitGameAndExtendPlaceResponse) ProtoMessage()    {}
+func (*MsgInitGameAndExtendPlaceResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_0b4b1de47af2539c, []int{5}
 }
-func (m *MsgInitGameAndExtendResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgInitGameAndExtendPlaceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgInitGameAndExtendResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgInitGameAndExtendPlaceResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgInitGameAndExtendResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgInitGameAndExtendPlaceResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -280,19 +280,19 @@ func (m *MsgInitGameAndExtendResponse) XXX_Marshal(b []byte, deterministic bool)
 		return b[:n], nil
 	}
 }
-func (m *MsgInitGameAndExtendResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgInitGameAndExtendResponse.Merge(m, src)
+func (m *MsgInitGameAndExtendPlaceResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgInitGameAndExtendPlaceResponse.Merge(m, src)
 }
-func (m *MsgInitGameAndExtendResponse) XXX_Size() int {
+func (m *MsgInitGameAndExtendPlaceResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgInitGameAndExtendResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgInitGameAndExtendResponse.DiscardUnknown(m)
+func (m *MsgInitGameAndExtendPlaceResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgInitGameAndExtendPlaceResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgInitGameAndExtendResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgInitGameAndExtendPlaceResponse proto.InternalMessageInfo
 
-func (m *MsgInitGameAndExtendResponse) GetCountGrounds() uint64 {
+func (m *MsgInitGameAndExtendPlaceResponse) GetCountGrounds() uint64 {
 	if m != nil {
 		return m.CountGrounds
 	}
@@ -304,36 +304,36 @@ func init() {
 	proto.RegisterType((*MsgInitGameAndSetNameResponse)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse")
 	proto.RegisterType((*MsgSetName)(nil), "MonetaToday.honeywood.bears.MsgSetName")
 	proto.RegisterType((*MsgSetNameResponse)(nil), "MonetaToday.honeywood.bears.MsgSetNameResponse")
-	proto.RegisterType((*MsgInitGameAndExtend)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtend")
-	proto.RegisterType((*MsgInitGameAndExtendResponse)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtendResponse")
+	proto.RegisterType((*MsgInitGameAndExtendPlace)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtendPlace")
+	proto.RegisterType((*MsgInitGameAndExtendPlaceResponse)(nil), "MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse")
 }
 
 func init() { proto.RegisterFile("bears/tx.proto", fileDescriptor_0b4b1de47af2539c) }
 
 var fileDescriptor_0b4b1de47af2539c = []byte{
-	// 348 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0xb1, 0x4e, 0x3a, 0x41,
-	0x10, 0xc6, 0x59, 0x20, 0x90, 0xff, 0xe4, 0x1f, 0x13, 0x37, 0x68, 0x08, 0xea, 0x69, 0xae, 0xd1,
-	0x6a, 0x4f, 0xb1, 0xd2, 0x4e, 0x12, 0x02, 0x14, 0x67, 0x71, 0x9a, 0x98, 0xd8, 0x2d, 0xb7, 0x9b,
-	0x83, 0xe2, 0x76, 0xc8, 0xed, 0x12, 0xa1, 0x34, 0xf1, 0x01, 0x7c, 0x2c, 0x4b, 0x4a, 0x4b, 0x03,
-	0xcf, 0x60, 0x6f, 0x38, 0xb9, 0x13, 0xe2, 0x29, 0xd2, 0xed, 0x4c, 0xe6, 0xfb, 0x7d, 0x5f, 0x66,
-	0x33, 0xb0, 0xd5, 0x95, 0x3c, 0xd2, 0x8e, 0x19, 0xb1, 0x41, 0x84, 0x06, 0xe9, 0x9e, 0x8b, 0x4a,
-	0x1a, 0x7e, 0x8b, 0x82, 0x8f, 0x59, 0x0f, 0x95, 0x1c, 0x3f, 0x20, 0x0a, 0x16, 0x4f, 0xd9, 0x4d,
-	0xd8, 0x71, 0x75, 0xd0, 0x51, 0x7d, 0xd3, 0xe2, 0xa1, 0xbc, 0x52, 0xe2, 0x46, 0x9a, 0x6b, 0x1e,
-	0x4a, 0x5a, 0x85, 0xb2, 0x1f, 0x49, 0x6e, 0x30, 0xaa, 0x92, 0x23, 0x72, 0xf2, 0xcf, 0x4b, 0x4a,
-	0x4a, 0xa1, 0xa8, 0x78, 0x28, 0xab, 0xf9, 0xb8, 0x1d, 0xbf, 0xed, 0x43, 0x38, 0xc8, 0xc4, 0x78,
-	0x52, 0x0f, 0x50, 0x69, 0x69, 0x7b, 0x00, 0xae, 0x0e, 0xd6, 0xc3, 0x77, 0xa1, 0x34, 0x0f, 0xd6,
-	0x11, 0x31, 0xbe, 0xe8, 0x2d, 0xaa, 0xd4, 0xb4, 0xb0, 0x64, 0x5a, 0x01, 0xfa, 0xc5, 0x4c, 0x9d,
-	0x4e, 0xa1, 0xb2, 0x1a, 0xa5, 0x39, 0x32, 0x52, 0x89, 0x9f, 0x3d, 0xed, 0x06, 0xec, 0x67, 0x29,
-	0x12, 0x22, 0xb5, 0xe1, 0xbf, 0x8f, 0x43, 0x65, 0x5a, 0x11, 0x0e, 0x95, 0xd0, 0xb1, 0xbc, 0xe8,
-	0xad, 0xf4, 0xea, 0xef, 0x79, 0x28, 0xb8, 0x3a, 0xa0, 0x4f, 0x04, 0x68, 0xc6, 0x36, 0xeb, 0xec,
-	0x97, 0x4f, 0x60, 0x99, 0xab, 0xab, 0x5d, 0x6e, 0xae, 0x49, 0x23, 0xfb, 0x50, 0x4e, 0xac, 0x8f,
-	0xd7, 0x61, 0x12, 0x3f, 0xe7, 0x8f, 0x83, 0xa9, 0xc9, 0x23, 0x81, 0xed, 0xef, 0x7b, 0x3e, 0xdb,
-	0x20, 0xf6, 0xa7, 0xa4, 0x76, 0xb1, 0xb1, 0x24, 0xc9, 0xd0, 0x68, 0xbf, 0x4c, 0x2d, 0x32, 0x99,
-	0x5a, 0xe4, 0x6d, 0x6a, 0x91, 0xe7, 0x99, 0x95, 0x9b, 0xcc, 0xac, 0xdc, 0xeb, 0xcc, 0xca, 0xdd,
-	0xb3, 0xa0, 0x6f, 0x7a, 0xc3, 0x2e, 0xf3, 0x31, 0x74, 0x96, 0xf0, 0x4e, 0x7b, 0x8e, 0xbf, 0x43,
-	0x14, 0xce, 0xc8, 0x59, 0x5c, 0xca, 0x78, 0x20, 0x75, 0xb7, 0x14, 0x5f, 0xcb, 0xf9, 0x47, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0x8a, 0x8b, 0xbc, 0xd1, 0x3f, 0x03, 0x00, 0x00,
+	// 349 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x93, 0xcf, 0x4b, 0x02, 0x41,
+	0x14, 0xc7, 0x9d, 0x14, 0xa5, 0x47, 0x74, 0x18, 0x4a, 0xcc, 0x68, 0xab, 0xbd, 0xd4, 0x69, 0x16,
+	0x8c, 0x3a, 0x74, 0x08, 0x0a, 0x44, 0x3d, 0x6c, 0xc4, 0x16, 0x04, 0xdd, 0xc6, 0x9d, 0x61, 0x15,
+	0xda, 0x79, 0xb2, 0x33, 0x92, 0xde, 0xfd, 0x03, 0xfc, 0xb3, 0x3a, 0x7a, 0xec, 0x18, 0xfa, 0x8f,
+	0x84, 0x8b, 0xbb, 0x29, 0xf8, 0x23, 0xbb, 0xcd, 0x7b, 0xbc, 0xef, 0xf7, 0xf3, 0xe5, 0x0d, 0x0f,
+	0xf6, 0x9b, 0x92, 0x47, 0xda, 0x31, 0x3d, 0xd6, 0x89, 0xd0, 0x20, 0x3d, 0x76, 0x51, 0x49, 0xc3,
+	0x5f, 0x50, 0xf0, 0x3e, 0x6b, 0xa1, 0x92, 0xfd, 0x0f, 0x44, 0xc1, 0xe2, 0x29, 0xbb, 0x0a, 0x87,
+	0xae, 0x0e, 0x1a, 0xaa, 0x6d, 0x6a, 0x3c, 0x94, 0xf7, 0x4a, 0x3c, 0x4b, 0xf3, 0xc8, 0x43, 0x49,
+	0x4b, 0x50, 0xf0, 0x23, 0xc9, 0x0d, 0x46, 0x25, 0x72, 0x46, 0x2e, 0x77, 0xbd, 0xa4, 0xa4, 0x14,
+	0x72, 0x8a, 0x87, 0xb2, 0xb4, 0x13, 0xb7, 0xe3, 0xb7, 0x7d, 0x0a, 0x27, 0x4b, 0x6d, 0x3c, 0xa9,
+	0x3b, 0xa8, 0xb4, 0xb4, 0x3d, 0x00, 0x57, 0x07, 0x9b, 0xcd, 0x8b, 0x90, 0x9f, 0x06, 0x6b, 0x88,
+	0xd8, 0x3e, 0xe7, 0xcd, 0xaa, 0x14, 0x9a, 0x9d, 0x83, 0x1e, 0x00, 0xfd, 0xf5, 0x4c, 0x49, 0xd7,
+	0x70, 0xb4, 0x18, 0xa5, 0xda, 0x33, 0x52, 0x89, 0xa7, 0x77, 0xee, 0xaf, 0x01, 0xdb, 0x35, 0x38,
+	0x5f, 0x29, 0x4b, 0xbc, 0xa9, 0x0d, 0x7b, 0x3e, 0x76, 0x95, 0xa9, 0x45, 0xd8, 0x55, 0x42, 0xc7,
+	0x1e, 0x39, 0x6f, 0xa1, 0x57, 0x19, 0x64, 0x21, 0xeb, 0xea, 0x80, 0x0e, 0x08, 0xd0, 0x25, 0x7b,
+	0xad, 0xb0, 0x35, 0xdf, 0xc1, 0x96, 0x2e, 0xb1, 0x7c, 0xbb, 0xbd, 0x26, 0x8d, 0xec, 0x43, 0x21,
+	0x41, 0x5f, 0x6c, 0xb2, 0x49, 0x78, 0xce, 0x1f, 0x07, 0x53, 0xc8, 0x90, 0x40, 0x71, 0xc5, 0xc6,
+	0x6f, 0xb6, 0xc8, 0x3e, 0xa7, 0x2b, 0xdf, 0xfd, 0x4f, 0x97, 0x44, 0x7a, 0xa8, 0x7f, 0x8e, 0x2d,
+	0x32, 0x1a, 0x5b, 0xe4, 0x7b, 0x6c, 0x91, 0xe1, 0xc4, 0xca, 0x8c, 0x26, 0x56, 0xe6, 0x6b, 0x62,
+	0x65, 0xde, 0x58, 0xd0, 0x36, 0xad, 0x6e, 0x93, 0xf9, 0x18, 0x3a, 0x73, 0x0c, 0xa7, 0x3e, 0x65,
+	0xbc, 0x22, 0x0a, 0xa7, 0xe7, 0xcc, 0x4e, 0xa8, 0xdf, 0x91, 0xba, 0x99, 0x8f, 0xcf, 0xe8, 0xea,
+	0x27, 0x00, 0x00, 0xff, 0xff, 0x34, 0xa5, 0x4c, 0x14, 0x58, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -350,7 +350,7 @@ const _ = grpc.SupportPackageIsVersion4
 type MsgClient interface {
 	InitGameAndSetName(ctx context.Context, in *MsgInitGameAndSetName, opts ...grpc.CallOption) (*MsgInitGameAndSetNameResponse, error)
 	SetName(ctx context.Context, in *MsgSetName, opts ...grpc.CallOption) (*MsgSetNameResponse, error)
-	InitGameAndExtend(ctx context.Context, in *MsgInitGameAndExtend, opts ...grpc.CallOption) (*MsgInitGameAndExtendResponse, error)
+	InitGameAndExtendPlace(ctx context.Context, in *MsgInitGameAndExtendPlace, opts ...grpc.CallOption) (*MsgInitGameAndExtendPlaceResponse, error)
 }
 
 type msgClient struct {
@@ -379,9 +379,9 @@ func (c *msgClient) SetName(ctx context.Context, in *MsgSetName, opts ...grpc.Ca
 	return out, nil
 }
 
-func (c *msgClient) InitGameAndExtend(ctx context.Context, in *MsgInitGameAndExtend, opts ...grpc.CallOption) (*MsgInitGameAndExtendResponse, error) {
-	out := new(MsgInitGameAndExtendResponse)
-	err := c.cc.Invoke(ctx, "/MonetaToday.honeywood.bears.Msg/InitGameAndExtend", in, out, opts...)
+func (c *msgClient) InitGameAndExtendPlace(ctx context.Context, in *MsgInitGameAndExtendPlace, opts ...grpc.CallOption) (*MsgInitGameAndExtendPlaceResponse, error) {
+	out := new(MsgInitGameAndExtendPlaceResponse)
+	err := c.cc.Invoke(ctx, "/MonetaToday.honeywood.bears.Msg/InitGameAndExtendPlace", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +392,7 @@ func (c *msgClient) InitGameAndExtend(ctx context.Context, in *MsgInitGameAndExt
 type MsgServer interface {
 	InitGameAndSetName(context.Context, *MsgInitGameAndSetName) (*MsgInitGameAndSetNameResponse, error)
 	SetName(context.Context, *MsgSetName) (*MsgSetNameResponse, error)
-	InitGameAndExtend(context.Context, *MsgInitGameAndExtend) (*MsgInitGameAndExtendResponse, error)
+	InitGameAndExtendPlace(context.Context, *MsgInitGameAndExtendPlace) (*MsgInitGameAndExtendPlaceResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -405,8 +405,8 @@ func (*UnimplementedMsgServer) InitGameAndSetName(ctx context.Context, req *MsgI
 func (*UnimplementedMsgServer) SetName(ctx context.Context, req *MsgSetName) (*MsgSetNameResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetName not implemented")
 }
-func (*UnimplementedMsgServer) InitGameAndExtend(ctx context.Context, req *MsgInitGameAndExtend) (*MsgInitGameAndExtendResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InitGameAndExtend not implemented")
+func (*UnimplementedMsgServer) InitGameAndExtendPlace(ctx context.Context, req *MsgInitGameAndExtendPlace) (*MsgInitGameAndExtendPlaceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitGameAndExtendPlace not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -449,20 +449,20 @@ func _Msg_SetName_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_InitGameAndExtend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgInitGameAndExtend)
+func _Msg_InitGameAndExtendPlace_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgInitGameAndExtendPlace)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).InitGameAndExtend(ctx, in)
+		return srv.(MsgServer).InitGameAndExtendPlace(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/MonetaToday.honeywood.bears.Msg/InitGameAndExtend",
+		FullMethod: "/MonetaToday.honeywood.bears.Msg/InitGameAndExtendPlace",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).InitGameAndExtend(ctx, req.(*MsgInitGameAndExtend))
+		return srv.(MsgServer).InitGameAndExtendPlace(ctx, req.(*MsgInitGameAndExtendPlace))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -480,8 +480,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_SetName_Handler,
 		},
 		{
-			MethodName: "InitGameAndExtend",
-			Handler:    _Msg_InitGameAndExtend_Handler,
+			MethodName: "InitGameAndExtendPlace",
+			Handler:    _Msg_InitGameAndExtendPlace_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -613,7 +613,7 @@ func (m *MsgSetNameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgInitGameAndExtend) Marshal() (dAtA []byte, err error) {
+func (m *MsgInitGameAndExtendPlace) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -623,12 +623,12 @@ func (m *MsgInitGameAndExtend) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgInitGameAndExtend) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgInitGameAndExtendPlace) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgInitGameAndExtend) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgInitGameAndExtendPlace) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -643,7 +643,7 @@ func (m *MsgInitGameAndExtend) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgInitGameAndExtendResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgInitGameAndExtendPlaceResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -653,12 +653,12 @@ func (m *MsgInitGameAndExtendResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgInitGameAndExtendResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgInitGameAndExtendPlaceResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgInitGameAndExtendResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgInitGameAndExtendPlaceResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -737,7 +737,7 @@ func (m *MsgSetNameResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgInitGameAndExtend) Size() (n int) {
+func (m *MsgInitGameAndExtendPlace) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -750,7 +750,7 @@ func (m *MsgInitGameAndExtend) Size() (n int) {
 	return n
 }
 
-func (m *MsgInitGameAndExtendResponse) Size() (n int) {
+func (m *MsgInitGameAndExtendPlaceResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1115,7 +1115,7 @@ func (m *MsgSetNameResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgInitGameAndExtend) Unmarshal(dAtA []byte) error {
+func (m *MsgInitGameAndExtendPlace) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1138,10 +1138,10 @@ func (m *MsgInitGameAndExtend) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgInitGameAndExtend: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgInitGameAndExtendPlace: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgInitGameAndExtend: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgInitGameAndExtendPlace: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1197,7 +1197,7 @@ func (m *MsgInitGameAndExtend) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgInitGameAndExtendResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgInitGameAndExtendPlaceResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1220,10 +1220,10 @@ func (m *MsgInitGameAndExtendResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgInitGameAndExtendResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgInitGameAndExtendPlaceResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgInitGameAndExtendResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgInitGameAndExtendPlaceResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

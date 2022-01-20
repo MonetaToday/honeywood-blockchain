@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) InitGameAndExtend(goCtx context.Context, msg *types.MsgInitGameAndExtend) (*types.MsgInitGameAndExtendResponse, error) {
+func (k msgServer) InitGameAndExtendPlace(goCtx context.Context, msg *types.MsgInitGameAndExtendPlace) (*types.MsgInitGameAndExtendPlaceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	_, newPlace, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
@@ -17,7 +17,7 @@ func (k msgServer) InitGameAndExtend(goCtx context.Context, msg *types.MsgInitGa
 
 	k.Keeper.ExtendPlace(ctx, msg.Creator, newPlace.Id)
 
-	return &types.MsgInitGameAndExtendResponse{
+	return &types.MsgInitGameAndExtendPlaceResponse{
 		CountGrounds: newPlace.CountGrounds,
 	}, nil
 }
