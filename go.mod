@@ -3,7 +3,7 @@ module github.com/MonetaToday/HoneyWood
 go 1.16
 
 require (
-	github.com/cosmos/cosmos-sdk v0.44.5-honeywood-sdk
+	github.com/cosmos/cosmos-sdk v0.45.0-honeywood-sdk
 	github.com/cosmos/ibc-go v1.2.2
 	github.com/gogo/protobuf v1.3.3
 	github.com/golang/protobuf v1.5.2
