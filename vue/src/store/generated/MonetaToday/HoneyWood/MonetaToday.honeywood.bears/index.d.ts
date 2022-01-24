@@ -5,6 +5,7 @@ import { Grounds } from "./module/types/bears/grounds";
 import { Grounds_Items } from "./module/types/bears/grounds";
 import { Params } from "./module/types/bears/params";
 import { Places } from "./module/types/bears/places";
-export { AddressBears, BearNames, Bears, Grounds, Grounds_Items, Params, Places };
+import { Trees } from "./module/types/bears/trees";
+export { AddressBears, BearNames, Bears, Grounds, Grounds_Items, Params, Places, Trees };
 declare const _default;
 export default _default;

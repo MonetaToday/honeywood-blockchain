@@ -125,6 +125,19 @@ export interface BearsQueryAllPlacesResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface BearsQueryAllTreesResponse {
+    Trees?: BearsTrees[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface BearsQueryGetAddressBearsResponse {
     addressBears?: BearsAddressBears;
 }
@@ -137,12 +150,25 @@ export interface BearsQueryGetBearsResponse {
 export interface BearsQueryGetPlacesResponse {
     Places?: BearsPlaces;
 }
+export interface BearsQueryGetTreesResponse {
+    Trees?: BearsTrees;
+}
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface BearsQueryParamsResponse {
     /** params holds all the parameters of this module. */
     params?: BearsParams;
+}
+export interface BearsTrees {
+    /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
+    bearId?: string;
+    /** @format uint64 */
+    placeId?: string;
+    /** @format uint64 */
+    groundId?: string;
 }
 export interface ProtobufAny {
     "@type"?: string;
@@ -382,5 +408,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/places/{id}
      */
     queryPlaces: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetPlacesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryTreesAll
+     * @summary Queries a list of Trees items.
+     * @request GET:/MonetaToday/honeywood/bears/trees
+     */
+    queryTreesAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllTreesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryTrees
+     * @summary Queries a Trees by id.
+     * @request GET:/MonetaToday/honeywood/bears/trees/{id}
+     */
+    queryTrees: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetTreesResponse, RpcStatus>>;
 }
 export {};

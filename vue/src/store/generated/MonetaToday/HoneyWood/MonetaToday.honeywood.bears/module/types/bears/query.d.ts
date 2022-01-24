@@ -5,6 +5,7 @@ import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/paginati
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Places } from "../bears/places";
+import { Trees } from "../bears/trees";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -64,6 +65,19 @@ export interface QueryAllPlacesRequest {
 }
 export interface QueryAllPlacesResponse {
     Places: Places[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetTreesRequest {
+    id: number;
+}
+export interface QueryGetTreesResponse {
+    Trees: Trees | undefined;
+}
+export interface QueryAllTreesRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllTreesResponse {
+    Trees: Trees[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryParamsRequest: {
@@ -192,6 +206,34 @@ export declare const QueryAllPlacesResponse: {
     toJSON(message: QueryAllPlacesResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllPlacesResponse>): QueryAllPlacesResponse;
 };
+export declare const QueryGetTreesRequest: {
+    encode(message: QueryGetTreesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetTreesRequest;
+    fromJSON(object: any): QueryGetTreesRequest;
+    toJSON(message: QueryGetTreesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetTreesRequest>): QueryGetTreesRequest;
+};
+export declare const QueryGetTreesResponse: {
+    encode(message: QueryGetTreesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetTreesResponse;
+    fromJSON(object: any): QueryGetTreesResponse;
+    toJSON(message: QueryGetTreesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetTreesResponse>): QueryGetTreesResponse;
+};
+export declare const QueryAllTreesRequest: {
+    encode(message: QueryAllTreesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllTreesRequest;
+    fromJSON(object: any): QueryAllTreesRequest;
+    toJSON(message: QueryAllTreesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllTreesRequest>): QueryAllTreesRequest;
+};
+export declare const QueryAllTreesResponse: {
+    encode(message: QueryAllTreesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllTreesResponse;
+    fromJSON(object: any): QueryAllTreesResponse;
+    toJSON(message: QueryAllTreesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllTreesResponse>): QueryAllTreesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -212,6 +254,10 @@ export interface Query {
     Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
     /** Queries a list of Places items. */
     PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+    /** Queries a Trees by id. */
+    Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
+    /** Queries a list of Trees items. */
+    TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -225,6 +271,8 @@ export declare class QueryClientImpl implements Query {
     AddressBearsAll(request: QueryAllAddressBearsRequest): Promise<QueryAllAddressBearsResponse>;
     Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
     PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+    Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
+    TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

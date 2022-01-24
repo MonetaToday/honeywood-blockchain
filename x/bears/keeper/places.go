@@ -119,7 +119,7 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	newCountGrounds := int64(math.Pow(math.Sqrt(float64(place.CountGrounds)) + 1, 2))
+	newCountGrounds := int64(math.Pow(math.Sqrt(float64(place.CountGrounds))+1, 2))
 	differenceGrounds := newCountGrounds - int64(place.CountGrounds)
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountGrounds is %d", newCountGrounds))
 
@@ -148,7 +148,7 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 	// 		ItemType: types.Grounds_Items_APIARY,
 	// 	},
 	// }
-	
+
 	k.SetPlaces(ctx, place)
 
 	return &place.CountGrounds, nil

@@ -6,6 +6,7 @@ import { BearNames } from "../bears/bear_names";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Places } from "../bears/places";
+import { Trees } from "../bears/trees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -17,11 +18,17 @@ export interface GenesisState {
   bearsCount: number;
   addressBearsList: AddressBears[];
   placesList: Places[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   placesCount: number;
+  treesList: Trees[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  treesCount: number;
 }
 
-const baseGenesisState: object = { bearsCount: 0, placesCount: 0 };
+const baseGenesisState: object = {
+  bearsCount: 0,
+  placesCount: 0,
+  treesCount: 0,
+};
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
@@ -46,6 +53,12 @@ export const GenesisState = {
     if (message.placesCount !== 0) {
       writer.uint32(56).uint64(message.placesCount);
     }
+    for (const v of message.treesList) {
+      Trees.encode(v!, writer.uint32(66).fork()).ldelim();
+    }
+    if (message.treesCount !== 0) {
+      writer.uint32(72).uint64(message.treesCount);
+    }
     return writer;
   },
 
@@ -57,6 +70,7 @@ export const GenesisState = {
     message.bearsList = [];
     message.addressBearsList = [];
     message.placesList = [];
+    message.treesList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -83,6 +97,12 @@ export const GenesisState = {
         case 7:
           message.placesCount = longToNumber(reader.uint64() as Long);
           break;
+        case 8:
+          message.treesList.push(Trees.decode(reader, reader.uint32()));
+          break;
+        case 9:
+          message.treesCount = longToNumber(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -97,6 +117,7 @@ export const GenesisState = {
     message.bearsList = [];
     message.addressBearsList = [];
     message.placesList = [];
+    message.treesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -134,6 +155,16 @@ export const GenesisState = {
       message.placesCount = Number(object.placesCount);
     } else {
       message.placesCount = 0;
+    }
+    if (object.treesList !== undefined && object.treesList !== null) {
+      for (const e of object.treesList) {
+        message.treesList.push(Trees.fromJSON(e));
+      }
+    }
+    if (object.treesCount !== undefined && object.treesCount !== null) {
+      message.treesCount = Number(object.treesCount);
+    } else {
+      message.treesCount = 0;
     }
     return message;
   },
@@ -173,6 +204,14 @@ export const GenesisState = {
     }
     message.placesCount !== undefined &&
       (obj.placesCount = message.placesCount);
+    if (message.treesList) {
+      obj.treesList = message.treesList.map((e) =>
+        e ? Trees.toJSON(e) : undefined
+      );
+    } else {
+      obj.treesList = [];
+    }
+    message.treesCount !== undefined && (obj.treesCount = message.treesCount);
     return obj;
   },
 
@@ -182,6 +221,7 @@ export const GenesisState = {
     message.bearsList = [];
     message.addressBearsList = [];
     message.placesList = [];
+    message.treesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -219,6 +259,16 @@ export const GenesisState = {
       message.placesCount = object.placesCount;
     } else {
       message.placesCount = 0;
+    }
+    if (object.treesList !== undefined && object.treesList !== null) {
+      for (const e of object.treesList) {
+        message.treesList.push(Trees.fromPartial(e));
+      }
+    }
+    if (object.treesCount !== undefined && object.treesCount !== null) {
+      message.treesCount = object.treesCount;
+    } else {
+      message.treesCount = 0;
     }
     return message;
   },

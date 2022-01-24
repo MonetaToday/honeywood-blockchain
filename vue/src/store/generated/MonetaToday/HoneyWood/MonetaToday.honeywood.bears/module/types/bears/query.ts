@@ -10,6 +10,7 @@ import {
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Places } from "../bears/places";
+import { Trees } from "../bears/trees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -87,6 +88,23 @@ export interface QueryAllPlacesRequest {
 
 export interface QueryAllPlacesResponse {
   Places: Places[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetTreesRequest {
+  id: number;
+}
+
+export interface QueryGetTreesResponse {
+  Trees: Trees | undefined;
+}
+
+export interface QueryAllTreesRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllTreesResponse {
+  Trees: Trees[];
   pagination: PageResponse | undefined;
 }
 
@@ -1366,6 +1384,276 @@ export const QueryAllPlacesResponse = {
   },
 };
 
+const baseQueryGetTreesRequest: object = { id: 0 };
+
+export const QueryGetTreesRequest = {
+  encode(
+    message: QueryGetTreesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetTreesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetTreesRequest } as QueryGetTreesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetTreesRequest {
+    const message = { ...baseQueryGetTreesRequest } as QueryGetTreesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetTreesRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryGetTreesRequest>): QueryGetTreesRequest {
+    const message = { ...baseQueryGetTreesRequest } as QueryGetTreesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetTreesResponse: object = {};
+
+export const QueryGetTreesResponse = {
+  encode(
+    message: QueryGetTreesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.Trees !== undefined) {
+      Trees.encode(message.Trees, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetTreesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetTreesResponse } as QueryGetTreesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Trees = Trees.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetTreesResponse {
+    const message = { ...baseQueryGetTreesResponse } as QueryGetTreesResponse;
+    if (object.Trees !== undefined && object.Trees !== null) {
+      message.Trees = Trees.fromJSON(object.Trees);
+    } else {
+      message.Trees = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetTreesResponse): unknown {
+    const obj: any = {};
+    message.Trees !== undefined &&
+      (obj.Trees = message.Trees ? Trees.toJSON(message.Trees) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetTreesResponse>
+  ): QueryGetTreesResponse {
+    const message = { ...baseQueryGetTreesResponse } as QueryGetTreesResponse;
+    if (object.Trees !== undefined && object.Trees !== null) {
+      message.Trees = Trees.fromPartial(object.Trees);
+    } else {
+      message.Trees = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllTreesRequest: object = {};
+
+export const QueryAllTreesRequest = {
+  encode(
+    message: QueryAllTreesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllTreesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllTreesRequest } as QueryAllTreesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllTreesRequest {
+    const message = { ...baseQueryAllTreesRequest } as QueryAllTreesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllTreesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryAllTreesRequest>): QueryAllTreesRequest {
+    const message = { ...baseQueryAllTreesRequest } as QueryAllTreesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllTreesResponse: object = {};
+
+export const QueryAllTreesResponse = {
+  encode(
+    message: QueryAllTreesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.Trees) {
+      Trees.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllTreesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllTreesResponse } as QueryAllTreesResponse;
+    message.Trees = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Trees.push(Trees.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllTreesResponse {
+    const message = { ...baseQueryAllTreesResponse } as QueryAllTreesResponse;
+    message.Trees = [];
+    if (object.Trees !== undefined && object.Trees !== null) {
+      for (const e of object.Trees) {
+        message.Trees.push(Trees.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllTreesResponse): unknown {
+    const obj: any = {};
+    if (message.Trees) {
+      obj.Trees = message.Trees.map((e) => (e ? Trees.toJSON(e) : undefined));
+    } else {
+      obj.Trees = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllTreesResponse>
+  ): QueryAllTreesResponse {
+    const message = { ...baseQueryAllTreesResponse } as QueryAllTreesResponse;
+    message.Trees = [];
+    if (object.Trees !== undefined && object.Trees !== null) {
+      for (const e of object.Trees) {
+        message.Trees.push(Trees.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1394,6 +1682,10 @@ export interface Query {
   Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
   /** Queries a list of Places items. */
   PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+  /** Queries a Trees by id. */
+  Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
+  /** Queries a list of Trees items. */
+  TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1512,6 +1804,30 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllPlacesResponse.decode(new Reader(data))
+    );
+  }
+
+  Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse> {
+    const data = QueryGetTreesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "Trees",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetTreesResponse.decode(new Reader(data))
+    );
+  }
+
+  TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse> {
+    const data = QueryAllTreesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "TreesAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllTreesResponse.decode(new Reader(data))
     );
   }
 }

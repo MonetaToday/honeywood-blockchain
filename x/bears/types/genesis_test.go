@@ -56,6 +56,15 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				PlacesCount: 2,
+				TreesList: []types.Trees{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				TreesCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -137,6 +146,32 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				PlacesCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated trees",
+			genState: &types.GenesisState{
+				TreesList: []types.Trees{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid trees count",
+			genState: &types.GenesisState{
+				TreesList: []types.Trees{
+					{
+						Id: 1,
+					},
+				},
+				TreesCount: 0,
 			},
 			valid: false,
 		},

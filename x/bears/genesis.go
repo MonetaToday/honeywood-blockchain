@@ -31,6 +31,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set places count
 	k.SetPlacesCount(ctx, genState.PlacesCount)
+	// Set all the trees
+	for _, elem := range genState.TreesList {
+		k.SetTrees(ctx, elem)
+	}
+
+	// Set trees count
+	k.SetTreesCount(ctx, genState.TreesCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -46,6 +53,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.AddressBearsList = k.GetAllAddressBears(ctx)
 	genesis.PlacesList = k.GetAllPlaces(ctx)
 	genesis.PlacesCount = k.GetPlacesCount(ctx)
+	genesis.TreesList = k.GetAllTrees(ctx)
+	genesis.TreesCount = k.GetTreesCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

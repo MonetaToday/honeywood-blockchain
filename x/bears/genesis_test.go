@@ -48,6 +48,15 @@ func TestGenesis(t *testing.T) {
 			},
 		},
 		PlacesCount: 2,
+		TreesList: []types.Trees{
+			{
+				Id: 0,
+			},
+			{
+				Id: 1,
+			},
+		},
+		TreesCount: 2,
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -65,5 +74,7 @@ func TestGenesis(t *testing.T) {
 	require.ElementsMatch(t, genesisState.AddressBearsList, got.AddressBearsList)
 	require.ElementsMatch(t, genesisState.PlacesList, got.PlacesList)
 	require.Equal(t, genesisState.PlacesCount, got.PlacesCount)
+	require.ElementsMatch(t, genesisState.TreesList, got.TreesList)
+	require.Equal(t, genesisState.TreesCount, got.TreesCount)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

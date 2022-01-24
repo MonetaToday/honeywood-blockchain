@@ -30,3 +30,8 @@ const (
 	PlacesKey      = "Places-value-"
 	PlacesCountKey = "Places-count-"
 )
+
+const (
+	TreesKey      = "Trees-value-"
+	TreesCountKey = "Trees-count-"
+)

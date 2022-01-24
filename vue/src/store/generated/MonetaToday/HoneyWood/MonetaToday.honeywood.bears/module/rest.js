@@ -276,5 +276,34 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryTreesAll
+         * @summary Queries a list of Trees items.
+         * @request GET:/MonetaToday/honeywood/bears/trees
+         */
+        this.queryTreesAll = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/trees`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryTrees
+         * @summary Queries a Trees by id.
+         * @request GET:/MonetaToday/honeywood/bears/trees/{id}
+         */
+        this.queryTrees = (id, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/trees/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }
