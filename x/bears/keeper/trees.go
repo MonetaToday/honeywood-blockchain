@@ -157,7 +157,7 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	if errSendFromModuleToAccount != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}
-	// TODO: cones,update oxygen
+	// TODO: update oxygen
 
 
 	return nil, nil
