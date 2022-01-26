@@ -160,6 +160,6 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	// TODO: update oxygen
 
 
-	return nil, nil
+	return &newTree, nil
 }
 
