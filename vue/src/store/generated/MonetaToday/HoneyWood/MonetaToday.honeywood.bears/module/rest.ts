@@ -58,7 +58,9 @@ export interface BearsMsgExtendPlaceResponse {
   countGrounds?: string;
 }
 
-export type BearsMsgInitGameAndCreateTreeResponse = object;
+export interface BearsMsgInitGameAndCreateTreeResponse {
+  tree?: BearsTrees;
+}
 
 export interface BearsMsgInitGameAndExtendPlaceResponse {
   /** @format uint64 */

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
+import { Trees } from "../bears/trees";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseMsgInitGameAndSetName = { creator: "", name: "" };
 export const MsgInitGameAndSetName = {
@@ -527,7 +528,10 @@ export const MsgInitGameAndCreateTree = {
 };
 const baseMsgInitGameAndCreateTreeResponse = {};
 export const MsgInitGameAndCreateTreeResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.tree !== undefined) {
+            Trees.encode(message.tree, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -539,6 +543,9 @@ export const MsgInitGameAndCreateTreeResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.tree = Trees.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -546,20 +553,34 @@ export const MsgInitGameAndCreateTreeResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = {
             ...baseMsgInitGameAndCreateTreeResponse,
         };
+        if (object.tree !== undefined && object.tree !== null) {
+            message.tree = Trees.fromJSON(object.tree);
+        }
+        else {
+            message.tree = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.tree !== undefined &&
+            (obj.tree = message.tree ? Trees.toJSON(message.tree) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = {
             ...baseMsgInitGameAndCreateTreeResponse,
         };
+        if (object.tree !== undefined && object.tree !== null) {
+            message.tree = Trees.fromPartial(object.tree);
+        }
+        else {
+            message.tree = undefined;
+        }
         return message;
     },
 };

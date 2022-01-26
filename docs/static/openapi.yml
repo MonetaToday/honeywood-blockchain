@@ -21082,6 +21082,22 @@ definitions:
         format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateTreeResponse:
     type: object
+    properties:
+      tree:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          bearId:
+            type: string
+            format: uint64
+          placeId:
+            type: string
+            format: uint64
+          groundId:
+            type: string
+            format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse:
     type: object
     properties:

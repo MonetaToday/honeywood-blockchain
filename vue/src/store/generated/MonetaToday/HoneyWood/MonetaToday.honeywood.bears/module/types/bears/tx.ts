@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
+import { Trees } from "../bears/trees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -40,7 +41,9 @@ export interface MsgInitGameAndCreateTree {
   creator: string;
 }
 
-export interface MsgInitGameAndCreateTreeResponse {}
+export interface MsgInitGameAndCreateTreeResponse {
+  tree: Trees | undefined;
+}
 
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
@@ -643,9 +646,12 @@ const baseMsgInitGameAndCreateTreeResponse: object = {};
 
 export const MsgInitGameAndCreateTreeResponse = {
   encode(
-    _: MsgInitGameAndCreateTreeResponse,
+    message: MsgInitGameAndCreateTreeResponse,
     writer: Writer = Writer.create()
   ): Writer {
+    if (message.tree !== undefined) {
+      Trees.encode(message.tree, writer.uint32(10).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -661,6 +667,9 @@ export const MsgInitGameAndCreateTreeResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.tree = Trees.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -669,24 +678,36 @@ export const MsgInitGameAndCreateTreeResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgInitGameAndCreateTreeResponse {
+  fromJSON(object: any): MsgInitGameAndCreateTreeResponse {
     const message = {
       ...baseMsgInitGameAndCreateTreeResponse,
     } as MsgInitGameAndCreateTreeResponse;
+    if (object.tree !== undefined && object.tree !== null) {
+      message.tree = Trees.fromJSON(object.tree);
+    } else {
+      message.tree = undefined;
+    }
     return message;
   },
 
-  toJSON(_: MsgInitGameAndCreateTreeResponse): unknown {
+  toJSON(message: MsgInitGameAndCreateTreeResponse): unknown {
     const obj: any = {};
+    message.tree !== undefined &&
+      (obj.tree = message.tree ? Trees.toJSON(message.tree) : undefined);
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgInitGameAndCreateTreeResponse>
+    object: DeepPartial<MsgInitGameAndCreateTreeResponse>
   ): MsgInitGameAndCreateTreeResponse {
     const message = {
       ...baseMsgInitGameAndCreateTreeResponse,
     } as MsgInitGameAndCreateTreeResponse;
+    if (object.tree !== undefined && object.tree !== null) {
+      message.tree = Trees.fromPartial(object.tree);
+    } else {
+      message.tree = undefined;
+    }
     return message;
   },
 };

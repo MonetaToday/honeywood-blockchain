@@ -15,10 +15,12 @@ func (k msgServer) InitGameAndCreateTree(goCtx context.Context, msg *types.MsgIn
 		return nil, initGameErr
 	}
 
-	_, createTreeErr := k.Keeper.createTreeOnOwnedPlace(ctx, msg.Creator, newPlace.Id, 0)
+	tree, createTreeErr := k.Keeper.createTreeOnOwnedPlace(ctx, msg.Creator, newPlace.Id, 0)
 	if createTreeErr != nil {
 		return nil, createTreeErr
 	}
 
-	return &types.MsgInitGameAndCreateTreeResponse{}, nil
+	return &types.MsgInitGameAndCreateTreeResponse{
+		Tree: tree,
+	}, nil
 }
