@@ -584,6 +584,147 @@ export const MsgInitGameAndCreateTreeResponse = {
         return message;
     },
 };
+const baseMsgCreateTree = { creator: "", placeId: 0, groundId: 0 };
+export const MsgCreateTree = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.placeId !== 0) {
+            writer.uint32(16).uint64(message.placeId);
+        }
+        if (message.groundId !== 0) {
+            writer.uint32(24).uint64(message.groundId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateTree };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.placeId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.groundId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateTree };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.placeId !== undefined && object.placeId !== null) {
+            message.placeId = Number(object.placeId);
+        }
+        else {
+            message.placeId = 0;
+        }
+        if (object.groundId !== undefined && object.groundId !== null) {
+            message.groundId = Number(object.groundId);
+        }
+        else {
+            message.groundId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.placeId !== undefined && (obj.placeId = message.placeId);
+        message.groundId !== undefined && (obj.groundId = message.groundId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateTree };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.placeId !== undefined && object.placeId !== null) {
+            message.placeId = object.placeId;
+        }
+        else {
+            message.placeId = 0;
+        }
+        if (object.groundId !== undefined && object.groundId !== null) {
+            message.groundId = object.groundId;
+        }
+        else {
+            message.groundId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgCreateTreeResponse = {};
+export const MsgCreateTreeResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.tree !== undefined) {
+            Trees.encode(message.tree, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateTreeResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.tree = Trees.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateTreeResponse };
+        if (object.tree !== undefined && object.tree !== null) {
+            message.tree = Trees.fromJSON(object.tree);
+        }
+        else {
+            message.tree = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.tree !== undefined &&
+            (obj.tree = message.tree ? Trees.toJSON(message.tree) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateTreeResponse };
+        if (object.tree !== undefined && object.tree !== null) {
+            message.tree = Trees.fromPartial(object.tree);
+        }
+        else {
+            message.tree = undefined;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -612,6 +753,11 @@ export class MsgClientImpl {
         const data = MsgInitGameAndCreateTree.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateTree", data);
         return promise.then((data) => MsgInitGameAndCreateTreeResponse.decode(new Reader(data)));
+    }
+    CreateTree(request) {
+        const data = MsgCreateTree.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateTree", data);
+        return promise.then((data) => MsgCreateTreeResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

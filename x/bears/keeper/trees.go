@@ -4,10 +4,10 @@ import (
 	"encoding/binary"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
-	mintTypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	mintTypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 )
 
 // GetTreesCount get the total number of trees
@@ -132,14 +132,14 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	}
 
 	newTree := types.Trees{
-		BearId: place.BearId,
-		PlaceId: place.Id,
+		BearId:   place.BearId,
+		PlaceId:  place.Id,
 		GroundId: groundId,
 	}
 	newTreeId := k.AppendTrees(ctx, newTree)
 
 	place.Grounds[groundId].Item = &types.Grounds_Items{
-		ItemId: newTreeId,
+		ItemId:   newTreeId,
 		ItemType: types.Grounds_Items_TREE,
 	}
 	k.SetPlaces(ctx, place)
@@ -159,7 +159,5 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	}
 	// TODO: update oxygen
 
-
 	return &newTree, nil
 }
-

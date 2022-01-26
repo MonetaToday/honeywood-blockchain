@@ -34,8 +34,8 @@ func NewParams(
 	return Params{
 		SetNamePrice:   setNamePrice,
 		OneGroundPrice: oneGroundPrice,
-		OneTreePrice: oneTreePrice,
-		OneTreeReward: oneTreeReward,
+		OneTreePrice:   oneTreePrice,
+		OneTreeReward:  oneTreeReward,
 	}
 }
 

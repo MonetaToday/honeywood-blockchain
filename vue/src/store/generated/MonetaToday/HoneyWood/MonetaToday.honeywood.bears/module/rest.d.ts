@@ -34,6 +34,9 @@ export interface BearsBears {
 export interface BearsGrounds {
     item?: GroundsItems;
 }
+export interface BearsMsgCreateTreeResponse {
+    tree?: BearsTrees;
+}
 export interface BearsMsgExtendPlaceResponse {
     /** @format uint64 */
     countGrounds?: string;

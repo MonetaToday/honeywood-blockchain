@@ -45,6 +45,16 @@ export interface MsgInitGameAndCreateTreeResponse {
   tree: Trees | undefined;
 }
 
+export interface MsgCreateTree {
+  creator: string;
+  placeId: number;
+  groundId: number;
+}
+
+export interface MsgCreateTreeResponse {
+  tree: Trees | undefined;
+}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -712,6 +722,156 @@ export const MsgInitGameAndCreateTreeResponse = {
   },
 };
 
+const baseMsgCreateTree: object = { creator: "", placeId: 0, groundId: 0 };
+
+export const MsgCreateTree = {
+  encode(message: MsgCreateTree, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.placeId !== 0) {
+      writer.uint32(16).uint64(message.placeId);
+    }
+    if (message.groundId !== 0) {
+      writer.uint32(24).uint64(message.groundId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateTree {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateTree } as MsgCreateTree;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.placeId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.groundId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateTree {
+    const message = { ...baseMsgCreateTree } as MsgCreateTree;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.placeId !== undefined && object.placeId !== null) {
+      message.placeId = Number(object.placeId);
+    } else {
+      message.placeId = 0;
+    }
+    if (object.groundId !== undefined && object.groundId !== null) {
+      message.groundId = Number(object.groundId);
+    } else {
+      message.groundId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateTree): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.placeId !== undefined && (obj.placeId = message.placeId);
+    message.groundId !== undefined && (obj.groundId = message.groundId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateTree>): MsgCreateTree {
+    const message = { ...baseMsgCreateTree } as MsgCreateTree;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.placeId !== undefined && object.placeId !== null) {
+      message.placeId = object.placeId;
+    } else {
+      message.placeId = 0;
+    }
+    if (object.groundId !== undefined && object.groundId !== null) {
+      message.groundId = object.groundId;
+    } else {
+      message.groundId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateTreeResponse: object = {};
+
+export const MsgCreateTreeResponse = {
+  encode(
+    message: MsgCreateTreeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.tree !== undefined) {
+      Trees.encode(message.tree, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateTreeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateTreeResponse } as MsgCreateTreeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tree = Trees.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateTreeResponse {
+    const message = { ...baseMsgCreateTreeResponse } as MsgCreateTreeResponse;
+    if (object.tree !== undefined && object.tree !== null) {
+      message.tree = Trees.fromJSON(object.tree);
+    } else {
+      message.tree = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateTreeResponse): unknown {
+    const obj: any = {};
+    message.tree !== undefined &&
+      (obj.tree = message.tree ? Trees.toJSON(message.tree) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateTreeResponse>
+  ): MsgCreateTreeResponse {
+    const message = { ...baseMsgCreateTreeResponse } as MsgCreateTreeResponse;
+    if (object.tree !== undefined && object.tree !== null) {
+      message.tree = Trees.fromPartial(object.tree);
+    } else {
+      message.tree = undefined;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -722,10 +882,11 @@ export interface Msg {
     request: MsgInitGameAndExtendPlace
   ): Promise<MsgInitGameAndExtendPlaceResponse>;
   ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   InitGameAndCreateTree(
     request: MsgInitGameAndCreateTree
   ): Promise<MsgInitGameAndCreateTreeResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -794,6 +955,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgInitGameAndCreateTreeResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse> {
+    const data = MsgCreateTree.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "CreateTree",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateTreeResponse.decode(new Reader(data))
     );
   }
 }

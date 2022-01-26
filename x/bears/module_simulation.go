@@ -44,6 +44,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgInitGameAndCreateTree int = 100
 
+	opWeightMsgCreateTree = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateTree int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -146,6 +150,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgInitGameAndCreateTree,
 		bearssimulation.SimulateMsgInitGameAndCreateTree(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateTree int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateTree, &weightMsgCreateTree, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateTree = defaultWeightMsgCreateTree
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateTree,
+		bearssimulation.SimulateMsgCreateTree(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

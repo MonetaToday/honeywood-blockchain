@@ -1,11 +1,12 @@
 import { StdFee } from "@cosmjs/launchpad";
 import { Registry, OfflineSigner, EncodeObject } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgSetName } from "./types/bears/tx";
-import { MsgInitGameAndSetName } from "./types/bears/tx";
-import { MsgInitGameAndCreateTree } from "./types/bears/tx";
-import { MsgExtendPlace } from "./types/bears/tx";
 import { MsgInitGameAndExtendPlace } from "./types/bears/tx";
+import { MsgInitGameAndSetName } from "./types/bears/tx";
+import { MsgExtendPlace } from "./types/bears/tx";
+import { MsgSetName } from "./types/bears/tx";
+import { MsgInitGameAndCreateTree } from "./types/bears/tx";
+import { MsgCreateTree } from "./types/bears/tx";
 export declare const MissingWalletError: Error;
 export declare const registry: Registry;
 interface TxClientOptions {
@@ -17,11 +18,12 @@ interface SignAndBroadcastOptions {
 }
 declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions) => Promise<{
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }?: SignAndBroadcastOptions) => any;
-    msgSetName: (data: MsgSetName) => EncodeObject;
-    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
-    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
-    msgExtendPlace: (data: MsgExtendPlace) => EncodeObject;
     msgInitGameAndExtendPlace: (data: MsgInitGameAndExtendPlace) => EncodeObject;
+    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
+    msgExtendPlace: (data: MsgExtendPlace) => EncodeObject;
+    msgSetName: (data: MsgSetName) => EncodeObject;
+    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
+    msgCreateTree: (data: MsgCreateTree) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;

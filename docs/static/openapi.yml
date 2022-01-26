@@ -21074,6 +21074,24 @@ definitions:
       - TREE
       - DECORATION
     default: APIARY
+  MonetaToday.honeywood.bears.MsgCreateTreeResponse:
+    type: object
+    properties:
+      tree:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          bearId:
+            type: string
+            format: uint64
+          placeId:
+            type: string
+            format: uint64
+          groundId:
+            type: string
+            format: uint64
   MonetaToday.honeywood.bears.MsgExtendPlaceResponse:
     type: object
     properties:

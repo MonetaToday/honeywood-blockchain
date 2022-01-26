@@ -159,10 +159,10 @@ func (k Keeper) HasRightsToPlace(ctx sdk.Context, address string, place types.Pl
 
 // GetBears returns a bears from its id
 func (k Keeper) isEmptyGround(ctx sdk.Context, place types.Places, groundId uint64) (bool, error) {
-	if len(place.Grounds) < int(groundId) {
+	if len(place.Grounds) <= int(groundId) {
 		return false, types.ErrPlaceHasNoGroundId
 	}
-	
+
 	if place.Grounds[groundId].Item != nil {
 		return false, types.ErrGroundIsNotEmpty
 	}
