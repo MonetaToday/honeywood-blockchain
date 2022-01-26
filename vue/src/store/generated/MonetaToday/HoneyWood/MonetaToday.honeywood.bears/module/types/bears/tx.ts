@@ -36,6 +36,12 @@ export interface MsgExtendPlaceResponse {
   countGrounds: number;
 }
 
+export interface MsgInitGameAndCreateTree {
+  creator: string;
+}
+
+export interface MsgInitGameAndCreateTreeResponse {}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -564,6 +570,127 @@ export const MsgExtendPlaceResponse = {
   },
 };
 
+const baseMsgInitGameAndCreateTree: object = { creator: "" };
+
+export const MsgInitGameAndCreateTree = {
+  encode(
+    message: MsgInitGameAndCreateTree,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateTree {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateTree,
+    } as MsgInitGameAndCreateTree;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateTree {
+    const message = {
+      ...baseMsgInitGameAndCreateTree,
+    } as MsgInitGameAndCreateTree;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateTree): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateTree>
+  ): MsgInitGameAndCreateTree {
+    const message = {
+      ...baseMsgInitGameAndCreateTree,
+    } as MsgInitGameAndCreateTree;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgInitGameAndCreateTreeResponse: object = {};
+
+export const MsgInitGameAndCreateTreeResponse = {
+  encode(
+    _: MsgInitGameAndCreateTreeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateTreeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateTreeResponse,
+    } as MsgInitGameAndCreateTreeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgInitGameAndCreateTreeResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateTreeResponse,
+    } as MsgInitGameAndCreateTreeResponse;
+    return message;
+  },
+
+  toJSON(_: MsgInitGameAndCreateTreeResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgInitGameAndCreateTreeResponse>
+  ): MsgInitGameAndCreateTreeResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateTreeResponse,
+    } as MsgInitGameAndCreateTreeResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -573,8 +700,11 @@ export interface Msg {
   InitGameAndExtendPlace(
     request: MsgInitGameAndExtendPlace
   ): Promise<MsgInitGameAndExtendPlaceResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  InitGameAndCreateTree(
+    request: MsgInitGameAndCreateTree
+  ): Promise<MsgInitGameAndCreateTreeResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -629,6 +759,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgExtendPlaceResponse.decode(new Reader(data))
+    );
+  }
+
+  InitGameAndCreateTree(
+    request: MsgInitGameAndCreateTree
+  ): Promise<MsgInitGameAndCreateTreeResponse> {
+    const data = MsgInitGameAndCreateTree.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "InitGameAndCreateTree",
+      data
+    );
+    return promise.then((data) =>
+      MsgInitGameAndCreateTreeResponse.decode(new Reader(data))
     );
   }
 }

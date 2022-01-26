@@ -40,6 +40,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgExtendPlace int = 100
 
+	opWeightMsgInitGameAndCreateTree = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgInitGameAndCreateTree int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -72,6 +76,9 @@ func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
 		}),
 		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneGroundPrice), func(r *rand.Rand) string {
 			return string(types.Amino.MustMarshalJSON(bearsParams.OneGroundPrice))
+		}),
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneTreePrice), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.OneTreePrice))
 		}),
 	}
 }
@@ -125,6 +132,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgExtendPlace,
 		bearssimulation.SimulateMsgExtendPlace(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgInitGameAndCreateTree int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgInitGameAndCreateTree, &weightMsgInitGameAndCreateTree, nil,
+		func(_ *rand.Rand) {
+			weightMsgInitGameAndCreateTree = defaultWeightMsgInitGameAndCreateTree
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgInitGameAndCreateTree,
+		bearssimulation.SimulateMsgInitGameAndCreateTree(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

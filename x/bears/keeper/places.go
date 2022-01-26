@@ -114,7 +114,7 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 		return nil, types.ErrPlaceIsNotExisted
 	}
 
-	hasRights := k.HasRightsToBear(ctx, buyer, place.BearId)
+	hasRights := k.HasRightsToPlace(ctx, buyer, place)
 	if !hasRights {
 		return nil, types.ErrAddressHasNoRights
 	}
@@ -142,14 +142,30 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 	}
 	place.CountGrounds = uint64(len(place.Grounds))
 
-	// place.Grounds[10] = types.Grounds{
-	// 	Item: &types.Grounds_Items{
-	// 		ItemId: 0,
-	// 		ItemType: types.Grounds_Items_APIARY,
-	// 	},
-	// }
-
 	k.SetPlaces(ctx, place)
 
 	return &place.CountGrounds, nil
+}
+
+// GetBears returns a bears from its id
+func (k Keeper) HasRightsToPlace(ctx sdk.Context, address string, place types.Places) bool {
+	hasRights := k.HasRightsToBear(ctx, address, place.BearId)
+	if !hasRights {
+		return false
+	}
+
+	return true
+}
+
+// GetBears returns a bears from its id
+func (k Keeper) isEmptyGround(ctx sdk.Context, place types.Places, groundId uint64) (bool, error) {
+	if len(place.Grounds) < int(groundId) {
+		return false, types.ErrPlaceHasNoGroundId
+	}
+	
+	if place.Grounds[groundId].Item != nil {
+		return false, types.ErrGroundIsNotEmpty
+	}
+
+	return true, nil
 }

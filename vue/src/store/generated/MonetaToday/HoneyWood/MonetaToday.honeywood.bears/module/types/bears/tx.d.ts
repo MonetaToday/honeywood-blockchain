@@ -26,6 +26,11 @@ export interface MsgExtendPlace {
 export interface MsgExtendPlaceResponse {
     countGrounds: number;
 }
+export interface MsgInitGameAndCreateTree {
+    creator: string;
+}
+export interface MsgInitGameAndCreateTreeResponse {
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -82,13 +87,28 @@ export declare const MsgExtendPlaceResponse: {
     toJSON(message: MsgExtendPlaceResponse): unknown;
     fromPartial(object: DeepPartial<MsgExtendPlaceResponse>): MsgExtendPlaceResponse;
 };
+export declare const MsgInitGameAndCreateTree: {
+    encode(message: MsgInitGameAndCreateTree, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateTree;
+    fromJSON(object: any): MsgInitGameAndCreateTree;
+    toJSON(message: MsgInitGameAndCreateTree): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndCreateTree>): MsgInitGameAndCreateTree;
+};
+export declare const MsgInitGameAndCreateTreeResponse: {
+    encode(_: MsgInitGameAndCreateTreeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateTreeResponse;
+    fromJSON(_: any): MsgInitGameAndCreateTreeResponse;
+    toJSON(_: MsgInitGameAndCreateTreeResponse): unknown;
+    fromPartial(_: DeepPartial<MsgInitGameAndCreateTreeResponse>): MsgInitGameAndCreateTreeResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
     InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    InitGameAndCreateTree(request: MsgInitGameAndCreateTree): Promise<MsgInitGameAndCreateTreeResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -97,6 +117,7 @@ export declare class MsgClientImpl implements Msg {
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
     InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
     ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
+    InitGameAndCreateTree(request: MsgInitGameAndCreateTree): Promise<MsgInitGameAndCreateTreeResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

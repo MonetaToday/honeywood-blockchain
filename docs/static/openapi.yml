@@ -13178,6 +13178,21 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
+                  oneTreePrice:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -21050,6 +21065,8 @@ definitions:
       countGrounds:
         type: string
         format: uint64
+  MonetaToday.honeywood.bears.MsgInitGameAndCreateTreeResponse:
+    type: object
   MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse:
     type: object
     properties:
@@ -21076,6 +21093,18 @@ definitions:
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
       oneGroundPrice:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      oneTreePrice:
         type: object
         properties:
           denom:
@@ -21522,6 +21551,21 @@ definitions:
 
               signatures required by gogoproto.
           oneGroundPrice:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          oneTreePrice:
             type: object
             properties:
               denom:

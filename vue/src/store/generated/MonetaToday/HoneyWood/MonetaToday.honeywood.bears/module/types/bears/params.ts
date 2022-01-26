@@ -8,6 +8,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Params {
   setNamePrice: Coin | undefined;
   oneGroundPrice: Coin | undefined;
+  oneTreePrice: Coin | undefined;
 }
 
 const baseParams: object = {};
@@ -19,6 +20,9 @@ export const Params = {
     }
     if (message.oneGroundPrice !== undefined) {
       Coin.encode(message.oneGroundPrice, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.oneTreePrice !== undefined) {
+      Coin.encode(message.oneTreePrice, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -35,6 +39,9 @@ export const Params = {
           break;
         case 2:
           message.oneGroundPrice = Coin.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.oneTreePrice = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -56,6 +63,11 @@ export const Params = {
     } else {
       message.oneGroundPrice = undefined;
     }
+    if (object.oneTreePrice !== undefined && object.oneTreePrice !== null) {
+      message.oneTreePrice = Coin.fromJSON(object.oneTreePrice);
+    } else {
+      message.oneTreePrice = undefined;
+    }
     return message;
   },
 
@@ -68,6 +80,10 @@ export const Params = {
     message.oneGroundPrice !== undefined &&
       (obj.oneGroundPrice = message.oneGroundPrice
         ? Coin.toJSON(message.oneGroundPrice)
+        : undefined);
+    message.oneTreePrice !== undefined &&
+      (obj.oneTreePrice = message.oneTreePrice
+        ? Coin.toJSON(message.oneTreePrice)
         : undefined);
     return obj;
   },
@@ -83,6 +99,11 @@ export const Params = {
       message.oneGroundPrice = Coin.fromPartial(object.oneGroundPrice);
     } else {
       message.oneGroundPrice = undefined;
+    }
+    if (object.oneTreePrice !== undefined && object.oneTreePrice !== null) {
+      message.oneTreePrice = Coin.fromPartial(object.oneTreePrice);
+    } else {
+      message.oneTreePrice = undefined;
     }
     return message;
   },

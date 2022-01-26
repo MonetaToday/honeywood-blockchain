@@ -40,3 +40,6 @@ genesis:
         one_ground_price: 
           denom: "honey"
           amount: "100"
+        one_tree_price: 
+          denom: "honey"
+          amount: "100"

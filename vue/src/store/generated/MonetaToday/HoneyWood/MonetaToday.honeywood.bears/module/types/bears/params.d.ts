@@ -5,6 +5,7 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Params {
     setNamePrice: Coin | undefined;
     oneGroundPrice: Coin | undefined;
+    oneTreePrice: Coin | undefined;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

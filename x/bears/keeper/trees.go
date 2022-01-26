@@ -6,6 +6,7 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // GetTreesCount get the total number of trees
@@ -104,3 +105,55 @@ func GetTreesIDBytes(id uint64) []byte {
 func GetTreesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
+
+// BuyBearName for specific bear
+func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId uint64, groundId uint64) (*types.Trees, error) {
+	place, placeFound := k.GetPlaces(ctx, placeId)
+	if !placeFound {
+		return nil, types.ErrPlaceIsNotExisted
+	}
+
+	hasRights := k.HasRightsToPlace(ctx, creator, place)
+	if !hasRights {
+		return nil, types.ErrAddressHasNoRights
+	}
+
+	isEmpty, errEmptyGround := k.isEmptyGround(ctx, place, groundId)
+	if !isEmpty {
+		return nil, errEmptyGround
+	}
+
+	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
+	oneTreePrice := k.OneTreePrice(ctx)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, sdk.NewCoins(oneTreePrice))
+	if err != nil {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	newTree := types.Trees{
+		BearId: place.BearId,
+		PlaceId: place.Id,
+		GroundId: groundId,
+	}
+	newTreeId := k.AppendTrees(ctx, newTree)
+
+	place.Grounds[groundId].Item = &types.Grounds_Items{
+		ItemId: newTreeId,
+		ItemType: types.Grounds_Items_TREE,
+	}
+	k.SetPlaces(ctx, place)
+
+	bear, bearFound := k.GetBears(ctx, place.BearId)
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
+	}
+	bear.Trees = append(bear.Trees, newTreeId)
+	k.SetBears(ctx, bear)
+
+
+	// TODO: cones,update oxygen
+
+
+	return nil, nil
+}
+
