@@ -96,6 +96,14 @@ export interface BearsParams {
    * signatures required by gogoproto.
    */
   oneTreePrice?: V1Beta1Coin;
+
+  /**
+   * Coin defines a token with a denomination and an amount.
+   *
+   * NOTE: The amount field is an Int which implements the custom method
+   * signatures required by gogoproto.
+   */
+  oneTreeReward?: V1Beta1Coin;
 }
 
 export interface BearsPlaces {

@@ -6,6 +6,7 @@ export interface Params {
     setNamePrice: Coin | undefined;
     oneGroundPrice: Coin | undefined;
     oneTreePrice: Coin | undefined;
+    oneTreeReward: Coin | undefined;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

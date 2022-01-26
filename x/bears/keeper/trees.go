@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
+	mintTypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -150,7 +151,12 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	bear.Trees = append(bear.Trees, newTreeId)
 	k.SetBears(ctx, bear)
 
-
+	oneTreeReward := k.OneTreeReward(ctx)
+	k.bankKeeper.MintCoins(ctx, mintTypes.ModuleName, sdk.NewCoins(oneTreeReward))
+	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, mintTypes.ModuleName, creatorAcc, sdk.NewCoins(oneTreeReward))
+	if errSendFromModuleToAccount != nil {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
+	}
 	// TODO: cones,update oxygen
 
 

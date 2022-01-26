@@ -5,9 +5,9 @@ accounts:
   - name: alice
     coins: ["20000honey", "200000000cone"]
   - name: bob
-    coins: ["10000honey", "100000000cone"]
+    coins: ["10000honey"]
   - name: bobi
-    coins: ["100000honey", "100000000cone"]
+    coins: ["100000honey"]
 validator:
   name: alice
   staked: "100000000cone"
@@ -42,4 +42,7 @@ genesis:
           amount: "100"
         one_tree_price: 
           denom: "honey"
+          amount: "100"
+        one_tree_reward: 
+          denom: "cone"
           amount: "100"

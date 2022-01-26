@@ -19,6 +19,9 @@ var (
 
 	KeyOneTreePrice              = []byte("OneTreePrice")
 	DefaultOneTreePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+
+	KeyOneTreeReward              = []byte("OneTreeReward")
+	DefaultOneTreeReward sdk.Coin = sdk.NewCoin("cone", sdk.NewInt(100))
 )
 
 // NewParams creates a new Params instance
@@ -26,11 +29,13 @@ func NewParams(
 	setNamePrice sdk.Coin,
 	oneGroundPrice sdk.Coin,
 	oneTreePrice sdk.Coin,
+	oneTreeReward sdk.Coin,
 ) Params {
 	return Params{
 		SetNamePrice:   setNamePrice,
 		OneGroundPrice: oneGroundPrice,
 		OneTreePrice: oneTreePrice,
+		OneTreeReward: oneTreeReward,
 	}
 }
 
@@ -40,6 +45,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeySetNamePrice, &p.SetNamePrice, validateSetNamePrice),
 		paramtypes.NewParamSetPair(KeyOneGroundPrice, &p.OneGroundPrice, validateOneGroundPrice),
 		paramtypes.NewParamSetPair(KeyOneTreePrice, &p.OneTreePrice, validateOneTreePrice),
+		paramtypes.NewParamSetPair(KeyOneTreeReward, &p.OneTreeReward, validateOneTreeReward),
 	}
 }
 
@@ -58,12 +64,13 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeySetNamePrice, sdk.Coin{}, validateSetNamePrice),
 		paramtypes.NewParamSetPair(KeyOneGroundPrice, sdk.Coin{}, validateOneGroundPrice),
 		paramtypes.NewParamSetPair(KeyOneTreePrice, sdk.Coin{}, validateOneTreePrice),
+		paramtypes.NewParamSetPair(KeyOneTreeReward, sdk.Coin{}, validateOneTreeReward),
 	)
 }
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams(DefaultSetNamePrice, DefaultOneGroundPrice, DefaultOneTreePrice)
+	return NewParams(DefaultSetNamePrice, DefaultOneGroundPrice, DefaultOneTreePrice, DefaultOneTreeReward)
 }
 
 // String implements the Stringer interface.
@@ -106,6 +113,19 @@ func validateOneTreePrice(i interface{}) error {
 
 	if !v.IsValid() {
 		return fmt.Errorf("invalid one_tree_price: %s", v)
+	}
+
+	return nil
+}
+
+func validateOneTreeReward(i interface{}) error {
+	v, ok := i.(sdk.Coin)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if !v.IsValid() {
+		return fmt.Errorf("invalid one_tree_reward: %s", v)
 	}
 
 	return nil

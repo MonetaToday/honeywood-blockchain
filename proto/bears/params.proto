@@ -16,4 +16,6 @@ message Params {
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_ground_price\""];
   cosmos.base.v1beta1.Coin one_tree_price = 3
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_tree_price\""];
+  cosmos.base.v1beta1.Coin one_tree_reward = 4
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_tree_reward\""];  
 }

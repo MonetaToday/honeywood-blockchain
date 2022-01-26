@@ -11,6 +11,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.SetNamePrice(ctx),
 		k.OneGroundPrice(ctx),
 		k.OneTreePrice(ctx),
+		k.OneTreeReward(ctx),
 	)
 }
 
@@ -34,5 +35,11 @@ func (k Keeper) OneGroundPrice(ctx sdk.Context) (res sdk.Coin) {
 // OneTreePrice returns the OneTreePrice param
 func (k Keeper) OneTreePrice(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyOneTreePrice, &res)
+	return
+}
+
+// OneTreeReward returns the OneTreeReward param
+func (k Keeper) OneTreeReward(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyOneTreeReward, &res)
 	return
 }
