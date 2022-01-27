@@ -1,9 +1,10 @@
 import { Writer, Reader } from "protobufjs/minimal";
+import { BearOwner } from "../bears/bears";
 import { Grounds } from "../bears/grounds";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Places {
     id: number;
-    bearId: number;
+    bearOwner: BearOwner | undefined;
     placeType: Places_PlaceTypes;
     grounds: Grounds[];
     countGrounds: number;

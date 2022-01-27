@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { BearOwner } from "../bears/bears";
 import { Grounds } from "../bears/grounds";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 export var Places_PlaceTypes;
@@ -27,14 +28,14 @@ export function places_PlaceTypesToJSON(object) {
             return "UNKNOWN";
     }
 }
-const basePlaces = { id: 0, bearId: 0, placeType: 0, countGrounds: 0 };
+const basePlaces = { id: 0, placeType: 0, countGrounds: 0 };
 export const Places = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
         }
-        if (message.bearId !== 0) {
-            writer.uint32(16).uint64(message.bearId);
+        if (message.bearOwner !== undefined) {
+            BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
         }
         if (message.placeType !== 0) {
             writer.uint32(24).int32(message.placeType);
@@ -59,7 +60,7 @@ export const Places = {
                     message.id = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.bearId = longToNumber(reader.uint64());
+                    message.bearOwner = BearOwner.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.placeType = reader.int32();
@@ -86,11 +87,11 @@ export const Places = {
         else {
             message.id = 0;
         }
-        if (object.bearId !== undefined && object.bearId !== null) {
-            message.bearId = Number(object.bearId);
+        if (object.bearOwner !== undefined && object.bearOwner !== null) {
+            message.bearOwner = BearOwner.fromJSON(object.bearOwner);
         }
         else {
-            message.bearId = 0;
+            message.bearOwner = undefined;
         }
         if (object.placeType !== undefined && object.placeType !== null) {
             message.placeType = places_PlaceTypesFromJSON(object.placeType);
@@ -114,7 +115,10 @@ export const Places = {
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
-        message.bearId !== undefined && (obj.bearId = message.bearId);
+        message.bearOwner !== undefined &&
+            (obj.bearOwner = message.bearOwner
+                ? BearOwner.toJSON(message.bearOwner)
+                : undefined);
         message.placeType !== undefined &&
             (obj.placeType = places_PlaceTypesToJSON(message.placeType));
         if (message.grounds) {
@@ -136,11 +140,11 @@ export const Places = {
         else {
             message.id = 0;
         }
-        if (object.bearId !== undefined && object.bearId !== null) {
-            message.bearId = object.bearId;
+        if (object.bearOwner !== undefined && object.bearOwner !== null) {
+            message.bearOwner = BearOwner.fromPartial(object.bearOwner);
         }
         else {
-            message.bearId = 0;
+            message.bearOwner = undefined;
         }
         if (object.placeType !== undefined && object.placeType !== null) {
             message.placeType = object.placeType;

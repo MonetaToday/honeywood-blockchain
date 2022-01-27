@@ -121,7 +121,9 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 		{},
 	}
 	newPlace := types.Places{
-		BearId:       bearId,
+		BearOwner: &types.BearOwner{
+			Id: bearId,
+		},
 		PlaceType:    types.Places_DEFAULT,
 		Grounds:      grounds,
 		CountGrounds: uint64(len(grounds)),

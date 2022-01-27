@@ -17,13 +17,17 @@ func CmdCreateTree() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-tree [place-id] [ground-id]",
 		Short: "Create a tree",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argPlaceId, err := cast.ToUint64E(args[0])
+			argBearId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argGroundId, err := cast.ToUint64E(args[1])
+			argPlaceId, err := cast.ToUint64E(args[1])
+			if err != nil {
+				return err
+			}
+			argGroundId, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
@@ -35,6 +39,7 @@ func CmdCreateTree() *cobra.Command {
 
 			msg := types.NewMsgCreateTree(
 				clientCtx.GetFromAddress().String(),
+				argBearId,
 				argPlaceId,
 				argGroundId,
 			)

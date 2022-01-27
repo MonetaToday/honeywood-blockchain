@@ -1,11 +1,12 @@
 import { AddressBears } from "./module/types/bears/address_bears";
 import { BearNames } from "./module/types/bears/bear_names";
+import { BearOwner } from "./module/types/bears/bears";
 import { Bears } from "./module/types/bears/bears";
 import { Grounds } from "./module/types/bears/grounds";
 import { Grounds_Items } from "./module/types/bears/grounds";
 import { Params } from "./module/types/bears/params";
 import { Places } from "./module/types/bears/places";
 import { Trees } from "./module/types/bears/trees";
-export { AddressBears, BearNames, Bears, Grounds, Grounds_Items, Params, Places, Trees };
+export { AddressBears, BearNames, BearOwner, Bears, Grounds, Grounds_Items, Params, Places, Trees };
 declare const _default;
 export default _default;

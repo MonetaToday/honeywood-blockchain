@@ -35,6 +35,7 @@ export interface MsgInitGameAndCreateTreeResponse {
 }
 export interface MsgCreateTree {
     creator: string;
+    bearId: number;
     placeId: number;
     groundId: number;
 }

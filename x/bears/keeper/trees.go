@@ -108,10 +108,14 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId uint64, groundId uint64) (*types.Trees, error) {
+func (k Keeper) createTreeOnPlace(ctx sdk.Context, creator string, bearId uint64, placeId uint64, groundId uint64) (*types.Trees, error) {
 	place, placeFound := k.GetPlaces(ctx, placeId)
 	if !placeFound {
 		return nil, types.ErrPlaceIsNotExisted
+	}
+
+	if place.BearOwner != nil && place.BearOwner.Id != bearId {
+		return nil, types.ErrBearHasNoRights
 	}
 
 	hasRights := k.HasRightsToPlace(ctx, creator, place)
@@ -132,7 +136,7 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	}
 
 	newTree := types.Trees{
-		BearId:   place.BearId,
+		BearId:   bearId,
 		PlaceId:  place.Id,
 		GroundId: groundId,
 	}
@@ -144,7 +148,7 @@ func (k Keeper) createTreeOnOwnedPlace(ctx sdk.Context, creator string, placeId 
 	}
 	k.SetPlaces(ctx, place)
 
-	bear, bearFound := k.GetBears(ctx, place.BearId)
+	bear, bearFound := k.GetBears(ctx, bearId)
 	if !bearFound {
 		return nil, types.ErrBearIsNotExisted
 	}

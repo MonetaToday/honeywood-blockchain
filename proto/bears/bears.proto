@@ -3,6 +3,10 @@ package MonetaToday.honeywood.bears;
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
+message BearOwner {
+  uint64 id = 1;
+}
+
 message Bears {
   uint64 id = 1;
   string owner = 2; 

@@ -584,17 +584,25 @@ export const MsgInitGameAndCreateTreeResponse = {
         return message;
     },
 };
-const baseMsgCreateTree = { creator: "", placeId: 0, groundId: 0 };
+const baseMsgCreateTree = {
+    creator: "",
+    bearId: 0,
+    placeId: 0,
+    groundId: 0,
+};
 export const MsgCreateTree = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
+        if (message.bearId !== 0) {
+            writer.uint32(16).uint64(message.bearId);
+        }
         if (message.placeId !== 0) {
-            writer.uint32(16).uint64(message.placeId);
+            writer.uint32(24).uint64(message.placeId);
         }
         if (message.groundId !== 0) {
-            writer.uint32(24).uint64(message.groundId);
+            writer.uint32(32).uint64(message.groundId);
         }
         return writer;
     },
@@ -609,9 +617,12 @@ export const MsgCreateTree = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.placeId = longToNumber(reader.uint64());
+                    message.bearId = longToNumber(reader.uint64());
                     break;
                 case 3:
+                    message.placeId = longToNumber(reader.uint64());
+                    break;
+                case 4:
                     message.groundId = longToNumber(reader.uint64());
                     break;
                 default:
@@ -628,6 +639,12 @@ export const MsgCreateTree = {
         }
         else {
             message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
         }
         if (object.placeId !== undefined && object.placeId !== null) {
             message.placeId = Number(object.placeId);
@@ -646,6 +663,7 @@ export const MsgCreateTree = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.bearId !== undefined && (obj.bearId = message.bearId);
         message.placeId !== undefined && (obj.placeId = message.placeId);
         message.groundId !== undefined && (obj.groundId = message.groundId);
         return obj;
@@ -657,6 +675,12 @@ export const MsgCreateTree = {
         }
         else {
             message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
         }
         if (object.placeId !== undefined && object.placeId !== null) {
             message.placeId = object.placeId;

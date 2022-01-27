@@ -4,6 +4,10 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
+export interface BearOwner {
+  id: number;
+}
+
 export interface Bears {
   id: number;
   owner: string;
@@ -14,6 +18,61 @@ export interface Bears {
   trees: number[];
   decorations: number[];
 }
+
+const baseBearOwner: object = { id: 0 };
+
+export const BearOwner = {
+  encode(message: BearOwner, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): BearOwner {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseBearOwner } as BearOwner;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BearOwner {
+    const message = { ...baseBearOwner } as BearOwner;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: BearOwner): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<BearOwner>): BearOwner {
+    const message = { ...baseBearOwner } as BearOwner;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
 
 const baseBears: object = {
   id: 0,

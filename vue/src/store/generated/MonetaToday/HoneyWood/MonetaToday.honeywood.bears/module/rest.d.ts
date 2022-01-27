@@ -20,6 +20,10 @@ export interface BearsBearNames {
     /** @format uint64 */
     bearId?: string;
 }
+export interface BearsBearOwner {
+    /** @format uint64 */
+    id?: string;
+}
 export interface BearsBears {
     /** @format uint64 */
     id?: string;
@@ -87,8 +91,7 @@ export interface BearsParams {
 export interface BearsPlaces {
     /** @format uint64 */
     id?: string;
-    /** @format uint64 */
-    bearId?: string;
+    bearOwner?: BearsBearOwner;
     placeType?: PlacesPlaceTypes;
     grounds?: BearsGrounds[];
     /** @format uint64 */

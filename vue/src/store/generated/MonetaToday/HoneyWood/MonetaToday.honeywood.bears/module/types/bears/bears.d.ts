@@ -1,5 +1,8 @@
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
+export interface BearOwner {
+    id: number;
+}
 export interface Bears {
     id: number;
     owner: string;
@@ -10,6 +13,13 @@ export interface Bears {
     trees: number[];
     decorations: number[];
 }
+export declare const BearOwner: {
+    encode(message: BearOwner, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): BearOwner;
+    fromJSON(object: any): BearOwner;
+    toJSON(message: BearOwner): unknown;
+    fromPartial(object: DeepPartial<BearOwner>): BearOwner;
+};
 export declare const Bears: {
     encode(message: Bears, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Bears;

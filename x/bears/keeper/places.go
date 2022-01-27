@@ -149,7 +149,11 @@ func (k Keeper) ExtendPlace(ctx sdk.Context, buyer string, placeId uint64) (*uin
 
 // GetBears returns a bears from its id
 func (k Keeper) HasRightsToPlace(ctx sdk.Context, address string, place types.Places) bool {
-	hasRights := k.HasRightsToBear(ctx, address, place.BearId)
+	if place.BearOwner == nil {
+		return true
+	}
+
+	hasRights := k.HasRightsToBear(ctx, address, place.BearOwner.Id)
 	if !hasRights {
 		return false
 	}

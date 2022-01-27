@@ -13249,9 +13249,12 @@ paths:
                     id:
                       type: string
                       format: uint64
-                    bearId:
-                      type: string
-                      format: uint64
+                    bearOwner:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uint64
                     placeType:
                       type: string
                       enum:
@@ -13398,9 +13401,12 @@ paths:
                   id:
                     type: string
                     format: uint64
-                  bearId:
-                    type: string
-                    format: uint64
+                  bearOwner:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uint64
                   placeType:
                     type: string
                     enum:
@@ -21003,6 +21009,12 @@ definitions:
       bearId:
         type: string
         format: uint64
+  MonetaToday.honeywood.bears.BearOwner:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   MonetaToday.honeywood.bears.Bears:
     type: object
     properties:
@@ -21186,9 +21198,12 @@ definitions:
       id:
         type: string
         format: uint64
-      bearId:
-        type: string
-        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
       placeType:
         type: string
         enum:
@@ -21374,9 +21389,12 @@ definitions:
             id:
               type: string
               format: uint64
-            bearId:
-              type: string
-              format: uint64
+            bearOwner:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uint64
             placeType:
               type: string
               enum:
@@ -21544,9 +21562,12 @@ definitions:
           id:
             type: string
             format: uint64
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           placeType:
             type: string
             enum:

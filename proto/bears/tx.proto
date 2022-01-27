@@ -62,8 +62,9 @@ message MsgInitGameAndCreateTreeResponse {
 
 message MsgCreateTree {
   string creator = 1;
-  uint64 placeId = 2;
-  uint64 groundId = 3;
+  uint64 bearId = 2;
+  uint64 placeId = 3;
+  uint64 groundId = 4;
 }
 
 message MsgCreateTreeResponse {
