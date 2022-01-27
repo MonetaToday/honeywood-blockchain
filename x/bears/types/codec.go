@@ -14,6 +14,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgExtendPlace{}, "bears/ExtendPlace", nil)
 	cdc.RegisterConcrete(&MsgInitGameAndCreateTree{}, "bears/InitGameAndCreateTree", nil)
 	cdc.RegisterConcrete(&MsgCreateTree{}, "bears/CreateTree", nil)
+	cdc.RegisterConcrete(&MsgMoveItemOnPlace{}, "bears/MoveItemOnPlace", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -35,6 +36,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateTree{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgMoveItemOnPlace{},
 	)
 	// this line is used by starport scaffolding # 3
 

@@ -49,6 +49,7 @@ export interface BearsMsgInitGameAndExtendPlaceResponse {
     countGrounds?: string;
 }
 export declare type BearsMsgInitGameAndSetNameResponse = object;
+export declare type BearsMsgMoveItemOnPlaceResponse = object;
 export declare type BearsMsgSetNameResponse = object;
 /**
  * Params defines the parameters for the module.

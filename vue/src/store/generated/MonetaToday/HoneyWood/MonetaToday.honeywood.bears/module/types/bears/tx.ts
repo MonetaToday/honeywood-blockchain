@@ -55,6 +55,15 @@ export interface MsgCreateTreeResponse {
   tree: Trees | undefined;
 }
 
+export interface MsgMoveItemOnPlace {
+  creator: string;
+  placeId: number;
+  groundId: number;
+  newGroundId: number;
+}
+
+export interface MsgMoveItemOnPlaceResponse {}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -872,6 +881,173 @@ export const MsgCreateTreeResponse = {
   },
 };
 
+const baseMsgMoveItemOnPlace: object = {
+  creator: "",
+  placeId: 0,
+  groundId: 0,
+  newGroundId: 0,
+};
+
+export const MsgMoveItemOnPlace = {
+  encode(
+    message: MsgMoveItemOnPlace,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.placeId !== 0) {
+      writer.uint32(16).uint64(message.placeId);
+    }
+    if (message.groundId !== 0) {
+      writer.uint32(24).uint64(message.groundId);
+    }
+    if (message.newGroundId !== 0) {
+      writer.uint32(32).uint64(message.newGroundId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgMoveItemOnPlace {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgMoveItemOnPlace } as MsgMoveItemOnPlace;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.placeId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.groundId = longToNumber(reader.uint64() as Long);
+          break;
+        case 4:
+          message.newGroundId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMoveItemOnPlace {
+    const message = { ...baseMsgMoveItemOnPlace } as MsgMoveItemOnPlace;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.placeId !== undefined && object.placeId !== null) {
+      message.placeId = Number(object.placeId);
+    } else {
+      message.placeId = 0;
+    }
+    if (object.groundId !== undefined && object.groundId !== null) {
+      message.groundId = Number(object.groundId);
+    } else {
+      message.groundId = 0;
+    }
+    if (object.newGroundId !== undefined && object.newGroundId !== null) {
+      message.newGroundId = Number(object.newGroundId);
+    } else {
+      message.newGroundId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgMoveItemOnPlace): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.placeId !== undefined && (obj.placeId = message.placeId);
+    message.groundId !== undefined && (obj.groundId = message.groundId);
+    message.newGroundId !== undefined &&
+      (obj.newGroundId = message.newGroundId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgMoveItemOnPlace>): MsgMoveItemOnPlace {
+    const message = { ...baseMsgMoveItemOnPlace } as MsgMoveItemOnPlace;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.placeId !== undefined && object.placeId !== null) {
+      message.placeId = object.placeId;
+    } else {
+      message.placeId = 0;
+    }
+    if (object.groundId !== undefined && object.groundId !== null) {
+      message.groundId = object.groundId;
+    } else {
+      message.groundId = 0;
+    }
+    if (object.newGroundId !== undefined && object.newGroundId !== null) {
+      message.newGroundId = object.newGroundId;
+    } else {
+      message.newGroundId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgMoveItemOnPlaceResponse: object = {};
+
+export const MsgMoveItemOnPlaceResponse = {
+  encode(
+    _: MsgMoveItemOnPlaceResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgMoveItemOnPlaceResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgMoveItemOnPlaceResponse,
+    } as MsgMoveItemOnPlaceResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgMoveItemOnPlaceResponse {
+    const message = {
+      ...baseMsgMoveItemOnPlaceResponse,
+    } as MsgMoveItemOnPlaceResponse;
+    return message;
+  },
+
+  toJSON(_: MsgMoveItemOnPlaceResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgMoveItemOnPlaceResponse>
+  ): MsgMoveItemOnPlaceResponse {
+    const message = {
+      ...baseMsgMoveItemOnPlaceResponse,
+    } as MsgMoveItemOnPlaceResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -885,8 +1061,11 @@ export interface Msg {
   InitGameAndCreateTree(
     request: MsgInitGameAndCreateTree
   ): Promise<MsgInitGameAndCreateTreeResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  MoveItemOnPlace(
+    request: MsgMoveItemOnPlace
+  ): Promise<MsgMoveItemOnPlaceResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -967,6 +1146,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateTreeResponse.decode(new Reader(data))
+    );
+  }
+
+  MoveItemOnPlace(
+    request: MsgMoveItemOnPlace
+  ): Promise<MsgMoveItemOnPlaceResponse> {
+    const data = MsgMoveItemOnPlace.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "MoveItemOnPlace",
+      data
+    );
+    return promise.then((data) =>
+      MsgMoveItemOnPlaceResponse.decode(new Reader(data))
     );
   }
 }

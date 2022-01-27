@@ -73,6 +73,8 @@ export interface BearsMsgInitGameAndExtendPlaceResponse {
 
 export type BearsMsgInitGameAndSetNameResponse = object;
 
+export type BearsMsgMoveItemOnPlaceResponse = object;
+
 export type BearsMsgSetNameResponse = object;
 
 /**

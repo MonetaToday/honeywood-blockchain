@@ -14,6 +14,7 @@ service Msg {
   rpc ExtendPlace(MsgExtendPlace) returns (MsgExtendPlaceResponse);
   rpc InitGameAndCreateTree(MsgInitGameAndCreateTree) returns (MsgInitGameAndCreateTreeResponse);
   rpc CreateTree(MsgCreateTree) returns (MsgCreateTreeResponse);
+  rpc MoveItemOnPlace(MsgMoveItemOnPlace) returns (MsgMoveItemOnPlaceResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -67,6 +68,16 @@ message MsgCreateTree {
 
 message MsgCreateTreeResponse {
   Trees tree = 1;
+}
+
+message MsgMoveItemOnPlace {
+  string creator = 1;
+  uint64 placeId = 2;
+  uint64 groundId = 3;
+  uint64 newGroundId = 4;
+}
+
+message MsgMoveItemOnPlaceResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

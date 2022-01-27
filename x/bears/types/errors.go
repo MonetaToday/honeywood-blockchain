@@ -16,4 +16,7 @@ var (
 	ErrPlaceIsNotExisted        = sdkerrors.Register(ModuleName, 7, "Place is not existed yet")
 	ErrPlaceHasNoGroundId       = sdkerrors.Register(ModuleName, 8, "There is no groundId in this place")
 	ErrGroundIsNotEmpty         = sdkerrors.Register(ModuleName, 9, "There is already something on the ground")
+	ErrItemIsNotExistedOnGround = sdkerrors.Register(ModuleName, 10, "Item is not existed on the ground")
+	ErrItemTypeIsNotDefined     = sdkerrors.Register(ModuleName, 11, "Item Type is not defined")
+	ErrTreeIsNotExister         = sdkerrors.Register(ModuleName, 12, "Tree is not existed")
 )
