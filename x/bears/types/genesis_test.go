@@ -3,11 +3,15 @@ package types_test
 import (
 	"testing"
 
+	"github.com/MonetaToday/HoneyWood/testutil/sample"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
+	addr1 := sample.AccAddress()
+	addr2 := sample.AccAddress()
+
 	for _, tc := range []struct {
 		desc     string
 		genState *types.GenesisState
@@ -16,52 +20,109 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc:     "default is valid",
 			genState: types.DefaultGenesis(),
-			valid:    false,
+			valid:    true,
 		},
 		{
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
-
+				Params: types.DefaultParams(),
 				BearNamesList: []types.BearNames{
 					{
-						Name: "0",
+						Name: "Name 1",
+						BearId: 0,
 					},
 					{
-						Name: "1",
+						Name: "Name 2",
+						BearId: 1,
 					},
 				},
 				BearsList: []types.Bears{
 					{
 						Id: 0,
+						Owner: addr1,
+						Name: "Name 1",
+						Fields: []uint64{},
+						Apiaries: []uint64{},
+						Bees: []uint64{},
+						Trees: []uint64{},
+						Decorations: []uint64{},
 					},
 					{
 						Id: 1,
+						Owner: addr2,
+						Name: "Name 2",
+						Fields: []uint64{},
+						Apiaries: []uint64{},
+						Bees: []uint64{},
+						Trees: []uint64{},
+						Decorations: []uint64{},
 					},
 				},
 				BearsCount: 2,
 				AddressBearsList: []types.AddressBears{
 					{
-						Address: "0",
+						Address: addr1,
+						Bears: []uint64{
+							0,
+						},
 					},
 					{
-						Address: "1",
+						Address: addr2,
+						Bears: []uint64{
+							1,
+						},
 					},
 				},
 				FieldsList: []types.Fields{
 					{
 						Id: 0,
+						BearOwner: &types.BearOwner{
+							Id: 0,
+						},
+						FieldType: types.Fields_DEFAULT,
+						Tiles: []types.Tiles{
+							{
+								Item: &types.Tiles_Items{
+									ItemId: 0,
+									ItemType: types.Tiles_Items_TREE,
+								},
+							},
+						},
+						CountTiles: 1,
 					},
 					{
 						Id: 1,
+						BearOwner: &types.BearOwner{
+							Id: 1,
+						},
+						FieldType: types.Fields_DEFAULT,
+						Tiles: []types.Tiles{
+							{},
+							{},
+							{},
+							{
+								Item: &types.Tiles_Items{
+									ItemId: 1,
+									ItemType: types.Tiles_Items_TREE,
+								},
+							},
+						},
+						CountTiles: 4,
 					},
 				},
 				FieldsCount: 2,
 				TreesList: []types.Trees{
 					{
 						Id: 0,
+						BearId: 0,
+						FieldId: 0,
+						TileId: 0,
 					},
 					{
 						Id: 1,
+						BearId: 1,
+						FieldId: 1,
+						TileId: 1,
 					},
 				},
 				TreesCount: 2,
@@ -72,6 +133,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated bearNames",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				BearNamesList: []types.BearNames{
 					{
 						Name: "0",
@@ -84,8 +146,59 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: false,
 		},
 		{
+			desc: "empty bearName for existing bear",
+			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
+				BearsList: []types.Bears{
+					{
+						Id: 0,
+						Owner: addr1,
+						Name: "Name 1",
+						Fields: []uint64{},
+						Apiaries: []uint64{},
+						Bees: []uint64{},
+						Trees: []uint64{},
+						Decorations: []uint64{},
+					},
+				},
+				BearsCount: 1,
+				BearNamesList: []types.BearNames{},
+			},
+			valid: false,
+		},
+		{
+			desc: "count names are not equal to count bears",
+			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
+				BearsList: []types.Bears{
+					{
+						Id: 0,
+						Owner: addr1,
+						Name: "Name 1",
+						Fields: []uint64{},
+						Apiaries: []uint64{},
+						Bees: []uint64{},
+						Trees: []uint64{},
+						Decorations: []uint64{},
+					},
+				},
+				BearsCount: 1,
+				BearNamesList: []types.BearNames{
+					{
+						Name: "Name 1",
+						BearId: 0,
+					},
+					{
+						Name: "1",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
 			desc: "duplicated bears",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				BearsList: []types.Bears{
 					{
 						Id: 0,
@@ -100,6 +213,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "invalid bears count",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				BearsList: []types.Bears{
 					{
 						Id: 1,
@@ -112,6 +226,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated addressBears",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				AddressBearsList: []types.AddressBears{
 					{
 						Address: "0",
@@ -126,6 +241,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated fields",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				FieldsList: []types.Fields{
 					{
 						Id: 0,
@@ -140,6 +256,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "invalid fields count",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				FieldsList: []types.Fields{
 					{
 						Id: 1,
@@ -152,6 +269,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated trees",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				TreesList: []types.Trees{
 					{
 						Id: 0,
@@ -166,6 +284,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "invalid trees count",
 			genState: &types.GenesisState{
+				Params: types.DefaultParams(),
 				TreesList: []types.Trees{
 					{
 						Id: 1,

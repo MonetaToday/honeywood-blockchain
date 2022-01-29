@@ -24,18 +24,25 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated index in bearNames
-	bearNamesIndexMap := make(map[string]struct{})
+	bearNamesIndexMap := make(map[string]BearNames)
 
+	countNames := uint64(0)
 	for _, elem := range gs.BearNamesList {
 		index := string(BearNamesKey(elem.Name))
 		if _, ok := bearNamesIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for bearNames")
 		}
-		bearNamesIndexMap[index] = struct{}{}
+		bearNamesIndexMap[index] = BearNames{
+			BearId: elem.BearId,
+		}
+		countNames++
 	}
 	// Check for duplicated ID in bears
 	bearsIdMap := make(map[uint64]bool)
 	bearsCount := gs.GetBearsCount()
+	if countNames != bearsCount {
+		return fmt.Errorf("count bears is not equal count names")
+	}
 	for _, elem := range gs.BearsList {
 		if _, ok := bearsIdMap[elem.Id]; ok {
 			return fmt.Errorf("duplicated id for bears")
@@ -43,6 +50,10 @@ func (gs GenesisState) Validate() error {
 		if elem.Id >= bearsCount {
 			return fmt.Errorf("bears id should be lower or equal than the last id")
 		}
+		if name, ok := bearNamesIndexMap[string(BearNamesKey(elem.Name))]; !ok || name.BearId != elem.Id {
+			return fmt.Errorf("name for bear %d is not existed", elem.Id)
+		}
+		
 		bearsIdMap[elem.Id] = true
 	}
 	// Check for duplicated index in addressBears
