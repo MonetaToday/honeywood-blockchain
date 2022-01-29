@@ -4,7 +4,7 @@ import { BearNames } from "../bears/bear_names";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
-import { Places } from "../bears/places";
+import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
@@ -54,17 +54,17 @@ export interface QueryAllAddressBearsResponse {
     addressBears: AddressBears[];
     pagination: PageResponse | undefined;
 }
-export interface QueryGetPlacesRequest {
+export interface QueryGetFieldsRequest {
     id: number;
 }
-export interface QueryGetPlacesResponse {
-    Places: Places | undefined;
+export interface QueryGetFieldsResponse {
+    Fields: Fields | undefined;
 }
-export interface QueryAllPlacesRequest {
+export interface QueryAllFieldsRequest {
     pagination: PageRequest | undefined;
 }
-export interface QueryAllPlacesResponse {
-    Places: Places[];
+export interface QueryAllFieldsResponse {
+    Fields: Fields[];
     pagination: PageResponse | undefined;
 }
 export interface QueryGetTreesRequest {
@@ -178,33 +178,33 @@ export declare const QueryAllAddressBearsResponse: {
     toJSON(message: QueryAllAddressBearsResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllAddressBearsResponse>): QueryAllAddressBearsResponse;
 };
-export declare const QueryGetPlacesRequest: {
-    encode(message: QueryGetPlacesRequest, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesRequest;
-    fromJSON(object: any): QueryGetPlacesRequest;
-    toJSON(message: QueryGetPlacesRequest): unknown;
-    fromPartial(object: DeepPartial<QueryGetPlacesRequest>): QueryGetPlacesRequest;
+export declare const QueryGetFieldsRequest: {
+    encode(message: QueryGetFieldsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetFieldsRequest;
+    fromJSON(object: any): QueryGetFieldsRequest;
+    toJSON(message: QueryGetFieldsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetFieldsRequest>): QueryGetFieldsRequest;
 };
-export declare const QueryGetPlacesResponse: {
-    encode(message: QueryGetPlacesResponse, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesResponse;
-    fromJSON(object: any): QueryGetPlacesResponse;
-    toJSON(message: QueryGetPlacesResponse): unknown;
-    fromPartial(object: DeepPartial<QueryGetPlacesResponse>): QueryGetPlacesResponse;
+export declare const QueryGetFieldsResponse: {
+    encode(message: QueryGetFieldsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetFieldsResponse;
+    fromJSON(object: any): QueryGetFieldsResponse;
+    toJSON(message: QueryGetFieldsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetFieldsResponse>): QueryGetFieldsResponse;
 };
-export declare const QueryAllPlacesRequest: {
-    encode(message: QueryAllPlacesRequest, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesRequest;
-    fromJSON(object: any): QueryAllPlacesRequest;
-    toJSON(message: QueryAllPlacesRequest): unknown;
-    fromPartial(object: DeepPartial<QueryAllPlacesRequest>): QueryAllPlacesRequest;
+export declare const QueryAllFieldsRequest: {
+    encode(message: QueryAllFieldsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllFieldsRequest;
+    fromJSON(object: any): QueryAllFieldsRequest;
+    toJSON(message: QueryAllFieldsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllFieldsRequest>): QueryAllFieldsRequest;
 };
-export declare const QueryAllPlacesResponse: {
-    encode(message: QueryAllPlacesResponse, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesResponse;
-    fromJSON(object: any): QueryAllPlacesResponse;
-    toJSON(message: QueryAllPlacesResponse): unknown;
-    fromPartial(object: DeepPartial<QueryAllPlacesResponse>): QueryAllPlacesResponse;
+export declare const QueryAllFieldsResponse: {
+    encode(message: QueryAllFieldsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllFieldsResponse;
+    fromJSON(object: any): QueryAllFieldsResponse;
+    toJSON(message: QueryAllFieldsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllFieldsResponse>): QueryAllFieldsResponse;
 };
 export declare const QueryGetTreesRequest: {
     encode(message: QueryGetTreesRequest, writer?: Writer): Writer;
@@ -250,10 +250,10 @@ export interface Query {
     AddressBears(request: QueryGetAddressBearsRequest): Promise<QueryGetAddressBearsResponse>;
     /** Queries a list of AddressBears items. */
     AddressBearsAll(request: QueryAllAddressBearsRequest): Promise<QueryAllAddressBearsResponse>;
-    /** Queries a Places by id. */
-    Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
-    /** Queries a list of Places items. */
-    PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+    /** Queries a Fields by id. */
+    Fields(request: QueryGetFieldsRequest): Promise<QueryGetFieldsResponse>;
+    /** Queries a list of Fields items. */
+    FieldsAll(request: QueryAllFieldsRequest): Promise<QueryAllFieldsResponse>;
     /** Queries a Trees by id. */
     Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
     /** Queries a list of Trees items. */
@@ -269,8 +269,8 @@ export declare class QueryClientImpl implements Query {
     BearsAll(request: QueryAllBearsRequest): Promise<QueryAllBearsResponse>;
     AddressBears(request: QueryGetAddressBearsRequest): Promise<QueryGetAddressBearsResponse>;
     AddressBearsAll(request: QueryAllAddressBearsRequest): Promise<QueryAllAddressBearsResponse>;
-    Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
-    PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+    Fields(request: QueryGetFieldsRequest): Promise<QueryGetFieldsResponse>;
+    FieldsAll(request: QueryAllFieldsRequest): Promise<QueryAllFieldsResponse>;
     Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
     TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
 }

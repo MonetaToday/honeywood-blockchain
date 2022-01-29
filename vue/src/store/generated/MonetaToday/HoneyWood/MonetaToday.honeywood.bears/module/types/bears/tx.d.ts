@@ -14,17 +14,17 @@ export interface MsgSetName {
 }
 export interface MsgSetNameResponse {
 }
-export interface MsgInitGameAndExtendPlace {
+export interface MsgInitGameAndExtendField {
     creator: string;
 }
-export interface MsgInitGameAndExtendPlaceResponse {
+export interface MsgInitGameAndExtendFieldResponse {
     countGrounds: number;
 }
-export interface MsgExtendPlace {
+export interface MsgExtendField {
     creator: string;
     id: number;
 }
-export interface MsgExtendPlaceResponse {
+export interface MsgExtendFieldResponse {
     countGrounds: number;
 }
 export interface MsgInitGameAndCreateTree {
@@ -36,19 +36,19 @@ export interface MsgInitGameAndCreateTreeResponse {
 export interface MsgCreateTree {
     creator: string;
     bearId: number;
-    placeId: number;
+    fieldId: number;
     groundId: number;
 }
 export interface MsgCreateTreeResponse {
     tree: Trees | undefined;
 }
-export interface MsgMoveItemOnPlace {
+export interface MsgMoveItemOnField {
     creator: string;
-    placeId: number;
+    fieldId: number;
     groundId: number;
     newGroundId: number;
 }
-export interface MsgMoveItemOnPlaceResponse {
+export interface MsgMoveItemOnFieldResponse {
 }
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
@@ -78,33 +78,33 @@ export declare const MsgSetNameResponse: {
     toJSON(_: MsgSetNameResponse): unknown;
     fromPartial(_: DeepPartial<MsgSetNameResponse>): MsgSetNameResponse;
 };
-export declare const MsgInitGameAndExtendPlace: {
-    encode(message: MsgInitGameAndExtendPlace, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtendPlace;
-    fromJSON(object: any): MsgInitGameAndExtendPlace;
-    toJSON(message: MsgInitGameAndExtendPlace): unknown;
-    fromPartial(object: DeepPartial<MsgInitGameAndExtendPlace>): MsgInitGameAndExtendPlace;
+export declare const MsgInitGameAndExtendField: {
+    encode(message: MsgInitGameAndExtendField, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtendField;
+    fromJSON(object: any): MsgInitGameAndExtendField;
+    toJSON(message: MsgInitGameAndExtendField): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndExtendField>): MsgInitGameAndExtendField;
 };
-export declare const MsgInitGameAndExtendPlaceResponse: {
-    encode(message: MsgInitGameAndExtendPlaceResponse, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtendPlaceResponse;
-    fromJSON(object: any): MsgInitGameAndExtendPlaceResponse;
-    toJSON(message: MsgInitGameAndExtendPlaceResponse): unknown;
-    fromPartial(object: DeepPartial<MsgInitGameAndExtendPlaceResponse>): MsgInitGameAndExtendPlaceResponse;
+export declare const MsgInitGameAndExtendFieldResponse: {
+    encode(message: MsgInitGameAndExtendFieldResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndExtendFieldResponse;
+    fromJSON(object: any): MsgInitGameAndExtendFieldResponse;
+    toJSON(message: MsgInitGameAndExtendFieldResponse): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndExtendFieldResponse>): MsgInitGameAndExtendFieldResponse;
 };
-export declare const MsgExtendPlace: {
-    encode(message: MsgExtendPlace, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgExtendPlace;
-    fromJSON(object: any): MsgExtendPlace;
-    toJSON(message: MsgExtendPlace): unknown;
-    fromPartial(object: DeepPartial<MsgExtendPlace>): MsgExtendPlace;
+export declare const MsgExtendField: {
+    encode(message: MsgExtendField, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgExtendField;
+    fromJSON(object: any): MsgExtendField;
+    toJSON(message: MsgExtendField): unknown;
+    fromPartial(object: DeepPartial<MsgExtendField>): MsgExtendField;
 };
-export declare const MsgExtendPlaceResponse: {
-    encode(message: MsgExtendPlaceResponse, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgExtendPlaceResponse;
-    fromJSON(object: any): MsgExtendPlaceResponse;
-    toJSON(message: MsgExtendPlaceResponse): unknown;
-    fromPartial(object: DeepPartial<MsgExtendPlaceResponse>): MsgExtendPlaceResponse;
+export declare const MsgExtendFieldResponse: {
+    encode(message: MsgExtendFieldResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgExtendFieldResponse;
+    fromJSON(object: any): MsgExtendFieldResponse;
+    toJSON(message: MsgExtendFieldResponse): unknown;
+    fromPartial(object: DeepPartial<MsgExtendFieldResponse>): MsgExtendFieldResponse;
 };
 export declare const MsgInitGameAndCreateTree: {
     encode(message: MsgInitGameAndCreateTree, writer?: Writer): Writer;
@@ -134,41 +134,41 @@ export declare const MsgCreateTreeResponse: {
     toJSON(message: MsgCreateTreeResponse): unknown;
     fromPartial(object: DeepPartial<MsgCreateTreeResponse>): MsgCreateTreeResponse;
 };
-export declare const MsgMoveItemOnPlace: {
-    encode(message: MsgMoveItemOnPlace, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgMoveItemOnPlace;
-    fromJSON(object: any): MsgMoveItemOnPlace;
-    toJSON(message: MsgMoveItemOnPlace): unknown;
-    fromPartial(object: DeepPartial<MsgMoveItemOnPlace>): MsgMoveItemOnPlace;
+export declare const MsgMoveItemOnField: {
+    encode(message: MsgMoveItemOnField, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgMoveItemOnField;
+    fromJSON(object: any): MsgMoveItemOnField;
+    toJSON(message: MsgMoveItemOnField): unknown;
+    fromPartial(object: DeepPartial<MsgMoveItemOnField>): MsgMoveItemOnField;
 };
-export declare const MsgMoveItemOnPlaceResponse: {
-    encode(_: MsgMoveItemOnPlaceResponse, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): MsgMoveItemOnPlaceResponse;
-    fromJSON(_: any): MsgMoveItemOnPlaceResponse;
-    toJSON(_: MsgMoveItemOnPlaceResponse): unknown;
-    fromPartial(_: DeepPartial<MsgMoveItemOnPlaceResponse>): MsgMoveItemOnPlaceResponse;
+export declare const MsgMoveItemOnFieldResponse: {
+    encode(_: MsgMoveItemOnFieldResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgMoveItemOnFieldResponse;
+    fromJSON(_: any): MsgMoveItemOnFieldResponse;
+    toJSON(_: MsgMoveItemOnFieldResponse): unknown;
+    fromPartial(_: DeepPartial<MsgMoveItemOnFieldResponse>): MsgMoveItemOnFieldResponse;
 };
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
-    InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
-    ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
+    InitGameAndExtendField(request: MsgInitGameAndExtendField): Promise<MsgInitGameAndExtendFieldResponse>;
+    ExtendField(request: MsgExtendField): Promise<MsgExtendFieldResponse>;
     InitGameAndCreateTree(request: MsgInitGameAndCreateTree): Promise<MsgInitGameAndCreateTreeResponse>;
     CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
     /** this line is used by starport scaffolding # proto/tx/rpc */
-    MoveItemOnPlace(request: MsgMoveItemOnPlace): Promise<MsgMoveItemOnPlaceResponse>;
+    MoveItemOnField(request: MsgMoveItemOnField): Promise<MsgMoveItemOnFieldResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
     SetName(request: MsgSetName): Promise<MsgSetNameResponse>;
-    InitGameAndExtendPlace(request: MsgInitGameAndExtendPlace): Promise<MsgInitGameAndExtendPlaceResponse>;
-    ExtendPlace(request: MsgExtendPlace): Promise<MsgExtendPlaceResponse>;
+    InitGameAndExtendField(request: MsgInitGameAndExtendField): Promise<MsgInitGameAndExtendFieldResponse>;
+    ExtendField(request: MsgExtendField): Promise<MsgExtendFieldResponse>;
     InitGameAndCreateTree(request: MsgInitGameAndCreateTree): Promise<MsgInitGameAndCreateTreeResponse>;
     CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
-    MoveItemOnPlace(request: MsgMoveItemOnPlace): Promise<MsgMoveItemOnPlaceResponse>;
+    MoveItemOnField(request: MsgMoveItemOnField): Promise<MsgMoveItemOnFieldResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

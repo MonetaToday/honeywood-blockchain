@@ -232,8 +232,8 @@ export const MsgSetNameResponse = {
         return message;
     },
 };
-const baseMsgInitGameAndExtendPlace = { creator: "" };
-export const MsgInitGameAndExtendPlace = {
+const baseMsgInitGameAndExtendField = { creator: "" };
+export const MsgInitGameAndExtendField = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
@@ -244,7 +244,7 @@ export const MsgInitGameAndExtendPlace = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgInitGameAndExtendPlace,
+            ...baseMsgInitGameAndExtendField,
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -261,7 +261,7 @@ export const MsgInitGameAndExtendPlace = {
     },
     fromJSON(object) {
         const message = {
-            ...baseMsgInitGameAndExtendPlace,
+            ...baseMsgInitGameAndExtendField,
         };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
@@ -278,7 +278,7 @@ export const MsgInitGameAndExtendPlace = {
     },
     fromPartial(object) {
         const message = {
-            ...baseMsgInitGameAndExtendPlace,
+            ...baseMsgInitGameAndExtendField,
         };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
@@ -289,8 +289,8 @@ export const MsgInitGameAndExtendPlace = {
         return message;
     },
 };
-const baseMsgInitGameAndExtendPlaceResponse = { countGrounds: 0 };
-export const MsgInitGameAndExtendPlaceResponse = {
+const baseMsgInitGameAndExtendFieldResponse = { countGrounds: 0 };
+export const MsgInitGameAndExtendFieldResponse = {
     encode(message, writer = Writer.create()) {
         if (message.countGrounds !== 0) {
             writer.uint32(8).uint64(message.countGrounds);
@@ -301,7 +301,7 @@ export const MsgInitGameAndExtendPlaceResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgInitGameAndExtendPlaceResponse,
+            ...baseMsgInitGameAndExtendFieldResponse,
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -318,7 +318,7 @@ export const MsgInitGameAndExtendPlaceResponse = {
     },
     fromJSON(object) {
         const message = {
-            ...baseMsgInitGameAndExtendPlaceResponse,
+            ...baseMsgInitGameAndExtendFieldResponse,
         };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = Number(object.countGrounds);
@@ -336,7 +336,7 @@ export const MsgInitGameAndExtendPlaceResponse = {
     },
     fromPartial(object) {
         const message = {
-            ...baseMsgInitGameAndExtendPlaceResponse,
+            ...baseMsgInitGameAndExtendFieldResponse,
         };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = object.countGrounds;
@@ -347,8 +347,8 @@ export const MsgInitGameAndExtendPlaceResponse = {
         return message;
     },
 };
-const baseMsgExtendPlace = { creator: "", id: 0 };
-export const MsgExtendPlace = {
+const baseMsgExtendField = { creator: "", id: 0 };
+export const MsgExtendField = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
@@ -361,7 +361,7 @@ export const MsgExtendPlace = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgExtendPlace };
+        const message = { ...baseMsgExtendField };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -379,7 +379,7 @@ export const MsgExtendPlace = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgExtendPlace };
+        const message = { ...baseMsgExtendField };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
@@ -401,7 +401,7 @@ export const MsgExtendPlace = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgExtendPlace };
+        const message = { ...baseMsgExtendField };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
@@ -417,8 +417,8 @@ export const MsgExtendPlace = {
         return message;
     },
 };
-const baseMsgExtendPlaceResponse = { countGrounds: 0 };
-export const MsgExtendPlaceResponse = {
+const baseMsgExtendFieldResponse = { countGrounds: 0 };
+export const MsgExtendFieldResponse = {
     encode(message, writer = Writer.create()) {
         if (message.countGrounds !== 0) {
             writer.uint32(8).uint64(message.countGrounds);
@@ -428,7 +428,7 @@ export const MsgExtendPlaceResponse = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgExtendPlaceResponse };
+        const message = { ...baseMsgExtendFieldResponse };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -443,7 +443,7 @@ export const MsgExtendPlaceResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgExtendPlaceResponse };
+        const message = { ...baseMsgExtendFieldResponse };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = Number(object.countGrounds);
         }
@@ -459,7 +459,7 @@ export const MsgExtendPlaceResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgExtendPlaceResponse };
+        const message = { ...baseMsgExtendFieldResponse };
         if (object.countGrounds !== undefined && object.countGrounds !== null) {
             message.countGrounds = object.countGrounds;
         }
@@ -587,7 +587,7 @@ export const MsgInitGameAndCreateTreeResponse = {
 const baseMsgCreateTree = {
     creator: "",
     bearId: 0,
-    placeId: 0,
+    fieldId: 0,
     groundId: 0,
 };
 export const MsgCreateTree = {
@@ -598,8 +598,8 @@ export const MsgCreateTree = {
         if (message.bearId !== 0) {
             writer.uint32(16).uint64(message.bearId);
         }
-        if (message.placeId !== 0) {
-            writer.uint32(24).uint64(message.placeId);
+        if (message.fieldId !== 0) {
+            writer.uint32(24).uint64(message.fieldId);
         }
         if (message.groundId !== 0) {
             writer.uint32(32).uint64(message.groundId);
@@ -620,7 +620,7 @@ export const MsgCreateTree = {
                     message.bearId = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.placeId = longToNumber(reader.uint64());
+                    message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 4:
                     message.groundId = longToNumber(reader.uint64());
@@ -646,11 +646,11 @@ export const MsgCreateTree = {
         else {
             message.bearId = 0;
         }
-        if (object.placeId !== undefined && object.placeId !== null) {
-            message.placeId = Number(object.placeId);
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = Number(object.fieldId);
         }
         else {
-            message.placeId = 0;
+            message.fieldId = 0;
         }
         if (object.groundId !== undefined && object.groundId !== null) {
             message.groundId = Number(object.groundId);
@@ -664,7 +664,7 @@ export const MsgCreateTree = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.bearId !== undefined && (obj.bearId = message.bearId);
-        message.placeId !== undefined && (obj.placeId = message.placeId);
+        message.fieldId !== undefined && (obj.fieldId = message.fieldId);
         message.groundId !== undefined && (obj.groundId = message.groundId);
         return obj;
     },
@@ -682,11 +682,11 @@ export const MsgCreateTree = {
         else {
             message.bearId = 0;
         }
-        if (object.placeId !== undefined && object.placeId !== null) {
-            message.placeId = object.placeId;
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = object.fieldId;
         }
         else {
-            message.placeId = 0;
+            message.fieldId = 0;
         }
         if (object.groundId !== undefined && object.groundId !== null) {
             message.groundId = object.groundId;
@@ -749,19 +749,19 @@ export const MsgCreateTreeResponse = {
         return message;
     },
 };
-const baseMsgMoveItemOnPlace = {
+const baseMsgMoveItemOnField = {
     creator: "",
-    placeId: 0,
+    fieldId: 0,
     groundId: 0,
     newGroundId: 0,
 };
-export const MsgMoveItemOnPlace = {
+export const MsgMoveItemOnField = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
-        if (message.placeId !== 0) {
-            writer.uint32(16).uint64(message.placeId);
+        if (message.fieldId !== 0) {
+            writer.uint32(16).uint64(message.fieldId);
         }
         if (message.groundId !== 0) {
             writer.uint32(24).uint64(message.groundId);
@@ -774,7 +774,7 @@ export const MsgMoveItemOnPlace = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgMoveItemOnPlace };
+        const message = { ...baseMsgMoveItemOnField };
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -782,7 +782,7 @@ export const MsgMoveItemOnPlace = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.placeId = longToNumber(reader.uint64());
+                    message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 3:
                     message.groundId = longToNumber(reader.uint64());
@@ -798,18 +798,18 @@ export const MsgMoveItemOnPlace = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgMoveItemOnPlace };
+        const message = { ...baseMsgMoveItemOnField };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
         else {
             message.creator = "";
         }
-        if (object.placeId !== undefined && object.placeId !== null) {
-            message.placeId = Number(object.placeId);
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = Number(object.fieldId);
         }
         else {
-            message.placeId = 0;
+            message.fieldId = 0;
         }
         if (object.groundId !== undefined && object.groundId !== null) {
             message.groundId = Number(object.groundId);
@@ -828,25 +828,25 @@ export const MsgMoveItemOnPlace = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
-        message.placeId !== undefined && (obj.placeId = message.placeId);
+        message.fieldId !== undefined && (obj.fieldId = message.fieldId);
         message.groundId !== undefined && (obj.groundId = message.groundId);
         message.newGroundId !== undefined &&
             (obj.newGroundId = message.newGroundId);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgMoveItemOnPlace };
+        const message = { ...baseMsgMoveItemOnField };
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
         else {
             message.creator = "";
         }
-        if (object.placeId !== undefined && object.placeId !== null) {
-            message.placeId = object.placeId;
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = object.fieldId;
         }
         else {
-            message.placeId = 0;
+            message.fieldId = 0;
         }
         if (object.groundId !== undefined && object.groundId !== null) {
             message.groundId = object.groundId;
@@ -863,8 +863,8 @@ export const MsgMoveItemOnPlace = {
         return message;
     },
 };
-const baseMsgMoveItemOnPlaceResponse = {};
-export const MsgMoveItemOnPlaceResponse = {
+const baseMsgMoveItemOnFieldResponse = {};
+export const MsgMoveItemOnFieldResponse = {
     encode(_, writer = Writer.create()) {
         return writer;
     },
@@ -872,7 +872,7 @@ export const MsgMoveItemOnPlaceResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = {
-            ...baseMsgMoveItemOnPlaceResponse,
+            ...baseMsgMoveItemOnFieldResponse,
         };
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -886,7 +886,7 @@ export const MsgMoveItemOnPlaceResponse = {
     },
     fromJSON(_) {
         const message = {
-            ...baseMsgMoveItemOnPlaceResponse,
+            ...baseMsgMoveItemOnFieldResponse,
         };
         return message;
     },
@@ -896,7 +896,7 @@ export const MsgMoveItemOnPlaceResponse = {
     },
     fromPartial(_) {
         const message = {
-            ...baseMsgMoveItemOnPlaceResponse,
+            ...baseMsgMoveItemOnFieldResponse,
         };
         return message;
     },
@@ -915,15 +915,15 @@ export class MsgClientImpl {
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "SetName", data);
         return promise.then((data) => MsgSetNameResponse.decode(new Reader(data)));
     }
-    InitGameAndExtendPlace(request) {
-        const data = MsgInitGameAndExtendPlace.encode(request).finish();
-        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtendPlace", data);
-        return promise.then((data) => MsgInitGameAndExtendPlaceResponse.decode(new Reader(data)));
+    InitGameAndExtendField(request) {
+        const data = MsgInitGameAndExtendField.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndExtendField", data);
+        return promise.then((data) => MsgInitGameAndExtendFieldResponse.decode(new Reader(data)));
     }
-    ExtendPlace(request) {
-        const data = MsgExtendPlace.encode(request).finish();
-        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "ExtendPlace", data);
-        return promise.then((data) => MsgExtendPlaceResponse.decode(new Reader(data)));
+    ExtendField(request) {
+        const data = MsgExtendField.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "ExtendField", data);
+        return promise.then((data) => MsgExtendFieldResponse.decode(new Reader(data)));
     }
     InitGameAndCreateTree(request) {
         const data = MsgInitGameAndCreateTree.encode(request).finish();
@@ -935,10 +935,10 @@ export class MsgClientImpl {
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateTree", data);
         return promise.then((data) => MsgCreateTreeResponse.decode(new Reader(data)));
     }
-    MoveItemOnPlace(request) {
-        const data = MsgMoveItemOnPlace.encode(request).finish();
-        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "MoveItemOnPlace", data);
-        return promise.then((data) => MsgMoveItemOnPlaceResponse.decode(new Reader(data)));
+    MoveItemOnField(request) {
+        const data = MsgMoveItemOnField.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "MoveItemOnField", data);
+        return promise.then((data) => MsgMoveItemOnFieldResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -18,12 +18,12 @@ func SimulateMsgInitGameAndExtend(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgInitGameAndExtendPlace{
+		msg := &types.MsgInitGameAndExtendField{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the InitGameAndExtendPlace simulation
+		// TODO: Handling the InitGameAndExtendField simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "InitGameAndExtendPlace simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "InitGameAndExtendField simulation not implemented"), nil, nil
 	}
 }

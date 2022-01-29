@@ -8,7 +8,7 @@ import "bears/params.proto";
 import "bears/bear_names.proto";
 import "bears/bears.proto";
 import "bears/address_bears.proto";
-import "bears/places.proto";
+import "bears/fields.proto";
 import "bears/trees.proto";
 // this line is used by starport scaffolding # 1
 
@@ -50,14 +50,14 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/address_bears";
 	}
 
-// Queries a Places by id.
-	rpc Places(QueryGetPlacesRequest) returns (QueryGetPlacesResponse) {
-		option (google.api.http).get = "/MonetaToday/honeywood/bears/places/{id}";
+// Queries a Fields by id.
+	rpc Fields(QueryGetFieldsRequest) returns (QueryGetFieldsResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/fields/{id}";
 	}
 
-	// Queries a list of Places items.
-	rpc PlacesAll(QueryAllPlacesRequest) returns (QueryAllPlacesResponse) {
-		option (google.api.http).get = "/MonetaToday/honeywood/bears/places";
+	// Queries a list of Fields items.
+	rpc FieldsAll(QueryAllFieldsRequest) returns (QueryAllFieldsResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/fields";
 	}
 
 // Queries a Trees by id.
@@ -135,20 +135,20 @@ message QueryAllAddressBearsResponse {
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetPlacesRequest {
+message QueryGetFieldsRequest {
 	uint64 id = 1;
 }
 
-message QueryGetPlacesResponse {
-	Places Places = 1 [(gogoproto.nullable) = false];
+message QueryGetFieldsResponse {
+	Fields Fields = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryAllPlacesRequest {
+message QueryAllFieldsRequest {
 	cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
-message QueryAllPlacesResponse {
-	repeated Places Places = 1 [(gogoproto.nullable) = false];
+message QueryAllFieldsResponse {
+	repeated Fields Fields = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

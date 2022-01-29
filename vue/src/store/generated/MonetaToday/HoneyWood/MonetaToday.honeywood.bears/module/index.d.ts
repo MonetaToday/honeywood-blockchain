@@ -1,13 +1,13 @@
 import { StdFee } from "@cosmjs/launchpad";
 import { Registry, OfflineSigner, EncodeObject } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgInitGameAndSetName } from "./types/bears/tx";
-import { MsgExtendPlace } from "./types/bears/tx";
-import { MsgInitGameAndExtendPlace } from "./types/bears/tx";
-import { MsgInitGameAndCreateTree } from "./types/bears/tx";
-import { MsgMoveItemOnPlace } from "./types/bears/tx";
-import { MsgSetName } from "./types/bears/tx";
+import { MsgMoveItemOnField } from "./types/bears/tx";
 import { MsgCreateTree } from "./types/bears/tx";
+import { MsgInitGameAndExtendField } from "./types/bears/tx";
+import { MsgInitGameAndSetName } from "./types/bears/tx";
+import { MsgSetName } from "./types/bears/tx";
+import { MsgExtendField } from "./types/bears/tx";
+import { MsgInitGameAndCreateTree } from "./types/bears/tx";
 export declare const MissingWalletError: Error;
 export declare const registry: Registry;
 interface TxClientOptions {
@@ -19,13 +19,13 @@ interface SignAndBroadcastOptions {
 }
 declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions) => Promise<{
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }?: SignAndBroadcastOptions) => any;
-    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
-    msgExtendPlace: (data: MsgExtendPlace) => EncodeObject;
-    msgInitGameAndExtendPlace: (data: MsgInitGameAndExtendPlace) => EncodeObject;
-    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
-    msgMoveItemOnPlace: (data: MsgMoveItemOnPlace) => EncodeObject;
-    msgSetName: (data: MsgSetName) => EncodeObject;
+    msgMoveItemOnField: (data: MsgMoveItemOnField) => EncodeObject;
     msgCreateTree: (data: MsgCreateTree) => EncodeObject;
+    msgInitGameAndExtendField: (data: MsgInitGameAndExtendField) => EncodeObject;
+    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
+    msgSetName: (data: MsgSetName) => EncodeObject;
+    msgExtendField: (data: MsgExtendField) => EncodeObject;
+    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;

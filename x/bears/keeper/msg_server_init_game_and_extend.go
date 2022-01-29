@@ -7,20 +7,20 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) InitGameAndExtendPlace(goCtx context.Context, msg *types.MsgInitGameAndExtendPlace) (*types.MsgInitGameAndExtendPlaceResponse, error) {
+func (k msgServer) InitGameAndExtendField(goCtx context.Context, msg *types.MsgInitGameAndExtendField) (*types.MsgInitGameAndExtendFieldResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	_, newPlace, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	_, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}
 
-	countGrounds, extendPlaceErr := k.Keeper.ExtendPlace(ctx, msg.Creator, newPlace.Id)
-	if extendPlaceErr != nil {
-		return nil, extendPlaceErr
+	countGrounds, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, newField.Id)
+	if extendFieldErr != nil {
+		return nil, extendFieldErr
 	}
 
-	return &types.MsgInitGameAndExtendPlaceResponse{
+	return &types.MsgInitGameAndExtendFieldResponse{
 		CountGrounds: *countGrounds,
 	}, nil
 }

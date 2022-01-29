@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgExtendPlace_ValidateBasic(t *testing.T) {
+func TestMsgExtendField_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgExtendPlace
+		msg  MsgExtendField
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgExtendPlace{
+			msg: MsgExtendField{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgExtendPlace{
+			msg: MsgExtendField{
 				Creator: sample.AccAddress(),
 			},
 		},

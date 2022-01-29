@@ -23,11 +23,11 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgSetName:
 			res, err := msgServer.SetName(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgInitGameAndExtendPlace:
-			res, err := msgServer.InitGameAndExtendPlace(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgInitGameAndExtendField:
+			res, err := msgServer.InitGameAndExtendField(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgExtendPlace:
-			res, err := msgServer.ExtendPlace(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgExtendField:
+			res, err := msgServer.ExtendField(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgInitGameAndCreateTree:
 			res, err := msgServer.InitGameAndCreateTree(sdk.WrapSDKContext(ctx), msg)
@@ -35,8 +35,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgCreateTree:
 			res, err := msgServer.CreateTree(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgMoveItemOnPlace:
-			res, err := msgServer.MoveItemOnPlace(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgMoveItemOnField:
+			res, err := msgServer.MoveItemOnField(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:

@@ -10,11 +10,11 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgInitGameAndSetName{}, "bears/InitGameAndSetName", nil)
 	cdc.RegisterConcrete(&MsgSetName{}, "bears/SetName", nil)
-	cdc.RegisterConcrete(&MsgInitGameAndExtendPlace{}, "bears/InitGameAndExtendPlace", nil)
-	cdc.RegisterConcrete(&MsgExtendPlace{}, "bears/ExtendPlace", nil)
+	cdc.RegisterConcrete(&MsgInitGameAndExtendField{}, "bears/InitGameAndExtendField", nil)
+	cdc.RegisterConcrete(&MsgExtendField{}, "bears/ExtendField", nil)
 	cdc.RegisterConcrete(&MsgInitGameAndCreateTree{}, "bears/InitGameAndCreateTree", nil)
 	cdc.RegisterConcrete(&MsgCreateTree{}, "bears/CreateTree", nil)
-	cdc.RegisterConcrete(&MsgMoveItemOnPlace{}, "bears/MoveItemOnPlace", nil)
+	cdc.RegisterConcrete(&MsgMoveItemOnField{}, "bears/MoveItemOnField", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -26,10 +26,10 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgSetName{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgInitGameAndExtendPlace{},
+		&MsgInitGameAndExtendField{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgExtendPlace{},
+		&MsgExtendField{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgInitGameAndCreateTree{},
@@ -38,7 +38,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateTree{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgMoveItemOnPlace{},
+		&MsgMoveItemOnField{},
 	)
 	// this line is used by starport scaffolding # 3
 

@@ -36,9 +36,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgInitGameAndExtend int = 100
 
-	opWeightMsgExtendPlace = "op_weight_msg_create_chain"
+	opWeightMsgExtendField = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgExtendPlace int = 100
+	defaultWeightMsgExtendField int = 100
 
 	opWeightMsgInitGameAndCreateTree = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
@@ -48,9 +48,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCreateTree int = 100
 
-	opWeightMsgMoveItemOnPlace = "op_weight_msg_create_chain"
+	opWeightMsgMoveItemOnField = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgMoveItemOnPlace int = 100
+	defaultWeightMsgMoveItemOnField int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -134,15 +134,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		bearssimulation.SimulateMsgInitGameAndExtend(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgExtendPlace int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendPlace, &weightMsgExtendPlace, nil,
+	var weightMsgExtendField int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendField, &weightMsgExtendField, nil,
 		func(_ *rand.Rand) {
-			weightMsgExtendPlace = defaultWeightMsgExtendPlace
+			weightMsgExtendField = defaultWeightMsgExtendField
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgExtendPlace,
-		bearssimulation.SimulateMsgExtendPlace(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgExtendField,
+		bearssimulation.SimulateMsgExtendField(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgInitGameAndCreateTree int
@@ -167,15 +167,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		bearssimulation.SimulateMsgCreateTree(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgMoveItemOnPlace int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMoveItemOnPlace, &weightMsgMoveItemOnPlace, nil,
+	var weightMsgMoveItemOnField int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgMoveItemOnField, &weightMsgMoveItemOnField, nil,
 		func(_ *rand.Rand) {
-			weightMsgMoveItemOnPlace = defaultWeightMsgMoveItemOnPlace
+			weightMsgMoveItemOnField = defaultWeightMsgMoveItemOnField
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgMoveItemOnPlace,
-		bearssimulation.SimulateMsgMoveItemOnPlace(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgMoveItemOnField,
+		bearssimulation.SimulateMsgMoveItemOnField(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

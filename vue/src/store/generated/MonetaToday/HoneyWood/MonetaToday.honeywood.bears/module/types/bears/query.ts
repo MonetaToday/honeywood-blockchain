@@ -9,7 +9,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
-import { Places } from "../bears/places";
+import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
@@ -74,20 +74,20 @@ export interface QueryAllAddressBearsResponse {
   pagination: PageResponse | undefined;
 }
 
-export interface QueryGetPlacesRequest {
+export interface QueryGetFieldsRequest {
   id: number;
 }
 
-export interface QueryGetPlacesResponse {
-  Places: Places | undefined;
+export interface QueryGetFieldsResponse {
+  Fields: Fields | undefined;
 }
 
-export interface QueryAllPlacesRequest {
+export interface QueryAllFieldsRequest {
   pagination: PageRequest | undefined;
 }
 
-export interface QueryAllPlacesResponse {
-  Places: Places[];
+export interface QueryAllFieldsResponse {
+  Fields: Fields[];
   pagination: PageResponse | undefined;
 }
 
@@ -1108,11 +1108,11 @@ export const QueryAllAddressBearsResponse = {
   },
 };
 
-const baseQueryGetPlacesRequest: object = { id: 0 };
+const baseQueryGetFieldsRequest: object = { id: 0 };
 
-export const QueryGetPlacesRequest = {
+export const QueryGetFieldsRequest = {
   encode(
-    message: QueryGetPlacesRequest,
+    message: QueryGetFieldsRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.id !== 0) {
@@ -1121,10 +1121,10 @@ export const QueryGetPlacesRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesRequest {
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFieldsRequest {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+    const message = { ...baseQueryGetFieldsRequest } as QueryGetFieldsRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1139,8 +1139,8 @@ export const QueryGetPlacesRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetPlacesRequest {
-    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+  fromJSON(object: any): QueryGetFieldsRequest {
+    const message = { ...baseQueryGetFieldsRequest } as QueryGetFieldsRequest;
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -1149,16 +1149,16 @@ export const QueryGetPlacesRequest = {
     return message;
   },
 
-  toJSON(message: QueryGetPlacesRequest): unknown {
+  toJSON(message: QueryGetFieldsRequest): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<QueryGetPlacesRequest>
-  ): QueryGetPlacesRequest {
-    const message = { ...baseQueryGetPlacesRequest } as QueryGetPlacesRequest;
+    object: DeepPartial<QueryGetFieldsRequest>
+  ): QueryGetFieldsRequest {
+    const message = { ...baseQueryGetFieldsRequest } as QueryGetFieldsRequest;
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
@@ -1168,28 +1168,28 @@ export const QueryGetPlacesRequest = {
   },
 };
 
-const baseQueryGetPlacesResponse: object = {};
+const baseQueryGetFieldsResponse: object = {};
 
-export const QueryGetPlacesResponse = {
+export const QueryGetFieldsResponse = {
   encode(
-    message: QueryGetPlacesResponse,
+    message: QueryGetFieldsResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.Places !== undefined) {
-      Places.encode(message.Places, writer.uint32(10).fork()).ldelim();
+    if (message.Fields !== undefined) {
+      Fields.encode(message.Fields, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryGetPlacesResponse {
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFieldsResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
+    const message = { ...baseQueryGetFieldsResponse } as QueryGetFieldsResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Places = Places.decode(reader, reader.uint32());
+          message.Fields = Fields.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1199,41 +1199,41 @@ export const QueryGetPlacesResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryGetPlacesResponse {
-    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
-    if (object.Places !== undefined && object.Places !== null) {
-      message.Places = Places.fromJSON(object.Places);
+  fromJSON(object: any): QueryGetFieldsResponse {
+    const message = { ...baseQueryGetFieldsResponse } as QueryGetFieldsResponse;
+    if (object.Fields !== undefined && object.Fields !== null) {
+      message.Fields = Fields.fromJSON(object.Fields);
     } else {
-      message.Places = undefined;
+      message.Fields = undefined;
     }
     return message;
   },
 
-  toJSON(message: QueryGetPlacesResponse): unknown {
+  toJSON(message: QueryGetFieldsResponse): unknown {
     const obj: any = {};
-    message.Places !== undefined &&
-      (obj.Places = message.Places ? Places.toJSON(message.Places) : undefined);
+    message.Fields !== undefined &&
+      (obj.Fields = message.Fields ? Fields.toJSON(message.Fields) : undefined);
     return obj;
   },
 
   fromPartial(
-    object: DeepPartial<QueryGetPlacesResponse>
-  ): QueryGetPlacesResponse {
-    const message = { ...baseQueryGetPlacesResponse } as QueryGetPlacesResponse;
-    if (object.Places !== undefined && object.Places !== null) {
-      message.Places = Places.fromPartial(object.Places);
+    object: DeepPartial<QueryGetFieldsResponse>
+  ): QueryGetFieldsResponse {
+    const message = { ...baseQueryGetFieldsResponse } as QueryGetFieldsResponse;
+    if (object.Fields !== undefined && object.Fields !== null) {
+      message.Fields = Fields.fromPartial(object.Fields);
     } else {
-      message.Places = undefined;
+      message.Fields = undefined;
     }
     return message;
   },
 };
 
-const baseQueryAllPlacesRequest: object = {};
+const baseQueryAllFieldsRequest: object = {};
 
-export const QueryAllPlacesRequest = {
+export const QueryAllFieldsRequest = {
   encode(
-    message: QueryAllPlacesRequest,
+    message: QueryAllFieldsRequest,
     writer: Writer = Writer.create()
   ): Writer {
     if (message.pagination !== undefined) {
@@ -1242,10 +1242,10 @@ export const QueryAllPlacesRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesRequest {
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFieldsRequest {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+    const message = { ...baseQueryAllFieldsRequest } as QueryAllFieldsRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1260,8 +1260,8 @@ export const QueryAllPlacesRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllPlacesRequest {
-    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+  fromJSON(object: any): QueryAllFieldsRequest {
+    const message = { ...baseQueryAllFieldsRequest } as QueryAllFieldsRequest;
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromJSON(object.pagination);
     } else {
@@ -1270,7 +1270,7 @@ export const QueryAllPlacesRequest = {
     return message;
   },
 
-  toJSON(message: QueryAllPlacesRequest): unknown {
+  toJSON(message: QueryAllFieldsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1280,9 +1280,9 @@ export const QueryAllPlacesRequest = {
   },
 
   fromPartial(
-    object: DeepPartial<QueryAllPlacesRequest>
-  ): QueryAllPlacesRequest {
-    const message = { ...baseQueryAllPlacesRequest } as QueryAllPlacesRequest;
+    object: DeepPartial<QueryAllFieldsRequest>
+  ): QueryAllFieldsRequest {
+    const message = { ...baseQueryAllFieldsRequest } as QueryAllFieldsRequest;
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
@@ -1292,15 +1292,15 @@ export const QueryAllPlacesRequest = {
   },
 };
 
-const baseQueryAllPlacesResponse: object = {};
+const baseQueryAllFieldsResponse: object = {};
 
-export const QueryAllPlacesResponse = {
+export const QueryAllFieldsResponse = {
   encode(
-    message: QueryAllPlacesResponse,
+    message: QueryAllFieldsResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    for (const v of message.Places) {
-      Places.encode(v!, writer.uint32(10).fork()).ldelim();
+    for (const v of message.Fields) {
+      Fields.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -1311,16 +1311,16 @@ export const QueryAllPlacesResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): QueryAllPlacesResponse {
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFieldsResponse {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
-    message.Places = [];
+    const message = { ...baseQueryAllFieldsResponse } as QueryAllFieldsResponse;
+    message.Fields = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Places.push(Places.decode(reader, reader.uint32()));
+          message.Fields.push(Fields.decode(reader, reader.uint32()));
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1333,12 +1333,12 @@ export const QueryAllPlacesResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllPlacesResponse {
-    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
-    message.Places = [];
-    if (object.Places !== undefined && object.Places !== null) {
-      for (const e of object.Places) {
-        message.Places.push(Places.fromJSON(e));
+  fromJSON(object: any): QueryAllFieldsResponse {
+    const message = { ...baseQueryAllFieldsResponse } as QueryAllFieldsResponse;
+    message.Fields = [];
+    if (object.Fields !== undefined && object.Fields !== null) {
+      for (const e of object.Fields) {
+        message.Fields.push(Fields.fromJSON(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -1349,14 +1349,14 @@ export const QueryAllPlacesResponse = {
     return message;
   },
 
-  toJSON(message: QueryAllPlacesResponse): unknown {
+  toJSON(message: QueryAllFieldsResponse): unknown {
     const obj: any = {};
-    if (message.Places) {
-      obj.Places = message.Places.map((e) =>
-        e ? Places.toJSON(e) : undefined
+    if (message.Fields) {
+      obj.Fields = message.Fields.map((e) =>
+        e ? Fields.toJSON(e) : undefined
       );
     } else {
-      obj.Places = [];
+      obj.Fields = [];
     }
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1366,13 +1366,13 @@ export const QueryAllPlacesResponse = {
   },
 
   fromPartial(
-    object: DeepPartial<QueryAllPlacesResponse>
-  ): QueryAllPlacesResponse {
-    const message = { ...baseQueryAllPlacesResponse } as QueryAllPlacesResponse;
-    message.Places = [];
-    if (object.Places !== undefined && object.Places !== null) {
-      for (const e of object.Places) {
-        message.Places.push(Places.fromPartial(e));
+    object: DeepPartial<QueryAllFieldsResponse>
+  ): QueryAllFieldsResponse {
+    const message = { ...baseQueryAllFieldsResponse } as QueryAllFieldsResponse;
+    message.Fields = [];
+    if (object.Fields !== undefined && object.Fields !== null) {
+      for (const e of object.Fields) {
+        message.Fields.push(Fields.fromPartial(e));
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
@@ -1678,10 +1678,10 @@ export interface Query {
   AddressBearsAll(
     request: QueryAllAddressBearsRequest
   ): Promise<QueryAllAddressBearsResponse>;
-  /** Queries a Places by id. */
-  Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse>;
-  /** Queries a list of Places items. */
-  PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse>;
+  /** Queries a Fields by id. */
+  Fields(request: QueryGetFieldsRequest): Promise<QueryGetFieldsResponse>;
+  /** Queries a list of Fields items. */
+  FieldsAll(request: QueryAllFieldsRequest): Promise<QueryAllFieldsResponse>;
   /** Queries a Trees by id. */
   Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
   /** Queries a list of Trees items. */
@@ -1783,27 +1783,27 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  Places(request: QueryGetPlacesRequest): Promise<QueryGetPlacesResponse> {
-    const data = QueryGetPlacesRequest.encode(request).finish();
+  Fields(request: QueryGetFieldsRequest): Promise<QueryGetFieldsResponse> {
+    const data = QueryGetFieldsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "MonetaToday.honeywood.bears.Query",
-      "Places",
+      "Fields",
       data
     );
     return promise.then((data) =>
-      QueryGetPlacesResponse.decode(new Reader(data))
+      QueryGetFieldsResponse.decode(new Reader(data))
     );
   }
 
-  PlacesAll(request: QueryAllPlacesRequest): Promise<QueryAllPlacesResponse> {
-    const data = QueryAllPlacesRequest.encode(request).finish();
+  FieldsAll(request: QueryAllFieldsRequest): Promise<QueryAllFieldsResponse> {
+    const data = QueryAllFieldsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "MonetaToday.honeywood.bears.Query",
-      "PlacesAll",
+      "FieldsAll",
       data
     );
     return promise.then((data) =>
-      QueryAllPlacesResponse.decode(new Reader(data))
+      QueryAllFieldsResponse.decode(new Reader(data))
     );
   }
 

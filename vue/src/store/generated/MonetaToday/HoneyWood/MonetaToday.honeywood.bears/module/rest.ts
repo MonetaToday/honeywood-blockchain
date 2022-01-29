@@ -9,6 +9,10 @@
  * ---------------------------------------------------------------
  */
 
+export enum FieldsFieldTypes {
+  DEFAULT = "DEFAULT",
+}
+
 export interface GroundsItems {
   /** @format uint64 */
   itemId?: string;
@@ -19,10 +23,6 @@ export enum ItemsItemTypes {
   APIARY = "APIARY",
   TREE = "TREE",
   DECORATION = "DECORATION",
-}
-
-export enum PlacesPlaceTypes {
-  DEFAULT = "DEFAULT",
 }
 
 export interface BearsAddressBears {
@@ -47,11 +47,22 @@ export interface BearsBears {
   id?: string;
   owner?: string;
   name?: string;
-  places?: string[];
+  fields?: string[];
   apiaries?: string[];
   bees?: string[];
   trees?: string[];
   decorations?: string[];
+}
+
+export interface BearsFields {
+  /** @format uint64 */
+  id?: string;
+  bearOwner?: BearsBearOwner;
+  fieldType?: FieldsFieldTypes;
+  grounds?: BearsGrounds[];
+
+  /** @format uint64 */
+  countGrounds?: string;
 }
 
 export interface BearsGrounds {
@@ -62,7 +73,7 @@ export interface BearsMsgCreateTreeResponse {
   tree?: BearsTrees;
 }
 
-export interface BearsMsgExtendPlaceResponse {
+export interface BearsMsgExtendFieldResponse {
   /** @format uint64 */
   countGrounds?: string;
 }
@@ -71,14 +82,14 @@ export interface BearsMsgInitGameAndCreateTreeResponse {
   tree?: BearsTrees;
 }
 
-export interface BearsMsgInitGameAndExtendPlaceResponse {
+export interface BearsMsgInitGameAndExtendFieldResponse {
   /** @format uint64 */
   countGrounds?: string;
 }
 
 export type BearsMsgInitGameAndSetNameResponse = object;
 
-export type BearsMsgMoveItemOnPlaceResponse = object;
+export type BearsMsgMoveItemOnFieldResponse = object;
 
 export type BearsMsgSetNameResponse = object;
 
@@ -117,17 +128,6 @@ export interface BearsParams {
    * signatures required by gogoproto.
    */
   oneTreeReward?: V1Beta1Coin;
-}
-
-export interface BearsPlaces {
-  /** @format uint64 */
-  id?: string;
-  bearOwner?: BearsBearOwner;
-  placeType?: PlacesPlaceTypes;
-  grounds?: BearsGrounds[];
-
-  /** @format uint64 */
-  countGrounds?: string;
 }
 
 export interface BearsQueryAllAddressBearsResponse {
@@ -175,8 +175,8 @@ export interface BearsQueryAllBearsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
-export interface BearsQueryAllPlacesResponse {
-  Places?: BearsPlaces[];
+export interface BearsQueryAllFieldsResponse {
+  Fields?: BearsFields[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -217,8 +217,8 @@ export interface BearsQueryGetBearsResponse {
   Bears?: BearsBears;
 }
 
-export interface BearsQueryGetPlacesResponse {
-  Places?: BearsPlaces;
+export interface BearsQueryGetFieldsResponse {
+  Fields?: BearsFields;
 }
 
 export interface BearsQueryGetTreesResponse {
@@ -241,7 +241,7 @@ export interface BearsTrees {
   bearId?: string;
 
   /** @format uint64 */
-  placeId?: string;
+  fieldId?: string;
 
   /** @format uint64 */
   groundId?: string;
@@ -658,27 +658,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
-   * @name QueryParams
-   * @summary Parameters queries the parameters of the module.
-   * @request GET:/MonetaToday/honeywood/bears/params
+   * @name QueryFieldsAll
+   * @summary Queries a list of Fields items.
+   * @request GET:/MonetaToday/honeywood/bears/fields
    */
-  queryParams = (params: RequestParams = {}) =>
-    this.request<BearsQueryParamsResponse, RpcStatus>({
-      path: `/MonetaToday/honeywood/bears/params`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryPlacesAll
-   * @summary Queries a list of Places items.
-   * @request GET:/MonetaToday/honeywood/bears/places
-   */
-  queryPlacesAll = (
+  queryFieldsAll = (
     query?: {
       "pagination.key"?: string;
       "pagination.offset"?: string;
@@ -688,8 +672,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {},
   ) =>
-    this.request<BearsQueryAllPlacesResponse, RpcStatus>({
-      path: `/MonetaToday/honeywood/bears/places`,
+    this.request<BearsQueryAllFieldsResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/fields`,
       method: "GET",
       query: query,
       format: "json",
@@ -700,13 +684,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
-   * @name QueryPlaces
-   * @summary Queries a Places by id.
-   * @request GET:/MonetaToday/honeywood/bears/places/{id}
+   * @name QueryFields
+   * @summary Queries a Fields by id.
+   * @request GET:/MonetaToday/honeywood/bears/fields/{id}
    */
-  queryPlaces = (id: string, params: RequestParams = {}) =>
-    this.request<BearsQueryGetPlacesResponse, RpcStatus>({
-      path: `/MonetaToday/honeywood/bears/places/${id}`,
+  queryFields = (id: string, params: RequestParams = {}) =>
+    this.request<BearsQueryGetFieldsResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/fields/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryParams
+   * @summary Parameters queries the parameters of the module.
+   * @request GET:/MonetaToday/honeywood/bears/params
+   */
+  queryParams = (params: RequestParams = {}) =>
+    this.request<BearsQueryParamsResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/params`,
       method: "GET",
       format: "json",
       ...params,

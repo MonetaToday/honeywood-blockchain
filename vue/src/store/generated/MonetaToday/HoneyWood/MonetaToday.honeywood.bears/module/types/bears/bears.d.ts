@@ -7,7 +7,7 @@ export interface Bears {
     id: number;
     owner: string;
     name: string;
-    places: number[];
+    fields: number[];
     apiaries: number[];
     bees: number[];
     trees: number[];

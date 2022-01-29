@@ -12,24 +12,24 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) PlacesAll(c context.Context, req *types.QueryAllPlacesRequest) (*types.QueryAllPlacesResponse, error) {
+func (k Keeper) FieldsAll(c context.Context, req *types.QueryAllFieldsRequest) (*types.QueryAllFieldsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var placess []types.Places
+	var fieldss []types.Fields
 	ctx := sdk.UnwrapSDKContext(c)
 
 	store := ctx.KVStore(k.storeKey)
-	placesStore := prefix.NewStore(store, types.KeyPrefix(types.PlacesKey))
+	fieldsStore := prefix.NewStore(store, types.KeyPrefix(types.FieldsKey))
 
-	pageRes, err := query.Paginate(placesStore, req.Pagination, func(key []byte, value []byte) error {
-		var places types.Places
-		if err := k.cdc.Unmarshal(value, &places); err != nil {
+	pageRes, err := query.Paginate(fieldsStore, req.Pagination, func(key []byte, value []byte) error {
+		var fields types.Fields
+		if err := k.cdc.Unmarshal(value, &fields); err != nil {
 			return err
 		}
 
-		placess = append(placess, places)
+		fieldss = append(fieldss, fields)
 		return nil
 	})
 
@@ -37,19 +37,19 @@ func (k Keeper) PlacesAll(c context.Context, req *types.QueryAllPlacesRequest) (
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &types.QueryAllPlacesResponse{Places: placess, Pagination: pageRes}, nil
+	return &types.QueryAllFieldsResponse{Fields: fieldss, Pagination: pageRes}, nil
 }
 
-func (k Keeper) Places(c context.Context, req *types.QueryGetPlacesRequest) (*types.QueryGetPlacesResponse, error) {
+func (k Keeper) Fields(c context.Context, req *types.QueryGetFieldsRequest) (*types.QueryGetFieldsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(c)
-	places, found := k.GetPlaces(ctx, req.Id)
+	fields, found := k.GetFields(ctx, req.Id)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
 
-	return &types.QueryGetPlacesResponse{Places: places}, nil
+	return &types.QueryGetFieldsResponse{Fields: fields}, nil
 }

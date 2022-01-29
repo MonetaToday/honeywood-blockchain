@@ -12934,7 +12934,7 @@ paths:
                       type: string
                     name:
                       type: string
-                    places:
+                    fields:
                       type: array
                       items:
                         type: string
@@ -13083,7 +13083,7 @@ paths:
                     type: string
                   name:
                     type: string
-                  places:
+                  fields:
                     type: array
                     items:
                       type: string
@@ -13134,114 +13134,17 @@ paths:
           format: uint64
       tags:
         - Query
-  /MonetaToday/honeywood/bears/params:
+  /MonetaToday/honeywood/bears/fields:
     get:
-      summary: Parameters queries the parameters of the module.
-      operationId: MonetaTodayHoneywoodBearsParams
+      summary: Queries a list of Fields items.
+      operationId: MonetaTodayHoneywoodBearsFieldsAll
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              params:
-                description: params holds all the parameters of this module.
-                type: object
-                properties:
-                  setNamePrice:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  oneGroundPrice:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  oneTreePrice:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  oneTreeReward:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-            description: >-
-              QueryParamsResponse is response type for the Query/Params RPC
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      tags:
-        - Query
-  /MonetaToday/honeywood/bears/places:
-    get:
-      summary: Queries a list of Places items.
-      operationId: MonetaTodayHoneywoodBearsPlacesAll
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              Places:
+              Fields:
                 type: array
                 items:
                   type: object
@@ -13255,7 +13158,7 @@ paths:
                         id:
                           type: string
                           format: uint64
-                    placeType:
+                    fieldType:
                       type: string
                       enum:
                         - DEFAULT
@@ -13385,17 +13288,17 @@ paths:
           type: boolean
       tags:
         - Query
-  '/MonetaToday/honeywood/bears/places/{id}':
+  '/MonetaToday/honeywood/bears/fields/{id}':
     get:
-      summary: Queries a Places by id.
-      operationId: MonetaTodayHoneywoodBearsPlaces
+      summary: Queries a Fields by id.
+      operationId: MonetaTodayHoneywoodBearsFields
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              Places:
+              Fields:
                 type: object
                 properties:
                   id:
@@ -13407,7 +13310,7 @@ paths:
                       id:
                         type: string
                         format: uint64
-                  placeType:
+                  fieldType:
                     type: string
                     enum:
                       - DEFAULT
@@ -13459,6 +13362,103 @@ paths:
           format: uint64
       tags:
         - Query
+  /MonetaToday/honeywood/bears/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: MonetaTodayHoneywoodBearsParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+                properties:
+                  setNamePrice:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  oneGroundPrice:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  oneTreePrice:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  oneTreeReward:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /MonetaToday/honeywood/bears/trees:
     get:
       summary: Queries a list of Trees items.
@@ -13480,7 +13480,7 @@ paths:
                     bearId:
                       type: string
                       format: uint64
-                    placeId:
+                    fieldId:
                       type: string
                       format: uint64
                     groundId:
@@ -13609,7 +13609,7 @@ paths:
                   bearId:
                     type: string
                     format: uint64
-                  placeId:
+                  fieldId:
                     type: string
                     format: uint64
                   groundId:
@@ -21025,7 +21025,7 @@ definitions:
         type: string
       name:
         type: string
-      places:
+      fields:
         type: array
         items:
           type: string
@@ -21050,6 +21050,49 @@ definitions:
         items:
           type: string
           format: uint64
+  MonetaToday.honeywood.bears.Fields:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+      fieldType:
+        type: string
+        enum:
+          - DEFAULT
+        default: DEFAULT
+      grounds:
+        type: array
+        items:
+          type: object
+          properties:
+            item:
+              type: object
+              properties:
+                itemId:
+                  type: string
+                  format: uint64
+                itemType:
+                  type: string
+                  enum:
+                    - APIARY
+                    - TREE
+                    - DECORATION
+                  default: APIARY
+      countGrounds:
+        type: string
+        format: uint64
+  MonetaToday.honeywood.bears.Fields.FieldTypes:
+    type: string
+    enum:
+      - DEFAULT
+    default: DEFAULT
   MonetaToday.honeywood.bears.Grounds:
     type: object
     properties:
@@ -21098,13 +21141,13 @@ definitions:
           bearId:
             type: string
             format: uint64
-          placeId:
+          fieldId:
             type: string
             format: uint64
           groundId:
             type: string
             format: uint64
-  MonetaToday.honeywood.bears.MsgExtendPlaceResponse:
+  MonetaToday.honeywood.bears.MsgExtendFieldResponse:
     type: object
     properties:
       countGrounds:
@@ -21122,13 +21165,13 @@ definitions:
           bearId:
             type: string
             format: uint64
-          placeId:
+          fieldId:
             type: string
             format: uint64
           groundId:
             type: string
             format: uint64
-  MonetaToday.honeywood.bears.MsgInitGameAndExtendPlaceResponse:
+  MonetaToday.honeywood.bears.MsgInitGameAndExtendFieldResponse:
     type: object
     properties:
       countGrounds:
@@ -21136,7 +21179,7 @@ definitions:
         format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse:
     type: object
-  MonetaToday.honeywood.bears.MsgMoveItemOnPlaceResponse:
+  MonetaToday.honeywood.bears.MsgMoveItemOnFieldResponse:
     type: object
   MonetaToday.honeywood.bears.MsgSetNameResponse:
     type: object
@@ -21192,49 +21235,6 @@ definitions:
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
     description: Params defines the parameters for the module.
-  MonetaToday.honeywood.bears.Places:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uint64
-      bearOwner:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uint64
-      placeType:
-        type: string
-        enum:
-          - DEFAULT
-        default: DEFAULT
-      grounds:
-        type: array
-        items:
-          type: object
-          properties:
-            item:
-              type: object
-              properties:
-                itemId:
-                  type: string
-                  format: uint64
-                itemType:
-                  type: string
-                  enum:
-                    - APIARY
-                    - TREE
-                    - DECORATION
-                  default: APIARY
-      countGrounds:
-        type: string
-        format: uint64
-  MonetaToday.honeywood.bears.Places.PlaceTypes:
-    type: string
-    enum:
-      - DEFAULT
-    default: DEFAULT
   MonetaToday.honeywood.bears.QueryAllAddressBearsResponse:
     type: object
     properties:
@@ -21328,7 +21328,7 @@ definitions:
               type: string
             name:
               type: string
-            places:
+            fields:
               type: array
               items:
                 type: string
@@ -21378,10 +21378,10 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  MonetaToday.honeywood.bears.QueryAllPlacesResponse:
+  MonetaToday.honeywood.bears.QueryAllFieldsResponse:
     type: object
     properties:
-      Places:
+      Fields:
         type: array
         items:
           type: object
@@ -21395,7 +21395,7 @@ definitions:
                 id:
                   type: string
                   format: uint64
-            placeType:
+            fieldType:
               type: string
               enum:
                 - DEFAULT
@@ -21460,7 +21460,7 @@ definitions:
             bearId:
               type: string
               format: uint64
-            placeId:
+            fieldId:
               type: string
               format: uint64
             groundId:
@@ -21528,7 +21528,7 @@ definitions:
             type: string
           name:
             type: string
-          places:
+          fields:
             type: array
             items:
               type: string
@@ -21553,10 +21553,10 @@ definitions:
             items:
               type: string
               format: uint64
-  MonetaToday.honeywood.bears.QueryGetPlacesResponse:
+  MonetaToday.honeywood.bears.QueryGetFieldsResponse:
     type: object
     properties:
-      Places:
+      Fields:
         type: object
         properties:
           id:
@@ -21568,7 +21568,7 @@ definitions:
               id:
                 type: string
                 format: uint64
-          placeType:
+          fieldType:
             type: string
             enum:
               - DEFAULT
@@ -21606,7 +21606,7 @@ definitions:
           bearId:
             type: string
             format: uint64
-          placeId:
+          fieldId:
             type: string
             format: uint64
           groundId:
@@ -21689,7 +21689,7 @@ definitions:
       bearId:
         type: string
         format: uint64
-      placeId:
+      fieldId:
         type: string
         format: uint64
       groundId:

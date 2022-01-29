@@ -47,7 +47,7 @@ func TestGenesisState_Validate(t *testing.T) {
 						Address: "1",
 					},
 				},
-				PlacesList: []types.Places{
+				FieldsList: []types.Fields{
 					{
 						Id: 0,
 					},
@@ -55,7 +55,7 @@ func TestGenesisState_Validate(t *testing.T) {
 						Id: 1,
 					},
 				},
-				PlacesCount: 2,
+				FieldsCount: 2,
 				TreesList: []types.Trees{
 					{
 						Id: 0,
@@ -124,9 +124,9 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: false,
 		},
 		{
-			desc: "duplicated places",
+			desc: "duplicated fields",
 			genState: &types.GenesisState{
-				PlacesList: []types.Places{
+				FieldsList: []types.Fields{
 					{
 						Id: 0,
 					},
@@ -138,14 +138,14 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: false,
 		},
 		{
-			desc: "invalid places count",
+			desc: "invalid fields count",
 			genState: &types.GenesisState{
-				PlacesList: []types.Places{
+				FieldsList: []types.Fields{
 					{
 						Id: 1,
 					},
 				},
-				PlacesCount: 0,
+				FieldsCount: 0,
 			},
 			valid: false,
 		},

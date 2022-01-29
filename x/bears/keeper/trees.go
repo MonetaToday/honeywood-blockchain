@@ -108,22 +108,22 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) createTreeOnPlace(ctx sdk.Context, creator string, bearId uint64, placeId uint64, groundId uint64) (*types.Trees, error) {
-	place, placeFound := k.GetPlaces(ctx, placeId)
-	if !placeFound {
-		return nil, types.ErrPlaceIsNotExisted
+func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, groundId uint64) (*types.Trees, error) {
+	field, fieldFound := k.GetFields(ctx, fieldId)
+	if !fieldFound {
+		return nil, types.ErrFieldIsNotExisted
 	}
 
-	if place.BearOwner != nil && place.BearOwner.Id != bearId {
+	if field.BearOwner != nil && field.BearOwner.Id != bearId {
 		return nil, types.ErrBearHasNoRights
 	}
 
-	hasRights := k.HasRightsToPlace(ctx, creator, place)
+	hasRights := k.HasRightsToField(ctx, creator, field)
 	if !hasRights {
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	isEmpty, errEmptyGround := k.isEmptyGround(ctx, place, groundId)
+	isEmpty, errEmptyGround := k.isEmptyGround(ctx, field, groundId)
 	if !isEmpty {
 		return nil, errEmptyGround
 	}
@@ -137,16 +137,16 @@ func (k Keeper) createTreeOnPlace(ctx sdk.Context, creator string, bearId uint64
 
 	newTree := types.Trees{
 		BearId:   bearId,
-		PlaceId:  place.Id,
+		FieldId:  field.Id,
 		GroundId: groundId,
 	}
 	newTreeId := k.AppendTrees(ctx, newTree)
 
-	place.Grounds[groundId].Item = &types.Grounds_Items{
+	field.Grounds[groundId].Item = &types.Grounds_Items{
 		ItemId:   newTreeId,
 		ItemType: types.Grounds_Items_TREE,
 	}
-	k.SetPlaces(ctx, place)
+	k.SetFields(ctx, field)
 
 	bear, bearFound := k.GetBears(ctx, bearId)
 	if !bearFound {

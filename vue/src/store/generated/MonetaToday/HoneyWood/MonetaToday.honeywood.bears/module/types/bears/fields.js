@@ -4,32 +4,32 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { BearOwner } from "../bears/bears";
 import { Grounds } from "../bears/grounds";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var Places_PlaceTypes;
-(function (Places_PlaceTypes) {
-    Places_PlaceTypes[Places_PlaceTypes["DEFAULT"] = 0] = "DEFAULT";
-    Places_PlaceTypes[Places_PlaceTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Places_PlaceTypes || (Places_PlaceTypes = {}));
-export function places_PlaceTypesFromJSON(object) {
+export var Fields_FieldTypes;
+(function (Fields_FieldTypes) {
+    Fields_FieldTypes[Fields_FieldTypes["DEFAULT"] = 0] = "DEFAULT";
+    Fields_FieldTypes[Fields_FieldTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(Fields_FieldTypes || (Fields_FieldTypes = {}));
+export function fields_FieldTypesFromJSON(object) {
     switch (object) {
         case 0:
         case "DEFAULT":
-            return Places_PlaceTypes.DEFAULT;
+            return Fields_FieldTypes.DEFAULT;
         case -1:
         case "UNRECOGNIZED":
         default:
-            return Places_PlaceTypes.UNRECOGNIZED;
+            return Fields_FieldTypes.UNRECOGNIZED;
     }
 }
-export function places_PlaceTypesToJSON(object) {
+export function fields_FieldTypesToJSON(object) {
     switch (object) {
-        case Places_PlaceTypes.DEFAULT:
+        case Fields_FieldTypes.DEFAULT:
             return "DEFAULT";
         default:
             return "UNKNOWN";
     }
 }
-const basePlaces = { id: 0, placeType: 0, countGrounds: 0 };
-export const Places = {
+const baseFields = { id: 0, fieldType: 0, countGrounds: 0 };
+export const Fields = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
@@ -37,8 +37,8 @@ export const Places = {
         if (message.bearOwner !== undefined) {
             BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
         }
-        if (message.placeType !== 0) {
-            writer.uint32(24).int32(message.placeType);
+        if (message.fieldType !== 0) {
+            writer.uint32(24).int32(message.fieldType);
         }
         for (const v of message.grounds) {
             Grounds.encode(v, writer.uint32(34).fork()).ldelim();
@@ -51,7 +51,7 @@ export const Places = {
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePlaces };
+        const message = { ...baseFields };
         message.grounds = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
@@ -63,7 +63,7 @@ export const Places = {
                     message.bearOwner = BearOwner.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.placeType = reader.int32();
+                    message.fieldType = reader.int32();
                     break;
                 case 4:
                     message.grounds.push(Grounds.decode(reader, reader.uint32()));
@@ -79,7 +79,7 @@ export const Places = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...basePlaces };
+        const message = { ...baseFields };
         message.grounds = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = Number(object.id);
@@ -93,11 +93,11 @@ export const Places = {
         else {
             message.bearOwner = undefined;
         }
-        if (object.placeType !== undefined && object.placeType !== null) {
-            message.placeType = places_PlaceTypesFromJSON(object.placeType);
+        if (object.fieldType !== undefined && object.fieldType !== null) {
+            message.fieldType = fields_FieldTypesFromJSON(object.fieldType);
         }
         else {
-            message.placeType = 0;
+            message.fieldType = 0;
         }
         if (object.grounds !== undefined && object.grounds !== null) {
             for (const e of object.grounds) {
@@ -119,8 +119,8 @@ export const Places = {
             (obj.bearOwner = message.bearOwner
                 ? BearOwner.toJSON(message.bearOwner)
                 : undefined);
-        message.placeType !== undefined &&
-            (obj.placeType = places_PlaceTypesToJSON(message.placeType));
+        message.fieldType !== undefined &&
+            (obj.fieldType = fields_FieldTypesToJSON(message.fieldType));
         if (message.grounds) {
             obj.grounds = message.grounds.map((e) => e ? Grounds.toJSON(e) : undefined);
         }
@@ -132,7 +132,7 @@ export const Places = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...basePlaces };
+        const message = { ...baseFields };
         message.grounds = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = object.id;
@@ -146,11 +146,11 @@ export const Places = {
         else {
             message.bearOwner = undefined;
         }
-        if (object.placeType !== undefined && object.placeType !== null) {
-            message.placeType = object.placeType;
+        if (object.fieldType !== undefined && object.fieldType !== null) {
+            message.fieldType = object.fieldType;
         }
         else {
-            message.placeType = 0;
+            message.fieldType = 0;
         }
         if (object.grounds !== undefined && object.grounds !== null) {
             for (const e of object.grounds) {

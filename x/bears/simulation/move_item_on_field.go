@@ -10,7 +10,7 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
 
-func SimulateMsgMoveItemOnPlace(
+func SimulateMsgMoveItemOnField(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -18,12 +18,12 @@ func SimulateMsgMoveItemOnPlace(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgMoveItemOnPlace{
+		msg := &types.MsgMoveItemOnField{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the MoveItemOnPlace simulation
+		// TODO: Handling the MoveItemOnField simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "MoveItemOnPlace simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "MoveItemOnField simulation not implemented"), nil, nil
 	}
 }

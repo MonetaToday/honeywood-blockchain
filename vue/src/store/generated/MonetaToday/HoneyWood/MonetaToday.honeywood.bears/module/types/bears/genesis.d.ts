@@ -3,7 +3,7 @@ import { Params } from "../bears/params";
 import { BearNames } from "../bears/bear_names";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
-import { Places } from "../bears/places";
+import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** GenesisState defines the bears module's genesis state. */
@@ -13,8 +13,8 @@ export interface GenesisState {
     bearsList: Bears[];
     bearsCount: number;
     addressBearsList: AddressBears[];
-    placesList: Places[];
-    placesCount: number;
+    fieldsList: Fields[];
+    fieldsCount: number;
     treesList: Trees[];
     /** this line is used by starport scaffolding # genesis/proto/state */
     treesCount: number;

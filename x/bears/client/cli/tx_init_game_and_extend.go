@@ -14,8 +14,8 @@ var _ = strconv.Itoa(0)
 
 func CmdInitGameAndExtend() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "init-game-and-extend-place",
-		Short: "Initialize game and extend a place",
+		Use:   "init-game-and-extend-field",
+		Short: "Initialize game and extend a field",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 

@@ -1,3 +1,6 @@
+export declare enum FieldsFieldTypes {
+    DEFAULT = "DEFAULT"
+}
 export interface GroundsItems {
     /** @format uint64 */
     itemId?: string;
@@ -7,9 +10,6 @@ export declare enum ItemsItemTypes {
     APIARY = "APIARY",
     TREE = "TREE",
     DECORATION = "DECORATION"
-}
-export declare enum PlacesPlaceTypes {
-    DEFAULT = "DEFAULT"
 }
 export interface BearsAddressBears {
     address?: string;
@@ -29,11 +29,20 @@ export interface BearsBears {
     id?: string;
     owner?: string;
     name?: string;
-    places?: string[];
+    fields?: string[];
     apiaries?: string[];
     bees?: string[];
     trees?: string[];
     decorations?: string[];
+}
+export interface BearsFields {
+    /** @format uint64 */
+    id?: string;
+    bearOwner?: BearsBearOwner;
+    fieldType?: FieldsFieldTypes;
+    grounds?: BearsGrounds[];
+    /** @format uint64 */
+    countGrounds?: string;
 }
 export interface BearsGrounds {
     item?: GroundsItems;
@@ -41,19 +50,19 @@ export interface BearsGrounds {
 export interface BearsMsgCreateTreeResponse {
     tree?: BearsTrees;
 }
-export interface BearsMsgExtendPlaceResponse {
+export interface BearsMsgExtendFieldResponse {
     /** @format uint64 */
     countGrounds?: string;
 }
 export interface BearsMsgInitGameAndCreateTreeResponse {
     tree?: BearsTrees;
 }
-export interface BearsMsgInitGameAndExtendPlaceResponse {
+export interface BearsMsgInitGameAndExtendFieldResponse {
     /** @format uint64 */
     countGrounds?: string;
 }
 export declare type BearsMsgInitGameAndSetNameResponse = object;
-export declare type BearsMsgMoveItemOnPlaceResponse = object;
+export declare type BearsMsgMoveItemOnFieldResponse = object;
 export declare type BearsMsgSetNameResponse = object;
 /**
  * Params defines the parameters for the module.
@@ -87,15 +96,6 @@ export interface BearsParams {
      * signatures required by gogoproto.
      */
     oneTreeReward?: V1Beta1Coin;
-}
-export interface BearsPlaces {
-    /** @format uint64 */
-    id?: string;
-    bearOwner?: BearsBearOwner;
-    placeType?: PlacesPlaceTypes;
-    grounds?: BearsGrounds[];
-    /** @format uint64 */
-    countGrounds?: string;
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];
@@ -136,8 +136,8 @@ export interface BearsQueryAllBearsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
-export interface BearsQueryAllPlacesResponse {
-    Places?: BearsPlaces[];
+export interface BearsQueryAllFieldsResponse {
+    Fields?: BearsFields[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -171,8 +171,8 @@ export interface BearsQueryGetBearNamesResponse {
 export interface BearsQueryGetBearsResponse {
     Bears?: BearsBears;
 }
-export interface BearsQueryGetPlacesResponse {
-    Places?: BearsPlaces;
+export interface BearsQueryGetFieldsResponse {
+    Fields?: BearsFields;
 }
 export interface BearsQueryGetTreesResponse {
     Trees?: BearsTrees;
@@ -190,7 +190,7 @@ export interface BearsTrees {
     /** @format uint64 */
     bearId?: string;
     /** @format uint64 */
-    placeId?: string;
+    fieldId?: string;
     /** @format uint64 */
     groundId?: string;
 }
@@ -403,35 +403,35 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * No description
      *
      * @tags Query
-     * @name QueryParams
-     * @summary Parameters queries the parameters of the module.
-     * @request GET:/MonetaToday/honeywood/bears/params
+     * @name QueryFieldsAll
+     * @summary Queries a list of Fields items.
+     * @request GET:/MonetaToday/honeywood/bears/fields
      */
-    queryParams: (params?: RequestParams) => Promise<HttpResponse<BearsQueryParamsResponse, RpcStatus>>;
-    /**
-     * No description
-     *
-     * @tags Query
-     * @name QueryPlacesAll
-     * @summary Queries a list of Places items.
-     * @request GET:/MonetaToday/honeywood/bears/places
-     */
-    queryPlacesAll: (query?: {
+    queryFieldsAll: (query?: {
         "pagination.key"?: string;
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
         "pagination.reverse"?: boolean;
-    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllPlacesResponse, RpcStatus>>;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllFieldsResponse, RpcStatus>>;
     /**
      * No description
      *
      * @tags Query
-     * @name QueryPlaces
-     * @summary Queries a Places by id.
-     * @request GET:/MonetaToday/honeywood/bears/places/{id}
+     * @name QueryFields
+     * @summary Queries a Fields by id.
+     * @request GET:/MonetaToday/honeywood/bears/fields/{id}
      */
-    queryPlaces: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetPlacesResponse, RpcStatus>>;
+    queryFields: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetFieldsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryParams
+     * @summary Parameters queries the parameters of the module.
+     * @request GET:/MonetaToday/honeywood/bears/params
+     */
+    queryParams: (params?: RequestParams) => Promise<HttpResponse<BearsQueryParamsResponse, RpcStatus>>;
     /**
      * No description
      *

@@ -5,28 +5,28 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgMoveItemOnPlace = "move_item_on_place"
+const TypeMsgMoveItemOnField = "move_item_on_field"
 
-var _ sdk.Msg = &MsgMoveItemOnPlace{}
+var _ sdk.Msg = &MsgMoveItemOnField{}
 
-func NewMsgMoveItemOnPlace(creator string, placeId uint64, groundId uint64, newGroundId uint64) *MsgMoveItemOnPlace {
-	return &MsgMoveItemOnPlace{
+func NewMsgMoveItemOnField(creator string, fieldId uint64, groundId uint64, newGroundId uint64) *MsgMoveItemOnField {
+	return &MsgMoveItemOnField{
 		Creator:     creator,
-		PlaceId:     placeId,
+		FieldId:     fieldId,
 		GroundId:    groundId,
 		NewGroundId: newGroundId,
 	}
 }
 
-func (msg *MsgMoveItemOnPlace) Route() string {
+func (msg *MsgMoveItemOnField) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgMoveItemOnPlace) Type() string {
-	return TypeMsgMoveItemOnPlace
+func (msg *MsgMoveItemOnField) Type() string {
+	return TypeMsgMoveItemOnField
 }
 
-func (msg *MsgMoveItemOnPlace) GetSigners() []sdk.AccAddress {
+func (msg *MsgMoveItemOnField) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -34,12 +34,12 @@ func (msg *MsgMoveItemOnPlace) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgMoveItemOnPlace) GetSignBytes() []byte {
+func (msg *MsgMoveItemOnField) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgMoveItemOnPlace) ValidateBasic() error {
+func (msg *MsgMoveItemOnField) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

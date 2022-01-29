@@ -5,26 +5,26 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgExtendPlace = "extend_place"
+const TypeMsgExtendField = "extend_field"
 
-var _ sdk.Msg = &MsgExtendPlace{}
+var _ sdk.Msg = &MsgExtendField{}
 
-func NewMsgExtendPlace(creator string, id uint64) *MsgExtendPlace {
-	return &MsgExtendPlace{
+func NewMsgExtendField(creator string, id uint64) *MsgExtendField {
+	return &MsgExtendField{
 		Creator: creator,
 		Id:      id,
 	}
 }
 
-func (msg *MsgExtendPlace) Route() string {
+func (msg *MsgExtendField) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgExtendPlace) Type() string {
-	return TypeMsgExtendPlace
+func (msg *MsgExtendField) Type() string {
+	return TypeMsgExtendField
 }
 
-func (msg *MsgExtendPlace) GetSigners() []sdk.AccAddress {
+func (msg *MsgExtendField) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -32,12 +32,12 @@ func (msg *MsgExtendPlace) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgExtendPlace) GetSignBytes() []byte {
+func (msg *MsgExtendField) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgExtendPlace) ValidateBasic() error {
+func (msg *MsgExtendField) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

@@ -15,29 +15,29 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 )
 
-func TestPlacesQuerySingle(t *testing.T) {
+func TestFieldsQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNPlaces(keeper, ctx, 2)
+	msgs := createNFields(keeper, ctx, 2)
 	for _, tc := range []struct {
 		desc     string
-		request  *types.QueryGetPlacesRequest
-		response *types.QueryGetPlacesResponse
+		request  *types.QueryGetFieldsRequest
+		response *types.QueryGetFieldsResponse
 		err      error
 	}{
 		{
 			desc:     "First",
-			request:  &types.QueryGetPlacesRequest{Id: msgs[0].Id},
-			response: &types.QueryGetPlacesResponse{Places: msgs[0]},
+			request:  &types.QueryGetFieldsRequest{Id: msgs[0].Id},
+			response: &types.QueryGetFieldsResponse{Fields: msgs[0]},
 		},
 		{
 			desc:     "Second",
-			request:  &types.QueryGetPlacesRequest{Id: msgs[1].Id},
-			response: &types.QueryGetPlacesResponse{Places: msgs[1]},
+			request:  &types.QueryGetFieldsRequest{Id: msgs[1].Id},
+			response: &types.QueryGetFieldsResponse{Fields: msgs[1]},
 		},
 		{
 			desc:    "KeyNotFound",
-			request: &types.QueryGetPlacesRequest{Id: uint64(len(msgs))},
+			request: &types.QueryGetFieldsRequest{Id: uint64(len(msgs))},
 			err:     sdkerrors.ErrKeyNotFound,
 		},
 		{
@@ -46,7 +46,7 @@ func TestPlacesQuerySingle(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.Places(wctx, tc.request)
+			response, err := keeper.Fields(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
@@ -60,13 +60,13 @@ func TestPlacesQuerySingle(t *testing.T) {
 	}
 }
 
-func TestPlacesQueryPaginated(t *testing.T) {
+func TestFieldsQueryPaginated(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNPlaces(keeper, ctx, 5)
+	msgs := createNFields(keeper, ctx, 5)
 
-	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllPlacesRequest {
-		return &types.QueryAllPlacesRequest{
+	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllFieldsRequest {
+		return &types.QueryAllFieldsRequest{
 			Pagination: &query.PageRequest{
 				Key:        next,
 				Offset:     offset,
@@ -78,12 +78,12 @@ func TestPlacesQueryPaginated(t *testing.T) {
 	t.Run("ByOffset", func(t *testing.T) {
 		step := 2
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.PlacesAll(wctx, request(nil, uint64(i), uint64(step), false))
+			resp, err := keeper.FieldsAll(wctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Places), step)
+			require.LessOrEqual(t, len(resp.Fields), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Places),
+				nullify.Fill(resp.Fields),
 			)
 		}
 	})
@@ -91,27 +91,27 @@ func TestPlacesQueryPaginated(t *testing.T) {
 		step := 2
 		var next []byte
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.PlacesAll(wctx, request(next, 0, uint64(step), false))
+			resp, err := keeper.FieldsAll(wctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Places), step)
+			require.LessOrEqual(t, len(resp.Fields), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Places),
+				nullify.Fill(resp.Fields),
 			)
 			next = resp.Pagination.NextKey
 		}
 	})
 	t.Run("Total", func(t *testing.T) {
-		resp, err := keeper.PlacesAll(wctx, request(nil, 0, 0, true))
+		resp, err := keeper.FieldsAll(wctx, request(nil, 0, 0, true))
 		require.NoError(t, err)
 		require.Equal(t, len(msgs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(msgs),
-			nullify.Fill(resp.Places),
+			nullify.Fill(resp.Fields),
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {
-		_, err := keeper.PlacesAll(wctx, nil)
+		_, err := keeper.FieldsAll(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
 }

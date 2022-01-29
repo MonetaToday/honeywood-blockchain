@@ -3,7 +3,7 @@
     <div class="container">
       <!-- this line is used by starport scaffolding # 4 -->
 		<SpType modulePath="MonetaToday.honeywood.bears" moduleType="Trees"  />
-		<SpType modulePath="MonetaToday.honeywood.bears" moduleType="Places"  />
+		<SpType modulePath="MonetaToday.honeywood.bears" moduleType="Fields"  />
 		<SpType modulePath="MonetaToday.honeywood.bears" moduleType="Bears"  />
     </div>
   </div>

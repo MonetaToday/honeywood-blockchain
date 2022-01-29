@@ -33,10 +33,10 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdInitGameAndSetName())
 	cmd.AddCommand(CmdSetName())
 	cmd.AddCommand(CmdInitGameAndExtend())
-	cmd.AddCommand(CmdExtendPlace())
+	cmd.AddCommand(CmdExtendField())
 	cmd.AddCommand(CmdInitGameAndCreateTree())
 	cmd.AddCommand(CmdCreateTree())
-	cmd.AddCommand(CmdMoveItemOnPlace())
+	cmd.AddCommand(CmdMoveItemOnField())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

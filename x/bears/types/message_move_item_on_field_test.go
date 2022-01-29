@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgMoveItemOnPlace_ValidateBasic(t *testing.T) {
+func TestMsgMoveItemOnField_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgMoveItemOnPlace
+		msg  MsgMoveItemOnField
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgMoveItemOnPlace{
+			msg: MsgMoveItemOnField{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgMoveItemOnPlace{
+			msg: MsgMoveItemOnField{
 				Creator: sample.AccAddress(),
 			},
 		},

@@ -12,7 +12,7 @@ export interface Bears {
   id: number;
   owner: string;
   name: string;
-  places: number[];
+  fields: number[];
   apiaries: number[];
   bees: number[];
   trees: number[];
@@ -78,7 +78,7 @@ const baseBears: object = {
   id: 0,
   owner: "",
   name: "",
-  places: 0,
+  fields: 0,
   apiaries: 0,
   bees: 0,
   trees: 0,
@@ -97,7 +97,7 @@ export const Bears = {
       writer.uint32(26).string(message.name);
     }
     writer.uint32(34).fork();
-    for (const v of message.places) {
+    for (const v of message.fields) {
       writer.uint64(v);
     }
     writer.ldelim();
@@ -128,7 +128,7 @@ export const Bears = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseBears } as Bears;
-    message.places = [];
+    message.fields = [];
     message.apiaries = [];
     message.bees = [];
     message.trees = [];
@@ -149,10 +149,10 @@ export const Bears = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.places.push(longToNumber(reader.uint64() as Long));
+              message.fields.push(longToNumber(reader.uint64() as Long));
             }
           } else {
-            message.places.push(longToNumber(reader.uint64() as Long));
+            message.fields.push(longToNumber(reader.uint64() as Long));
           }
           break;
         case 5:
@@ -205,7 +205,7 @@ export const Bears = {
 
   fromJSON(object: any): Bears {
     const message = { ...baseBears } as Bears;
-    message.places = [];
+    message.fields = [];
     message.apiaries = [];
     message.bees = [];
     message.trees = [];
@@ -225,9 +225,9 @@ export const Bears = {
     } else {
       message.name = "";
     }
-    if (object.places !== undefined && object.places !== null) {
-      for (const e of object.places) {
-        message.places.push(Number(e));
+    if (object.fields !== undefined && object.fields !== null) {
+      for (const e of object.fields) {
+        message.fields.push(Number(e));
       }
     }
     if (object.apiaries !== undefined && object.apiaries !== null) {
@@ -258,10 +258,10 @@ export const Bears = {
     message.id !== undefined && (obj.id = message.id);
     message.owner !== undefined && (obj.owner = message.owner);
     message.name !== undefined && (obj.name = message.name);
-    if (message.places) {
-      obj.places = message.places.map((e) => e);
+    if (message.fields) {
+      obj.fields = message.fields.map((e) => e);
     } else {
-      obj.places = [];
+      obj.fields = [];
     }
     if (message.apiaries) {
       obj.apiaries = message.apiaries.map((e) => e);
@@ -288,7 +288,7 @@ export const Bears = {
 
   fromPartial(object: DeepPartial<Bears>): Bears {
     const message = { ...baseBears } as Bears;
-    message.places = [];
+    message.fields = [];
     message.apiaries = [];
     message.bees = [];
     message.trees = [];
@@ -308,9 +308,9 @@ export const Bears = {
     } else {
       message.name = "";
     }
-    if (object.places !== undefined && object.places !== null) {
-      for (const e of object.places) {
-        message.places.push(e);
+    if (object.fields !== undefined && object.fields !== null) {
+      for (const e of object.fields) {
+        message.fields.push(e);
       }
     }
     if (object.apiaries !== undefined && object.apiaries !== null) {

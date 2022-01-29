@@ -11,7 +11,7 @@ message Bears {
   uint64 id = 1;
   string owner = 2; 
   string name = 3; 
-  repeated uint64 places = 4; 
+  repeated uint64 fields = 4; 
   repeated uint64 apiaries = 5; 
   repeated uint64 bees = 6; 
   repeated uint64 trees = 7; 

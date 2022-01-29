@@ -106,7 +106,7 @@ func GetBearsIDFromBytes(bz []byte) uint64 {
 }
 
 // GetBears returns a bears from its id
-func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.Places, error) {
+func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.Fields, error) {
 	_, found := k.GetAddressBears(ctx, address)
 	if found {
 		return nil, nil, types.ErrInitGameIsAlreadyExisted
@@ -120,15 +120,15 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	grounds := []types.Grounds{
 		{},
 	}
-	newPlace := types.Places{
+	newField := types.Fields{
 		BearOwner: &types.BearOwner{
 			Id: bearId,
 		},
-		PlaceType:    types.Places_DEFAULT,
+		FieldType:    types.Fields_DEFAULT,
 		Grounds:      grounds,
 		CountGrounds: uint64(len(grounds)),
 	}
-	newPlace.Id = k.AppendPlaces(ctx, newPlace)
+	newField.Id = k.AppendFields(ctx, newField)
 
 	bearName := types.BearNames{
 		Name:   name,
@@ -140,7 +140,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 		Id:          bearId,
 		Owner:       address,
 		Name:        name,
-		Places:      []uint64{newPlace.Id},
+		Fields:      []uint64{newField.Id},
 		Apiaries:    []uint64{},
 		Bees:        []uint64{},
 		Trees:       []uint64{},
@@ -156,5 +156,5 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	}
 	k.SetAddressBears(ctx, addressBears)
 
-	return &newBear, &newPlace, nil
+	return &newBear, &newField, nil
 }

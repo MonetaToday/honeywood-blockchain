@@ -6,7 +6,7 @@ import "bears/params.proto";
 import "bears/bear_names.proto";
 import "bears/bears.proto";
 import "bears/address_bears.proto";
-import "bears/places.proto";
+import "bears/fields.proto";
 import "bears/trees.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
@@ -19,8 +19,8 @@ message GenesisState {
   repeated Bears bearsList = 3 [(gogoproto.nullable) = false];
   uint64 bearsCount = 4;
   repeated AddressBears addressBearsList = 5 [(gogoproto.nullable) = false];
-  repeated Places placesList = 6 [(gogoproto.nullable) = false];
-  uint64 placesCount = 7;
+  repeated Fields fieldsList = 6 [(gogoproto.nullable) = false];
+  uint64 fieldsCount = 7;
   repeated Trees treesList = 8 [(gogoproto.nullable) = false];
   uint64 treesCount = 9;
   // this line is used by starport scaffolding # genesis/proto/state

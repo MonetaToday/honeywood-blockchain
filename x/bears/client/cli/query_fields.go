@@ -10,10 +10,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListPlaces() *cobra.Command {
+func CmdListFields() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-places",
-		Short: "list all places",
+		Use:   "list-fields",
+		Short: "list all fields",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -24,11 +24,11 @@ func CmdListPlaces() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllPlacesRequest{
+			params := &types.QueryAllFieldsRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.PlacesAll(context.Background(), params)
+			res, err := queryClient.FieldsAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -43,10 +43,10 @@ func CmdListPlaces() *cobra.Command {
 	return cmd
 }
 
-func CmdShowPlaces() *cobra.Command {
+func CmdShowFields() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-places [id]",
-		Short: "shows a places",
+		Use:   "show-fields [id]",
+		Short: "shows a fields",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -58,11 +58,11 @@ func CmdShowPlaces() *cobra.Command {
 				return err
 			}
 
-			params := &types.QueryGetPlacesRequest{
+			params := &types.QueryGetFieldsRequest{
 				Id: id,
 			}
 
-			res, err := queryClient.Places(context.Background(), params)
+			res, err := queryClient.Fields(context.Background(), params)
 			if err != nil {
 				return err
 			}

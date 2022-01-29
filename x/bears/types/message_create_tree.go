@@ -9,11 +9,11 @@ const TypeMsgCreateTree = "create_tree"
 
 var _ sdk.Msg = &MsgCreateTree{}
 
-func NewMsgCreateTree(creator string, bearId uint64, placeId uint64, groundId uint64) *MsgCreateTree {
+func NewMsgCreateTree(creator string, bearId uint64, fieldId uint64, groundId uint64) *MsgCreateTree {
 	return &MsgCreateTree{
 		Creator:  creator,
 		BearId: bearId,
-		PlaceId:  placeId,
+		FieldId:  fieldId,
 		GroundId: groundId,
 	}
 }

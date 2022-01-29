@@ -3,7 +3,7 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Trees {
     id: number;
     bearId: number;
-    placeId: number;
+    fieldId: number;
     groundId: number;
 }
 export declare const Trees: {

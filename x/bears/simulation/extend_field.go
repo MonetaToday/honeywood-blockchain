@@ -10,7 +10,7 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
 
-func SimulateMsgExtendPlace(
+func SimulateMsgExtendField(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -18,12 +18,12 @@ func SimulateMsgExtendPlace(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgExtendPlace{
+		msg := &types.MsgExtendField{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the ExtendPlace simulation
+		// TODO: Handling the ExtendField simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "ExtendPlace simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "ExtendField simulation not implemented"), nil, nil
 	}
 }

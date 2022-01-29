@@ -6,13 +6,13 @@ import "gogoproto/gogo.proto";
 import "bears/grounds.proto";
 import "bears/bears.proto";
 
-message Places {
+message Fields {
   uint64 id = 1;
   BearOwner bearOwner = 2; 
-  enum PlaceTypes {
+  enum FieldTypes {
     DEFAULT = 0;
   }
-  PlaceTypes placeType = 3; 
+  FieldTypes fieldType = 3; 
   repeated Grounds grounds = 4 [(gogoproto.nullable) = false]; 
   uint64 countGrounds = 5; 
   

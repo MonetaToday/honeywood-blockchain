@@ -39,7 +39,7 @@ func TestGenesis(t *testing.T) {
 				Address: "1",
 			},
 		},
-		PlacesList: []types.Places{
+		FieldsList: []types.Fields{
 			{
 				Id: 0,
 			},
@@ -47,7 +47,7 @@ func TestGenesis(t *testing.T) {
 				Id: 1,
 			},
 		},
-		PlacesCount: 2,
+		FieldsCount: 2,
 		TreesList: []types.Trees{
 			{
 				Id: 0,
@@ -72,8 +72,8 @@ func TestGenesis(t *testing.T) {
 	require.ElementsMatch(t, genesisState.BearsList, got.BearsList)
 	require.Equal(t, genesisState.BearsCount, got.BearsCount)
 	require.ElementsMatch(t, genesisState.AddressBearsList, got.AddressBearsList)
-	require.ElementsMatch(t, genesisState.PlacesList, got.PlacesList)
-	require.Equal(t, genesisState.PlacesCount, got.PlacesCount)
+	require.ElementsMatch(t, genesisState.FieldsList, got.FieldsList)
+	require.Equal(t, genesisState.FieldsCount, got.FieldsCount)
 	require.ElementsMatch(t, genesisState.TreesList, got.TreesList)
 	require.Equal(t, genesisState.TreesCount, got.TreesCount)
 	// this line is used by starport scaffolding # genesis/test/assert

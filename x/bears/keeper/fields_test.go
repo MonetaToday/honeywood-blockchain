@@ -11,19 +11,19 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func createNPlaces(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Places {
-	items := make([]types.Places, n)
+func createNFields(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Fields {
+	items := make([]types.Fields, n)
 	for i := range items {
-		items[i].Id = keeper.AppendPlaces(ctx, items[i])
+		items[i].Id = keeper.AppendFields(ctx, items[i])
 	}
 	return items
 }
 
-func TestPlacesGet(t *testing.T) {
+func TestFieldsGet(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
-	items := createNPlaces(keeper, ctx, 10)
+	items := createNFields(keeper, ctx, 10)
 	for _, item := range items {
-		got, found := keeper.GetPlaces(ctx, item.Id)
+		got, found := keeper.GetFields(ctx, item.Id)
 		require.True(t, found)
 		require.Equal(t,
 			nullify.Fill(&item),
@@ -32,28 +32,28 @@ func TestPlacesGet(t *testing.T) {
 	}
 }
 
-func TestPlacesRemove(t *testing.T) {
+func TestFieldsRemove(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
-	items := createNPlaces(keeper, ctx, 10)
+	items := createNFields(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemovePlaces(ctx, item.Id)
-		_, found := keeper.GetPlaces(ctx, item.Id)
+		keeper.RemoveFields(ctx, item.Id)
+		_, found := keeper.GetFields(ctx, item.Id)
 		require.False(t, found)
 	}
 }
 
-func TestPlacesGetAll(t *testing.T) {
+func TestFieldsGetAll(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
-	items := createNPlaces(keeper, ctx, 10)
+	items := createNFields(keeper, ctx, 10)
 	require.ElementsMatch(t,
 		nullify.Fill(items),
-		nullify.Fill(keeper.GetAllPlaces(ctx)),
+		nullify.Fill(keeper.GetAllFields(ctx)),
 	)
 }
 
-func TestPlacesCount(t *testing.T) {
+func TestFieldsCount(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
-	items := createNPlaces(keeper, ctx, 10)
+	items := createNFields(keeper, ctx, 10)
 	count := uint64(len(items))
-	require.Equal(t, count, keeper.GetPlacesCount(ctx))
+	require.Equal(t, count, keeper.GetFieldsCount(ctx))
 }

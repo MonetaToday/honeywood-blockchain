@@ -7,11 +7,11 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Trees {
   id: number;
   bearId: number;
-  placeId: number;
+  fieldId: number;
   groundId: number;
 }
 
-const baseTrees: object = { id: 0, bearId: 0, placeId: 0, groundId: 0 };
+const baseTrees: object = { id: 0, bearId: 0, fieldId: 0, groundId: 0 };
 
 export const Trees = {
   encode(message: Trees, writer: Writer = Writer.create()): Writer {
@@ -21,8 +21,8 @@ export const Trees = {
     if (message.bearId !== 0) {
       writer.uint32(16).uint64(message.bearId);
     }
-    if (message.placeId !== 0) {
-      writer.uint32(24).uint64(message.placeId);
+    if (message.fieldId !== 0) {
+      writer.uint32(24).uint64(message.fieldId);
     }
     if (message.groundId !== 0) {
       writer.uint32(32).uint64(message.groundId);
@@ -44,7 +44,7 @@ export const Trees = {
           message.bearId = longToNumber(reader.uint64() as Long);
           break;
         case 3:
-          message.placeId = longToNumber(reader.uint64() as Long);
+          message.fieldId = longToNumber(reader.uint64() as Long);
           break;
         case 4:
           message.groundId = longToNumber(reader.uint64() as Long);
@@ -69,10 +69,10 @@ export const Trees = {
     } else {
       message.bearId = 0;
     }
-    if (object.placeId !== undefined && object.placeId !== null) {
-      message.placeId = Number(object.placeId);
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = Number(object.fieldId);
     } else {
-      message.placeId = 0;
+      message.fieldId = 0;
     }
     if (object.groundId !== undefined && object.groundId !== null) {
       message.groundId = Number(object.groundId);
@@ -86,7 +86,7 @@ export const Trees = {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     message.bearId !== undefined && (obj.bearId = message.bearId);
-    message.placeId !== undefined && (obj.placeId = message.placeId);
+    message.fieldId !== undefined && (obj.fieldId = message.fieldId);
     message.groundId !== undefined && (obj.groundId = message.groundId);
     return obj;
   },
@@ -103,10 +103,10 @@ export const Trees = {
     } else {
       message.bearId = 0;
     }
-    if (object.placeId !== undefined && object.placeId !== null) {
-      message.placeId = object.placeId;
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = object.fieldId;
     } else {
-      message.placeId = 0;
+      message.fieldId = 0;
     }
     if (object.groundId !== undefined && object.groundId !== null) {
       message.groundId = object.groundId;

@@ -27,8 +27,8 @@ const (
 )
 
 const (
-	PlacesKey      = "Places-value-"
-	PlacesCountKey = "Places-count-"
+	FieldsKey      = "Fields-value-"
+	FieldsCountKey = "Fields-count-"
 )
 
 const (

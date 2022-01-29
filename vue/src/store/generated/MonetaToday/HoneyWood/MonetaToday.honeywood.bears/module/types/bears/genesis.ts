@@ -5,7 +5,7 @@ import { Params } from "../bears/params";
 import { BearNames } from "../bears/bear_names";
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
-import { Places } from "../bears/places";
+import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
@@ -17,8 +17,8 @@ export interface GenesisState {
   bearsList: Bears[];
   bearsCount: number;
   addressBearsList: AddressBears[];
-  placesList: Places[];
-  placesCount: number;
+  fieldsList: Fields[];
+  fieldsCount: number;
   treesList: Trees[];
   /** this line is used by starport scaffolding # genesis/proto/state */
   treesCount: number;
@@ -26,7 +26,7 @@ export interface GenesisState {
 
 const baseGenesisState: object = {
   bearsCount: 0,
-  placesCount: 0,
+  fieldsCount: 0,
   treesCount: 0,
 };
 
@@ -47,11 +47,11 @@ export const GenesisState = {
     for (const v of message.addressBearsList) {
       AddressBears.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    for (const v of message.placesList) {
-      Places.encode(v!, writer.uint32(50).fork()).ldelim();
+    for (const v of message.fieldsList) {
+      Fields.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    if (message.placesCount !== 0) {
-      writer.uint32(56).uint64(message.placesCount);
+    if (message.fieldsCount !== 0) {
+      writer.uint32(56).uint64(message.fieldsCount);
     }
     for (const v of message.treesList) {
       Trees.encode(v!, writer.uint32(66).fork()).ldelim();
@@ -69,7 +69,7 @@ export const GenesisState = {
     message.bearNamesList = [];
     message.bearsList = [];
     message.addressBearsList = [];
-    message.placesList = [];
+    message.fieldsList = [];
     message.treesList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -92,10 +92,10 @@ export const GenesisState = {
           );
           break;
         case 6:
-          message.placesList.push(Places.decode(reader, reader.uint32()));
+          message.fieldsList.push(Fields.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.placesCount = longToNumber(reader.uint64() as Long);
+          message.fieldsCount = longToNumber(reader.uint64() as Long);
           break;
         case 8:
           message.treesList.push(Trees.decode(reader, reader.uint32()));
@@ -116,7 +116,7 @@ export const GenesisState = {
     message.bearNamesList = [];
     message.bearsList = [];
     message.addressBearsList = [];
-    message.placesList = [];
+    message.fieldsList = [];
     message.treesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
@@ -146,15 +146,15 @@ export const GenesisState = {
         message.addressBearsList.push(AddressBears.fromJSON(e));
       }
     }
-    if (object.placesList !== undefined && object.placesList !== null) {
-      for (const e of object.placesList) {
-        message.placesList.push(Places.fromJSON(e));
+    if (object.fieldsList !== undefined && object.fieldsList !== null) {
+      for (const e of object.fieldsList) {
+        message.fieldsList.push(Fields.fromJSON(e));
       }
     }
-    if (object.placesCount !== undefined && object.placesCount !== null) {
-      message.placesCount = Number(object.placesCount);
+    if (object.fieldsCount !== undefined && object.fieldsCount !== null) {
+      message.fieldsCount = Number(object.fieldsCount);
     } else {
-      message.placesCount = 0;
+      message.fieldsCount = 0;
     }
     if (object.treesList !== undefined && object.treesList !== null) {
       for (const e of object.treesList) {
@@ -195,15 +195,15 @@ export const GenesisState = {
     } else {
       obj.addressBearsList = [];
     }
-    if (message.placesList) {
-      obj.placesList = message.placesList.map((e) =>
-        e ? Places.toJSON(e) : undefined
+    if (message.fieldsList) {
+      obj.fieldsList = message.fieldsList.map((e) =>
+        e ? Fields.toJSON(e) : undefined
       );
     } else {
-      obj.placesList = [];
+      obj.fieldsList = [];
     }
-    message.placesCount !== undefined &&
-      (obj.placesCount = message.placesCount);
+    message.fieldsCount !== undefined &&
+      (obj.fieldsCount = message.fieldsCount);
     if (message.treesList) {
       obj.treesList = message.treesList.map((e) =>
         e ? Trees.toJSON(e) : undefined
@@ -220,7 +220,7 @@ export const GenesisState = {
     message.bearNamesList = [];
     message.bearsList = [];
     message.addressBearsList = [];
-    message.placesList = [];
+    message.fieldsList = [];
     message.treesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
@@ -250,15 +250,15 @@ export const GenesisState = {
         message.addressBearsList.push(AddressBears.fromPartial(e));
       }
     }
-    if (object.placesList !== undefined && object.placesList !== null) {
-      for (const e of object.placesList) {
-        message.placesList.push(Places.fromPartial(e));
+    if (object.fieldsList !== undefined && object.fieldsList !== null) {
+      for (const e of object.fieldsList) {
+        message.fieldsList.push(Fields.fromPartial(e));
       }
     }
-    if (object.placesCount !== undefined && object.placesCount !== null) {
-      message.placesCount = object.placesCount;
+    if (object.fieldsCount !== undefined && object.fieldsCount !== null) {
+      message.fieldsCount = object.fieldsCount;
     } else {
-      message.placesCount = 0;
+      message.fieldsCount = 0;
     }
     if (object.treesList !== undefined && object.treesList !== null) {
       for (const e of object.treesList) {

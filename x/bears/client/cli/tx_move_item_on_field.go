@@ -13,13 +13,21 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdExtendPlace() *cobra.Command {
+func CmdMoveItemOnField() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "extend-place [id]",
-		Short: "Extend a place",
-		Args:  cobra.ExactArgs(1),
+		Use:   "move-item-on-field [field-id] [ground-id] [new-ground-id]",
+		Short: "Move an item on field",
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argId, err := cast.ToUint64E(args[0])
+			argFieldId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			argGroundId, err := cast.ToUint64E(args[1])
+			if err != nil {
+				return err
+			}
+			argNewGroundId, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
@@ -29,9 +37,11 @@ func CmdExtendPlace() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgExtendPlace(
+			msg := types.NewMsgMoveItemOnField(
 				clientCtx.GetFromAddress().String(),
-				argId,
+				argFieldId,
+				argGroundId,
+				argNewGroundId,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

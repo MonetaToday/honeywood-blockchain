@@ -13,7 +13,7 @@ func DefaultGenesis() *GenesisState {
 		BearNamesList:    []BearNames{},
 		BearsList:        []Bears{},
 		AddressBearsList: []AddressBears{},
-		PlacesList:       []Places{},
+		FieldsList:       []Fields{},
 		TreesList:        []Trees{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
@@ -55,17 +55,17 @@ func (gs GenesisState) Validate() error {
 		}
 		addressBearsIndexMap[index] = struct{}{}
 	}
-	// Check for duplicated ID in places
-	placesIdMap := make(map[uint64]bool)
-	placesCount := gs.GetPlacesCount()
-	for _, elem := range gs.PlacesList {
-		if _, ok := placesIdMap[elem.Id]; ok {
-			return fmt.Errorf("duplicated id for places")
+	// Check for duplicated ID in fields
+	fieldsIdMap := make(map[uint64]bool)
+	fieldsCount := gs.GetFieldsCount()
+	for _, elem := range gs.FieldsList {
+		if _, ok := fieldsIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for fields")
 		}
-		if elem.Id >= placesCount {
-			return fmt.Errorf("places id should be lower or equal than the last id")
+		if elem.Id >= fieldsCount {
+			return fmt.Errorf("fields id should be lower or equal than the last id")
 		}
-		placesIdMap[elem.Id] = true
+		fieldsIdMap[elem.Id] = true
 	}
 	// Check for duplicated ID in trees
 	treesIdMap := make(map[uint64]bool)

@@ -10,11 +10,11 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 service Msg {
       rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
   rpc SetName(MsgSetName) returns (MsgSetNameResponse);
-  rpc InitGameAndExtendPlace(MsgInitGameAndExtendPlace) returns (MsgInitGameAndExtendPlaceResponse);
-  rpc ExtendPlace(MsgExtendPlace) returns (MsgExtendPlaceResponse);
+  rpc InitGameAndExtendField(MsgInitGameAndExtendField) returns (MsgInitGameAndExtendFieldResponse);
+  rpc ExtendField(MsgExtendField) returns (MsgExtendFieldResponse);
   rpc InitGameAndCreateTree(MsgInitGameAndCreateTree) returns (MsgInitGameAndCreateTreeResponse);
   rpc CreateTree(MsgCreateTree) returns (MsgCreateTreeResponse);
-  rpc MoveItemOnPlace(MsgMoveItemOnPlace) returns (MsgMoveItemOnPlaceResponse);
+  rpc MoveItemOnField(MsgMoveItemOnField) returns (MsgMoveItemOnFieldResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -35,20 +35,20 @@ message MsgSetName {
 message MsgSetNameResponse {
 }
 
-message MsgInitGameAndExtendPlace {
+message MsgInitGameAndExtendField {
   string creator = 1;
 }
 
-message MsgInitGameAndExtendPlaceResponse {
+message MsgInitGameAndExtendFieldResponse {
   uint64 countGrounds = 1;
 }
 
-message MsgExtendPlace {
+message MsgExtendField {
   string creator = 1;
   uint64 id = 2;
 }
 
-message MsgExtendPlaceResponse {
+message MsgExtendFieldResponse {
   uint64 countGrounds = 1;
 }
 
@@ -63,7 +63,7 @@ message MsgInitGameAndCreateTreeResponse {
 message MsgCreateTree {
   string creator = 1;
   uint64 bearId = 2;
-  uint64 placeId = 3;
+  uint64 fieldId = 3;
   uint64 groundId = 4;
 }
 
@@ -71,14 +71,14 @@ message MsgCreateTreeResponse {
   Trees tree = 1;
 }
 
-message MsgMoveItemOnPlace {
+message MsgMoveItemOnField {
   string creator = 1;
-  uint64 placeId = 2;
+  uint64 fieldId = 2;
   uint64 groundId = 3;
   uint64 newGroundId = 4;
 }
 
-message MsgMoveItemOnPlaceResponse {
+message MsgMoveItemOnFieldResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
