@@ -16,4 +16,7 @@ func TestGetParams(t *testing.T) {
 
 	require.EqualValues(t, params, k.GetParams(ctx))
 	require.EqualValues(t, params.SetNamePrice, k.SetNamePrice(ctx))
+	require.EqualValues(t, params.OneTilePrice, k.OneTilePrice(ctx))
+	require.EqualValues(t, params.OneTreePrice, k.OneTreePrice(ctx))
+	require.EqualValues(t, params.OneTreeReward, k.OneTreeReward(ctx))
 }
