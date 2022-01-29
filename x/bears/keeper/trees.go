@@ -108,7 +108,7 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, tileId uint64) (*types.Trees, error) {
+func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, tileId uint64, treeType string) (*types.Trees, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
 		return nil, types.ErrFieldIsNotExisted
@@ -139,6 +139,7 @@ func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		BearId:   bearId,
 		FieldId:  field.Id,
 		TileId: tileId,
+		TreeType: types.Trees_TreeTypes(types.Trees_TreeTypes_value[treeType]),
 	}
 	newTreeId := k.AppendTrees(ctx, newTree)
 

@@ -29,6 +29,7 @@ export interface MsgExtendFieldResponse {
 }
 export interface MsgInitGameAndCreateTree {
     creator: string;
+    treeType: string;
 }
 export interface MsgInitGameAndCreateTreeResponse {
     tree: Trees | undefined;
@@ -38,6 +39,7 @@ export interface MsgCreateTree {
     bearId: number;
     fieldId: number;
     tileId: number;
+    treeType: string;
 }
 export interface MsgCreateTreeResponse {
     tree: Trees | undefined;

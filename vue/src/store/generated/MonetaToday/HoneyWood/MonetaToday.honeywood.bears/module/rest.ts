@@ -25,6 +25,13 @@ export interface TilesItems {
   itemType?: ItemsItemTypes;
 }
 
+export enum TreesTreeTypes {
+  OAK = "OAK",
+  SPRUCE = "SPRUCE",
+  APPLETREE = "APPLETREE",
+  WILLOW = "WILLOW",
+}
+
 export interface BearsAddressBears {
   address?: string;
   bears?: string[];
@@ -236,6 +243,7 @@ export interface BearsTiles {
 export interface BearsTrees {
   /** @format uint64 */
   id?: string;
+  treeType?: TreesTreeTypes;
 
   /** @format uint64 */
   bearId?: string;

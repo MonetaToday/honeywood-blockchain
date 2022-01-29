@@ -5,8 +5,14 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
 message Trees {
   uint64 id = 1;
-  uint64 bearId = 2; 
-  uint64 fieldId = 3; 
-  uint64 tileId = 4; 
-  
+  enum TreeTypes {
+    OAK = 0;
+    SPRUCE = 1;
+    APPLETREE = 2;
+    WILLOW = 3;
+  }
+  TreeTypes treeType = 2;
+  uint64 bearId = 3; 
+  uint64 fieldId = 4; 
+  uint64 tileId = 5;
 }

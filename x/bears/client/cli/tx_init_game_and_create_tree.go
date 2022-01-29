@@ -16,8 +16,9 @@ func CmdInitGameAndCreateTree() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "init-game-and-create-tree",
 		Short: "Initialize game and create a tree",
-		Args:  cobra.ExactArgs(0),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argTreeType := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -26,6 +27,7 @@ func CmdInitGameAndCreateTree() *cobra.Command {
 
 			msg := types.NewMsgInitGameAndCreateTree(
 				clientCtx.GetFromAddress().String(),
+				argTreeType,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

@@ -9,9 +9,10 @@ const TypeMsgInitGameAndCreateTree = "init_game_and_create_tree"
 
 var _ sdk.Msg = &MsgInitGameAndCreateTree{}
 
-func NewMsgInitGameAndCreateTree(creator string) *MsgInitGameAndCreateTree {
+func NewMsgInitGameAndCreateTree(creator string, treeType string) *MsgInitGameAndCreateTree {
 	return &MsgInitGameAndCreateTree{
 		Creator: creator,
+		TreeType: treeType,
 	}
 }
 
@@ -41,5 +42,10 @@ func (msg *MsgInitGameAndCreateTree) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	if _, ok := Trees_TreeTypes_value[msg.TreeType]; !ok {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Tree type must be in enum")
+	}
+
 	return nil
 }

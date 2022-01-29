@@ -9,12 +9,13 @@ const TypeMsgCreateTree = "create_tree"
 
 var _ sdk.Msg = &MsgCreateTree{}
 
-func NewMsgCreateTree(creator string, bearId uint64, fieldId uint64, tileId uint64) *MsgCreateTree {
+func NewMsgCreateTree(creator string, bearId uint64, fieldId uint64, tileId uint64, treeType string) *MsgCreateTree {
 	return &MsgCreateTree{
 		Creator:  creator,
 		BearId: bearId,
 		FieldId:  fieldId,
 		TileId: tileId,
+		TreeType: treeType,
 	}
 }
 
@@ -44,5 +45,10 @@ func (msg *MsgCreateTree) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	if _, ok := Trees_TreeTypes_value[msg.TreeType]; !ok {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Tree type must be in enum")
+	}
+
 	return nil
 }

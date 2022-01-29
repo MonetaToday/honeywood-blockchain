@@ -18,6 +18,13 @@ export var ItemsItemTypes;
     ItemsItemTypes["TREE"] = "TREE";
     ItemsItemTypes["DECORATION"] = "DECORATION";
 })(ItemsItemTypes || (ItemsItemTypes = {}));
+export var TreesTreeTypes;
+(function (TreesTreeTypes) {
+    TreesTreeTypes["OAK"] = "OAK";
+    TreesTreeTypes["SPRUCE"] = "SPRUCE";
+    TreesTreeTypes["APPLETREE"] = "APPLETREE";
+    TreesTreeTypes["WILLOW"] = "WILLOW";
+})(TreesTreeTypes || (TreesTreeTypes = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";

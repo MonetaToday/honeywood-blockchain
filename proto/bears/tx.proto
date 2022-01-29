@@ -54,6 +54,7 @@ message MsgExtendFieldResponse {
 
 message MsgInitGameAndCreateTree {
   string creator = 1;
+  string treeType = 2;
 }
 
 message MsgInitGameAndCreateTreeResponse {
@@ -65,6 +66,7 @@ message MsgCreateTree {
   uint64 bearId = 2;
   uint64 fieldId = 3;
   uint64 tileId = 4;
+  string treeType = 5;
 }
 
 message MsgCreateTreeResponse {

@@ -39,6 +39,7 @@ export interface MsgExtendFieldResponse {
 
 export interface MsgInitGameAndCreateTree {
   creator: string;
+  treeType: string;
 }
 
 export interface MsgInitGameAndCreateTreeResponse {
@@ -50,6 +51,7 @@ export interface MsgCreateTree {
   bearId: number;
   fieldId: number;
   tileId: number;
+  treeType: string;
 }
 
 export interface MsgCreateTreeResponse {
@@ -591,7 +593,7 @@ export const MsgExtendFieldResponse = {
   },
 };
 
-const baseMsgInitGameAndCreateTree: object = { creator: "" };
+const baseMsgInitGameAndCreateTree: object = { creator: "", treeType: "" };
 
 export const MsgInitGameAndCreateTree = {
   encode(
@@ -600,6 +602,9 @@ export const MsgInitGameAndCreateTree = {
   ): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
+    }
+    if (message.treeType !== "") {
+      writer.uint32(18).string(message.treeType);
     }
     return writer;
   },
@@ -619,6 +624,9 @@ export const MsgInitGameAndCreateTree = {
         case 1:
           message.creator = reader.string();
           break;
+        case 2:
+          message.treeType = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -636,12 +644,18 @@ export const MsgInitGameAndCreateTree = {
     } else {
       message.creator = "";
     }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = String(object.treeType);
+    } else {
+      message.treeType = "";
+    }
     return message;
   },
 
   toJSON(message: MsgInitGameAndCreateTree): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.treeType !== undefined && (obj.treeType = message.treeType);
     return obj;
   },
 
@@ -655,6 +669,11 @@ export const MsgInitGameAndCreateTree = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = object.treeType;
+    } else {
+      message.treeType = "";
     }
     return message;
   },
@@ -735,6 +754,7 @@ const baseMsgCreateTree: object = {
   bearId: 0,
   fieldId: 0,
   tileId: 0,
+  treeType: "",
 };
 
 export const MsgCreateTree = {
@@ -750,6 +770,9 @@ export const MsgCreateTree = {
     }
     if (message.tileId !== 0) {
       writer.uint32(32).uint64(message.tileId);
+    }
+    if (message.treeType !== "") {
+      writer.uint32(42).string(message.treeType);
     }
     return writer;
   },
@@ -772,6 +795,9 @@ export const MsgCreateTree = {
           break;
         case 4:
           message.tileId = longToNumber(reader.uint64() as Long);
+          break;
+        case 5:
+          message.treeType = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -803,6 +829,11 @@ export const MsgCreateTree = {
     } else {
       message.tileId = 0;
     }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = String(object.treeType);
+    } else {
+      message.treeType = "";
+    }
     return message;
   },
 
@@ -812,6 +843,7 @@ export const MsgCreateTree = {
     message.bearId !== undefined && (obj.bearId = message.bearId);
     message.fieldId !== undefined && (obj.fieldId = message.fieldId);
     message.tileId !== undefined && (obj.tileId = message.tileId);
+    message.treeType !== undefined && (obj.treeType = message.treeType);
     return obj;
   },
 
@@ -836,6 +868,11 @@ export const MsgCreateTree = {
       message.tileId = object.tileId;
     } else {
       message.tileId = 0;
+    }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = object.treeType;
+    } else {
+      message.treeType = "";
     }
     return message;
   },

@@ -6,26 +6,80 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface Trees {
   id: number;
+  treeType: Trees_TreeTypes;
   bearId: number;
   fieldId: number;
   tileId: number;
 }
 
-const baseTrees: object = { id: 0, bearId: 0, fieldId: 0, tileId: 0 };
+export enum Trees_TreeTypes {
+  OAK = 0,
+  SPRUCE = 1,
+  APPLETREE = 2,
+  WILLOW = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function trees_TreeTypesFromJSON(object: any): Trees_TreeTypes {
+  switch (object) {
+    case 0:
+    case "OAK":
+      return Trees_TreeTypes.OAK;
+    case 1:
+    case "SPRUCE":
+      return Trees_TreeTypes.SPRUCE;
+    case 2:
+    case "APPLETREE":
+      return Trees_TreeTypes.APPLETREE;
+    case 3:
+    case "WILLOW":
+      return Trees_TreeTypes.WILLOW;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return Trees_TreeTypes.UNRECOGNIZED;
+  }
+}
+
+export function trees_TreeTypesToJSON(object: Trees_TreeTypes): string {
+  switch (object) {
+    case Trees_TreeTypes.OAK:
+      return "OAK";
+    case Trees_TreeTypes.SPRUCE:
+      return "SPRUCE";
+    case Trees_TreeTypes.APPLETREE:
+      return "APPLETREE";
+    case Trees_TreeTypes.WILLOW:
+      return "WILLOW";
+    default:
+      return "UNKNOWN";
+  }
+}
+
+const baseTrees: object = {
+  id: 0,
+  treeType: 0,
+  bearId: 0,
+  fieldId: 0,
+  tileId: 0,
+};
 
 export const Trees = {
   encode(message: Trees, writer: Writer = Writer.create()): Writer {
     if (message.id !== 0) {
       writer.uint32(8).uint64(message.id);
     }
+    if (message.treeType !== 0) {
+      writer.uint32(16).int32(message.treeType);
+    }
     if (message.bearId !== 0) {
-      writer.uint32(16).uint64(message.bearId);
+      writer.uint32(24).uint64(message.bearId);
     }
     if (message.fieldId !== 0) {
-      writer.uint32(24).uint64(message.fieldId);
+      writer.uint32(32).uint64(message.fieldId);
     }
     if (message.tileId !== 0) {
-      writer.uint32(32).uint64(message.tileId);
+      writer.uint32(40).uint64(message.tileId);
     }
     return writer;
   },
@@ -41,12 +95,15 @@ export const Trees = {
           message.id = longToNumber(reader.uint64() as Long);
           break;
         case 2:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.treeType = reader.int32() as any;
           break;
         case 3:
-          message.fieldId = longToNumber(reader.uint64() as Long);
+          message.bearId = longToNumber(reader.uint64() as Long);
           break;
         case 4:
+          message.fieldId = longToNumber(reader.uint64() as Long);
+          break;
+        case 5:
           message.tileId = longToNumber(reader.uint64() as Long);
           break;
         default:
@@ -63,6 +120,11 @@ export const Trees = {
       message.id = Number(object.id);
     } else {
       message.id = 0;
+    }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = trees_TreeTypesFromJSON(object.treeType);
+    } else {
+      message.treeType = 0;
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = Number(object.bearId);
@@ -85,6 +147,8 @@ export const Trees = {
   toJSON(message: Trees): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
+    message.treeType !== undefined &&
+      (obj.treeType = trees_TreeTypesToJSON(message.treeType));
     message.bearId !== undefined && (obj.bearId = message.bearId);
     message.fieldId !== undefined && (obj.fieldId = message.fieldId);
     message.tileId !== undefined && (obj.tileId = message.tileId);
@@ -97,6 +161,11 @@ export const Trees = {
       message.id = object.id;
     } else {
       message.id = 0;
+    }
+    if (object.treeType !== undefined && object.treeType !== null) {
+      message.treeType = object.treeType;
+    } else {
+      message.treeType = 0;
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = object.bearId;

@@ -467,11 +467,14 @@ export const MsgExtendFieldResponse = {
         return message;
     },
 };
-const baseMsgInitGameAndCreateTree = { creator: "" };
+const baseMsgInitGameAndCreateTree = { creator: "", treeType: "" };
 export const MsgInitGameAndCreateTree = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
+        }
+        if (message.treeType !== "") {
+            writer.uint32(18).string(message.treeType);
         }
         return writer;
     },
@@ -486,6 +489,9 @@ export const MsgInitGameAndCreateTree = {
             switch (tag >>> 3) {
                 case 1:
                     message.creator = reader.string();
+                    break;
+                case 2:
+                    message.treeType = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -504,11 +510,18 @@ export const MsgInitGameAndCreateTree = {
         else {
             message.creator = "";
         }
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = String(object.treeType);
+        }
+        else {
+            message.treeType = "";
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.treeType !== undefined && (obj.treeType = message.treeType);
         return obj;
     },
     fromPartial(object) {
@@ -520,6 +533,12 @@ export const MsgInitGameAndCreateTree = {
         }
         else {
             message.creator = "";
+        }
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = object.treeType;
+        }
+        else {
+            message.treeType = "";
         }
         return message;
     },
@@ -587,6 +606,7 @@ const baseMsgCreateTree = {
     bearId: 0,
     fieldId: 0,
     tileId: 0,
+    treeType: "",
 };
 export const MsgCreateTree = {
     encode(message, writer = Writer.create()) {
@@ -601,6 +621,9 @@ export const MsgCreateTree = {
         }
         if (message.tileId !== 0) {
             writer.uint32(32).uint64(message.tileId);
+        }
+        if (message.treeType !== "") {
+            writer.uint32(42).string(message.treeType);
         }
         return writer;
     },
@@ -622,6 +645,9 @@ export const MsgCreateTree = {
                     break;
                 case 4:
                     message.tileId = longToNumber(reader.uint64());
+                    break;
+                case 5:
+                    message.treeType = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -656,6 +682,12 @@ export const MsgCreateTree = {
         else {
             message.tileId = 0;
         }
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = String(object.treeType);
+        }
+        else {
+            message.treeType = "";
+        }
         return message;
     },
     toJSON(message) {
@@ -664,6 +696,7 @@ export const MsgCreateTree = {
         message.bearId !== undefined && (obj.bearId = message.bearId);
         message.fieldId !== undefined && (obj.fieldId = message.fieldId);
         message.tileId !== undefined && (obj.tileId = message.tileId);
+        message.treeType !== undefined && (obj.treeType = message.treeType);
         return obj;
     },
     fromPartial(object) {
@@ -691,6 +724,12 @@ export const MsgCreateTree = {
         }
         else {
             message.tileId = 0;
+        }
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = object.treeType;
+        }
+        else {
+            message.treeType = "";
         }
         return message;
     },

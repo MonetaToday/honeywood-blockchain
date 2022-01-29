@@ -13477,6 +13477,14 @@ paths:
                     id:
                       type: string
                       format: uint64
+                    treeType:
+                      type: string
+                      enum:
+                        - OAK
+                        - SPRUCE
+                        - APPLETREE
+                        - WILLOW
+                      default: OAK
                     bearId:
                       type: string
                       format: uint64
@@ -13606,6 +13614,14 @@ paths:
                   id:
                     type: string
                     format: uint64
+                  treeType:
+                    type: string
+                    enum:
+                      - OAK
+                      - SPRUCE
+                      - APPLETREE
+                      - WILLOW
+                    default: OAK
                   bearId:
                     type: string
                     format: uint64
@@ -21102,6 +21118,14 @@ definitions:
           id:
             type: string
             format: uint64
+          treeType:
+            type: string
+            enum:
+              - OAK
+              - SPRUCE
+              - APPLETREE
+              - WILLOW
+            default: OAK
           bearId:
             type: string
             format: uint64
@@ -21126,6 +21150,14 @@ definitions:
           id:
             type: string
             format: uint64
+          treeType:
+            type: string
+            enum:
+              - OAK
+              - SPRUCE
+              - APPLETREE
+              - WILLOW
+            default: OAK
           bearId:
             type: string
             format: uint64
@@ -21421,6 +21453,14 @@ definitions:
             id:
               type: string
               format: uint64
+            treeType:
+              type: string
+              enum:
+                - OAK
+                - SPRUCE
+                - APPLETREE
+                - WILLOW
+              default: OAK
             bearId:
               type: string
               format: uint64
@@ -21567,6 +21607,14 @@ definitions:
           id:
             type: string
             format: uint64
+          treeType:
+            type: string
+            enum:
+              - OAK
+              - SPRUCE
+              - APPLETREE
+              - WILLOW
+            default: OAK
           bearId:
             type: string
             format: uint64
@@ -21686,6 +21734,14 @@ definitions:
       id:
         type: string
         format: uint64
+      treeType:
+        type: string
+        enum:
+          - OAK
+          - SPRUCE
+          - APPLETREE
+          - WILLOW
+        default: OAK
       bearId:
         type: string
         format: uint64
@@ -21695,3 +21751,11 @@ definitions:
       tileId:
         type: string
         format: uint64
+  MonetaToday.honeywood.bears.Trees.TreeTypes:
+    type: string
+    enum:
+      - OAK
+      - SPRUCE
+      - APPLETREE
+      - WILLOW
+    default: OAK
