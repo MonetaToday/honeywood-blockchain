@@ -11,8 +11,8 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	fieldId := msg.FieldId
-	oldGroundId := msg.GroundId
-	newGroundId := msg.NewGroundId
+	oldTileId := msg.TileId
+	newTileId := msg.NewTileId
 
 	field, fieldFound := k.Keeper.GetFields(ctx, fieldId)
 	if !fieldFound {
@@ -22,34 +22,34 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	if !hasRightsField {
 		return nil, types.ErrAddressHasNoRights
 	}
-	isEmptyOldGround, _ := k.Keeper.isEmptyGround(ctx, field, oldGroundId)
-	if isEmptyOldGround {
-		return nil, types.ErrItemIsNotExistedOnGround
+	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldTileId)
+	if isEmptyOldTile {
+		return nil, types.ErrItemIsNotExistedOnTile
 	}
-	isEmptyNewGround, errEmptyNewGround := k.Keeper.isEmptyGround(ctx, field, newGroundId)
-	if !isEmptyNewGround {
-		return nil, errEmptyNewGround
+	isEmptyNewTile, errEmptyNewTile := k.Keeper.isEmptyTile(ctx, field, newTileId)
+	if !isEmptyNewTile {
+		return nil, errEmptyNewTile
 	}
 
-	field.Grounds[newGroundId].Item = field.Grounds[oldGroundId].Item
-	field.Grounds[oldGroundId].Item = nil
+	field.Tiles[newTileId].Item = field.Tiles[oldTileId].Item
+	field.Tiles[oldTileId].Item = nil
 
 	k.Keeper.SetFields(ctx, field)
 
-	itemType := field.Grounds[newGroundId].Item.ItemType
-	itemId := field.Grounds[newGroundId].Item.ItemId
+	itemType := field.Tiles[newTileId].Item.ItemType
+	itemId := field.Tiles[newTileId].Item.ItemId
 
 	switch itemType {
-	case types.Grounds_Items_APIARY:
+	case types.Tiles_Items_APIARY:
 		//TODO
-	case types.Grounds_Items_TREE:
+	case types.Tiles_Items_TREE:
 		tree, treeFound := k.Keeper.GetTrees(ctx, itemId)
 		if !treeFound {
 			return nil, types.ErrTreeIsNotExister
 		}
-		tree.GroundId = newGroundId
+		tree.TileId = newTileId
 		k.Keeper.SetTrees(ctx, tree)
-	case types.Grounds_Items_DECORATION:
+	case types.Tiles_Items_DECORATION:
 		//TODO
 		
 	default:

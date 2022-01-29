@@ -2,7 +2,7 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-const baseTrees = { id: 0, bearId: 0, fieldId: 0, groundId: 0 };
+const baseTrees = { id: 0, bearId: 0, fieldId: 0, tileId: 0 };
 export const Trees = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
@@ -14,8 +14,8 @@ export const Trees = {
         if (message.fieldId !== 0) {
             writer.uint32(24).uint64(message.fieldId);
         }
-        if (message.groundId !== 0) {
-            writer.uint32(32).uint64(message.groundId);
+        if (message.tileId !== 0) {
+            writer.uint32(32).uint64(message.tileId);
         }
         return writer;
     },
@@ -36,7 +36,7 @@ export const Trees = {
                     message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 4:
-                    message.groundId = longToNumber(reader.uint64());
+                    message.tileId = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -65,11 +65,11 @@ export const Trees = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = Number(object.groundId);
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = Number(object.tileId);
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
         return message;
     },
@@ -78,7 +78,7 @@ export const Trees = {
         message.id !== undefined && (obj.id = message.id);
         message.bearId !== undefined && (obj.bearId = message.bearId);
         message.fieldId !== undefined && (obj.fieldId = message.fieldId);
-        message.groundId !== undefined && (obj.groundId = message.groundId);
+        message.tileId !== undefined && (obj.tileId = message.tileId);
         return obj;
     },
     fromPartial(object) {
@@ -101,11 +101,11 @@ export const Trees = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = object.groundId;
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = object.tileId;
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
         return message;
     },

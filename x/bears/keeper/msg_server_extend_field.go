@@ -10,12 +10,12 @@ import (
 func (k msgServer) ExtendField(goCtx context.Context, msg *types.MsgExtendField) (*types.MsgExtendFieldResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	countGrounds, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, msg.Id)
+	countTiles, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, msg.Id)
 	if extendFieldErr != nil {
 		return nil, extendFieldErr
 	}
 
 	return &types.MsgExtendFieldResponse{
-		CountGrounds: *countGrounds,
+		CountTiles: *countTiles,
 	}, nil
 }

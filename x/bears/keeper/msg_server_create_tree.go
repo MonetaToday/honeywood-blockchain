@@ -10,7 +10,7 @@ import (
 func (k msgServer) CreateTree(goCtx context.Context, msg *types.MsgCreateTree) (*types.MsgCreateTreeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	tree, createTreeErr := k.Keeper.createTreeOnField(ctx, msg.Creator, msg.BearId, msg.FieldId, msg.GroundId)
+	tree, createTreeErr := k.Keeper.createTreeOnField(ctx, msg.Creator, msg.BearId, msg.FieldId, msg.TileId)
 	if createTreeErr != nil {
 		return nil, createTreeErr
 	}

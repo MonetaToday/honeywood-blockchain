@@ -7,6 +7,6 @@ message Trees {
   uint64 id = 1;
   uint64 bearId = 2; 
   uint64 fieldId = 3; 
-  uint64 groundId = 4; 
+  uint64 tileId = 4; 
   
 }

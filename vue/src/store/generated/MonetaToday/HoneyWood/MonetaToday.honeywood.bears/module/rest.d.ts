@@ -1,15 +1,15 @@
 export declare enum FieldsFieldTypes {
     DEFAULT = "DEFAULT"
 }
-export interface GroundsItems {
-    /** @format uint64 */
-    itemId?: string;
-    itemType?: ItemsItemTypes;
-}
 export declare enum ItemsItemTypes {
     APIARY = "APIARY",
     TREE = "TREE",
     DECORATION = "DECORATION"
+}
+export interface TilesItems {
+    /** @format uint64 */
+    itemId?: string;
+    itemType?: ItemsItemTypes;
 }
 export interface BearsAddressBears {
     address?: string;
@@ -40,26 +40,23 @@ export interface BearsFields {
     id?: string;
     bearOwner?: BearsBearOwner;
     fieldType?: FieldsFieldTypes;
-    grounds?: BearsGrounds[];
+    tiles?: BearsTiles[];
     /** @format uint64 */
-    countGrounds?: string;
-}
-export interface BearsGrounds {
-    item?: GroundsItems;
+    countTiles?: string;
 }
 export interface BearsMsgCreateTreeResponse {
     tree?: BearsTrees;
 }
 export interface BearsMsgExtendFieldResponse {
     /** @format uint64 */
-    countGrounds?: string;
+    countTiles?: string;
 }
 export interface BearsMsgInitGameAndCreateTreeResponse {
     tree?: BearsTrees;
 }
 export interface BearsMsgInitGameAndExtendFieldResponse {
     /** @format uint64 */
-    countGrounds?: string;
+    countTiles?: string;
 }
 export declare type BearsMsgInitGameAndSetNameResponse = object;
 export declare type BearsMsgMoveItemOnFieldResponse = object;
@@ -81,7 +78,7 @@ export interface BearsParams {
      * NOTE: The amount field is an Int which implements the custom method
      * signatures required by gogoproto.
      */
-    oneGroundPrice?: V1Beta1Coin;
+    oneTilePrice?: V1Beta1Coin;
     /**
      * Coin defines a token with a denomination and an amount.
      *
@@ -184,6 +181,9 @@ export interface BearsQueryParamsResponse {
     /** params holds all the parameters of this module. */
     params?: BearsParams;
 }
+export interface BearsTiles {
+    item?: TilesItems;
+}
 export interface BearsTrees {
     /** @format uint64 */
     id?: string;
@@ -192,7 +192,7 @@ export interface BearsTrees {
     /** @format uint64 */
     fieldId?: string;
     /** @format uint64 */
-    groundId?: string;
+    tileId?: string;
 }
 export interface ProtobufAny {
     "@type"?: string;

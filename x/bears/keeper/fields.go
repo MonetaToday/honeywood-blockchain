@@ -119,16 +119,16 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	newCountGrounds := int64(math.Pow(math.Sqrt(float64(field.CountGrounds))+1, 2))
-	differenceGrounds := newCountGrounds - int64(field.CountGrounds)
-	k.Logger(ctx).Debug(fmt.Sprintf("newCountGrounds is %d", newCountGrounds))
+	newCountTiles := int64(math.Pow(math.Sqrt(float64(field.CountTiles))+1, 2))
+	differenceTiles := newCountTiles - int64(field.CountTiles)
+	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	oneGroundPrice := k.OneGroundPrice(ctx)
+	oneTilePrice := k.OneTilePrice(ctx)
 	priceForExtending := sdk.NewCoins(
 		sdk.NewCoin(
-			oneGroundPrice.Denom,
-			oneGroundPrice.Amount.MulRaw(differenceGrounds),
+			oneTilePrice.Denom,
+			oneTilePrice.Amount.MulRaw(differenceTiles),
 		),
 	)
 
@@ -137,14 +137,14 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	for i := 0; i < int(differenceGrounds); i++ {
-		field.Grounds = append(field.Grounds, types.Grounds{})
+	for i := 0; i < int(differenceTiles); i++ {
+		field.Tiles = append(field.Tiles, types.Tiles{})
 	}
-	field.CountGrounds = uint64(len(field.Grounds))
+	field.CountTiles = uint64(len(field.Tiles))
 
 	k.SetFields(ctx, field)
 
-	return &field.CountGrounds, nil
+	return &field.CountTiles, nil
 }
 
 // GetBears returns a bears from its id
@@ -162,13 +162,13 @@ func (k Keeper) HasRightsToField(ctx sdk.Context, address string, field types.Fi
 }
 
 // GetBears returns a bears from its id
-func (k Keeper) isEmptyGround(ctx sdk.Context, field types.Fields, groundId uint64) (bool, error) {
-	if len(field.Grounds) <= int(groundId) {
-		return false, types.ErrFieldHasNoGroundId
+func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, tileId uint64) (bool, error) {
+	if len(field.Tiles) <= int(tileId) {
+		return false, types.ErrFieldHasNoTileId
 	}
 
-	if field.Grounds[groundId].Item != nil {
-		return false, types.ErrGroundIsNotEmpty
+	if field.Tiles[tileId].Item != nil {
+		return false, types.ErrTileIsNotEmpty
 	}
 
 	return true, nil

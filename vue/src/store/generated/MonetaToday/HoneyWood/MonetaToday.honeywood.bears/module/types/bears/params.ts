@@ -7,7 +7,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
   setNamePrice: Coin | undefined;
-  oneGroundPrice: Coin | undefined;
+  oneTilePrice: Coin | undefined;
   oneTreePrice: Coin | undefined;
   oneTreeReward: Coin | undefined;
 }
@@ -19,8 +19,8 @@ export const Params = {
     if (message.setNamePrice !== undefined) {
       Coin.encode(message.setNamePrice, writer.uint32(10).fork()).ldelim();
     }
-    if (message.oneGroundPrice !== undefined) {
-      Coin.encode(message.oneGroundPrice, writer.uint32(18).fork()).ldelim();
+    if (message.oneTilePrice !== undefined) {
+      Coin.encode(message.oneTilePrice, writer.uint32(18).fork()).ldelim();
     }
     if (message.oneTreePrice !== undefined) {
       Coin.encode(message.oneTreePrice, writer.uint32(26).fork()).ldelim();
@@ -42,7 +42,7 @@ export const Params = {
           message.setNamePrice = Coin.decode(reader, reader.uint32());
           break;
         case 2:
-          message.oneGroundPrice = Coin.decode(reader, reader.uint32());
+          message.oneTilePrice = Coin.decode(reader, reader.uint32());
           break;
         case 3:
           message.oneTreePrice = Coin.decode(reader, reader.uint32());
@@ -65,10 +65,10 @@ export const Params = {
     } else {
       message.setNamePrice = undefined;
     }
-    if (object.oneGroundPrice !== undefined && object.oneGroundPrice !== null) {
-      message.oneGroundPrice = Coin.fromJSON(object.oneGroundPrice);
+    if (object.oneTilePrice !== undefined && object.oneTilePrice !== null) {
+      message.oneTilePrice = Coin.fromJSON(object.oneTilePrice);
     } else {
-      message.oneGroundPrice = undefined;
+      message.oneTilePrice = undefined;
     }
     if (object.oneTreePrice !== undefined && object.oneTreePrice !== null) {
       message.oneTreePrice = Coin.fromJSON(object.oneTreePrice);
@@ -89,9 +89,9 @@ export const Params = {
       (obj.setNamePrice = message.setNamePrice
         ? Coin.toJSON(message.setNamePrice)
         : undefined);
-    message.oneGroundPrice !== undefined &&
-      (obj.oneGroundPrice = message.oneGroundPrice
-        ? Coin.toJSON(message.oneGroundPrice)
+    message.oneTilePrice !== undefined &&
+      (obj.oneTilePrice = message.oneTilePrice
+        ? Coin.toJSON(message.oneTilePrice)
         : undefined);
     message.oneTreePrice !== undefined &&
       (obj.oneTreePrice = message.oneTreePrice
@@ -111,10 +111,10 @@ export const Params = {
     } else {
       message.setNamePrice = undefined;
     }
-    if (object.oneGroundPrice !== undefined && object.oneGroundPrice !== null) {
-      message.oneGroundPrice = Coin.fromPartial(object.oneGroundPrice);
+    if (object.oneTilePrice !== undefined && object.oneTilePrice !== null) {
+      message.oneTilePrice = Coin.fromPartial(object.oneTilePrice);
     } else {
-      message.oneGroundPrice = undefined;
+      message.oneTilePrice = undefined;
     }
     if (object.oneTreePrice !== undefined && object.oneTreePrice !== null) {
       message.oneTreePrice = Coin.fromPartial(object.oneTreePrice);

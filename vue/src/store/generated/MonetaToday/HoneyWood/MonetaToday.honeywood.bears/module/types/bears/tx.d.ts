@@ -18,14 +18,14 @@ export interface MsgInitGameAndExtendField {
     creator: string;
 }
 export interface MsgInitGameAndExtendFieldResponse {
-    countGrounds: number;
+    countTiles: number;
 }
 export interface MsgExtendField {
     creator: string;
     id: number;
 }
 export interface MsgExtendFieldResponse {
-    countGrounds: number;
+    countTiles: number;
 }
 export interface MsgInitGameAndCreateTree {
     creator: string;
@@ -37,7 +37,7 @@ export interface MsgCreateTree {
     creator: string;
     bearId: number;
     fieldId: number;
-    groundId: number;
+    tileId: number;
 }
 export interface MsgCreateTreeResponse {
     tree: Trees | undefined;
@@ -45,8 +45,8 @@ export interface MsgCreateTreeResponse {
 export interface MsgMoveItemOnField {
     creator: string;
     fieldId: number;
-    groundId: number;
-    newGroundId: number;
+    tileId: number;
+    newTileId: number;
 }
 export interface MsgMoveItemOnFieldResponse {
 }

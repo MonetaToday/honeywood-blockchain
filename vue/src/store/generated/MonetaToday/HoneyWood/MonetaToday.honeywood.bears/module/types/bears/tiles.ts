@@ -4,76 +4,76 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
-export interface Grounds {
-  item: Grounds_Items | undefined;
+export interface Tiles {
+  item: Tiles_Items | undefined;
 }
 
-export interface Grounds_Items {
+export interface Tiles_Items {
   itemId: number;
-  itemType: Grounds_Items_ItemTypes;
+  itemType: Tiles_Items_ItemTypes;
 }
 
-export enum Grounds_Items_ItemTypes {
+export enum Tiles_Items_ItemTypes {
   APIARY = 0,
   TREE = 1,
   DECORATION = 2,
   UNRECOGNIZED = -1,
 }
 
-export function grounds_Items_ItemTypesFromJSON(
+export function tiles_Items_ItemTypesFromJSON(
   object: any
-): Grounds_Items_ItemTypes {
+): Tiles_Items_ItemTypes {
   switch (object) {
     case 0:
     case "APIARY":
-      return Grounds_Items_ItemTypes.APIARY;
+      return Tiles_Items_ItemTypes.APIARY;
     case 1:
     case "TREE":
-      return Grounds_Items_ItemTypes.TREE;
+      return Tiles_Items_ItemTypes.TREE;
     case 2:
     case "DECORATION":
-      return Grounds_Items_ItemTypes.DECORATION;
+      return Tiles_Items_ItemTypes.DECORATION;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return Grounds_Items_ItemTypes.UNRECOGNIZED;
+      return Tiles_Items_ItemTypes.UNRECOGNIZED;
   }
 }
 
-export function grounds_Items_ItemTypesToJSON(
-  object: Grounds_Items_ItemTypes
+export function tiles_Items_ItemTypesToJSON(
+  object: Tiles_Items_ItemTypes
 ): string {
   switch (object) {
-    case Grounds_Items_ItemTypes.APIARY:
+    case Tiles_Items_ItemTypes.APIARY:
       return "APIARY";
-    case Grounds_Items_ItemTypes.TREE:
+    case Tiles_Items_ItemTypes.TREE:
       return "TREE";
-    case Grounds_Items_ItemTypes.DECORATION:
+    case Tiles_Items_ItemTypes.DECORATION:
       return "DECORATION";
     default:
       return "UNKNOWN";
   }
 }
 
-const baseGrounds: object = {};
+const baseTiles: object = {};
 
-export const Grounds = {
-  encode(message: Grounds, writer: Writer = Writer.create()): Writer {
+export const Tiles = {
+  encode(message: Tiles, writer: Writer = Writer.create()): Writer {
     if (message.item !== undefined) {
-      Grounds_Items.encode(message.item, writer.uint32(18).fork()).ldelim();
+      Tiles_Items.encode(message.item, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Grounds {
+  decode(input: Reader | Uint8Array, length?: number): Tiles {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGrounds } as Grounds;
+    const message = { ...baseTiles } as Tiles;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
-          message.item = Grounds_Items.decode(reader, reader.uint32());
+          message.item = Tiles_Items.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -83,29 +83,27 @@ export const Grounds = {
     return message;
   },
 
-  fromJSON(object: any): Grounds {
-    const message = { ...baseGrounds } as Grounds;
+  fromJSON(object: any): Tiles {
+    const message = { ...baseTiles } as Tiles;
     if (object.item !== undefined && object.item !== null) {
-      message.item = Grounds_Items.fromJSON(object.item);
+      message.item = Tiles_Items.fromJSON(object.item);
     } else {
       message.item = undefined;
     }
     return message;
   },
 
-  toJSON(message: Grounds): unknown {
+  toJSON(message: Tiles): unknown {
     const obj: any = {};
     message.item !== undefined &&
-      (obj.item = message.item
-        ? Grounds_Items.toJSON(message.item)
-        : undefined);
+      (obj.item = message.item ? Tiles_Items.toJSON(message.item) : undefined);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Grounds>): Grounds {
-    const message = { ...baseGrounds } as Grounds;
+  fromPartial(object: DeepPartial<Tiles>): Tiles {
+    const message = { ...baseTiles } as Tiles;
     if (object.item !== undefined && object.item !== null) {
-      message.item = Grounds_Items.fromPartial(object.item);
+      message.item = Tiles_Items.fromPartial(object.item);
     } else {
       message.item = undefined;
     }
@@ -113,10 +111,10 @@ export const Grounds = {
   },
 };
 
-const baseGrounds_Items: object = { itemId: 0, itemType: 0 };
+const baseTiles_Items: object = { itemId: 0, itemType: 0 };
 
-export const Grounds_Items = {
-  encode(message: Grounds_Items, writer: Writer = Writer.create()): Writer {
+export const Tiles_Items = {
+  encode(message: Tiles_Items, writer: Writer = Writer.create()): Writer {
     if (message.itemId !== 0) {
       writer.uint32(8).uint64(message.itemId);
     }
@@ -126,10 +124,10 @@ export const Grounds_Items = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): Grounds_Items {
+  decode(input: Reader | Uint8Array, length?: number): Tiles_Items {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGrounds_Items } as Grounds_Items;
+    const message = { ...baseTiles_Items } as Tiles_Items;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -147,31 +145,31 @@ export const Grounds_Items = {
     return message;
   },
 
-  fromJSON(object: any): Grounds_Items {
-    const message = { ...baseGrounds_Items } as Grounds_Items;
+  fromJSON(object: any): Tiles_Items {
+    const message = { ...baseTiles_Items } as Tiles_Items;
     if (object.itemId !== undefined && object.itemId !== null) {
       message.itemId = Number(object.itemId);
     } else {
       message.itemId = 0;
     }
     if (object.itemType !== undefined && object.itemType !== null) {
-      message.itemType = grounds_Items_ItemTypesFromJSON(object.itemType);
+      message.itemType = tiles_Items_ItemTypesFromJSON(object.itemType);
     } else {
       message.itemType = 0;
     }
     return message;
   },
 
-  toJSON(message: Grounds_Items): unknown {
+  toJSON(message: Tiles_Items): unknown {
     const obj: any = {};
     message.itemId !== undefined && (obj.itemId = message.itemId);
     message.itemType !== undefined &&
-      (obj.itemType = grounds_Items_ItemTypesToJSON(message.itemType));
+      (obj.itemType = tiles_Items_ItemTypesToJSON(message.itemType));
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Grounds_Items>): Grounds_Items {
-    const message = { ...baseGrounds_Items } as Grounds_Items;
+  fromPartial(object: DeepPartial<Tiles_Items>): Tiles_Items {
+    const message = { ...baseTiles_Items } as Tiles_Items;
     if (object.itemId !== undefined && object.itemId !== null) {
       message.itemId = object.itemId;
     } else {

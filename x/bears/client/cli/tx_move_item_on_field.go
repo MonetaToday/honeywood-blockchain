@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdMoveItemOnField() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "move-item-on-field [field-id] [ground-id] [new-ground-id]",
+		Use:   "move-item-on-field [field-id] [tile-id] [new-tile-id]",
 		Short: "Move an item on field",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -23,11 +23,11 @@ func CmdMoveItemOnField() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argGroundId, err := cast.ToUint64E(args[1])
+			argTileId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argNewGroundId, err := cast.ToUint64E(args[2])
+			argNewTileId, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
@@ -40,8 +40,8 @@ func CmdMoveItemOnField() *cobra.Command {
 			msg := types.NewMsgMoveItemOnField(
 				clientCtx.GetFromAddress().String(),
 				argFieldId,
-				argGroundId,
-				argNewGroundId,
+				argTileId,
+				argNewTileId,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

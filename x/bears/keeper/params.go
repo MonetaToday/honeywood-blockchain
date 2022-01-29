@@ -9,7 +9,7 @@ import (
 func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 	return types.NewParams(
 		k.SetNamePrice(ctx),
-		k.OneGroundPrice(ctx),
+		k.OneTilePrice(ctx),
 		k.OneTreePrice(ctx),
 		k.OneTreeReward(ctx),
 	)
@@ -26,9 +26,9 @@ func (k Keeper) SetNamePrice(ctx sdk.Context) (res sdk.Coin) {
 	return
 }
 
-// OneGroundPrice returns the OneGroundPrice param
-func (k Keeper) OneGroundPrice(ctx sdk.Context) (res sdk.Coin) {
-	k.paramstore.Get(ctx, types.KeyOneGroundPrice, &res)
+// OneTilePrice returns the OneTilePrice param
+func (k Keeper) OneTilePrice(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyOneTilePrice, &res)
 	return
 }
 

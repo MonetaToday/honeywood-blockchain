@@ -40,7 +40,7 @@ message MsgInitGameAndExtendField {
 }
 
 message MsgInitGameAndExtendFieldResponse {
-  uint64 countGrounds = 1;
+  uint64 countTiles = 1;
 }
 
 message MsgExtendField {
@@ -49,7 +49,7 @@ message MsgExtendField {
 }
 
 message MsgExtendFieldResponse {
-  uint64 countGrounds = 1;
+  uint64 countTiles = 1;
 }
 
 message MsgInitGameAndCreateTree {
@@ -64,7 +64,7 @@ message MsgCreateTree {
   string creator = 1;
   uint64 bearId = 2;
   uint64 fieldId = 3;
-  uint64 groundId = 4;
+  uint64 tileId = 4;
 }
 
 message MsgCreateTreeResponse {
@@ -74,8 +74,8 @@ message MsgCreateTreeResponse {
 message MsgMoveItemOnField {
   string creator = 1;
   uint64 fieldId = 2;
-  uint64 groundId = 3;
-  uint64 newGroundId = 4;
+  uint64 tileId = 3;
+  uint64 newTileId = 4;
 }
 
 message MsgMoveItemOnFieldResponse {

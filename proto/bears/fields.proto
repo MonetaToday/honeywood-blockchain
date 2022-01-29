@@ -3,7 +3,7 @@ package MonetaToday.honeywood.bears;
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "gogoproto/gogo.proto"; 
-import "bears/grounds.proto";
+import "bears/tiles.proto";
 import "bears/bears.proto";
 
 message Fields {
@@ -13,7 +13,7 @@ message Fields {
     DEFAULT = 0;
   }
   FieldTypes fieldType = 3; 
-  repeated Grounds grounds = 4 [(gogoproto.nullable) = false]; 
-  uint64 countGrounds = 5; 
+  repeated Tiles tiles = 4 [(gogoproto.nullable) = false]; 
+  uint64 countTiles = 5; 
   
 }

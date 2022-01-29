@@ -13163,7 +13163,7 @@ paths:
                       enum:
                         - DEFAULT
                       default: DEFAULT
-                    grounds:
+                    tiles:
                       type: array
                       items:
                         type: object
@@ -13181,7 +13181,7 @@ paths:
                                   - TREE
                                   - DECORATION
                                 default: APIARY
-                    countGrounds:
+                    countTiles:
                       type: string
                       format: uint64
               pagination:
@@ -13315,7 +13315,7 @@ paths:
                     enum:
                       - DEFAULT
                     default: DEFAULT
-                  grounds:
+                  tiles:
                     type: array
                     items:
                       type: object
@@ -13333,7 +13333,7 @@ paths:
                                 - TREE
                                 - DECORATION
                               default: APIARY
-                  countGrounds:
+                  countTiles:
                     type: string
                     format: uint64
         default:
@@ -13391,7 +13391,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  oneGroundPrice:
+                  oneTilePrice:
                     type: object
                     properties:
                       denom:
@@ -13483,7 +13483,7 @@ paths:
                     fieldId:
                       type: string
                       format: uint64
-                    groundId:
+                    tileId:
                       type: string
                       format: uint64
               pagination:
@@ -13612,7 +13612,7 @@ paths:
                   fieldId:
                     type: string
                     format: uint64
-                  groundId:
+                  tileId:
                     type: string
                     format: uint64
         default:
@@ -21067,7 +21067,7 @@ definitions:
         enum:
           - DEFAULT
         default: DEFAULT
-      grounds:
+      tiles:
         type: array
         items:
           type: object
@@ -21085,7 +21085,7 @@ definitions:
                     - TREE
                     - DECORATION
                   default: APIARY
-      countGrounds:
+      countTiles:
         type: string
         format: uint64
   MonetaToday.honeywood.bears.Fields.FieldTypes:
@@ -21093,42 +21093,6 @@ definitions:
     enum:
       - DEFAULT
     default: DEFAULT
-  MonetaToday.honeywood.bears.Grounds:
-    type: object
-    properties:
-      item:
-        type: object
-        properties:
-          itemId:
-            type: string
-            format: uint64
-          itemType:
-            type: string
-            enum:
-              - APIARY
-              - TREE
-              - DECORATION
-            default: APIARY
-  MonetaToday.honeywood.bears.Grounds.Items:
-    type: object
-    properties:
-      itemId:
-        type: string
-        format: uint64
-      itemType:
-        type: string
-        enum:
-          - APIARY
-          - TREE
-          - DECORATION
-        default: APIARY
-  MonetaToday.honeywood.bears.Grounds.Items.ItemTypes:
-    type: string
-    enum:
-      - APIARY
-      - TREE
-      - DECORATION
-    default: APIARY
   MonetaToday.honeywood.bears.MsgCreateTreeResponse:
     type: object
     properties:
@@ -21144,13 +21108,13 @@ definitions:
           fieldId:
             type: string
             format: uint64
-          groundId:
+          tileId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.MsgExtendFieldResponse:
     type: object
     properties:
-      countGrounds:
+      countTiles:
         type: string
         format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateTreeResponse:
@@ -21168,13 +21132,13 @@ definitions:
           fieldId:
             type: string
             format: uint64
-          groundId:
+          tileId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndExtendFieldResponse:
     type: object
     properties:
-      countGrounds:
+      countTiles:
         type: string
         format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndSetNameResponse:
@@ -21198,7 +21162,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      oneGroundPrice:
+      oneTilePrice:
         type: object
         properties:
           denom:
@@ -21400,7 +21364,7 @@ definitions:
               enum:
                 - DEFAULT
               default: DEFAULT
-            grounds:
+            tiles:
               type: array
               items:
                 type: object
@@ -21418,7 +21382,7 @@ definitions:
                           - TREE
                           - DECORATION
                         default: APIARY
-            countGrounds:
+            countTiles:
               type: string
               format: uint64
       pagination:
@@ -21463,7 +21427,7 @@ definitions:
             fieldId:
               type: string
               format: uint64
-            groundId:
+            tileId:
               type: string
               format: uint64
       pagination:
@@ -21573,7 +21537,7 @@ definitions:
             enum:
               - DEFAULT
             default: DEFAULT
-          grounds:
+          tiles:
             type: array
             items:
               type: object
@@ -21591,7 +21555,7 @@ definitions:
                         - TREE
                         - DECORATION
                       default: APIARY
-          countGrounds:
+          countTiles:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.QueryGetTreesResponse:
@@ -21609,7 +21573,7 @@ definitions:
           fieldId:
             type: string
             format: uint64
-          groundId:
+          tileId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.QueryParamsResponse:
@@ -21634,7 +21598,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          oneGroundPrice:
+          oneTilePrice:
             type: object
             properties:
               denom:
@@ -21680,6 +21644,42 @@ definitions:
 
               signatures required by gogoproto.
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  MonetaToday.honeywood.bears.Tiles:
+    type: object
+    properties:
+      item:
+        type: object
+        properties:
+          itemId:
+            type: string
+            format: uint64
+          itemType:
+            type: string
+            enum:
+              - APIARY
+              - TREE
+              - DECORATION
+            default: APIARY
+  MonetaToday.honeywood.bears.Tiles.Items:
+    type: object
+    properties:
+      itemId:
+        type: string
+        format: uint64
+      itemType:
+        type: string
+        enum:
+          - APIARY
+          - TREE
+          - DECORATION
+        default: APIARY
+  MonetaToday.honeywood.bears.Tiles.Items.ItemTypes:
+    type: string
+    enum:
+      - APIARY
+      - TREE
+      - DECORATION
+    default: APIARY
   MonetaToday.honeywood.bears.Trees:
     type: object
     properties:
@@ -21692,6 +21692,6 @@ definitions:
       fieldId:
         type: string
         format: uint64
-      groundId:
+      tileId:
         type: string
         format: uint64

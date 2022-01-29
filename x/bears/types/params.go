@@ -14,8 +14,8 @@ var (
 	DefaultSetNamePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 	MaxNameLength                = 100
 
-	KeyOneGroundPrice              = []byte("OneGroundPrice")
-	DefaultOneGroundPrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+	KeyOneTilePrice              = []byte("OneTilePrice")
+	DefaultOneTilePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 
 	KeyOneTreePrice              = []byte("OneTreePrice")
 	DefaultOneTreePrice sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
@@ -27,13 +27,13 @@ var (
 // NewParams creates a new Params instance
 func NewParams(
 	setNamePrice sdk.Coin,
-	oneGroundPrice sdk.Coin,
+	oneTilePrice sdk.Coin,
 	oneTreePrice sdk.Coin,
 	oneTreeReward sdk.Coin,
 ) Params {
 	return Params{
 		SetNamePrice:   setNamePrice,
-		OneGroundPrice: oneGroundPrice,
+		OneTilePrice: oneTilePrice,
 		OneTreePrice:   oneTreePrice,
 		OneTreeReward:  oneTreeReward,
 	}
@@ -43,7 +43,7 @@ func NewParams(
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(KeySetNamePrice, &p.SetNamePrice, validateSetNamePrice),
-		paramtypes.NewParamSetPair(KeyOneGroundPrice, &p.OneGroundPrice, validateOneGroundPrice),
+		paramtypes.NewParamSetPair(KeyOneTilePrice, &p.OneTilePrice, validateOneTilePrice),
 		paramtypes.NewParamSetPair(KeyOneTreePrice, &p.OneTreePrice, validateOneTreePrice),
 		paramtypes.NewParamSetPair(KeyOneTreeReward, &p.OneTreeReward, validateOneTreeReward),
 	}
@@ -62,7 +62,7 @@ func (p Params) Validate() error {
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
 		paramtypes.NewParamSetPair(KeySetNamePrice, sdk.Coin{}, validateSetNamePrice),
-		paramtypes.NewParamSetPair(KeyOneGroundPrice, sdk.Coin{}, validateOneGroundPrice),
+		paramtypes.NewParamSetPair(KeyOneTilePrice, sdk.Coin{}, validateOneTilePrice),
 		paramtypes.NewParamSetPair(KeyOneTreePrice, sdk.Coin{}, validateOneTreePrice),
 		paramtypes.NewParamSetPair(KeyOneTreeReward, sdk.Coin{}, validateOneTreeReward),
 	)
@@ -70,7 +70,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams(DefaultSetNamePrice, DefaultOneGroundPrice, DefaultOneTreePrice, DefaultOneTreeReward)
+	return NewParams(DefaultSetNamePrice, DefaultOneTilePrice, DefaultOneTreePrice, DefaultOneTreeReward)
 }
 
 // String implements the Stringer interface.
@@ -92,14 +92,14 @@ func validateSetNamePrice(i interface{}) error {
 	return nil
 }
 
-func validateOneGroundPrice(i interface{}) error {
+func validateOneTilePrice(i interface{}) error {
 	v, ok := i.(sdk.Coin)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if !v.IsValid() {
-		return fmt.Errorf("invalid one_ground_price: %s", v)
+		return fmt.Errorf("invalid one_tile_price: %s", v)
 	}
 
 	return nil

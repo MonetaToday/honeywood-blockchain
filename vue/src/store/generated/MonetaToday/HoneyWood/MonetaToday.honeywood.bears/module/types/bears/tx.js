@@ -289,11 +289,11 @@ export const MsgInitGameAndExtendField = {
         return message;
     },
 };
-const baseMsgInitGameAndExtendFieldResponse = { countGrounds: 0 };
+const baseMsgInitGameAndExtendFieldResponse = { countTiles: 0 };
 export const MsgInitGameAndExtendFieldResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.countGrounds !== 0) {
-            writer.uint32(8).uint64(message.countGrounds);
+        if (message.countTiles !== 0) {
+            writer.uint32(8).uint64(message.countTiles);
         }
         return writer;
     },
@@ -307,7 +307,7 @@ export const MsgInitGameAndExtendFieldResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.countGrounds = longToNumber(reader.uint64());
+                    message.countTiles = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -320,29 +320,28 @@ export const MsgInitGameAndExtendFieldResponse = {
         const message = {
             ...baseMsgInitGameAndExtendFieldResponse,
         };
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = Number(object.countGrounds);
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = Number(object.countTiles);
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.countGrounds !== undefined &&
-            (obj.countGrounds = message.countGrounds);
+        message.countTiles !== undefined && (obj.countTiles = message.countTiles);
         return obj;
     },
     fromPartial(object) {
         const message = {
             ...baseMsgInitGameAndExtendFieldResponse,
         };
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = object.countGrounds;
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = object.countTiles;
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },
@@ -417,11 +416,11 @@ export const MsgExtendField = {
         return message;
     },
 };
-const baseMsgExtendFieldResponse = { countGrounds: 0 };
+const baseMsgExtendFieldResponse = { countTiles: 0 };
 export const MsgExtendFieldResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.countGrounds !== 0) {
-            writer.uint32(8).uint64(message.countGrounds);
+        if (message.countTiles !== 0) {
+            writer.uint32(8).uint64(message.countTiles);
         }
         return writer;
     },
@@ -433,7 +432,7 @@ export const MsgExtendFieldResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.countGrounds = longToNumber(reader.uint64());
+                    message.countTiles = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -444,27 +443,26 @@ export const MsgExtendFieldResponse = {
     },
     fromJSON(object) {
         const message = { ...baseMsgExtendFieldResponse };
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = Number(object.countGrounds);
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = Number(object.countTiles);
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.countGrounds !== undefined &&
-            (obj.countGrounds = message.countGrounds);
+        message.countTiles !== undefined && (obj.countTiles = message.countTiles);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseMsgExtendFieldResponse };
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = object.countGrounds;
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = object.countTiles;
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },
@@ -588,7 +586,7 @@ const baseMsgCreateTree = {
     creator: "",
     bearId: 0,
     fieldId: 0,
-    groundId: 0,
+    tileId: 0,
 };
 export const MsgCreateTree = {
     encode(message, writer = Writer.create()) {
@@ -601,8 +599,8 @@ export const MsgCreateTree = {
         if (message.fieldId !== 0) {
             writer.uint32(24).uint64(message.fieldId);
         }
-        if (message.groundId !== 0) {
-            writer.uint32(32).uint64(message.groundId);
+        if (message.tileId !== 0) {
+            writer.uint32(32).uint64(message.tileId);
         }
         return writer;
     },
@@ -623,7 +621,7 @@ export const MsgCreateTree = {
                     message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 4:
-                    message.groundId = longToNumber(reader.uint64());
+                    message.tileId = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -652,11 +650,11 @@ export const MsgCreateTree = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = Number(object.groundId);
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = Number(object.tileId);
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
         return message;
     },
@@ -665,7 +663,7 @@ export const MsgCreateTree = {
         message.creator !== undefined && (obj.creator = message.creator);
         message.bearId !== undefined && (obj.bearId = message.bearId);
         message.fieldId !== undefined && (obj.fieldId = message.fieldId);
-        message.groundId !== undefined && (obj.groundId = message.groundId);
+        message.tileId !== undefined && (obj.tileId = message.tileId);
         return obj;
     },
     fromPartial(object) {
@@ -688,11 +686,11 @@ export const MsgCreateTree = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = object.groundId;
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = object.tileId;
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
         return message;
     },
@@ -752,8 +750,8 @@ export const MsgCreateTreeResponse = {
 const baseMsgMoveItemOnField = {
     creator: "",
     fieldId: 0,
-    groundId: 0,
-    newGroundId: 0,
+    tileId: 0,
+    newTileId: 0,
 };
 export const MsgMoveItemOnField = {
     encode(message, writer = Writer.create()) {
@@ -763,11 +761,11 @@ export const MsgMoveItemOnField = {
         if (message.fieldId !== 0) {
             writer.uint32(16).uint64(message.fieldId);
         }
-        if (message.groundId !== 0) {
-            writer.uint32(24).uint64(message.groundId);
+        if (message.tileId !== 0) {
+            writer.uint32(24).uint64(message.tileId);
         }
-        if (message.newGroundId !== 0) {
-            writer.uint32(32).uint64(message.newGroundId);
+        if (message.newTileId !== 0) {
+            writer.uint32(32).uint64(message.newTileId);
         }
         return writer;
     },
@@ -785,10 +783,10 @@ export const MsgMoveItemOnField = {
                     message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.groundId = longToNumber(reader.uint64());
+                    message.tileId = longToNumber(reader.uint64());
                     break;
                 case 4:
-                    message.newGroundId = longToNumber(reader.uint64());
+                    message.newTileId = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -811,17 +809,17 @@ export const MsgMoveItemOnField = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = Number(object.groundId);
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = Number(object.tileId);
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
-        if (object.newGroundId !== undefined && object.newGroundId !== null) {
-            message.newGroundId = Number(object.newGroundId);
+        if (object.newTileId !== undefined && object.newTileId !== null) {
+            message.newTileId = Number(object.newTileId);
         }
         else {
-            message.newGroundId = 0;
+            message.newTileId = 0;
         }
         return message;
     },
@@ -829,9 +827,8 @@ export const MsgMoveItemOnField = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.fieldId !== undefined && (obj.fieldId = message.fieldId);
-        message.groundId !== undefined && (obj.groundId = message.groundId);
-        message.newGroundId !== undefined &&
-            (obj.newGroundId = message.newGroundId);
+        message.tileId !== undefined && (obj.tileId = message.tileId);
+        message.newTileId !== undefined && (obj.newTileId = message.newTileId);
         return obj;
     },
     fromPartial(object) {
@@ -848,17 +845,17 @@ export const MsgMoveItemOnField = {
         else {
             message.fieldId = 0;
         }
-        if (object.groundId !== undefined && object.groundId !== null) {
-            message.groundId = object.groundId;
+        if (object.tileId !== undefined && object.tileId !== null) {
+            message.tileId = object.tileId;
         }
         else {
-            message.groundId = 0;
+            message.tileId = 0;
         }
-        if (object.newGroundId !== undefined && object.newGroundId !== null) {
-            message.newGroundId = object.newGroundId;
+        if (object.newTileId !== undefined && object.newTileId !== null) {
+            message.newTileId = object.newTileId;
         }
         else {
-            message.newGroundId = 0;
+            message.newTileId = 0;
         }
         return message;
     },

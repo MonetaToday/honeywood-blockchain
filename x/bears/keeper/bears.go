@@ -116,8 +116,8 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	bearId := k.GetBearsCount(ctx)
 	name := address
 
-	// One empty ground.
-	grounds := []types.Grounds{
+	// One empty tile.
+	tiles := []types.Tiles{
 		{},
 	}
 	newField := types.Fields{
@@ -125,8 +125,8 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 			Id: bearId,
 		},
 		FieldType:    types.Fields_DEFAULT,
-		Grounds:      grounds,
-		CountGrounds: uint64(len(grounds)),
+		Tiles:      tiles,
+		CountTiles: uint64(len(tiles)),
 	}
 	newField.Id = k.AppendFields(ctx, newField)
 

@@ -15,12 +15,12 @@ func (k msgServer) InitGameAndExtendField(goCtx context.Context, msg *types.MsgI
 		return nil, initGameErr
 	}
 
-	countGrounds, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, newField.Id)
+	countTiles, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, newField.Id)
 	if extendFieldErr != nil {
 		return nil, extendFieldErr
 	}
 
 	return &types.MsgInitGameAndExtendFieldResponse{
-		CountGrounds: *countGrounds,
+		CountTiles: *countTiles,
 	}, nil
 }

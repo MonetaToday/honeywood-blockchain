@@ -4,7 +4,7 @@ export interface Trees {
     id: number;
     bearId: number;
     fieldId: number;
-    groundId: number;
+    tileId: number;
 }
 export declare const Trees: {
     encode(message: Trees, writer?: Writer): Writer;

@@ -9,12 +9,12 @@ const TypeMsgMoveItemOnField = "move_item_on_field"
 
 var _ sdk.Msg = &MsgMoveItemOnField{}
 
-func NewMsgMoveItemOnField(creator string, fieldId uint64, groundId uint64, newGroundId uint64) *MsgMoveItemOnField {
+func NewMsgMoveItemOnField(creator string, fieldId uint64, tileId uint64, newTileId uint64) *MsgMoveItemOnField {
 	return &MsgMoveItemOnField{
 		Creator:     creator,
 		FieldId:     fieldId,
-		GroundId:    groundId,
-		NewGroundId: newGroundId,
+		TileId:    tileId,
+		NewTileId: newTileId,
 	}
 }
 

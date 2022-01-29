@@ -2,7 +2,7 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { BearOwner } from "../bears/bears";
-import { Grounds } from "../bears/grounds";
+import { Tiles } from "../bears/tiles";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 export var Fields_FieldTypes;
 (function (Fields_FieldTypes) {
@@ -28,7 +28,7 @@ export function fields_FieldTypesToJSON(object) {
             return "UNKNOWN";
     }
 }
-const baseFields = { id: 0, fieldType: 0, countGrounds: 0 };
+const baseFields = { id: 0, fieldType: 0, countTiles: 0 };
 export const Fields = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
@@ -40,11 +40,11 @@ export const Fields = {
         if (message.fieldType !== 0) {
             writer.uint32(24).int32(message.fieldType);
         }
-        for (const v of message.grounds) {
-            Grounds.encode(v, writer.uint32(34).fork()).ldelim();
+        for (const v of message.tiles) {
+            Tiles.encode(v, writer.uint32(34).fork()).ldelim();
         }
-        if (message.countGrounds !== 0) {
-            writer.uint32(40).uint64(message.countGrounds);
+        if (message.countTiles !== 0) {
+            writer.uint32(40).uint64(message.countTiles);
         }
         return writer;
     },
@@ -52,7 +52,7 @@ export const Fields = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseFields };
-        message.grounds = [];
+        message.tiles = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -66,10 +66,10 @@ export const Fields = {
                     message.fieldType = reader.int32();
                     break;
                 case 4:
-                    message.grounds.push(Grounds.decode(reader, reader.uint32()));
+                    message.tiles.push(Tiles.decode(reader, reader.uint32()));
                     break;
                 case 5:
-                    message.countGrounds = longToNumber(reader.uint64());
+                    message.countTiles = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -80,7 +80,7 @@ export const Fields = {
     },
     fromJSON(object) {
         const message = { ...baseFields };
-        message.grounds = [];
+        message.tiles = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = Number(object.id);
         }
@@ -99,16 +99,16 @@ export const Fields = {
         else {
             message.fieldType = 0;
         }
-        if (object.grounds !== undefined && object.grounds !== null) {
-            for (const e of object.grounds) {
-                message.grounds.push(Grounds.fromJSON(e));
+        if (object.tiles !== undefined && object.tiles !== null) {
+            for (const e of object.tiles) {
+                message.tiles.push(Tiles.fromJSON(e));
             }
         }
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = Number(object.countGrounds);
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = Number(object.countTiles);
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },
@@ -121,19 +121,18 @@ export const Fields = {
                 : undefined);
         message.fieldType !== undefined &&
             (obj.fieldType = fields_FieldTypesToJSON(message.fieldType));
-        if (message.grounds) {
-            obj.grounds = message.grounds.map((e) => e ? Grounds.toJSON(e) : undefined);
+        if (message.tiles) {
+            obj.tiles = message.tiles.map((e) => (e ? Tiles.toJSON(e) : undefined));
         }
         else {
-            obj.grounds = [];
+            obj.tiles = [];
         }
-        message.countGrounds !== undefined &&
-            (obj.countGrounds = message.countGrounds);
+        message.countTiles !== undefined && (obj.countTiles = message.countTiles);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseFields };
-        message.grounds = [];
+        message.tiles = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = object.id;
         }
@@ -152,16 +151,16 @@ export const Fields = {
         else {
             message.fieldType = 0;
         }
-        if (object.grounds !== undefined && object.grounds !== null) {
-            for (const e of object.grounds) {
-                message.grounds.push(Grounds.fromPartial(e));
+        if (object.tiles !== undefined && object.tiles !== null) {
+            for (const e of object.tiles) {
+                message.tiles.push(Tiles.fromPartial(e));
             }
         }
-        if (object.countGrounds !== undefined && object.countGrounds !== null) {
-            message.countGrounds = object.countGrounds;
+        if (object.countTiles !== undefined && object.countTiles !== null) {
+            message.countTiles = object.countTiles;
         }
         else {
-            message.countGrounds = 0;
+            message.countTiles = 0;
         }
         return message;
     },

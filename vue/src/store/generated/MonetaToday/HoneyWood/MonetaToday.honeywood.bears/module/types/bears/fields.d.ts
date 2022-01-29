@@ -1,13 +1,13 @@
 import { Writer, Reader } from "protobufjs/minimal";
 import { BearOwner } from "../bears/bears";
-import { Grounds } from "../bears/grounds";
+import { Tiles } from "../bears/tiles";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Fields {
     id: number;
     bearOwner: BearOwner | undefined;
     fieldType: Fields_FieldTypes;
-    grounds: Grounds[];
-    countGrounds: number;
+    tiles: Tiles[];
+    countTiles: number;
 }
 export declare enum Fields_FieldTypes {
     DEFAULT = 0,
