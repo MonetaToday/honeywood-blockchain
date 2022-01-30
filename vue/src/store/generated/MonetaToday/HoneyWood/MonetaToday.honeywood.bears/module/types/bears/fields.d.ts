@@ -3,7 +3,7 @@ import { Tiles } from "../bears/tiles";
 import { BearOwner } from "../bears/bears";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface FieldRows {
-    tiles: Tiles[];
+    columns: Tiles[];
 }
 export interface Fields {
     id: number;

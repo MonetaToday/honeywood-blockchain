@@ -62,7 +62,7 @@ export interface BearsBears {
 }
 
 export interface BearsFieldRows {
-  tiles?: BearsTiles[];
+  columns?: BearsTiles[];
 }
 
 export interface BearsFields {
@@ -259,7 +259,7 @@ export interface BearsTrees {
   rowId?: string;
 
   /** @format uint64 */
-  tileId?: string;
+  columnId?: string;
 }
 
 export interface ProtobufAny {

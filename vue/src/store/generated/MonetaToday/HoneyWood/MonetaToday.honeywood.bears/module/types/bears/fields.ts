@@ -7,7 +7,7 @@ import { BearOwner } from "../bears/bears";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface FieldRows {
-  tiles: Tiles[];
+  columns: Tiles[];
 }
 
 export interface Fields {
@@ -48,7 +48,7 @@ const baseFieldRows: object = {};
 
 export const FieldRows = {
   encode(message: FieldRows, writer: Writer = Writer.create()): Writer {
-    for (const v of message.tiles) {
+    for (const v of message.columns) {
       Tiles.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
@@ -58,12 +58,12 @@ export const FieldRows = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseFieldRows } as FieldRows;
-    message.tiles = [];
+    message.columns = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 4:
-          message.tiles.push(Tiles.decode(reader, reader.uint32()));
+          message.columns.push(Tiles.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -75,10 +75,10 @@ export const FieldRows = {
 
   fromJSON(object: any): FieldRows {
     const message = { ...baseFieldRows } as FieldRows;
-    message.tiles = [];
-    if (object.tiles !== undefined && object.tiles !== null) {
-      for (const e of object.tiles) {
-        message.tiles.push(Tiles.fromJSON(e));
+    message.columns = [];
+    if (object.columns !== undefined && object.columns !== null) {
+      for (const e of object.columns) {
+        message.columns.push(Tiles.fromJSON(e));
       }
     }
     return message;
@@ -86,20 +86,22 @@ export const FieldRows = {
 
   toJSON(message: FieldRows): unknown {
     const obj: any = {};
-    if (message.tiles) {
-      obj.tiles = message.tiles.map((e) => (e ? Tiles.toJSON(e) : undefined));
+    if (message.columns) {
+      obj.columns = message.columns.map((e) =>
+        e ? Tiles.toJSON(e) : undefined
+      );
     } else {
-      obj.tiles = [];
+      obj.columns = [];
     }
     return obj;
   },
 
   fromPartial(object: DeepPartial<FieldRows>): FieldRows {
     const message = { ...baseFieldRows } as FieldRows;
-    message.tiles = [];
-    if (object.tiles !== undefined && object.tiles !== null) {
-      for (const e of object.tiles) {
-        message.tiles.push(Tiles.fromPartial(e));
+    message.columns = [];
+    if (object.columns !== undefined && object.columns !== null) {
+      for (const e of object.columns) {
+        message.columns.push(Tiles.fromPartial(e));
       }
     }
     return message;

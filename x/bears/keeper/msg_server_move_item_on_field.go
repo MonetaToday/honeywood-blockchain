@@ -12,9 +12,9 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 
 	fieldId := msg.FieldId
 	oldRowId := msg.RowId
-	oldTileId := msg.TileId
+	oldColumnId := msg.ColumnId
 	newRowId := msg.NewRowId
-	newTileId := msg.NewTileId
+	newColumnId := msg.NewColumnId
 
 	field, fieldFound := k.Keeper.GetFields(ctx, fieldId)
 	if !fieldFound {
@@ -24,22 +24,22 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	if !hasRightsField {
 		return nil, types.ErrAddressHasNoRights
 	}
-	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldRowId, oldTileId)
+	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldRowId, oldColumnId)
 	if isEmptyOldTile {
 		return nil, types.ErrItemIsNotExistedOnTile
 	}
-	isEmptyNewTile, errEmptyNewTile := k.Keeper.isEmptyTile(ctx, field, newRowId, newTileId)
+	isEmptyNewTile, errEmptyNewTile := k.Keeper.isEmptyTile(ctx, field, newRowId, newColumnId)
 	if !isEmptyNewTile {
 		return nil, errEmptyNewTile
 	}
 
-	field.Rows[newRowId].Tiles[newTileId].Item = field.Rows[oldRowId].Tiles[oldTileId].Item
-	field.Rows[oldRowId].Tiles[oldTileId].Item = nil
+	field.Rows[newRowId].Columns[newColumnId].Item = field.Rows[oldRowId].Columns[oldColumnId].Item
+	field.Rows[oldRowId].Columns[oldColumnId].Item = nil
 
 	k.Keeper.SetFields(ctx, field)
 
-	itemType := field.Rows[newRowId].Tiles[newTileId].Item.ItemType
-	itemId := field.Rows[newRowId].Tiles[newTileId].Item.ItemId
+	itemType := field.Rows[newRowId].Columns[newColumnId].Item.ItemType
+	itemId := field.Rows[newRowId].Columns[newColumnId].Item.ItemId
 
 	switch itemType {
 	case types.Tiles_Items_APIARY:
@@ -49,7 +49,7 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 		if !treeFound {
 			return nil, types.ErrTreeIsNotExister
 		}
-		tree.TileId = newTileId
+		tree.ColumnId = newColumnId
 		k.Keeper.SetTrees(ctx, tree)
 	case types.Tiles_Items_DECORATION:
 		//TODO

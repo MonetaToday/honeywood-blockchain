@@ -39,7 +39,7 @@ export interface MsgCreateTree {
     bearId: number;
     fieldId: number;
     rowId: number;
-    tileId: number;
+    columnId: number;
     treeType: string;
 }
 export interface MsgCreateTreeResponse {
@@ -49,9 +49,9 @@ export interface MsgMoveItemOnField {
     creator: string;
     fieldId: number;
     rowId: number;
-    tileId: number;
+    columnId: number;
     newRowId: number;
-    newTileId: number;
+    newColumnId: number;
 }
 export interface MsgMoveItemOnFieldResponse {
 }

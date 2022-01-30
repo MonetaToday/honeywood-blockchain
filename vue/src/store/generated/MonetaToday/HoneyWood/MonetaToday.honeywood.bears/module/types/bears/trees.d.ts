@@ -6,7 +6,7 @@ export interface Trees {
     bearId: number;
     fieldId: number;
     rowId: number;
-    tileId: number;
+    columnId: number;
 }
 export declare enum Trees_TreeTypes {
     OAK = 0,

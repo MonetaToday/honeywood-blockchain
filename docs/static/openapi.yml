@@ -13168,7 +13168,7 @@ paths:
                       items:
                         type: object
                         properties:
-                          tiles:
+                          columns:
                             type: array
                             items:
                               type: object
@@ -13325,7 +13325,7 @@ paths:
                     items:
                       type: object
                       properties:
-                        tiles:
+                        columns:
                           type: array
                           items:
                             type: object
@@ -13504,7 +13504,7 @@ paths:
                     rowId:
                       type: string
                       format: uint64
-                    tileId:
+                    columnId:
                       type: string
                       format: uint64
               pagination:
@@ -13644,7 +13644,7 @@ paths:
                   rowId:
                     type: string
                     format: uint64
-                  tileId:
+                  columnId:
                     type: string
                     format: uint64
         default:
@@ -21085,7 +21085,7 @@ definitions:
   MonetaToday.honeywood.bears.FieldRows:
     type: object
     properties:
-      tiles:
+      columns:
         type: array
         items:
           type: object
@@ -21125,7 +21125,7 @@ definitions:
         items:
           type: object
           properties:
-            tiles:
+            columns:
               type: array
               items:
                 type: object
@@ -21177,7 +21177,7 @@ definitions:
           rowId:
             type: string
             format: uint64
-          tileId:
+          columnId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.MsgExtendFieldResponse:
@@ -21212,7 +21212,7 @@ definitions:
           rowId:
             type: string
             format: uint64
-          tileId:
+          columnId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndExtendFieldResponse:
@@ -21449,7 +21449,7 @@ definitions:
               items:
                 type: object
                 properties:
-                  tiles:
+                  columns:
                     type: array
                     items:
                       type: object
@@ -21523,7 +21523,7 @@ definitions:
             rowId:
               type: string
               format: uint64
-            tileId:
+            columnId:
               type: string
               format: uint64
       pagination:
@@ -21638,7 +21638,7 @@ definitions:
             items:
               type: object
               properties:
-                tiles:
+                columns:
                   type: array
                   items:
                     type: object
@@ -21685,7 +21685,7 @@ definitions:
           rowId:
             type: string
             format: uint64
-          tileId:
+          columnId:
             type: string
             format: uint64
   MonetaToday.honeywood.bears.QueryParamsResponse:
@@ -21815,7 +21815,7 @@ definitions:
       rowId:
         type: string
         format: uint64
-      tileId:
+      columnId:
         type: string
         format: uint64
   MonetaToday.honeywood.bears.Trees.TreeTypes:

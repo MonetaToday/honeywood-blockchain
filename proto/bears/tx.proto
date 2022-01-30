@@ -66,7 +66,7 @@ message MsgCreateTree {
   uint64 bearId = 2;
   uint64 fieldId = 3;
   uint64 rowId = 4;
-  uint64 tileId = 5;
+  uint64 columnId = 5;
   string treeType = 6;
 }
 
@@ -78,9 +78,9 @@ message MsgMoveItemOnField {
   string creator = 1;
   uint64 fieldId = 2;
   uint64 rowId = 3;
-  uint64 tileId = 4;
+  uint64 columnId = 4;
   uint64 newRowId = 5;
-  uint64 newTileId = 6;
+  uint64 newColumnId = 6;
 }
 
 message MsgMoveItemOnFieldResponse {

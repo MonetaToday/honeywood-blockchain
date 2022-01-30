@@ -16,7 +16,7 @@ var (
 	ErrBearHasNoRights          = sdkerrors.Register(ModuleName, 7, "Bear has no rights")
 	ErrFieldIsNotExisted        = sdkerrors.Register(ModuleName, 8, "Field is not existed yet")
 	ErrFieldHasNoRowId       = sdkerrors.Register(ModuleName, 9, "There is no rowId in this field")
-	ErrFieldHasNoTileId       = sdkerrors.Register(ModuleName, 10, "There is no tileId in this field")
+	ErrFieldHasNoColumnId       = sdkerrors.Register(ModuleName, 10, "There is no columnId in this field")
 	ErrTileIsNotEmpty         = sdkerrors.Register(ModuleName, 11, "There is already something on the tile")
 	ErrItemIsNotExistedOnTile = sdkerrors.Register(ModuleName, 12, "Item is not existed on the tile")
 	ErrItemTypeIsNotDefined     = sdkerrors.Register(ModuleName, 13, "Item Type is not defined")

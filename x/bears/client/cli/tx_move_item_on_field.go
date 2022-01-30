@@ -27,7 +27,7 @@ func CmdMoveItemOnField() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argTileId, err := cast.ToUint64E(args[2])
+			argColumnId, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
@@ -35,7 +35,7 @@ func CmdMoveItemOnField() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argNewTileId, err := cast.ToUint64E(args[4])
+			argNewColumnId, err := cast.ToUint64E(args[4])
 			if err != nil {
 				return err
 			}
@@ -49,9 +49,9 @@ func CmdMoveItemOnField() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argFieldId,
 				argRowId,
-				argTileId,
+				argColumnId,
 				argNewRowId,
-				argNewTileId,
+				argNewColumnId,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

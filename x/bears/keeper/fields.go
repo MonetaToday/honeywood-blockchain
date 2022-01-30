@@ -109,7 +109,7 @@ func GetFieldsIDFromBytes(bz []byte) uint64 {
 func (k Keeper) GetFieldsTilesCount(field types.Fields) uint64 {
 	count := 0
 	for _, row := range field.Rows {
-		count = count + len(row.Tiles)
+		count = count + len(row.Columns)
 	}
 	return uint64(count)
 }
@@ -127,10 +127,10 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	}
 
 	for rowIndex, _ := range field.Rows {
-		field.Rows[rowIndex].Tiles = append(field.Rows[rowIndex].Tiles, types.Tiles{})
+		field.Rows[rowIndex].Columns = append(field.Rows[rowIndex].Columns, types.Tiles{})
 	}
 	field.Rows = append(field.Rows, types.FieldRows{
-		Tiles: make([]types.Tiles, len(field.Rows[0].Tiles)),
+		Columns: make([]types.Tiles, len(field.Rows[0].Columns)),
 	})
 
 	newCountTiles := int64(k.GetFieldsTilesCount(field))
@@ -172,16 +172,16 @@ func (k Keeper) HasRightsToField(ctx sdk.Context, address string, field types.Fi
 }
 
 // GetBears returns a bears from its id
-func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, rowId uint64, tileId uint64) (bool, error) {
+func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, rowId uint64, columnId uint64) (bool, error) {
 	if len(field.Rows) <= int(rowId) {
 		return false, types.ErrFieldHasNoRowId
 	}
 
-	if len(field.Rows[rowId].Tiles) <= int(tileId) {
-		return false, types.ErrFieldHasNoTileId
+	if len(field.Rows[rowId].Columns) <= int(columnId) {
+		return false, types.ErrFieldHasNoColumnId
 	}
 
-	if field.Rows[rowId].Tiles[tileId].Item != nil {
+	if field.Rows[rowId].Columns[columnId].Item != nil {
 		return false, types.ErrTileIsNotEmpty
 	}
 

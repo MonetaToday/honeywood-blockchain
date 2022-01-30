@@ -119,7 +119,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	// One empty tile.
 	rows := []types.FieldRows{
 		{
-			Tiles: []types.Tiles{
+			Columns: []types.Tiles{
 				{},
 			},
 		},

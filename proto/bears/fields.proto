@@ -7,7 +7,7 @@ import "bears/tiles.proto";
 import "bears/bears.proto";
 
 message FieldRows {
-  repeated Tiles tiles = 4 [(gogoproto.nullable) = false]; 
+  repeated Tiles columns = 4 [(gogoproto.nullable) = false]; 
 }
 
 message Fields {

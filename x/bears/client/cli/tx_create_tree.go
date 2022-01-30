@@ -31,7 +31,7 @@ func CmdCreateTree() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argTileId, err := cast.ToUint64E(args[3])
+			argColumnId, err := cast.ToUint64E(args[3])
 			if err != nil {
 				return err
 			}
@@ -47,7 +47,7 @@ func CmdCreateTree() *cobra.Command {
 				argBearId,
 				argFieldId,
 				argRowId,
-				argTileId,
+				argColumnId,
 				argTreeType,
 			)
 			if err := msg.ValidateBasic(); err != nil {
