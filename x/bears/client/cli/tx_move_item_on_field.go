@@ -17,17 +17,25 @@ func CmdMoveItemOnField() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "move-item-on-field [field-id] [tile-id] [new-tile-id]",
 		Short: "Move an item on field",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argFieldId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argTileId, err := cast.ToUint64E(args[1])
+			argRowId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argNewTileId, err := cast.ToUint64E(args[2])
+			argTileId, err := cast.ToUint64E(args[2])
+			if err != nil {
+				return err
+			}
+			argNewRowId, err := cast.ToUint64E(args[3])
+			if err != nil {
+				return err
+			}
+			argNewTileId, err := cast.ToUint64E(args[4])
 			if err != nil {
 				return err
 			}
@@ -40,7 +48,9 @@ func CmdMoveItemOnField() *cobra.Command {
 			msg := types.NewMsgMoveItemOnField(
 				clientCtx.GetFromAddress().String(),
 				argFieldId,
+				argRowId,
 				argTileId,
+				argNewRowId,
 				argNewTileId,
 			)
 			if err := msg.ValidateBasic(); err != nil {

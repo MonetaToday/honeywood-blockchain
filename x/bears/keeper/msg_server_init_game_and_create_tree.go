@@ -15,7 +15,7 @@ func (k msgServer) InitGameAndCreateTree(goCtx context.Context, msg *types.MsgIn
 		return nil, initGameErr
 	}
 
-	tree, createTreeErr := k.Keeper.createTreeOnField(ctx, msg.Creator, newBear.Id, newField.Id, 0, msg.TreeType)
+	tree, createTreeErr := k.Keeper.createTreeOnField(ctx, msg.Creator, newBear.Id, newField.Id, 0, 0, msg.TreeType)
 	if createTreeErr != nil {
 		return nil, createTreeErr
 	}

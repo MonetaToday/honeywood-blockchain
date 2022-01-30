@@ -61,12 +61,16 @@ export interface BearsBears {
   decorations?: string[];
 }
 
+export interface BearsFieldRows {
+  tiles?: BearsTiles[];
+}
+
 export interface BearsFields {
   /** @format uint64 */
   id?: string;
   bearOwner?: BearsBearOwner;
   fieldType?: FieldsFieldTypes;
-  tiles?: BearsTiles[];
+  rows?: BearsFieldRows[];
 
   /** @format uint64 */
   countTiles?: string;
@@ -250,6 +254,9 @@ export interface BearsTrees {
 
   /** @format uint64 */
   fieldId?: string;
+
+  /** @format uint64 */
+  rowId?: string;
 
   /** @format uint64 */
   tileId?: string;

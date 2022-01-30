@@ -108,7 +108,7 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, tileId uint64, treeType string) (*types.Trees, error) {
+func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, tileId uint64, treeType string) (*types.Trees, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
 		return nil, types.ErrFieldIsNotExisted
@@ -123,7 +123,7 @@ func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	isEmpty, errEmptyTile := k.isEmptyTile(ctx, field, tileId)
+	isEmpty, errEmptyTile := k.isEmptyTile(ctx, field, rowId, tileId)
 	if !isEmpty {
 		return nil, errEmptyTile
 	}
@@ -138,12 +138,13 @@ func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	newTree := types.Trees{
 		BearId:   bearId,
 		FieldId:  field.Id,
+		RowId: rowId,
 		TileId: tileId,
 		TreeType: types.Trees_TreeTypes(types.Trees_TreeTypes_value[treeType]),
 	}
 	newTreeId := k.AppendTrees(ctx, newTree)
 
-	field.Tiles[tileId].Item = &types.Tiles_Items{
+	field.Rows[rowId].Tiles[tileId].Item = &types.Tiles_Items{
 		ItemId:   newTreeId,
 		ItemType: types.Tiles_Items_TREE,
 	}

@@ -6,14 +6,17 @@ import "gogoproto/gogo.proto";
 import "bears/tiles.proto";
 import "bears/bears.proto";
 
+message FieldRows {
+  repeated Tiles tiles = 4 [(gogoproto.nullable) = false]; 
+}
+
 message Fields {
   uint64 id = 1;
   BearOwner bearOwner = 2; 
   enum FieldTypes {
     DEFAULT = 0;
   }
-  FieldTypes fieldType = 3; 
-  repeated Tiles tiles = 4 [(gogoproto.nullable) = false]; 
+  FieldTypes fieldType = 3;
+  repeated FieldRows rows = 4 [(gogoproto.nullable) = false]; 
   uint64 countTiles = 5; 
-  
 }

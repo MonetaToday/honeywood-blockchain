@@ -5,6 +5,7 @@ export interface Trees {
     treeType: Trees_TreeTypes;
     bearId: number;
     fieldId: number;
+    rowId: number;
     tileId: number;
 }
 export declare enum Trees_TreeTypes {

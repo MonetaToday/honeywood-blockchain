@@ -11,7 +11,9 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	fieldId := msg.FieldId
+	oldRowId := msg.RowId
 	oldTileId := msg.TileId
+	newRowId := msg.NewRowId
 	newTileId := msg.NewTileId
 
 	field, fieldFound := k.Keeper.GetFields(ctx, fieldId)
@@ -22,22 +24,22 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	if !hasRightsField {
 		return nil, types.ErrAddressHasNoRights
 	}
-	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldTileId)
+	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldRowId, oldTileId)
 	if isEmptyOldTile {
 		return nil, types.ErrItemIsNotExistedOnTile
 	}
-	isEmptyNewTile, errEmptyNewTile := k.Keeper.isEmptyTile(ctx, field, newTileId)
+	isEmptyNewTile, errEmptyNewTile := k.Keeper.isEmptyTile(ctx, field, newRowId, newTileId)
 	if !isEmptyNewTile {
 		return nil, errEmptyNewTile
 	}
 
-	field.Tiles[newTileId].Item = field.Tiles[oldTileId].Item
-	field.Tiles[oldTileId].Item = nil
+	field.Rows[newRowId].Tiles[newTileId].Item = field.Rows[oldRowId].Tiles[oldTileId].Item
+	field.Rows[oldRowId].Tiles[oldTileId].Item = nil
 
 	k.Keeper.SetFields(ctx, field)
 
-	itemType := field.Tiles[newTileId].Item.ItemType
-	itemId := field.Tiles[newTileId].Item.ItemId
+	itemType := field.Rows[newRowId].Tiles[newTileId].Item.ItemType
+	itemId := field.Rows[newRowId].Tiles[newTileId].Item.ItemId
 
 	switch itemType {
 	case types.Tiles_Items_APIARY:

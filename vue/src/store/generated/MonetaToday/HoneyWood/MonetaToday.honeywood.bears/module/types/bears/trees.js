@@ -49,6 +49,7 @@ const baseTrees = {
     treeType: 0,
     bearId: 0,
     fieldId: 0,
+    rowId: 0,
     tileId: 0,
 };
 export const Trees = {
@@ -65,8 +66,11 @@ export const Trees = {
         if (message.fieldId !== 0) {
             writer.uint32(32).uint64(message.fieldId);
         }
+        if (message.rowId !== 0) {
+            writer.uint32(40).uint64(message.rowId);
+        }
         if (message.tileId !== 0) {
-            writer.uint32(40).uint64(message.tileId);
+            writer.uint32(48).uint64(message.tileId);
         }
         return writer;
     },
@@ -90,6 +94,9 @@ export const Trees = {
                     message.fieldId = longToNumber(reader.uint64());
                     break;
                 case 5:
+                    message.rowId = longToNumber(reader.uint64());
+                    break;
+                case 6:
                     message.tileId = longToNumber(reader.uint64());
                     break;
                 default:
@@ -125,6 +132,12 @@ export const Trees = {
         else {
             message.fieldId = 0;
         }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = Number(object.rowId);
+        }
+        else {
+            message.rowId = 0;
+        }
         if (object.tileId !== undefined && object.tileId !== null) {
             message.tileId = Number(object.tileId);
         }
@@ -140,6 +153,7 @@ export const Trees = {
             (obj.treeType = trees_TreeTypesToJSON(message.treeType));
         message.bearId !== undefined && (obj.bearId = message.bearId);
         message.fieldId !== undefined && (obj.fieldId = message.fieldId);
+        message.rowId !== undefined && (obj.rowId = message.rowId);
         message.tileId !== undefined && (obj.tileId = message.tileId);
         return obj;
     },
@@ -168,6 +182,12 @@ export const Trees = {
         }
         else {
             message.fieldId = 0;
+        }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = object.rowId;
+        }
+        else {
+            message.rowId = 0;
         }
         if (object.tileId !== undefined && object.tileId !== null) {
             message.tileId = object.tileId;

@@ -1,16 +1,20 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import { BearOwner } from "../bears/bears";
 import { Tiles } from "../bears/tiles";
+import { BearOwner } from "../bears/bears";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
+
+export interface FieldRows {
+  tiles: Tiles[];
+}
 
 export interface Fields {
   id: number;
   bearOwner: BearOwner | undefined;
   fieldType: Fields_FieldTypes;
-  tiles: Tiles[];
+  rows: FieldRows[];
   countTiles: number;
 }
 
@@ -40,6 +44,68 @@ export function fields_FieldTypesToJSON(object: Fields_FieldTypes): string {
   }
 }
 
+const baseFieldRows: object = {};
+
+export const FieldRows = {
+  encode(message: FieldRows, writer: Writer = Writer.create()): Writer {
+    for (const v of message.tiles) {
+      Tiles.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): FieldRows {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseFieldRows } as FieldRows;
+    message.tiles = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 4:
+          message.tiles.push(Tiles.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FieldRows {
+    const message = { ...baseFieldRows } as FieldRows;
+    message.tiles = [];
+    if (object.tiles !== undefined && object.tiles !== null) {
+      for (const e of object.tiles) {
+        message.tiles.push(Tiles.fromJSON(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: FieldRows): unknown {
+    const obj: any = {};
+    if (message.tiles) {
+      obj.tiles = message.tiles.map((e) => (e ? Tiles.toJSON(e) : undefined));
+    } else {
+      obj.tiles = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<FieldRows>): FieldRows {
+    const message = { ...baseFieldRows } as FieldRows;
+    message.tiles = [];
+    if (object.tiles !== undefined && object.tiles !== null) {
+      for (const e of object.tiles) {
+        message.tiles.push(Tiles.fromPartial(e));
+      }
+    }
+    return message;
+  },
+};
+
 const baseFields: object = { id: 0, fieldType: 0, countTiles: 0 };
 
 export const Fields = {
@@ -53,8 +119,8 @@ export const Fields = {
     if (message.fieldType !== 0) {
       writer.uint32(24).int32(message.fieldType);
     }
-    for (const v of message.tiles) {
-      Tiles.encode(v!, writer.uint32(34).fork()).ldelim();
+    for (const v of message.rows) {
+      FieldRows.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     if (message.countTiles !== 0) {
       writer.uint32(40).uint64(message.countTiles);
@@ -66,7 +132,7 @@ export const Fields = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseFields } as Fields;
-    message.tiles = [];
+    message.rows = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -80,7 +146,7 @@ export const Fields = {
           message.fieldType = reader.int32() as any;
           break;
         case 4:
-          message.tiles.push(Tiles.decode(reader, reader.uint32()));
+          message.rows.push(FieldRows.decode(reader, reader.uint32()));
           break;
         case 5:
           message.countTiles = longToNumber(reader.uint64() as Long);
@@ -95,7 +161,7 @@ export const Fields = {
 
   fromJSON(object: any): Fields {
     const message = { ...baseFields } as Fields;
-    message.tiles = [];
+    message.rows = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -111,9 +177,9 @@ export const Fields = {
     } else {
       message.fieldType = 0;
     }
-    if (object.tiles !== undefined && object.tiles !== null) {
-      for (const e of object.tiles) {
-        message.tiles.push(Tiles.fromJSON(e));
+    if (object.rows !== undefined && object.rows !== null) {
+      for (const e of object.rows) {
+        message.rows.push(FieldRows.fromJSON(e));
       }
     }
     if (object.countTiles !== undefined && object.countTiles !== null) {
@@ -133,10 +199,10 @@ export const Fields = {
         : undefined);
     message.fieldType !== undefined &&
       (obj.fieldType = fields_FieldTypesToJSON(message.fieldType));
-    if (message.tiles) {
-      obj.tiles = message.tiles.map((e) => (e ? Tiles.toJSON(e) : undefined));
+    if (message.rows) {
+      obj.rows = message.rows.map((e) => (e ? FieldRows.toJSON(e) : undefined));
     } else {
-      obj.tiles = [];
+      obj.rows = [];
     }
     message.countTiles !== undefined && (obj.countTiles = message.countTiles);
     return obj;
@@ -144,7 +210,7 @@ export const Fields = {
 
   fromPartial(object: DeepPartial<Fields>): Fields {
     const message = { ...baseFields } as Fields;
-    message.tiles = [];
+    message.rows = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
@@ -160,9 +226,9 @@ export const Fields = {
     } else {
       message.fieldType = 0;
     }
-    if (object.tiles !== undefined && object.tiles !== null) {
-      for (const e of object.tiles) {
-        message.tiles.push(Tiles.fromPartial(e));
+    if (object.rows !== undefined && object.rows !== null) {
+      for (const e of object.rows) {
+        message.rows.push(FieldRows.fromPartial(e));
       }
     }
     if (object.countTiles !== undefined && object.countTiles !== null) {

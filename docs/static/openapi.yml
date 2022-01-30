@@ -13163,24 +13163,29 @@ paths:
                       enum:
                         - DEFAULT
                       default: DEFAULT
-                    tiles:
+                    rows:
                       type: array
                       items:
                         type: object
                         properties:
-                          item:
-                            type: object
-                            properties:
-                              itemId:
-                                type: string
-                                format: uint64
-                              itemType:
-                                type: string
-                                enum:
-                                  - APIARY
-                                  - TREE
-                                  - DECORATION
-                                default: APIARY
+                          tiles:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                item:
+                                  type: object
+                                  properties:
+                                    itemId:
+                                      type: string
+                                      format: uint64
+                                    itemType:
+                                      type: string
+                                      enum:
+                                        - APIARY
+                                        - TREE
+                                        - DECORATION
+                                      default: APIARY
                     countTiles:
                       type: string
                       format: uint64
@@ -13315,24 +13320,29 @@ paths:
                     enum:
                       - DEFAULT
                     default: DEFAULT
-                  tiles:
+                  rows:
                     type: array
                     items:
                       type: object
                       properties:
-                        item:
-                          type: object
-                          properties:
-                            itemId:
-                              type: string
-                              format: uint64
-                            itemType:
-                              type: string
-                              enum:
-                                - APIARY
-                                - TREE
-                                - DECORATION
-                              default: APIARY
+                        tiles:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              item:
+                                type: object
+                                properties:
+                                  itemId:
+                                    type: string
+                                    format: uint64
+                                  itemType:
+                                    type: string
+                                    enum:
+                                      - APIARY
+                                      - TREE
+                                      - DECORATION
+                                    default: APIARY
                   countTiles:
                     type: string
                     format: uint64
@@ -13491,6 +13501,9 @@ paths:
                     fieldId:
                       type: string
                       format: uint64
+                    rowId:
+                      type: string
+                      format: uint64
                     tileId:
                       type: string
                       format: uint64
@@ -13626,6 +13639,9 @@ paths:
                     type: string
                     format: uint64
                   fieldId:
+                    type: string
+                    format: uint64
+                  rowId:
                     type: string
                     format: uint64
                   tileId:
@@ -21066,23 +21082,9 @@ definitions:
         items:
           type: string
           format: uint64
-  MonetaToday.honeywood.bears.Fields:
+  MonetaToday.honeywood.bears.FieldRows:
     type: object
     properties:
-      id:
-        type: string
-        format: uint64
-      bearOwner:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uint64
-      fieldType:
-        type: string
-        enum:
-          - DEFAULT
-        default: DEFAULT
       tiles:
         type: array
         items:
@@ -21101,6 +21103,46 @@ definitions:
                     - TREE
                     - DECORATION
                   default: APIARY
+  MonetaToday.honeywood.bears.Fields:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+      fieldType:
+        type: string
+        enum:
+          - DEFAULT
+        default: DEFAULT
+      rows:
+        type: array
+        items:
+          type: object
+          properties:
+            tiles:
+              type: array
+              items:
+                type: object
+                properties:
+                  item:
+                    type: object
+                    properties:
+                      itemId:
+                        type: string
+                        format: uint64
+                      itemType:
+                        type: string
+                        enum:
+                          - APIARY
+                          - TREE
+                          - DECORATION
+                        default: APIARY
       countTiles:
         type: string
         format: uint64
@@ -21130,6 +21172,9 @@ definitions:
             type: string
             format: uint64
           fieldId:
+            type: string
+            format: uint64
+          rowId:
             type: string
             format: uint64
           tileId:
@@ -21162,6 +21207,9 @@ definitions:
             type: string
             format: uint64
           fieldId:
+            type: string
+            format: uint64
+          rowId:
             type: string
             format: uint64
           tileId:
@@ -21396,24 +21444,29 @@ definitions:
               enum:
                 - DEFAULT
               default: DEFAULT
-            tiles:
+            rows:
               type: array
               items:
                 type: object
                 properties:
-                  item:
-                    type: object
-                    properties:
-                      itemId:
-                        type: string
-                        format: uint64
-                      itemType:
-                        type: string
-                        enum:
-                          - APIARY
-                          - TREE
-                          - DECORATION
-                        default: APIARY
+                  tiles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        item:
+                          type: object
+                          properties:
+                            itemId:
+                              type: string
+                              format: uint64
+                            itemType:
+                              type: string
+                              enum:
+                                - APIARY
+                                - TREE
+                                - DECORATION
+                              default: APIARY
             countTiles:
               type: string
               format: uint64
@@ -21465,6 +21518,9 @@ definitions:
               type: string
               format: uint64
             fieldId:
+              type: string
+              format: uint64
+            rowId:
               type: string
               format: uint64
             tileId:
@@ -21577,24 +21633,29 @@ definitions:
             enum:
               - DEFAULT
             default: DEFAULT
-          tiles:
+          rows:
             type: array
             items:
               type: object
               properties:
-                item:
-                  type: object
-                  properties:
-                    itemId:
-                      type: string
-                      format: uint64
-                    itemType:
-                      type: string
-                      enum:
-                        - APIARY
-                        - TREE
-                        - DECORATION
-                      default: APIARY
+                tiles:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      item:
+                        type: object
+                        properties:
+                          itemId:
+                            type: string
+                            format: uint64
+                          itemType:
+                            type: string
+                            enum:
+                              - APIARY
+                              - TREE
+                              - DECORATION
+                            default: APIARY
           countTiles:
             type: string
             format: uint64
@@ -21619,6 +21680,9 @@ definitions:
             type: string
             format: uint64
           fieldId:
+            type: string
+            format: uint64
+          rowId:
             type: string
             format: uint64
           tileId:
@@ -21746,6 +21810,9 @@ definitions:
         type: string
         format: uint64
       fieldId:
+        type: string
+        format: uint64
+      rowId:
         type: string
         format: uint64
       tileId:

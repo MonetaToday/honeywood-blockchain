@@ -1,12 +1,15 @@
 import { Writer, Reader } from "protobufjs/minimal";
-import { BearOwner } from "../bears/bears";
 import { Tiles } from "../bears/tiles";
+import { BearOwner } from "../bears/bears";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
+export interface FieldRows {
+    tiles: Tiles[];
+}
 export interface Fields {
     id: number;
     bearOwner: BearOwner | undefined;
     fieldType: Fields_FieldTypes;
-    tiles: Tiles[];
+    rows: FieldRows[];
     countTiles: number;
 }
 export declare enum Fields_FieldTypes {
@@ -15,6 +18,13 @@ export declare enum Fields_FieldTypes {
 }
 export declare function fields_FieldTypesFromJSON(object: any): Fields_FieldTypes;
 export declare function fields_FieldTypesToJSON(object: Fields_FieldTypes): string;
+export declare const FieldRows: {
+    encode(message: FieldRows, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): FieldRows;
+    fromJSON(object: any): FieldRows;
+    toJSON(message: FieldRows): unknown;
+    fromPartial(object: DeepPartial<FieldRows>): FieldRows;
+};
 export declare const Fields: {
     encode(message: Fields, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Fields;

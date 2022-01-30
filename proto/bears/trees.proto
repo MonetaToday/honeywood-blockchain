@@ -14,5 +14,6 @@ message Trees {
   TreeTypes treeType = 2;
   uint64 bearId = 3; 
   uint64 fieldId = 4; 
-  uint64 tileId = 5;
+  uint64 rowId = 5;
+  uint64 tileId = 6;
 }

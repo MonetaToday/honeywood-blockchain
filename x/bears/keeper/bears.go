@@ -117,17 +117,21 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	name := address
 
 	// One empty tile.
-	tiles := []types.Tiles{
-		{},
+	rows := []types.FieldRows{
+		{
+			Tiles: []types.Tiles{
+				{},
+			},
+		},
 	}
 	newField := types.Fields{
 		BearOwner: &types.BearOwner{
 			Id: bearId,
 		},
 		FieldType:    types.Fields_DEFAULT,
-		Tiles:      tiles,
-		CountTiles: uint64(len(tiles)),
+		Rows:      rows,
 	}
+	newField.CountTiles = k.GetFieldsTilesCount(newField)
 	newField.Id = k.AppendFields(ctx, newField)
 
 	bearName := types.BearNames{

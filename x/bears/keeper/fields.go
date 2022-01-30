@@ -7,7 +7,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"math"
 )
 
 // GetFieldsCount get the total number of fields
@@ -107,6 +106,14 @@ func GetFieldsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
+func (k Keeper) GetFieldsTilesCount(field types.Fields) uint64 {
+	count := 0
+	for _, row := range field.Rows {
+		count = count + len(row.Tiles)
+	}
+	return uint64(count)
+}
+
 // BuyBearName for specific bear
 func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uint64, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
@@ -119,7 +126,14 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	newCountTiles := int64(math.Pow(math.Sqrt(float64(field.CountTiles))+1, 2))
+	for rowIndex, _ := range field.Rows {
+		field.Rows[rowIndex].Tiles = append(field.Rows[rowIndex].Tiles, types.Tiles{})
+	}
+	field.Rows = append(field.Rows, types.FieldRows{
+		Tiles: make([]types.Tiles, len(field.Rows[0].Tiles)),
+	})
+
+	newCountTiles := int64(k.GetFieldsTilesCount(field))
 	differenceTiles := newCountTiles - int64(field.CountTiles)
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
@@ -137,11 +151,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	for i := 0; i < int(differenceTiles); i++ {
-		field.Tiles = append(field.Tiles, types.Tiles{})
-	}
-	field.CountTiles = uint64(len(field.Tiles))
-
+	field.CountTiles = uint64(newCountTiles)
 	k.SetFields(ctx, field)
 
 	return &field.CountTiles, nil
@@ -162,12 +172,16 @@ func (k Keeper) HasRightsToField(ctx sdk.Context, address string, field types.Fi
 }
 
 // GetBears returns a bears from its id
-func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, tileId uint64) (bool, error) {
-	if len(field.Tiles) <= int(tileId) {
+func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, rowId uint64, tileId uint64) (bool, error) {
+	if len(field.Rows) <= int(rowId) {
+		return false, types.ErrFieldHasNoRowId
+	}
+
+	if len(field.Rows[rowId].Tiles) <= int(tileId) {
 		return false, types.ErrFieldHasNoTileId
 	}
 
-	if field.Tiles[tileId].Item != nil {
+	if field.Rows[rowId].Tiles[tileId].Item != nil {
 		return false, types.ErrTileIsNotEmpty
 	}
 
