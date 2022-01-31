@@ -1,12 +1,11 @@
 import { Writer, Reader } from "protobufjs/minimal";
+import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Trees {
     id: number;
     treeType: Trees_TreeTypes;
     bearId: number;
-    fieldId: number;
-    rowId: number;
-    columnId: number;
+    position: ItemPosition | undefined;
 }
 export declare enum Trees_TreeTypes {
     OAK = 0,

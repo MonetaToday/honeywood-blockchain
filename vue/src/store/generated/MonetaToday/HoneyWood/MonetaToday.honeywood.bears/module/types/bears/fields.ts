@@ -10,6 +10,12 @@ export interface FieldRows {
   columns: Tiles[];
 }
 
+export interface ItemPosition {
+  fieldId: number;
+  rowId: number;
+  columnId: number;
+}
+
 export interface Fields {
   id: number;
   bearOwner: BearOwner | undefined;
@@ -103,6 +109,95 @@ export const FieldRows = {
       for (const e of object.columns) {
         message.columns.push(Tiles.fromPartial(e));
       }
+    }
+    return message;
+  },
+};
+
+const baseItemPosition: object = { fieldId: 0, rowId: 0, columnId: 0 };
+
+export const ItemPosition = {
+  encode(message: ItemPosition, writer: Writer = Writer.create()): Writer {
+    if (message.fieldId !== 0) {
+      writer.uint32(8).uint64(message.fieldId);
+    }
+    if (message.rowId !== 0) {
+      writer.uint32(16).uint64(message.rowId);
+    }
+    if (message.columnId !== 0) {
+      writer.uint32(24).uint64(message.columnId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): ItemPosition {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseItemPosition } as ItemPosition;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.fieldId = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.rowId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.columnId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ItemPosition {
+    const message = { ...baseItemPosition } as ItemPosition;
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = Number(object.fieldId);
+    } else {
+      message.fieldId = 0;
+    }
+    if (object.rowId !== undefined && object.rowId !== null) {
+      message.rowId = Number(object.rowId);
+    } else {
+      message.rowId = 0;
+    }
+    if (object.columnId !== undefined && object.columnId !== null) {
+      message.columnId = Number(object.columnId);
+    } else {
+      message.columnId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: ItemPosition): unknown {
+    const obj: any = {};
+    message.fieldId !== undefined && (obj.fieldId = message.fieldId);
+    message.rowId !== undefined && (obj.rowId = message.rowId);
+    message.columnId !== undefined && (obj.columnId = message.columnId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ItemPosition>): ItemPosition {
+    const message = { ...baseItemPosition } as ItemPosition;
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = object.fieldId;
+    } else {
+      message.fieldId = 0;
+    }
+    if (object.rowId !== undefined && object.rowId !== null) {
+      message.rowId = object.rowId;
+    } else {
+      message.rowId = 0;
+    }
+    if (object.columnId !== undefined && object.columnId !== null) {
+      message.columnId = object.columnId;
+    } else {
+      message.columnId = 0;
     }
     return message;
   },

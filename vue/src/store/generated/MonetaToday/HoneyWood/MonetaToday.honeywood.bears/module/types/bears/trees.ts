@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { ItemPosition } from "../bears/fields";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -8,9 +9,7 @@ export interface Trees {
   id: number;
   treeType: Trees_TreeTypes;
   bearId: number;
-  fieldId: number;
-  rowId: number;
-  columnId: number;
+  position: ItemPosition | undefined;
 }
 
 export enum Trees_TreeTypes {
@@ -57,14 +56,7 @@ export function trees_TreeTypesToJSON(object: Trees_TreeTypes): string {
   }
 }
 
-const baseTrees: object = {
-  id: 0,
-  treeType: 0,
-  bearId: 0,
-  fieldId: 0,
-  rowId: 0,
-  columnId: 0,
-};
+const baseTrees: object = { id: 0, treeType: 0, bearId: 0 };
 
 export const Trees = {
   encode(message: Trees, writer: Writer = Writer.create()): Writer {
@@ -77,14 +69,8 @@ export const Trees = {
     if (message.bearId !== 0) {
       writer.uint32(24).uint64(message.bearId);
     }
-    if (message.fieldId !== 0) {
-      writer.uint32(32).uint64(message.fieldId);
-    }
-    if (message.rowId !== 0) {
-      writer.uint32(40).uint64(message.rowId);
-    }
-    if (message.columnId !== 0) {
-      writer.uint32(48).uint64(message.columnId);
+    if (message.position !== undefined) {
+      ItemPosition.encode(message.position, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -106,13 +92,7 @@ export const Trees = {
           message.bearId = longToNumber(reader.uint64() as Long);
           break;
         case 4:
-          message.fieldId = longToNumber(reader.uint64() as Long);
-          break;
-        case 5:
-          message.rowId = longToNumber(reader.uint64() as Long);
-          break;
-        case 6:
-          message.columnId = longToNumber(reader.uint64() as Long);
+          message.position = ItemPosition.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -139,20 +119,10 @@ export const Trees = {
     } else {
       message.bearId = 0;
     }
-    if (object.fieldId !== undefined && object.fieldId !== null) {
-      message.fieldId = Number(object.fieldId);
+    if (object.position !== undefined && object.position !== null) {
+      message.position = ItemPosition.fromJSON(object.position);
     } else {
-      message.fieldId = 0;
-    }
-    if (object.rowId !== undefined && object.rowId !== null) {
-      message.rowId = Number(object.rowId);
-    } else {
-      message.rowId = 0;
-    }
-    if (object.columnId !== undefined && object.columnId !== null) {
-      message.columnId = Number(object.columnId);
-    } else {
-      message.columnId = 0;
+      message.position = undefined;
     }
     return message;
   },
@@ -163,9 +133,10 @@ export const Trees = {
     message.treeType !== undefined &&
       (obj.treeType = trees_TreeTypesToJSON(message.treeType));
     message.bearId !== undefined && (obj.bearId = message.bearId);
-    message.fieldId !== undefined && (obj.fieldId = message.fieldId);
-    message.rowId !== undefined && (obj.rowId = message.rowId);
-    message.columnId !== undefined && (obj.columnId = message.columnId);
+    message.position !== undefined &&
+      (obj.position = message.position
+        ? ItemPosition.toJSON(message.position)
+        : undefined);
     return obj;
   },
 
@@ -186,20 +157,10 @@ export const Trees = {
     } else {
       message.bearId = 0;
     }
-    if (object.fieldId !== undefined && object.fieldId !== null) {
-      message.fieldId = object.fieldId;
+    if (object.position !== undefined && object.position !== null) {
+      message.position = ItemPosition.fromPartial(object.position);
     } else {
-      message.fieldId = 0;
-    }
-    if (object.rowId !== undefined && object.rowId !== null) {
-      message.rowId = object.rowId;
-    } else {
-      message.rowId = 0;
-    }
-    if (object.columnId !== undefined && object.columnId !== null) {
-      message.columnId = object.columnId;
-    } else {
-      message.columnId = 0;
+      message.position = undefined;
     }
     return message;
   },

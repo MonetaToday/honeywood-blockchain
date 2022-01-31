@@ -53,6 +53,14 @@ export interface BearsFields {
     /** @format uint64 */
     countTiles?: string;
 }
+export interface BearsItemPosition {
+    /** @format uint64 */
+    fieldId?: string;
+    /** @format uint64 */
+    rowId?: string;
+    /** @format uint64 */
+    columnId?: string;
+}
 export interface BearsMsgCreateTreeResponse {
     tree?: BearsTrees;
 }
@@ -199,12 +207,7 @@ export interface BearsTrees {
     treeType?: TreesTreeTypes;
     /** @format uint64 */
     bearId?: string;
-    /** @format uint64 */
-    fieldId?: string;
-    /** @format uint64 */
-    rowId?: string;
-    /** @format uint64 */
-    columnId?: string;
+    position?: BearsItemPosition;
 }
 export interface ProtobufAny {
     "@type"?: string;

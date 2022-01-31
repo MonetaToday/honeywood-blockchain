@@ -5,6 +5,11 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface FieldRows {
     columns: Tiles[];
 }
+export interface ItemPosition {
+    fieldId: number;
+    rowId: number;
+    columnId: number;
+}
 export interface Fields {
     id: number;
     bearOwner: BearOwner | undefined;
@@ -24,6 +29,13 @@ export declare const FieldRows: {
     fromJSON(object: any): FieldRows;
     toJSON(message: FieldRows): unknown;
     fromPartial(object: DeepPartial<FieldRows>): FieldRows;
+};
+export declare const ItemPosition: {
+    encode(message: ItemPosition, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): ItemPosition;
+    fromJSON(object: any): ItemPosition;
+    toJSON(message: ItemPosition): unknown;
+    fromPartial(object: DeepPartial<ItemPosition>): ItemPosition;
 };
 export declare const Fields: {
     encode(message: Fields, writer?: Writer): Writer;

@@ -10,6 +10,12 @@ message FieldRows {
   repeated Tiles columns = 4 [(gogoproto.nullable) = false]; 
 }
 
+message ItemPosition {
+  uint64 fieldId = 1; 
+  uint64 rowId = 2;
+  uint64 columnId = 3;
+}
+
 message Fields {
   uint64 id = 1;
   BearOwner bearOwner = 2; 

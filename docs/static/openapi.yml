@@ -13498,15 +13498,18 @@ paths:
                     bearId:
                       type: string
                       format: uint64
-                    fieldId:
-                      type: string
-                      format: uint64
-                    rowId:
-                      type: string
-                      format: uint64
-                    columnId:
-                      type: string
-                      format: uint64
+                    position:
+                      type: object
+                      properties:
+                        fieldId:
+                          type: string
+                          format: uint64
+                        rowId:
+                          type: string
+                          format: uint64
+                        columnId:
+                          type: string
+                          format: uint64
               pagination:
                 type: object
                 properties:
@@ -13638,15 +13641,18 @@ paths:
                   bearId:
                     type: string
                     format: uint64
-                  fieldId:
-                    type: string
-                    format: uint64
-                  rowId:
-                    type: string
-                    format: uint64
-                  columnId:
-                    type: string
-                    format: uint64
+                  position:
+                    type: object
+                    properties:
+                      fieldId:
+                        type: string
+                        format: uint64
+                      rowId:
+                        type: string
+                        format: uint64
+                      columnId:
+                        type: string
+                        format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -21151,6 +21157,18 @@ definitions:
     enum:
       - DEFAULT
     default: DEFAULT
+  MonetaToday.honeywood.bears.ItemPosition:
+    type: object
+    properties:
+      fieldId:
+        type: string
+        format: uint64
+      rowId:
+        type: string
+        format: uint64
+      columnId:
+        type: string
+        format: uint64
   MonetaToday.honeywood.bears.MsgCreateTreeResponse:
     type: object
     properties:
@@ -21171,15 +21189,18 @@ definitions:
           bearId:
             type: string
             format: uint64
-          fieldId:
-            type: string
-            format: uint64
-          rowId:
-            type: string
-            format: uint64
-          columnId:
-            type: string
-            format: uint64
+          position:
+            type: object
+            properties:
+              fieldId:
+                type: string
+                format: uint64
+              rowId:
+                type: string
+                format: uint64
+              columnId:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.MsgExtendFieldResponse:
     type: object
     properties:
@@ -21206,15 +21227,18 @@ definitions:
           bearId:
             type: string
             format: uint64
-          fieldId:
-            type: string
-            format: uint64
-          rowId:
-            type: string
-            format: uint64
-          columnId:
-            type: string
-            format: uint64
+          position:
+            type: object
+            properties:
+              fieldId:
+                type: string
+                format: uint64
+              rowId:
+                type: string
+                format: uint64
+              columnId:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndExtendFieldResponse:
     type: object
     properties:
@@ -21517,15 +21541,18 @@ definitions:
             bearId:
               type: string
               format: uint64
-            fieldId:
-              type: string
-              format: uint64
-            rowId:
-              type: string
-              format: uint64
-            columnId:
-              type: string
-              format: uint64
+            position:
+              type: object
+              properties:
+                fieldId:
+                  type: string
+                  format: uint64
+                rowId:
+                  type: string
+                  format: uint64
+                columnId:
+                  type: string
+                  format: uint64
       pagination:
         type: object
         properties:
@@ -21679,15 +21706,18 @@ definitions:
           bearId:
             type: string
             format: uint64
-          fieldId:
-            type: string
-            format: uint64
-          rowId:
-            type: string
-            format: uint64
-          columnId:
-            type: string
-            format: uint64
+          position:
+            type: object
+            properties:
+              fieldId:
+                type: string
+                format: uint64
+              rowId:
+                type: string
+                format: uint64
+              columnId:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.QueryParamsResponse:
     type: object
     properties:
@@ -21809,15 +21839,18 @@ definitions:
       bearId:
         type: string
         format: uint64
-      fieldId:
-        type: string
-        format: uint64
-      rowId:
-        type: string
-        format: uint64
-      columnId:
-        type: string
-        format: uint64
+      position:
+        type: object
+        properties:
+          fieldId:
+            type: string
+            format: uint64
+          rowId:
+            type: string
+            format: uint64
+          columnId:
+            type: string
+            format: uint64
   MonetaToday.honeywood.bears.Trees.TreeTypes:
     type: string
     enum:

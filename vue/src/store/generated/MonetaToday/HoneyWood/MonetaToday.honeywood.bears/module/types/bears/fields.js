@@ -85,6 +85,95 @@ export const FieldRows = {
         return message;
     },
 };
+const baseItemPosition = { fieldId: 0, rowId: 0, columnId: 0 };
+export const ItemPosition = {
+    encode(message, writer = Writer.create()) {
+        if (message.fieldId !== 0) {
+            writer.uint32(8).uint64(message.fieldId);
+        }
+        if (message.rowId !== 0) {
+            writer.uint32(16).uint64(message.rowId);
+        }
+        if (message.columnId !== 0) {
+            writer.uint32(24).uint64(message.columnId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseItemPosition };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.fieldId = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.rowId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.columnId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseItemPosition };
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = Number(object.fieldId);
+        }
+        else {
+            message.fieldId = 0;
+        }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = Number(object.rowId);
+        }
+        else {
+            message.rowId = 0;
+        }
+        if (object.columnId !== undefined && object.columnId !== null) {
+            message.columnId = Number(object.columnId);
+        }
+        else {
+            message.columnId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.fieldId !== undefined && (obj.fieldId = message.fieldId);
+        message.rowId !== undefined && (obj.rowId = message.rowId);
+        message.columnId !== undefined && (obj.columnId = message.columnId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseItemPosition };
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = object.fieldId;
+        }
+        else {
+            message.fieldId = 0;
+        }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = object.rowId;
+        }
+        else {
+            message.rowId = 0;
+        }
+        if (object.columnId !== undefined && object.columnId !== null) {
+            message.columnId = object.columnId;
+        }
+        else {
+            message.columnId = 0;
+        }
+        return message;
+    },
+};
 const baseFields = { id: 0, fieldType: 0, countTiles: 0 };
 export const Fields = {
     encode(message, writer = Writer.create()) {
