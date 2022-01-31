@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateTree() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-tree [field-id] [tile-id]",
+		Use:   "create-tree [bear-id] [field-id] [row-id] [column-id] [tree-type]",
 		Short: "Create a tree",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

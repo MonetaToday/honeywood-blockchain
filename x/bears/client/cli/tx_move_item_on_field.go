@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdMoveItemOnField() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "move-item-on-field [field-id] [tile-id] [new-tile-id]",
+		Use:   "move-item-on-field [field-id] [old-row-id] [old-column-id] [new-row-id] [new-column-id]",
 		Short: "Move an item on field",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

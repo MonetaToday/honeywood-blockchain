@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 
 func CmdInitGameAndCreateTree() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "init-game-and-create-tree",
+		Use:   "init-game-and-create-tree [tree-type]",
 		Short: "Initialize game and create a tree",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
