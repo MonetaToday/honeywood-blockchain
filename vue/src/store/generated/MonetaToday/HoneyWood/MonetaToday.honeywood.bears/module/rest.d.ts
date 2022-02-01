@@ -76,6 +76,9 @@ export interface BearsItemPosition {
     /** @format uint64 */
     columnId?: string;
 }
+export interface BearsMsgCreateDecorationResponse {
+    decoration?: BearsDecorations;
+}
 export interface BearsMsgCreateTreeResponse {
     tree?: BearsTrees;
 }

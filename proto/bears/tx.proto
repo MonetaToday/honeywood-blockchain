@@ -17,6 +17,7 @@ service Msg {
   rpc CreateTree(MsgCreateTree) returns (MsgCreateTreeResponse);
   rpc MoveItemOnField(MsgMoveItemOnField) returns (MsgMoveItemOnFieldResponse);
   rpc InitGameAndCreateDecoration(MsgInitGameAndCreateDecoration) returns (MsgInitGameAndCreateDecorationResponse);
+  rpc CreateDecoration(MsgCreateDecoration) returns (MsgCreateDecorationResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -94,6 +95,16 @@ message MsgInitGameAndCreateDecoration {
 }
 
 message MsgInitGameAndCreateDecorationResponse {
+  Decorations decoration = 1;
+}
+
+message MsgCreateDecoration {
+  string creator = 1;
+  uint64 bearId = 2;
+  string decorationType = 3;
+}
+
+message MsgCreateDecorationResponse {
   Decorations decoration = 1;
 }
 

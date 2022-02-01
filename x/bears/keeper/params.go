@@ -54,21 +54,25 @@ func (k Keeper) PriceDecorationFlowers(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationFlowers, &res)
 	return
 }
+
 // PriceDecorationFlag returns the PriceDecorationFlag param
 func (k Keeper) PriceDecorationFlag(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationFlag, &res)
 	return
 }
+
 // PriceDecorationLamp returns the PriceDecorationLamp param
 func (k Keeper) PriceDecorationLamp(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationLamp, &res)
 	return
 }
+
 // PriceDecorationGreenBee returns the PriceDecorationGreenBee param
 func (k Keeper) PriceDecorationGreenBee(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationGreenBee, &res)
 	return
 }
+
 // PriceDecorationFountain returns the PriceDecorationFountain param
 func (k Keeper) PriceDecorationFountain(ctx sdk.Context) (res sdk.Coin) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationFountain, &res)

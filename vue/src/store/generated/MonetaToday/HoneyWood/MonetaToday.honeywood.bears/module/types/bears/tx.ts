@@ -80,6 +80,16 @@ export interface MsgInitGameAndCreateDecorationResponse {
   decoration: Decorations | undefined;
 }
 
+export interface MsgCreateDecoration {
+  creator: string;
+  bearId: number;
+  decorationType: string;
+}
+
+export interface MsgCreateDecorationResponse {
+  decoration: Decorations | undefined;
+}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -1335,6 +1345,175 @@ export const MsgInitGameAndCreateDecorationResponse = {
   },
 };
 
+const baseMsgCreateDecoration: object = {
+  creator: "",
+  bearId: 0,
+  decorationType: "",
+};
+
+export const MsgCreateDecoration = {
+  encode(
+    message: MsgCreateDecoration,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.bearId !== 0) {
+      writer.uint32(16).uint64(message.bearId);
+    }
+    if (message.decorationType !== "") {
+      writer.uint32(26).string(message.decorationType);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateDecoration {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateDecoration } as MsgCreateDecoration;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.bearId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.decorationType = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateDecoration {
+    const message = { ...baseMsgCreateDecoration } as MsgCreateDecoration;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = Number(object.bearId);
+    } else {
+      message.bearId = 0;
+    }
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = String(object.decorationType);
+    } else {
+      message.decorationType = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateDecoration): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.bearId !== undefined && (obj.bearId = message.bearId);
+    message.decorationType !== undefined &&
+      (obj.decorationType = message.decorationType);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateDecoration>): MsgCreateDecoration {
+    const message = { ...baseMsgCreateDecoration } as MsgCreateDecoration;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = object.bearId;
+    } else {
+      message.bearId = 0;
+    }
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = object.decorationType;
+    } else {
+      message.decorationType = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateDecorationResponse: object = {};
+
+export const MsgCreateDecorationResponse = {
+  encode(
+    message: MsgCreateDecorationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.decoration !== undefined) {
+      Decorations.encode(message.decoration, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateDecorationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateDecorationResponse,
+    } as MsgCreateDecorationResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.decoration = Decorations.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateDecorationResponse {
+    const message = {
+      ...baseMsgCreateDecorationResponse,
+    } as MsgCreateDecorationResponse;
+    if (object.decoration !== undefined && object.decoration !== null) {
+      message.decoration = Decorations.fromJSON(object.decoration);
+    } else {
+      message.decoration = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateDecorationResponse): unknown {
+    const obj: any = {};
+    message.decoration !== undefined &&
+      (obj.decoration = message.decoration
+        ? Decorations.toJSON(message.decoration)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateDecorationResponse>
+  ): MsgCreateDecorationResponse {
+    const message = {
+      ...baseMsgCreateDecorationResponse,
+    } as MsgCreateDecorationResponse;
+    if (object.decoration !== undefined && object.decoration !== null) {
+      message.decoration = Decorations.fromPartial(object.decoration);
+    } else {
+      message.decoration = undefined;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -1352,10 +1531,13 @@ export interface Msg {
   MoveItemOnField(
     request: MsgMoveItemOnField
   ): Promise<MsgMoveItemOnFieldResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   InitGameAndCreateDecoration(
     request: MsgInitGameAndCreateDecoration
   ): Promise<MsgInitGameAndCreateDecorationResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateDecoration(
+    request: MsgCreateDecoration
+  ): Promise<MsgCreateDecorationResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1464,6 +1646,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgInitGameAndCreateDecorationResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateDecoration(
+    request: MsgCreateDecoration
+  ): Promise<MsgCreateDecorationResponse> {
+    const data = MsgCreateDecoration.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "CreateDecoration",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateDecorationResponse.decode(new Reader(data))
     );
   }
 }

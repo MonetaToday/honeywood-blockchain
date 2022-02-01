@@ -63,6 +63,14 @@ export interface MsgInitGameAndCreateDecoration {
 export interface MsgInitGameAndCreateDecorationResponse {
     decoration: Decorations | undefined;
 }
+export interface MsgCreateDecoration {
+    creator: string;
+    bearId: number;
+    decorationType: string;
+}
+export interface MsgCreateDecorationResponse {
+    decoration: Decorations | undefined;
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -175,6 +183,20 @@ export declare const MsgInitGameAndCreateDecorationResponse: {
     toJSON(message: MsgInitGameAndCreateDecorationResponse): unknown;
     fromPartial(object: DeepPartial<MsgInitGameAndCreateDecorationResponse>): MsgInitGameAndCreateDecorationResponse;
 };
+export declare const MsgCreateDecoration: {
+    encode(message: MsgCreateDecoration, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateDecoration;
+    fromJSON(object: any): MsgCreateDecoration;
+    toJSON(message: MsgCreateDecoration): unknown;
+    fromPartial(object: DeepPartial<MsgCreateDecoration>): MsgCreateDecoration;
+};
+export declare const MsgCreateDecorationResponse: {
+    encode(message: MsgCreateDecorationResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateDecorationResponse;
+    fromJSON(object: any): MsgCreateDecorationResponse;
+    toJSON(message: MsgCreateDecorationResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateDecorationResponse>): MsgCreateDecorationResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
@@ -184,8 +206,9 @@ export interface Msg {
     InitGameAndCreateTree(request: MsgInitGameAndCreateTree): Promise<MsgInitGameAndCreateTreeResponse>;
     CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
     MoveItemOnField(request: MsgMoveItemOnField): Promise<MsgMoveItemOnFieldResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     InitGameAndCreateDecoration(request: MsgInitGameAndCreateDecoration): Promise<MsgInitGameAndCreateDecorationResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateDecoration(request: MsgCreateDecoration): Promise<MsgCreateDecorationResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -198,6 +221,7 @@ export declare class MsgClientImpl implements Msg {
     CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
     MoveItemOnField(request: MsgMoveItemOnField): Promise<MsgMoveItemOnFieldResponse>;
     InitGameAndCreateDecoration(request: MsgInitGameAndCreateDecoration): Promise<MsgInitGameAndCreateDecorationResponse>;
+    CreateDecoration(request: MsgCreateDecoration): Promise<MsgCreateDecorationResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

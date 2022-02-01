@@ -1139,6 +1139,160 @@ export const MsgInitGameAndCreateDecorationResponse = {
         return message;
     },
 };
+const baseMsgCreateDecoration = {
+    creator: "",
+    bearId: 0,
+    decorationType: "",
+};
+export const MsgCreateDecoration = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.bearId !== 0) {
+            writer.uint32(16).uint64(message.bearId);
+        }
+        if (message.decorationType !== "") {
+            writer.uint32(26).string(message.decorationType);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateDecoration };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.decorationType = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateDecoration };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.decorationType !== undefined && object.decorationType !== null) {
+            message.decorationType = String(object.decorationType);
+        }
+        else {
+            message.decorationType = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        message.decorationType !== undefined &&
+            (obj.decorationType = message.decorationType);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateDecoration };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.decorationType !== undefined && object.decorationType !== null) {
+            message.decorationType = object.decorationType;
+        }
+        else {
+            message.decorationType = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateDecorationResponse = {};
+export const MsgCreateDecorationResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.decoration !== undefined) {
+            Decorations.encode(message.decoration, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateDecorationResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.decoration = Decorations.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCreateDecorationResponse,
+        };
+        if (object.decoration !== undefined && object.decoration !== null) {
+            message.decoration = Decorations.fromJSON(object.decoration);
+        }
+        else {
+            message.decoration = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.decoration !== undefined &&
+            (obj.decoration = message.decoration
+                ? Decorations.toJSON(message.decoration)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCreateDecorationResponse,
+        };
+        if (object.decoration !== undefined && object.decoration !== null) {
+            message.decoration = Decorations.fromPartial(object.decoration);
+        }
+        else {
+            message.decoration = undefined;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1182,6 +1336,11 @@ export class MsgClientImpl {
         const data = MsgInitGameAndCreateDecoration.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateDecoration", data);
         return promise.then((data) => MsgInitGameAndCreateDecorationResponse.decode(new Reader(data)));
+    }
+    CreateDecoration(request) {
+        const data = MsgCreateDecoration.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateDecoration", data);
+        return promise.then((data) => MsgCreateDecorationResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

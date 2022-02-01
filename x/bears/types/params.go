@@ -22,7 +22,7 @@ var (
 
 	KeyRewardTree              = []byte("RewardTree")
 	DefaultRewardTree sdk.Coin = sdk.NewCoin("cone", sdk.NewInt(100))
-	
+
 	KeyPriceDecorationFlowers              = []byte("PriceDecorationFlowers")
 	DefaultPriceDecorationFlowers sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 
@@ -52,13 +52,13 @@ func NewParams(
 	priceDecorationFountain sdk.Coin,
 ) Params {
 	return Params{
-		PriceSetName:  priceSetName,
-		PriceTile:  priceTile,
-		PriceTree:  priceTree,
-		RewardTree: rewardTree,
-		PriceDecorationFlowers: priceDecorationFlowers,
-		PriceDecorationFlag: priceDecorationFlag,
-		PriceDecorationLamp: priceDecorationLamp,
+		PriceSetName:            priceSetName,
+		PriceTile:               priceTile,
+		PriceTree:               priceTree,
+		RewardTree:              rewardTree,
+		PriceDecorationFlowers:  priceDecorationFlowers,
+		PriceDecorationFlag:     priceDecorationFlag,
+		PriceDecorationLamp:     priceDecorationLamp,
 		PriceDecorationGreenBee: priceDecorationGreenBee,
 		PriceDecorationFountain: priceDecorationFountain,
 	}
@@ -96,7 +96,7 @@ func (p Params) Validate() error {
 	if err := validateRewardTree(p.RewardTree); err != nil {
 		return err
 	}
-	
+
 	return nil
 }
 
