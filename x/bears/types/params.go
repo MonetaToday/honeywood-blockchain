@@ -22,6 +22,21 @@ var (
 
 	KeyRewardTree              = []byte("RewardTree")
 	DefaultRewardTree sdk.Coin = sdk.NewCoin("cone", sdk.NewInt(100))
+	
+	KeyPriceDecorationFlowers              = []byte("PriceDecorationFlowers")
+	DefaultPriceDecorationFlowers sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+
+	KeyPriceDecorationFlag              = []byte("PriceDecorationFlag")
+	DefaultPriceDecorationFlag sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(150))
+
+	KeyPriceDecorationLamp              = []byte("PriceDecorationLamp")
+	DefaultPriceDecorationLamp sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(200))
+
+	KeyPriceDecorationGreenBee              = []byte("PriceDecorationGreenBee")
+	DefaultPriceDecorationGreenBee sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(500))
+
+	KeyPriceDecorationFountain              = []byte("PriceDecorationFountain")
+	DefaultPriceDecorationFountain sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(1000))
 )
 
 // NewParams creates a new Params instance
@@ -30,12 +45,22 @@ func NewParams(
 	priceTile sdk.Coin,
 	priceTree sdk.Coin,
 	rewardTree sdk.Coin,
+	priceDecorationFlowers sdk.Coin,
+	priceDecorationFlag sdk.Coin,
+	priceDecorationLamp sdk.Coin,
+	priceDecorationGreenBee sdk.Coin,
+	priceDecorationFountain sdk.Coin,
 ) Params {
 	return Params{
 		PriceSetName:  priceSetName,
 		PriceTile:  priceTile,
 		PriceTree:  priceTree,
 		RewardTree: rewardTree,
+		PriceDecorationFlowers: priceDecorationFlowers,
+		PriceDecorationFlag: priceDecorationFlag,
+		PriceDecorationLamp: priceDecorationLamp,
+		PriceDecorationGreenBee: priceDecorationGreenBee,
+		PriceDecorationFountain: priceDecorationFountain,
 	}
 }
 
@@ -46,6 +71,11 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validatePrice),
 		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateRewardTree),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, &p.PriceDecorationFlowers, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, &p.PriceDecorationFlag, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validatePrice),
 	}
 }
 
@@ -77,12 +107,27 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coin{}, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coin{}, validatePrice),
 		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coin{}, validateRewardTree),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, sdk.Coin{}, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, sdk.Coin{}, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coin{}, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coin{}, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coin{}, validatePrice),
 	)
 }
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams(DefaultPriceSetName, DefaultPriceTile, DefaultPriceTree, DefaultRewardTree)
+	return NewParams(
+		DefaultPriceSetName,
+		DefaultPriceTile,
+		DefaultPriceTree,
+		DefaultRewardTree,
+		DefaultPriceDecorationFlowers,
+		DefaultPriceDecorationFlag,
+		DefaultPriceDecorationLamp,
+		DefaultPriceDecorationGreenBee,
+		DefaultPriceDecorationFountain,
+	)
 }
 
 // String implements the Stringer interface.

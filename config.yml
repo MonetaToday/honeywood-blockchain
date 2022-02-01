@@ -46,3 +46,18 @@ genesis:
         reward_tree: 
           denom: "cone"
           amount: "100"
+        price_decoration_flowers: 
+          denom: "honey"
+          amount: "100"
+        price_decoration_flag: 
+          denom: "honey"
+          amount: "150"
+        price_decoration_lamp: 
+          denom: "honey"
+          amount: "200"
+        price_decoration_green_bee: 
+          denom: "honey"
+          amount: "500"
+        price_decoration_fountain: 
+          denom: "honey"
+          amount: "1000"
