@@ -998,6 +998,124 @@ export const MsgMoveItemOnFieldResponse = {
         return message;
     },
 };
+const baseMsgInitGameAndCreateDecoration = {
+    creator: "",
+    decorationType: "",
+};
+export const MsgInitGameAndCreateDecoration = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.decorationType !== "") {
+            writer.uint32(18).string(message.decorationType);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateDecoration,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.decorationType = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateDecoration,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.decorationType !== undefined && object.decorationType !== null) {
+            message.decorationType = String(object.decorationType);
+        }
+        else {
+            message.decorationType = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.decorationType !== undefined &&
+            (obj.decorationType = message.decorationType);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateDecoration,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.decorationType !== undefined && object.decorationType !== null) {
+            message.decorationType = object.decorationType;
+        }
+        else {
+            message.decorationType = "";
+        }
+        return message;
+    },
+};
+const baseMsgInitGameAndCreateDecorationResponse = {};
+export const MsgInitGameAndCreateDecorationResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateDecorationResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgInitGameAndCreateDecorationResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgInitGameAndCreateDecorationResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1036,6 +1154,11 @@ export class MsgClientImpl {
         const data = MsgMoveItemOnField.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "MoveItemOnField", data);
         return promise.then((data) => MsgMoveItemOnFieldResponse.decode(new Reader(data)));
+    }
+    InitGameAndCreateDecoration(request) {
+        const data = MsgInitGameAndCreateDecoration.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateDecoration", data);
+        return promise.then((data) => MsgInitGameAndCreateDecorationResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

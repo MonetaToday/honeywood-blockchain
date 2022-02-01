@@ -21458,6 +21458,8 @@ definitions:
       countTiles:
         type: string
         format: uint64
+  MonetaToday.honeywood.bears.MsgInitGameAndCreateDecorationResponse:
+    type: object
   MonetaToday.honeywood.bears.MsgInitGameAndCreateTreeResponse:
     type: object
     properties:

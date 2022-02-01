@@ -70,6 +70,13 @@ export interface MsgMoveItemOnField {
 
 export interface MsgMoveItemOnFieldResponse {}
 
+export interface MsgInitGameAndCreateDecoration {
+  creator: string;
+  decorationType: string;
+}
+
+export interface MsgInitGameAndCreateDecorationResponse {}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -1163,6 +1170,148 @@ export const MsgMoveItemOnFieldResponse = {
   },
 };
 
+const baseMsgInitGameAndCreateDecoration: object = {
+  creator: "",
+  decorationType: "",
+};
+
+export const MsgInitGameAndCreateDecoration = {
+  encode(
+    message: MsgInitGameAndCreateDecoration,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.decorationType !== "") {
+      writer.uint32(18).string(message.decorationType);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateDecoration {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateDecoration,
+    } as MsgInitGameAndCreateDecoration;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.decorationType = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateDecoration {
+    const message = {
+      ...baseMsgInitGameAndCreateDecoration,
+    } as MsgInitGameAndCreateDecoration;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = String(object.decorationType);
+    } else {
+      message.decorationType = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateDecoration): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.decorationType !== undefined &&
+      (obj.decorationType = message.decorationType);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateDecoration>
+  ): MsgInitGameAndCreateDecoration {
+    const message = {
+      ...baseMsgInitGameAndCreateDecoration,
+    } as MsgInitGameAndCreateDecoration;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = object.decorationType;
+    } else {
+      message.decorationType = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgInitGameAndCreateDecorationResponse: object = {};
+
+export const MsgInitGameAndCreateDecorationResponse = {
+  encode(
+    _: MsgInitGameAndCreateDecorationResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateDecorationResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateDecorationResponse,
+    } as MsgInitGameAndCreateDecorationResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgInitGameAndCreateDecorationResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateDecorationResponse,
+    } as MsgInitGameAndCreateDecorationResponse;
+    return message;
+  },
+
+  toJSON(_: MsgInitGameAndCreateDecorationResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgInitGameAndCreateDecorationResponse>
+  ): MsgInitGameAndCreateDecorationResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateDecorationResponse,
+    } as MsgInitGameAndCreateDecorationResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -1177,10 +1326,13 @@ export interface Msg {
     request: MsgInitGameAndCreateTree
   ): Promise<MsgInitGameAndCreateTreeResponse>;
   CreateTree(request: MsgCreateTree): Promise<MsgCreateTreeResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   MoveItemOnField(
     request: MsgMoveItemOnField
   ): Promise<MsgMoveItemOnFieldResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  InitGameAndCreateDecoration(
+    request: MsgInitGameAndCreateDecoration
+  ): Promise<MsgInitGameAndCreateDecorationResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1275,6 +1427,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgMoveItemOnFieldResponse.decode(new Reader(data))
+    );
+  }
+
+  InitGameAndCreateDecoration(
+    request: MsgInitGameAndCreateDecoration
+  ): Promise<MsgInitGameAndCreateDecorationResponse> {
+    const data = MsgInitGameAndCreateDecoration.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "InitGameAndCreateDecoration",
+      data
+    );
+    return promise.then((data) =>
+      MsgInitGameAndCreateDecorationResponse.decode(new Reader(data))
     );
   }
 }
