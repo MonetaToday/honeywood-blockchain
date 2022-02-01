@@ -2,6 +2,7 @@
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Trees } from "../bears/trees";
+import { Decorations } from "../bears/decorations";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -75,7 +76,9 @@ export interface MsgInitGameAndCreateDecoration {
   decorationType: string;
 }
 
-export interface MsgInitGameAndCreateDecorationResponse {}
+export interface MsgInitGameAndCreateDecorationResponse {
+  decoration: Decorations | undefined;
+}
 
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
@@ -1264,9 +1267,12 @@ const baseMsgInitGameAndCreateDecorationResponse: object = {};
 
 export const MsgInitGameAndCreateDecorationResponse = {
   encode(
-    _: MsgInitGameAndCreateDecorationResponse,
+    message: MsgInitGameAndCreateDecorationResponse,
     writer: Writer = Writer.create()
   ): Writer {
+    if (message.decoration !== undefined) {
+      Decorations.encode(message.decoration, writer.uint32(10).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -1282,6 +1288,9 @@ export const MsgInitGameAndCreateDecorationResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.decoration = Decorations.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1290,24 +1299,38 @@ export const MsgInitGameAndCreateDecorationResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgInitGameAndCreateDecorationResponse {
+  fromJSON(object: any): MsgInitGameAndCreateDecorationResponse {
     const message = {
       ...baseMsgInitGameAndCreateDecorationResponse,
     } as MsgInitGameAndCreateDecorationResponse;
+    if (object.decoration !== undefined && object.decoration !== null) {
+      message.decoration = Decorations.fromJSON(object.decoration);
+    } else {
+      message.decoration = undefined;
+    }
     return message;
   },
 
-  toJSON(_: MsgInitGameAndCreateDecorationResponse): unknown {
+  toJSON(message: MsgInitGameAndCreateDecorationResponse): unknown {
     const obj: any = {};
+    message.decoration !== undefined &&
+      (obj.decoration = message.decoration
+        ? Decorations.toJSON(message.decoration)
+        : undefined);
     return obj;
   },
 
   fromPartial(
-    _: DeepPartial<MsgInitGameAndCreateDecorationResponse>
+    object: DeepPartial<MsgInitGameAndCreateDecorationResponse>
   ): MsgInitGameAndCreateDecorationResponse {
     const message = {
       ...baseMsgInitGameAndCreateDecorationResponse,
     } as MsgInitGameAndCreateDecorationResponse;
+    if (object.decoration !== undefined && object.decoration !== null) {
+      message.decoration = Decorations.fromPartial(object.decoration);
+    } else {
+      message.decoration = undefined;
+    }
     return message;
   },
 };

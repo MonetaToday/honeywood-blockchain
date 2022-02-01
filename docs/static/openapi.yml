@@ -21535,6 +21535,37 @@ definitions:
         format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateDecorationResponse:
     type: object
+    properties:
+      decoration:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          bearId:
+            type: string
+            format: uint64
+          decorationType:
+            type: string
+            enum:
+              - FLOWERS
+              - FLAG
+              - LAMP
+              - GREEN_BEE
+              - FOUNTAIN
+            default: FLOWERS
+          position:
+            type: object
+            properties:
+              fieldId:
+                type: string
+                format: uint64
+              rowId:
+                type: string
+                format: uint64
+              columnId:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateTreeResponse:
     type: object
     properties:

@@ -2,6 +2,7 @@ syntax = "proto3";
 package MonetaToday.honeywood.bears;
 
 import "bears/trees.proto";
+import "bears/decorations.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -93,6 +94,7 @@ message MsgInitGameAndCreateDecoration {
 }
 
 message MsgInitGameAndCreateDecorationResponse {
+  Decorations decoration = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

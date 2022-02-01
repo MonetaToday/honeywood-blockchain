@@ -10,8 +10,17 @@ import (
 func (k msgServer) InitGameAndCreateDecoration(goCtx context.Context, msg *types.MsgInitGameAndCreateDecoration) (*types.MsgInitGameAndCreateDecorationResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	newBear, _, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	if initGameErr != nil {
+		return nil, initGameErr
+	}
 
-	return &types.MsgInitGameAndCreateDecorationResponse{}, nil
+	decoration, createDecorationErr := k.Keeper.CreateDecoration(ctx, msg.Creator, newBear.Id, msg.DecorationType)
+	if createDecorationErr != nil {
+		return nil, createDecorationErr
+	}
+
+	return &types.MsgInitGameAndCreateDecorationResponse{
+		Decoration: decoration,
+	}, nil
 }

@@ -114,7 +114,9 @@ export interface BearsMsgExtendFieldResponse {
   countTiles?: string;
 }
 
-export type BearsMsgInitGameAndCreateDecorationResponse = object;
+export interface BearsMsgInitGameAndCreateDecorationResponse {
+  decoration?: BearsDecorations;
+}
 
 export interface BearsMsgInitGameAndCreateTreeResponse {
   tree?: BearsTrees;

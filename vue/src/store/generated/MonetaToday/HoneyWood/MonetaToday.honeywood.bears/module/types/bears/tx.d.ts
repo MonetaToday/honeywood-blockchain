@@ -1,5 +1,6 @@
 import { Reader, Writer } from "protobufjs/minimal";
 import { Trees } from "../bears/trees";
+import { Decorations } from "../bears/decorations";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface MsgInitGameAndSetName {
     creator: string;
@@ -60,6 +61,7 @@ export interface MsgInitGameAndCreateDecoration {
     decorationType: string;
 }
 export interface MsgInitGameAndCreateDecorationResponse {
+    decoration: Decorations | undefined;
 }
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
@@ -167,11 +169,11 @@ export declare const MsgInitGameAndCreateDecoration: {
     fromPartial(object: DeepPartial<MsgInitGameAndCreateDecoration>): MsgInitGameAndCreateDecoration;
 };
 export declare const MsgInitGameAndCreateDecorationResponse: {
-    encode(_: MsgInitGameAndCreateDecorationResponse, writer?: Writer): Writer;
+    encode(message: MsgInitGameAndCreateDecorationResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateDecorationResponse;
-    fromJSON(_: any): MsgInitGameAndCreateDecorationResponse;
-    toJSON(_: MsgInitGameAndCreateDecorationResponse): unknown;
-    fromPartial(_: DeepPartial<MsgInitGameAndCreateDecorationResponse>): MsgInitGameAndCreateDecorationResponse;
+    fromJSON(object: any): MsgInitGameAndCreateDecorationResponse;
+    toJSON(message: MsgInitGameAndCreateDecorationResponse): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndCreateDecorationResponse>): MsgInitGameAndCreateDecorationResponse;
 };
 /** Msg defines the Msg service. */
 export interface Msg {
