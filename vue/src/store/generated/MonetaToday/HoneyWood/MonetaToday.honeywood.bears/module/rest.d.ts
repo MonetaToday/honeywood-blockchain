@@ -104,28 +104,63 @@ export interface BearsParams {
      * NOTE: The amount field is an Int which implements the custom method
      * signatures required by gogoproto.
      */
-    setNamePrice?: V1Beta1Coin;
+    priceSetName?: V1Beta1Coin;
     /**
      * Coin defines a token with a denomination and an amount.
      *
      * NOTE: The amount field is an Int which implements the custom method
      * signatures required by gogoproto.
      */
-    oneTilePrice?: V1Beta1Coin;
+    priceTile?: V1Beta1Coin;
     /**
      * Coin defines a token with a denomination and an amount.
      *
      * NOTE: The amount field is an Int which implements the custom method
      * signatures required by gogoproto.
      */
-    oneTreePrice?: V1Beta1Coin;
+    priceTree?: V1Beta1Coin;
     /**
      * Coin defines a token with a denomination and an amount.
      *
      * NOTE: The amount field is an Int which implements the custom method
      * signatures required by gogoproto.
      */
-    oneTreeReward?: V1Beta1Coin;
+    rewardTree?: V1Beta1Coin;
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    priceDecorationFlowers?: V1Beta1Coin;
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    priceDecorationFlag?: V1Beta1Coin;
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    priceDecorationLamp?: V1Beta1Coin;
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    priceDecorationGreenBee?: V1Beta1Coin;
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    priceDecorationFountain?: V1Beta1Coin;
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];

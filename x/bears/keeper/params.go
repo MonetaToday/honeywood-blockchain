@@ -8,10 +8,10 @@ import (
 // GetParams get all parameters as types.Params
 func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 	return types.NewParams(
-		k.SetNamePrice(ctx),
-		k.OneTilePrice(ctx),
-		k.OneTreePrice(ctx),
-		k.OneTreeReward(ctx),
+		k.PriceSetName(ctx),
+		k.PriceTile(ctx),
+		k.PriceTree(ctx),
+		k.RewardTree(ctx),
 	)
 }
 
@@ -20,26 +20,26 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	k.paramstore.SetParamSet(ctx, &params)
 }
 
-// SetNamePrice returns the SetNamePrice param
-func (k Keeper) SetNamePrice(ctx sdk.Context) (res sdk.Coin) {
-	k.paramstore.Get(ctx, types.KeySetNamePrice, &res)
+// PriceSetName returns the PriceSetName param
+func (k Keeper) PriceSetName(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyPriceSetName, &res)
 	return
 }
 
-// OneTilePrice returns the OneTilePrice param
-func (k Keeper) OneTilePrice(ctx sdk.Context) (res sdk.Coin) {
-	k.paramstore.Get(ctx, types.KeyOneTilePrice, &res)
+// PriceTile returns the PriceTile param
+func (k Keeper) PriceTile(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyPriceTile, &res)
 	return
 }
 
-// OneTreePrice returns the OneTreePrice param
-func (k Keeper) OneTreePrice(ctx sdk.Context) (res sdk.Coin) {
-	k.paramstore.Get(ctx, types.KeyOneTreePrice, &res)
+// PriceTree returns the PriceTree param
+func (k Keeper) PriceTree(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyPriceTree, &res)
 	return
 }
 
-// OneTreeReward returns the OneTreeReward param
-func (k Keeper) OneTreeReward(ctx sdk.Context) (res sdk.Coin) {
-	k.paramstore.Get(ctx, types.KeyOneTreeReward, &res)
+// RewardTree returns the RewardTree param
+func (k Keeper) RewardTree(ctx sdk.Context) (res sdk.Coin) {
+	k.paramstore.Get(ctx, types.KeyRewardTree, &res)
 	return
 }

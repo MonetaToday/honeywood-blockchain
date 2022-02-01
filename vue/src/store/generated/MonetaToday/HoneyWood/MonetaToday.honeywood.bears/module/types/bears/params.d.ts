@@ -3,10 +3,15 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
-    setNamePrice: Coin | undefined;
-    oneTilePrice: Coin | undefined;
-    oneTreePrice: Coin | undefined;
-    oneTreeReward: Coin | undefined;
+    priceSetName: Coin | undefined;
+    priceTile: Coin | undefined;
+    priceTree: Coin | undefined;
+    rewardTree: Coin | undefined;
+    priceDecorationFlowers: Coin | undefined;
+    priceDecorationFlag: Coin | undefined;
+    priceDecorationLamp: Coin | undefined;
+    priceDecorationGreenBee: Coin | undefined;
+    priceDecorationFountain: Coin | undefined;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

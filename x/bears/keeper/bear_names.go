@@ -81,9 +81,9 @@ func (k Keeper) BuyBearNameForBear(ctx sdk.Context, buyer string, bearId uint64,
 	}
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	setNamePrice := k.SetNamePrice(ctx)
+	priceSetName := k.PriceSetName(ctx)
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, sdk.NewCoins(setNamePrice))
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, sdk.NewCoins(priceSetName))
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}

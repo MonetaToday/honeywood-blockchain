@@ -34,15 +34,15 @@ genesis:
         voting_period: "172800s"
     bears:
       params:
-        set_name_price: 
+        price_set_name: 
           denom: "honey"
           amount: "100"
-        one_tile_price: 
+        price_tile: 
           denom: "honey"
           amount: "100"
-        one_tree_price: 
+        price_tree: 
           denom: "honey"
           amount: "100"
-        one_tree_reward: 
+        reward_tree: 
           denom: "cone"
           amount: "100"

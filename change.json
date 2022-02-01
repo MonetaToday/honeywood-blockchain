@@ -1,10 +1,10 @@
 {
   "title": "Bears Param Change",
-  "description": "Update SetNamePrice",
+  "description": "Update PriceSetName",
   "changes": [
     {
       "subspace": "bears",
-      "key": "SetNamePrice",
+      "key": "PriceSetName",
       "value": {
         "denom": "honey",
         "amount": "300"

@@ -10,12 +10,28 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 message Params {
   option (gogoproto.goproto_stringer) = false;
   
-  cosmos.base.v1beta1.Coin set_name_price = 1
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"set_name_price\""];
-  cosmos.base.v1beta1.Coin one_tile_price = 2
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_tile_price\""];
-  cosmos.base.v1beta1.Coin one_tree_price = 3
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_tree_price\""];
-  cosmos.base.v1beta1.Coin one_tree_reward = 4
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"one_tree_reward\""];  
+  cosmos.base.v1beta1.Coin price_set_name = 1
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_set_name\""];
+  cosmos.base.v1beta1.Coin price_tile = 2
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tile\""];
+
+
+  cosmos.base.v1beta1.Coin price_tree = 3
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tree\""];
+  cosmos.base.v1beta1.Coin reward_tree = 4
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"reward_tree\""];  
+
+
+  cosmos.base.v1beta1.Coin price_decoration_flowers = 5
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_flowers\""];
+  cosmos.base.v1beta1.Coin price_decoration_flag = 6
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_flag\""]; 
+  cosmos.base.v1beta1.Coin price_decoration_lamp = 7
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_lamp\""]; 
+  cosmos.base.v1beta1.Coin price_decoration_green_bee = 8
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_green_bee\""]; 
+  cosmos.base.v1beta1.Coin price_decoration_fountain = 9
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_fountain\""];
+
+
 }

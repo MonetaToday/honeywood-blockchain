@@ -138,11 +138,11 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	oneTilePrice := k.OneTilePrice(ctx)
+	priceTile := k.PriceTile(ctx)
 	priceForExtending := sdk.NewCoins(
 		sdk.NewCoin(
-			oneTilePrice.Denom,
-			oneTilePrice.Amount.MulRaw(differenceTiles),
+			priceTile.Denom,
+			priceTile.Amount.MulRaw(differenceTiles),
 		),
 	)
 

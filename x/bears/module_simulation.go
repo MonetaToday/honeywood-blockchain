@@ -67,7 +67,7 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	bearsGenesis := types.GenesisState{
 		Params: types.Params{
-			SetNamePrice: types.DefaultSetNamePrice,
+			PriceSetName: types.DefaultPriceSetName,
 		},
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
@@ -83,17 +83,17 @@ func (AppModule) ProposalContents(_ module.SimulationState) []simtypes.WeightedP
 func (am AppModule) RandomizedParams(_ *rand.Rand) []simtypes.ParamChange {
 	bearsParams := types.DefaultParams()
 	return []simtypes.ParamChange{
-		simulation.NewSimParamChange(types.ModuleName, string(types.KeySetNamePrice), func(r *rand.Rand) string {
-			return string(types.Amino.MustMarshalJSON(bearsParams.SetNamePrice))
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyPriceSetName), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.PriceSetName))
 		}),
-		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneTilePrice), func(r *rand.Rand) string {
-			return string(types.Amino.MustMarshalJSON(bearsParams.OneTilePrice))
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyPriceTile), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.PriceTile))
 		}),
-		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneTreePrice), func(r *rand.Rand) string {
-			return string(types.Amino.MustMarshalJSON(bearsParams.OneTreePrice))
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyPriceTree), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.PriceTree))
 		}),
-		simulation.NewSimParamChange(types.ModuleName, string(types.KeyOneTreeReward), func(r *rand.Rand) string {
-			return string(types.Amino.MustMarshalJSON(bearsParams.OneTreeReward))
+		simulation.NewSimParamChange(types.ModuleName, string(types.KeyRewardTree), func(r *rand.Rand) string {
+			return string(types.Amino.MustMarshalJSON(bearsParams.RewardTree))
 		}),
 	}
 }

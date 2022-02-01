@@ -13598,7 +13598,7 @@ paths:
                 description: params holds all the parameters of this module.
                 type: object
                 properties:
-                  setNamePrice:
+                  priceSetName:
                     type: object
                     properties:
                       denom:
@@ -13613,7 +13613,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  oneTilePrice:
+                  priceTile:
                     type: object
                     properties:
                       denom:
@@ -13628,7 +13628,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  oneTreePrice:
+                  priceTree:
                     type: object
                     properties:
                       denom:
@@ -13643,7 +13643,82 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  oneTreeReward:
+                  rewardTree:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  priceDecorationFlowers:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  priceDecorationFlag:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  priceDecorationLamp:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  priceDecorationGreenBee:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  priceDecorationFountain:
                     type: object
                     properties:
                       denom:
@@ -21507,7 +21582,7 @@ definitions:
   MonetaToday.honeywood.bears.Params:
     type: object
     properties:
-      setNamePrice:
+      priceSetName:
         type: object
         properties:
           denom:
@@ -21519,7 +21594,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      oneTilePrice:
+      priceTile:
         type: object
         properties:
           denom:
@@ -21531,7 +21606,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      oneTreePrice:
+      priceTree:
         type: object
         properties:
           denom:
@@ -21543,7 +21618,67 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      oneTreeReward:
+      rewardTree:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      priceDecorationFlowers:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      priceDecorationFlag:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      priceDecorationLamp:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      priceDecorationGreenBee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      priceDecorationFountain:
         type: object
         properties:
           denom:
@@ -22071,7 +22206,7 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
         properties:
-          setNamePrice:
+          priceSetName:
             type: object
             properties:
               denom:
@@ -22086,7 +22221,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          oneTilePrice:
+          priceTile:
             type: object
             properties:
               denom:
@@ -22101,7 +22236,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          oneTreePrice:
+          priceTree:
             type: object
             properties:
               denom:
@@ -22116,7 +22251,82 @@ definitions:
               method
 
               signatures required by gogoproto.
-          oneTreeReward:
+          rewardTree:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          priceDecorationFlowers:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          priceDecorationFlag:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          priceDecorationLamp:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          priceDecorationGreenBee:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          priceDecorationFountain:
             type: object
             properties:
               denom:
