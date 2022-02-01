@@ -47,7 +47,7 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 	case types.Tiles_Items_TREE:
 		tree, treeFound := k.Keeper.GetTrees(ctx, itemId)
 		if !treeFound {
-			return nil, types.ErrTreeIsNotExister
+			return nil, types.ErrTreeIsNotExisted
 		}
 		tree.Position = types.ItemPosition{
 			FieldId:  fieldId,
@@ -56,7 +56,16 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 		}
 		k.Keeper.SetTrees(ctx, tree)
 	case types.Tiles_Items_DECORATION:
-		//TODO
+		decoration, decorationFound := k.Keeper.GetDecorations(ctx, itemId)
+		if !decorationFound {
+			return nil, types.ErrDecorationIsNotExisted
+		}
+		decoration.Position = &types.ItemPosition{
+			FieldId:  fieldId,
+			RowId:    newRowId,
+			ColumnId: newColumnId,
+		}
+		k.Keeper.SetDecorations(ctx, decoration)
 
 	default:
 		return nil, types.ErrItemTypeIsNotDefined

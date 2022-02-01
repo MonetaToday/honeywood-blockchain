@@ -20,5 +20,6 @@ var (
 	ErrTileIsNotEmpty           = sdkerrors.Register(ModuleName, 11, "There is already something on the tile")
 	ErrItemIsNotExistedOnTile   = sdkerrors.Register(ModuleName, 12, "Item is not existed on the tile")
 	ErrItemTypeIsNotDefined     = sdkerrors.Register(ModuleName, 13, "Item Type is not defined")
-	ErrTreeIsNotExister         = sdkerrors.Register(ModuleName, 14, "Tree is not existed")
+	ErrTreeIsNotExisted         = sdkerrors.Register(ModuleName, 14, "Tree is not existed")
+	ErrDecorationIsNotExisted   = sdkerrors.Register(ModuleName, 15, "Decoration is not existed")
 )
