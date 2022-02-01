@@ -32,10 +32,10 @@ func NewParams(
 	oneTreeReward sdk.Coin,
 ) Params {
 	return Params{
-		SetNamePrice:   setNamePrice,
-		OneTilePrice: oneTilePrice,
-		OneTreePrice:   oneTreePrice,
-		OneTreeReward:  oneTreeReward,
+		SetNamePrice:  setNamePrice,
+		OneTilePrice:  oneTilePrice,
+		OneTreePrice:  oneTreePrice,
+		OneTreeReward: oneTreeReward,
 	}
 }
 

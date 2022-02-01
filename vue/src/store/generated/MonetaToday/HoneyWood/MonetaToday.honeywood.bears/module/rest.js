@@ -8,6 +8,14 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var DecorationsDecorationTypes;
+(function (DecorationsDecorationTypes) {
+    DecorationsDecorationTypes["FLOWERS"] = "FLOWERS";
+    DecorationsDecorationTypes["FLAG"] = "FLAG";
+    DecorationsDecorationTypes["LAMP"] = "LAMP";
+    DecorationsDecorationTypes["GREEN_BEE"] = "GREEN_BEE";
+    DecorationsDecorationTypes["FOUNTAIN"] = "FOUNTAIN";
+})(DecorationsDecorationTypes || (DecorationsDecorationTypes = {}));
 export var FieldsFieldTypes;
 (function (FieldsFieldTypes) {
     FieldsFieldTypes["DEFAULT"] = "DEFAULT";
@@ -236,6 +244,35 @@ export class Api extends HttpClient {
          */
         this.queryBears = (id, params = {}) => this.request({
             path: `/MonetaToday/honeywood/bears/bears/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryDecorationsAll
+         * @summary Queries a list of Decorations items.
+         * @request GET:/MonetaToday/honeywood/bears/decorations
+         */
+        this.queryDecorationsAll = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/decorations`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryDecorations
+         * @summary Queries a Decorations by id.
+         * @request GET:/MonetaToday/honeywood/bears/decorations/{id}
+         */
+        this.queryDecorations = (id, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/decorations/${id}`,
             method: "GET",
             format: "json",
             ...params,

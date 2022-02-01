@@ -1,3 +1,10 @@
+export declare enum DecorationsDecorationTypes {
+    FLOWERS = "FLOWERS",
+    FLAG = "FLAG",
+    LAMP = "LAMP",
+    GREEN_BEE = "GREEN_BEE",
+    FOUNTAIN = "FOUNTAIN"
+}
 export declare enum FieldsFieldTypes {
     DEFAULT = "DEFAULT"
 }
@@ -40,6 +47,14 @@ export interface BearsBears {
     bees?: string[];
     trees?: string[];
     decorations?: string[];
+}
+export interface BearsDecorations {
+    /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
+    bearId?: string;
+    decorationType?: DecorationsDecorationTypes;
+    position?: BearsItemPosition;
 }
 export interface BearsFieldRows {
     columns?: BearsTiles[];
@@ -150,6 +165,19 @@ export interface BearsQueryAllBearsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface BearsQueryAllDecorationsResponse {
+    Decorations?: BearsDecorations[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface BearsQueryAllFieldsResponse {
     Fields?: BearsFields[];
     /**
@@ -184,6 +212,9 @@ export interface BearsQueryGetBearNamesResponse {
 }
 export interface BearsQueryGetBearsResponse {
     Bears?: BearsBears;
+}
+export interface BearsQueryGetDecorationsResponse {
+    Decorations?: BearsDecorations;
 }
 export interface BearsQueryGetFieldsResponse {
     Fields?: BearsFields;
@@ -414,6 +445,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/bears/{id}
      */
     queryBears: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetBearsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryDecorationsAll
+     * @summary Queries a list of Decorations items.
+     * @request GET:/MonetaToday/honeywood/bears/decorations
+     */
+    queryDecorationsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllDecorationsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryDecorations
+     * @summary Queries a Decorations by id.
+     * @request GET:/MonetaToday/honeywood/bears/decorations/{id}
+     */
+    queryDecorations: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetDecorationsResponse, RpcStatus>>;
     /**
      * No description
      *

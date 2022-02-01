@@ -35,3 +35,8 @@ const (
 	TreesKey      = "Trees-value-"
 	TreesCountKey = "Trees-count-"
 )
+
+const (
+	DecorationsKey      = "Decorations-value-"
+	DecorationsCountKey = "Decorations-count-"
+)

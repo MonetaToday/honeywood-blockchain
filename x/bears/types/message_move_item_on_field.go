@@ -13,9 +13,9 @@ func NewMsgMoveItemOnField(creator string, fieldId uint64, rowId uint64, columnI
 	return &MsgMoveItemOnField{
 		Creator:     creator,
 		FieldId:     fieldId,
-		RowId:    rowId,
+		RowId:       rowId,
 		ColumnId:    columnId,
-		NewRowId: newRowId,
+		NewRowId:    newRowId,
 		NewColumnId: newColumnId,
 	}
 }

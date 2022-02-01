@@ -15,6 +15,7 @@ func DefaultGenesis() *GenesisState {
 		AddressBearsList: []AddressBears{},
 		FieldsList:       []Fields{},
 		TreesList:        []Trees{},
+		DecorationsList:  []Decorations{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -53,7 +54,7 @@ func (gs GenesisState) Validate() error {
 		if name, ok := bearNamesIndexMap[string(BearNamesKey(elem.Name))]; !ok || name.BearId != elem.Id {
 			return fmt.Errorf("name for bear %d is not existed", elem.Id)
 		}
-		
+
 		bearsIdMap[elem.Id] = true
 	}
 	// Check for duplicated index in addressBears
@@ -89,6 +90,18 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("trees id should be lower or equal than the last id")
 		}
 		treesIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in decorations
+	decorationsIdMap := make(map[uint64]bool)
+	decorationsCount := gs.GetDecorationsCount()
+	for _, elem := range gs.DecorationsList {
+		if _, ok := decorationsIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for decorations")
+		}
+		if elem.Id >= decorationsCount {
+			return fmt.Errorf("decorations id should be lower or equal than the last id")
+		}
+		decorationsIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

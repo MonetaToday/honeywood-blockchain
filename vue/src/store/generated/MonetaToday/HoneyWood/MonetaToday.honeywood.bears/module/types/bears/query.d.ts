@@ -6,6 +6,7 @@ import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
+import { Decorations } from "../bears/decorations";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -78,6 +79,19 @@ export interface QueryAllTreesRequest {
 }
 export interface QueryAllTreesResponse {
     Trees: Trees[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetDecorationsRequest {
+    id: number;
+}
+export interface QueryGetDecorationsResponse {
+    Decorations: Decorations | undefined;
+}
+export interface QueryAllDecorationsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllDecorationsResponse {
+    Decorations: Decorations[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryParamsRequest: {
@@ -234,6 +248,34 @@ export declare const QueryAllTreesResponse: {
     toJSON(message: QueryAllTreesResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllTreesResponse>): QueryAllTreesResponse;
 };
+export declare const QueryGetDecorationsRequest: {
+    encode(message: QueryGetDecorationsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetDecorationsRequest;
+    fromJSON(object: any): QueryGetDecorationsRequest;
+    toJSON(message: QueryGetDecorationsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetDecorationsRequest>): QueryGetDecorationsRequest;
+};
+export declare const QueryGetDecorationsResponse: {
+    encode(message: QueryGetDecorationsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetDecorationsResponse;
+    fromJSON(object: any): QueryGetDecorationsResponse;
+    toJSON(message: QueryGetDecorationsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetDecorationsResponse>): QueryGetDecorationsResponse;
+};
+export declare const QueryAllDecorationsRequest: {
+    encode(message: QueryAllDecorationsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllDecorationsRequest;
+    fromJSON(object: any): QueryAllDecorationsRequest;
+    toJSON(message: QueryAllDecorationsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllDecorationsRequest>): QueryAllDecorationsRequest;
+};
+export declare const QueryAllDecorationsResponse: {
+    encode(message: QueryAllDecorationsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllDecorationsResponse;
+    fromJSON(object: any): QueryAllDecorationsResponse;
+    toJSON(message: QueryAllDecorationsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllDecorationsResponse>): QueryAllDecorationsResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -258,6 +300,10 @@ export interface Query {
     Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
     /** Queries a list of Trees items. */
     TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
+    /** Queries a Decorations by id. */
+    Decorations(request: QueryGetDecorationsRequest): Promise<QueryGetDecorationsResponse>;
+    /** Queries a list of Decorations items. */
+    DecorationsAll(request: QueryAllDecorationsRequest): Promise<QueryAllDecorationsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -273,6 +319,8 @@ export declare class QueryClientImpl implements Query {
     FieldsAll(request: QueryAllFieldsRequest): Promise<QueryAllFieldsResponse>;
     Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
     TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
+    Decorations(request: QueryGetDecorationsRequest): Promise<QueryGetDecorationsResponse>;
+    DecorationsAll(request: QueryAllDecorationsRequest): Promise<QueryAllDecorationsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

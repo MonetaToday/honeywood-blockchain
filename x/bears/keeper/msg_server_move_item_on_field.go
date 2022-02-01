@@ -50,14 +50,14 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 			return nil, types.ErrTreeIsNotExister
 		}
 		tree.Position = types.ItemPosition{
-			FieldId: fieldId,
-			RowId: newRowId,
+			FieldId:  fieldId,
+			RowId:    newRowId,
 			ColumnId: newColumnId,
 		}
 		k.Keeper.SetTrees(ctx, tree)
 	case types.Tiles_Items_DECORATION:
 		//TODO
-		
+
 	default:
 		return nil, types.ErrItemTypeIsNotDefined
 	}

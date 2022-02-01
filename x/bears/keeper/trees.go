@@ -136,10 +136,10 @@ func (k Keeper) createTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 
 	newTree := types.Trees{
-		BearId:   bearId,
+		BearId: bearId,
 		Position: types.ItemPosition{
 			FieldId:  field.Id,
-			RowId: rowId,
+			RowId:    rowId,
 			ColumnId: columnId,
 		},
 		TreeType: types.Trees_TreeTypes(types.Trees_TreeTypes_value[treeType]),

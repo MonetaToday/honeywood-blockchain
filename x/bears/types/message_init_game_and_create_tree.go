@@ -11,7 +11,7 @@ var _ sdk.Msg = &MsgInitGameAndCreateTree{}
 
 func NewMsgInitGameAndCreateTree(creator string, treeType string) *MsgInitGameAndCreateTree {
 	return &MsgInitGameAndCreateTree{
-		Creator: creator,
+		Creator:  creator,
 		TreeType: treeType,
 	}
 }

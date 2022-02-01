@@ -28,33 +28,33 @@ func TestGenesisState_Validate(t *testing.T) {
 				Params: types.DefaultParams(),
 				BearNamesList: []types.BearNames{
 					{
-						Name: "Name 1",
+						Name:   "Name 1",
 						BearId: 0,
 					},
 					{
-						Name: "Name 2",
+						Name:   "Name 2",
 						BearId: 1,
 					},
 				},
 				BearsList: []types.Bears{
 					{
-						Id: 0,
-						Owner: addr1,
-						Name: "Name 1",
-						Fields: []uint64{},
-						Apiaries: []uint64{},
-						Bees: []uint64{},
-						Trees: []uint64{},
+						Id:          0,
+						Owner:       addr1,
+						Name:        "Name 1",
+						Fields:      []uint64{},
+						Apiaries:    []uint64{},
+						Bees:        []uint64{},
+						Trees:       []uint64{},
 						Decorations: []uint64{},
 					},
 					{
-						Id: 1,
-						Owner: addr2,
-						Name: "Name 2",
-						Fields: []uint64{},
-						Apiaries: []uint64{},
-						Bees: []uint64{},
-						Trees: []uint64{},
+						Id:          1,
+						Owner:       addr2,
+						Name:        "Name 2",
+						Fields:      []uint64{},
+						Apiaries:    []uint64{},
+						Bees:        []uint64{},
+						Trees:       []uint64{},
 						Decorations: []uint64{},
 					},
 				},
@@ -83,7 +83,7 @@ func TestGenesisState_Validate(t *testing.T) {
 						Tiles: []types.Tiles{
 							{
 								Item: &types.Tiles_Items{
-									ItemId: 0,
+									ItemId:   0,
 									ItemType: types.Tiles_Items_TREE,
 								},
 							},
@@ -102,7 +102,7 @@ func TestGenesisState_Validate(t *testing.T) {
 							{},
 							{
 								Item: &types.Tiles_Items{
-									ItemId: 1,
+									ItemId:   1,
 									ItemType: types.Tiles_Items_TREE,
 								},
 							},
@@ -113,19 +113,28 @@ func TestGenesisState_Validate(t *testing.T) {
 				FieldsCount: 2,
 				TreesList: []types.Trees{
 					{
-						Id: 0,
-						BearId: 0,
+						Id:      0,
+						BearId:  0,
 						FieldId: 0,
-						TileId: 0,
+						TileId:  0,
 					},
 					{
-						Id: 1,
-						BearId: 1,
+						Id:      1,
+						BearId:  1,
 						FieldId: 1,
-						TileId: 1,
+						TileId:  1,
 					},
 				},
 				TreesCount: 2,
+				DecorationsList: []types.Decorations{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				DecorationsCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -151,17 +160,17 @@ func TestGenesisState_Validate(t *testing.T) {
 				Params: types.DefaultParams(),
 				BearsList: []types.Bears{
 					{
-						Id: 0,
-						Owner: addr1,
-						Name: "Name 1",
-						Fields: []uint64{},
-						Apiaries: []uint64{},
-						Bees: []uint64{},
-						Trees: []uint64{},
+						Id:          0,
+						Owner:       addr1,
+						Name:        "Name 1",
+						Fields:      []uint64{},
+						Apiaries:    []uint64{},
+						Bees:        []uint64{},
+						Trees:       []uint64{},
 						Decorations: []uint64{},
 					},
 				},
-				BearsCount: 1,
+				BearsCount:    1,
 				BearNamesList: []types.BearNames{},
 			},
 			valid: false,
@@ -172,20 +181,20 @@ func TestGenesisState_Validate(t *testing.T) {
 				Params: types.DefaultParams(),
 				BearsList: []types.Bears{
 					{
-						Id: 0,
-						Owner: addr1,
-						Name: "Name 1",
-						Fields: []uint64{},
-						Apiaries: []uint64{},
-						Bees: []uint64{},
-						Trees: []uint64{},
+						Id:          0,
+						Owner:       addr1,
+						Name:        "Name 1",
+						Fields:      []uint64{},
+						Apiaries:    []uint64{},
+						Bees:        []uint64{},
+						Trees:       []uint64{},
 						Decorations: []uint64{},
 					},
 				},
 				BearsCount: 1,
 				BearNamesList: []types.BearNames{
 					{
-						Name: "Name 1",
+						Name:   "Name 1",
 						BearId: 0,
 					},
 					{
@@ -291,6 +300,32 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				TreesCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated decorations",
+			genState: &types.GenesisState{
+				DecorationsList: []types.Decorations{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid decorations count",
+			genState: &types.GenesisState{
+				DecorationsList: []types.Decorations{
+					{
+						Id: 1,
+					},
+				},
+				DecorationsCount: 0,
 			},
 			valid: false,
 		},

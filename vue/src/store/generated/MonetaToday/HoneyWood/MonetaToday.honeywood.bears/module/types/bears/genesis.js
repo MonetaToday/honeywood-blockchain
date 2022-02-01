@@ -7,11 +7,13 @@ import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
+import { Decorations } from "../bears/decorations";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseGenesisState = {
     bearsCount: 0,
     fieldsCount: 0,
     treesCount: 0,
+    decorationsCount: 0,
 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -42,6 +44,12 @@ export const GenesisState = {
         if (message.treesCount !== 0) {
             writer.uint32(72).uint64(message.treesCount);
         }
+        for (const v of message.decorationsList) {
+            Decorations.encode(v, writer.uint32(82).fork()).ldelim();
+        }
+        if (message.decorationsCount !== 0) {
+            writer.uint32(88).uint64(message.decorationsCount);
+        }
         return writer;
     },
     decode(input, length) {
@@ -53,6 +61,7 @@ export const GenesisState = {
         message.addressBearsList = [];
         message.fieldsList = [];
         message.treesList = [];
+        message.decorationsList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -83,6 +92,12 @@ export const GenesisState = {
                 case 9:
                     message.treesCount = longToNumber(reader.uint64());
                     break;
+                case 10:
+                    message.decorationsList.push(Decorations.decode(reader, reader.uint32()));
+                    break;
+                case 11:
+                    message.decorationsCount = longToNumber(reader.uint64());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -97,6 +112,7 @@ export const GenesisState = {
         message.addressBearsList = [];
         message.fieldsList = [];
         message.treesList = [];
+        message.decorationsList = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromJSON(object.params);
         }
@@ -147,6 +163,19 @@ export const GenesisState = {
         else {
             message.treesCount = 0;
         }
+        if (object.decorationsList !== undefined &&
+            object.decorationsList !== null) {
+            for (const e of object.decorationsList) {
+                message.decorationsList.push(Decorations.fromJSON(e));
+            }
+        }
+        if (object.decorationsCount !== undefined &&
+            object.decorationsCount !== null) {
+            message.decorationsCount = Number(object.decorationsCount);
+        }
+        else {
+            message.decorationsCount = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -187,6 +216,14 @@ export const GenesisState = {
             obj.treesList = [];
         }
         message.treesCount !== undefined && (obj.treesCount = message.treesCount);
+        if (message.decorationsList) {
+            obj.decorationsList = message.decorationsList.map((e) => e ? Decorations.toJSON(e) : undefined);
+        }
+        else {
+            obj.decorationsList = [];
+        }
+        message.decorationsCount !== undefined &&
+            (obj.decorationsCount = message.decorationsCount);
         return obj;
     },
     fromPartial(object) {
@@ -196,6 +233,7 @@ export const GenesisState = {
         message.addressBearsList = [];
         message.fieldsList = [];
         message.treesList = [];
+        message.decorationsList = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromPartial(object.params);
         }
@@ -245,6 +283,19 @@ export const GenesisState = {
         }
         else {
             message.treesCount = 0;
+        }
+        if (object.decorationsList !== undefined &&
+            object.decorationsList !== null) {
+            for (const e of object.decorationsList) {
+                message.decorationsList.push(Decorations.fromPartial(e));
+            }
+        }
+        if (object.decorationsCount !== undefined &&
+            object.decorationsCount !== null) {
+            message.decorationsCount = object.decorationsCount;
+        }
+        else {
+            message.decorationsCount = 0;
         }
         return message;
     },

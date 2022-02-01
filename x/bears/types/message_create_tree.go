@@ -12,9 +12,9 @@ var _ sdk.Msg = &MsgCreateTree{}
 func NewMsgCreateTree(creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, treeType string) *MsgCreateTree {
 	return &MsgCreateTree{
 		Creator:  creator,
-		BearId: bearId,
+		BearId:   bearId,
 		FieldId:  fieldId,
-		RowId: rowId,
+		RowId:    rowId,
 		ColumnId: columnId,
 		TreeType: treeType,
 	}

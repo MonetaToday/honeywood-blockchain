@@ -11,6 +11,7 @@ import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
+import { Decorations } from "../bears/decorations";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -105,6 +106,23 @@ export interface QueryAllTreesRequest {
 
 export interface QueryAllTreesResponse {
   Trees: Trees[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetDecorationsRequest {
+  id: number;
+}
+
+export interface QueryGetDecorationsResponse {
+  Decorations: Decorations | undefined;
+}
+
+export interface QueryAllDecorationsRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllDecorationsResponse {
+  Decorations: Decorations[];
   pagination: PageResponse | undefined;
 }
 
@@ -1654,6 +1672,323 @@ export const QueryAllTreesResponse = {
   },
 };
 
+const baseQueryGetDecorationsRequest: object = { id: 0 };
+
+export const QueryGetDecorationsRequest = {
+  encode(
+    message: QueryGetDecorationsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetDecorationsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDecorationsRequest,
+    } as QueryGetDecorationsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDecorationsRequest {
+    const message = {
+      ...baseQueryGetDecorationsRequest,
+    } as QueryGetDecorationsRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDecorationsRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDecorationsRequest>
+  ): QueryGetDecorationsRequest {
+    const message = {
+      ...baseQueryGetDecorationsRequest,
+    } as QueryGetDecorationsRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetDecorationsResponse: object = {};
+
+export const QueryGetDecorationsResponse = {
+  encode(
+    message: QueryGetDecorationsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.Decorations !== undefined) {
+      Decorations.encode(
+        message.Decorations,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetDecorationsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetDecorationsResponse,
+    } as QueryGetDecorationsResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Decorations = Decorations.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDecorationsResponse {
+    const message = {
+      ...baseQueryGetDecorationsResponse,
+    } as QueryGetDecorationsResponse;
+    if (object.Decorations !== undefined && object.Decorations !== null) {
+      message.Decorations = Decorations.fromJSON(object.Decorations);
+    } else {
+      message.Decorations = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetDecorationsResponse): unknown {
+    const obj: any = {};
+    message.Decorations !== undefined &&
+      (obj.Decorations = message.Decorations
+        ? Decorations.toJSON(message.Decorations)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetDecorationsResponse>
+  ): QueryGetDecorationsResponse {
+    const message = {
+      ...baseQueryGetDecorationsResponse,
+    } as QueryGetDecorationsResponse;
+    if (object.Decorations !== undefined && object.Decorations !== null) {
+      message.Decorations = Decorations.fromPartial(object.Decorations);
+    } else {
+      message.Decorations = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDecorationsRequest: object = {};
+
+export const QueryAllDecorationsRequest = {
+  encode(
+    message: QueryAllDecorationsRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllDecorationsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDecorationsRequest,
+    } as QueryAllDecorationsRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDecorationsRequest {
+    const message = {
+      ...baseQueryAllDecorationsRequest,
+    } as QueryAllDecorationsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDecorationsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDecorationsRequest>
+  ): QueryAllDecorationsRequest {
+    const message = {
+      ...baseQueryAllDecorationsRequest,
+    } as QueryAllDecorationsRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllDecorationsResponse: object = {};
+
+export const QueryAllDecorationsResponse = {
+  encode(
+    message: QueryAllDecorationsResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.Decorations) {
+      Decorations.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllDecorationsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllDecorationsResponse,
+    } as QueryAllDecorationsResponse;
+    message.Decorations = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Decorations.push(Decorations.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDecorationsResponse {
+    const message = {
+      ...baseQueryAllDecorationsResponse,
+    } as QueryAllDecorationsResponse;
+    message.Decorations = [];
+    if (object.Decorations !== undefined && object.Decorations !== null) {
+      for (const e of object.Decorations) {
+        message.Decorations.push(Decorations.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllDecorationsResponse): unknown {
+    const obj: any = {};
+    if (message.Decorations) {
+      obj.Decorations = message.Decorations.map((e) =>
+        e ? Decorations.toJSON(e) : undefined
+      );
+    } else {
+      obj.Decorations = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllDecorationsResponse>
+  ): QueryAllDecorationsResponse {
+    const message = {
+      ...baseQueryAllDecorationsResponse,
+    } as QueryAllDecorationsResponse;
+    message.Decorations = [];
+    if (object.Decorations !== undefined && object.Decorations !== null) {
+      for (const e of object.Decorations) {
+        message.Decorations.push(Decorations.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -1686,6 +2021,14 @@ export interface Query {
   Trees(request: QueryGetTreesRequest): Promise<QueryGetTreesResponse>;
   /** Queries a list of Trees items. */
   TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
+  /** Queries a Decorations by id. */
+  Decorations(
+    request: QueryGetDecorationsRequest
+  ): Promise<QueryGetDecorationsResponse>;
+  /** Queries a list of Decorations items. */
+  DecorationsAll(
+    request: QueryAllDecorationsRequest
+  ): Promise<QueryAllDecorationsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1828,6 +2171,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllTreesResponse.decode(new Reader(data))
+    );
+  }
+
+  Decorations(
+    request: QueryGetDecorationsRequest
+  ): Promise<QueryGetDecorationsResponse> {
+    const data = QueryGetDecorationsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "Decorations",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetDecorationsResponse.decode(new Reader(data))
+    );
+  }
+
+  DecorationsAll(
+    request: QueryAllDecorationsRequest
+  ): Promise<QueryAllDecorationsResponse> {
+    const data = QueryAllDecorationsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "DecorationsAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllDecorationsResponse.decode(new Reader(data))
     );
   }
 }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+package MonetaToday.honeywood.bears;
+
+option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
+import "bears/fields.proto";
+
+message Decorations {
+  uint64 id = 1;
+  uint64 bearId = 2; 
+  enum DecorationTypes {
+    FLOWERS	= 0;
+    FLAG = 1;
+    LAMP = 2;
+    GREEN_BEE = 3;
+    FOUNTAIN = 4;
+  }
+  DecorationTypes decorationType = 3;
+  ItemPosition position = 4;
+}
