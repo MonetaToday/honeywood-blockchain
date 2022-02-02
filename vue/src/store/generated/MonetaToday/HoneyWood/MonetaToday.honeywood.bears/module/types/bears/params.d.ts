@@ -3,6 +3,7 @@ import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
+    burnRate: string;
     priceSetName: Coin | undefined;
     priceTile: Coin | undefined;
     priceTree: Coin | undefined;

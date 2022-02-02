@@ -6,6 +6,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 
 /** Params defines the parameters for the module. */
 export interface Params {
+  burnRate: string;
   priceSetName: Coin | undefined;
   priceTile: Coin | undefined;
   priceTree: Coin | undefined;
@@ -17,50 +18,53 @@ export interface Params {
   priceDecorationFountain: Coin | undefined;
 }
 
-const baseParams: object = {};
+const baseParams: object = { burnRate: "" };
 
 export const Params = {
   encode(message: Params, writer: Writer = Writer.create()): Writer {
+    if (message.burnRate !== "") {
+      writer.uint32(10).string(message.burnRate);
+    }
     if (message.priceSetName !== undefined) {
-      Coin.encode(message.priceSetName, writer.uint32(10).fork()).ldelim();
+      Coin.encode(message.priceSetName, writer.uint32(18).fork()).ldelim();
     }
     if (message.priceTile !== undefined) {
-      Coin.encode(message.priceTile, writer.uint32(18).fork()).ldelim();
+      Coin.encode(message.priceTile, writer.uint32(26).fork()).ldelim();
     }
     if (message.priceTree !== undefined) {
-      Coin.encode(message.priceTree, writer.uint32(26).fork()).ldelim();
+      Coin.encode(message.priceTree, writer.uint32(34).fork()).ldelim();
     }
     if (message.rewardTree !== undefined) {
-      Coin.encode(message.rewardTree, writer.uint32(34).fork()).ldelim();
+      Coin.encode(message.rewardTree, writer.uint32(42).fork()).ldelim();
     }
     if (message.priceDecorationFlowers !== undefined) {
       Coin.encode(
         message.priceDecorationFlowers,
-        writer.uint32(42).fork()
+        writer.uint32(50).fork()
       ).ldelim();
     }
     if (message.priceDecorationFlag !== undefined) {
       Coin.encode(
         message.priceDecorationFlag,
-        writer.uint32(50).fork()
+        writer.uint32(58).fork()
       ).ldelim();
     }
     if (message.priceDecorationLamp !== undefined) {
       Coin.encode(
         message.priceDecorationLamp,
-        writer.uint32(58).fork()
+        writer.uint32(66).fork()
       ).ldelim();
     }
     if (message.priceDecorationGreenBee !== undefined) {
       Coin.encode(
         message.priceDecorationGreenBee,
-        writer.uint32(66).fork()
+        writer.uint32(74).fork()
       ).ldelim();
     }
     if (message.priceDecorationFountain !== undefined) {
       Coin.encode(
         message.priceDecorationFountain,
-        writer.uint32(74).fork()
+        writer.uint32(82).fork()
       ).ldelim();
     }
     return writer;
@@ -74,33 +78,36 @@ export const Params = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.priceSetName = Coin.decode(reader, reader.uint32());
+          message.burnRate = reader.string();
           break;
         case 2:
-          message.priceTile = Coin.decode(reader, reader.uint32());
+          message.priceSetName = Coin.decode(reader, reader.uint32());
           break;
         case 3:
-          message.priceTree = Coin.decode(reader, reader.uint32());
+          message.priceTile = Coin.decode(reader, reader.uint32());
           break;
         case 4:
-          message.rewardTree = Coin.decode(reader, reader.uint32());
+          message.priceTree = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.priceDecorationFlowers = Coin.decode(reader, reader.uint32());
+          message.rewardTree = Coin.decode(reader, reader.uint32());
           break;
         case 6:
-          message.priceDecorationFlag = Coin.decode(reader, reader.uint32());
+          message.priceDecorationFlowers = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.priceDecorationLamp = Coin.decode(reader, reader.uint32());
+          message.priceDecorationFlag = Coin.decode(reader, reader.uint32());
           break;
         case 8:
+          message.priceDecorationLamp = Coin.decode(reader, reader.uint32());
+          break;
+        case 9:
           message.priceDecorationGreenBee = Coin.decode(
             reader,
             reader.uint32()
           );
           break;
-        case 9:
+        case 10:
           message.priceDecorationFountain = Coin.decode(
             reader,
             reader.uint32()
@@ -116,6 +123,11 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
+    if (object.burnRate !== undefined && object.burnRate !== null) {
+      message.burnRate = String(object.burnRate);
+    } else {
+      message.burnRate = "";
+    }
     if (object.priceSetName !== undefined && object.priceSetName !== null) {
       message.priceSetName = Coin.fromJSON(object.priceSetName);
     } else {
@@ -187,6 +199,7 @@ export const Params = {
 
   toJSON(message: Params): unknown {
     const obj: any = {};
+    message.burnRate !== undefined && (obj.burnRate = message.burnRate);
     message.priceSetName !== undefined &&
       (obj.priceSetName = message.priceSetName
         ? Coin.toJSON(message.priceSetName)
@@ -228,6 +241,11 @@ export const Params = {
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
+    if (object.burnRate !== undefined && object.burnRate !== null) {
+      message.burnRate = object.burnRate;
+    } else {
+      message.burnRate = "";
+    }
     if (object.priceSetName !== undefined && object.priceSetName !== null) {
       message.priceSetName = Coin.fromPartial(object.priceSetName);
     } else {

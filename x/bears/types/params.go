@@ -10,6 +10,9 @@ import (
 var _ paramtypes.ParamSet = (*Params)(nil)
 
 var (
+	KeyBurnRate        = []byte("BurnRate")
+	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
+
 	KeyPriceSetName              = []byte("PriceSetName")
 	DefaultPriceSetName sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
 	MaxNameLength                = 100
@@ -41,6 +44,7 @@ var (
 
 // NewParams creates a new Params instance
 func NewParams(
+	burnRate sdk.Dec,
 	priceSetName sdk.Coin,
 	priceTile sdk.Coin,
 	priceTree sdk.Coin,
@@ -52,6 +56,7 @@ func NewParams(
 	priceDecorationFountain sdk.Coin,
 ) Params {
 	return Params{
+		BurnRate:            		 burnRate,
 		PriceSetName:            priceSetName,
 		PriceTile:               priceTile,
 		PriceTree:               priceTree,
@@ -67,6 +72,7 @@ func NewParams(
 // ParamSetPairs get the params.ParamSet
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
+		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validatePrice),
@@ -81,6 +87,10 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 
 // Validate validates the set of params
 func (p Params) Validate() error {
+	if err := validateBurnRate(p.BurnRate); err != nil {
+		return err
+	}
+
 	if err := validatePrice(p.PriceSetName); err != nil {
 		return err
 	}
@@ -97,12 +107,33 @@ func (p Params) Validate() error {
 		return err
 	}
 
+	if err := validatePrice(p.PriceDecorationFlowers); err != nil {
+		return err
+	}
+
+	if err := validatePrice(p.PriceDecorationFlag); err != nil {
+		return err
+	}
+
+	if err := validatePrice(p.PriceDecorationLamp); err != nil {
+		return err
+	}
+
+	if err := validatePrice(p.PriceDecorationGreenBee); err != nil {
+		return err
+	}
+
+	if err := validatePrice(p.PriceDecorationFountain); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
+		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coin{}, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coin{}, validatePrice),
 		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coin{}, validatePrice),
@@ -118,6 +149,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
 	return NewParams(
+		DefaultBurnRate,
 		DefaultPriceSetName,
 		DefaultPriceTile,
 		DefaultPriceTree,
@@ -134,6 +166,19 @@ func DefaultParams() Params {
 func (p Params) String() string {
 	out, _ := yaml.Marshal(p)
 	return string(out)
+}
+
+func validateBurnRate(i interface{}) error {
+	v, ok := i.(sdk.Dec)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v.LT(sdk.ZeroDec()) {
+		return fmt.Errorf("invalid BurnRate: %s", v)
+	}
+
+	return nil
 }
 
 func validatePrice(i interface{}) error {

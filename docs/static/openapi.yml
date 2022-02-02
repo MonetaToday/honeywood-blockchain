@@ -13598,6 +13598,8 @@ paths:
                 description: params holds all the parameters of this module.
                 type: object
                 properties:
+                  burnRate:
+                    type: string
                   priceSetName:
                     type: object
                     properties:
@@ -21650,6 +21652,8 @@ definitions:
   MonetaToday.honeywood.bears.Params:
     type: object
     properties:
+      burnRate:
+        type: string
       priceSetName:
         type: object
         properties:
@@ -22274,6 +22278,8 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
         properties:
+          burnRate:
+            type: string
           priceSetName:
             type: object
             properties:

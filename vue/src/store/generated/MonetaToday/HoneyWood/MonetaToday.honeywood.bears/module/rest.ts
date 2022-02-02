@@ -145,6 +145,8 @@ export type BearsMsgUnsetDecorationPositionResponse = object;
  * Params defines the parameters for the module.
  */
 export interface BearsParams {
+  burnRate?: string;
+
   /**
    * Coin defines a token with a denomination and an amount.
    *
