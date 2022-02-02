@@ -146,78 +146,15 @@ export type BearsMsgUnsetDecorationPositionResponse = object;
  */
 export interface BearsParams {
   burnRate?: string;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceSetName?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceTile?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceTree?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  rewardTree?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceDecorationFlowers?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceDecorationFlag?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceDecorationLamp?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceDecorationGreenBee?: V1Beta1Coin;
-
-  /**
-   * Coin defines a token with a denomination and an amount.
-   *
-   * NOTE: The amount field is an Int which implements the custom method
-   * signatures required by gogoproto.
-   */
-  priceDecorationFountain?: V1Beta1Coin;
+  priceSetName?: V1Beta1Coin[];
+  priceTile?: V1Beta1Coin[];
+  priceTree?: V1Beta1Coin[];
+  rewardTree?: V1Beta1Coin[];
+  priceDecorationFlowers?: V1Beta1Coin[];
+  priceDecorationFlag?: V1Beta1Coin[];
+  priceDecorationLamp?: V1Beta1Coin[];
+  priceDecorationGreenBee?: V1Beta1Coin[];
+  priceDecorationFountain?: V1Beta1Coin[];
 }
 
 export interface BearsQueryAllAddressBearsResponse {

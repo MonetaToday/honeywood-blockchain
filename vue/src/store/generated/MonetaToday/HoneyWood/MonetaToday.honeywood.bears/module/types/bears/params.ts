@@ -7,15 +7,15 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
   burnRate: string;
-  priceSetName: Coin | undefined;
-  priceTile: Coin | undefined;
-  priceTree: Coin | undefined;
-  rewardTree: Coin | undefined;
-  priceDecorationFlowers: Coin | undefined;
-  priceDecorationFlag: Coin | undefined;
-  priceDecorationLamp: Coin | undefined;
-  priceDecorationGreenBee: Coin | undefined;
-  priceDecorationFountain: Coin | undefined;
+  priceSetName: Coin[];
+  priceTile: Coin[];
+  priceTree: Coin[];
+  rewardTree: Coin[];
+  priceDecorationFlowers: Coin[];
+  priceDecorationFlag: Coin[];
+  priceDecorationLamp: Coin[];
+  priceDecorationGreenBee: Coin[];
+  priceDecorationFountain: Coin[];
 }
 
 const baseParams: object = { burnRate: "" };
@@ -25,47 +25,32 @@ export const Params = {
     if (message.burnRate !== "") {
       writer.uint32(10).string(message.burnRate);
     }
-    if (message.priceSetName !== undefined) {
-      Coin.encode(message.priceSetName, writer.uint32(18).fork()).ldelim();
+    for (const v of message.priceSetName) {
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.priceTile !== undefined) {
-      Coin.encode(message.priceTile, writer.uint32(26).fork()).ldelim();
+    for (const v of message.priceTile) {
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    if (message.priceTree !== undefined) {
-      Coin.encode(message.priceTree, writer.uint32(34).fork()).ldelim();
+    for (const v of message.priceTree) {
+      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.rewardTree !== undefined) {
-      Coin.encode(message.rewardTree, writer.uint32(42).fork()).ldelim();
+    for (const v of message.rewardTree) {
+      Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    if (message.priceDecorationFlowers !== undefined) {
-      Coin.encode(
-        message.priceDecorationFlowers,
-        writer.uint32(50).fork()
-      ).ldelim();
+    for (const v of message.priceDecorationFlowers) {
+      Coin.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    if (message.priceDecorationFlag !== undefined) {
-      Coin.encode(
-        message.priceDecorationFlag,
-        writer.uint32(58).fork()
-      ).ldelim();
+    for (const v of message.priceDecorationFlag) {
+      Coin.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (message.priceDecorationLamp !== undefined) {
-      Coin.encode(
-        message.priceDecorationLamp,
-        writer.uint32(66).fork()
-      ).ldelim();
+    for (const v of message.priceDecorationLamp) {
+      Coin.encode(v!, writer.uint32(66).fork()).ldelim();
     }
-    if (message.priceDecorationGreenBee !== undefined) {
-      Coin.encode(
-        message.priceDecorationGreenBee,
-        writer.uint32(74).fork()
-      ).ldelim();
+    for (const v of message.priceDecorationGreenBee) {
+      Coin.encode(v!, writer.uint32(74).fork()).ldelim();
     }
-    if (message.priceDecorationFountain !== undefined) {
-      Coin.encode(
-        message.priceDecorationFountain,
-        writer.uint32(82).fork()
-      ).ldelim();
+    for (const v of message.priceDecorationFountain) {
+      Coin.encode(v!, writer.uint32(82).fork()).ldelim();
     }
     return writer;
   },
@@ -74,6 +59,15 @@ export const Params = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseParams } as Params;
+    message.priceSetName = [];
+    message.priceTile = [];
+    message.priceTree = [];
+    message.rewardTree = [];
+    message.priceDecorationFlowers = [];
+    message.priceDecorationFlag = [];
+    message.priceDecorationLamp = [];
+    message.priceDecorationGreenBee = [];
+    message.priceDecorationFountain = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -81,36 +75,40 @@ export const Params = {
           message.burnRate = reader.string();
           break;
         case 2:
-          message.priceSetName = Coin.decode(reader, reader.uint32());
+          message.priceSetName.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.priceTile = Coin.decode(reader, reader.uint32());
+          message.priceTile.push(Coin.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.priceTree = Coin.decode(reader, reader.uint32());
+          message.priceTree.push(Coin.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.rewardTree = Coin.decode(reader, reader.uint32());
+          message.rewardTree.push(Coin.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.priceDecorationFlowers = Coin.decode(reader, reader.uint32());
+          message.priceDecorationFlowers.push(
+            Coin.decode(reader, reader.uint32())
+          );
           break;
         case 7:
-          message.priceDecorationFlag = Coin.decode(reader, reader.uint32());
+          message.priceDecorationFlag.push(
+            Coin.decode(reader, reader.uint32())
+          );
           break;
         case 8:
-          message.priceDecorationLamp = Coin.decode(reader, reader.uint32());
+          message.priceDecorationLamp.push(
+            Coin.decode(reader, reader.uint32())
+          );
           break;
         case 9:
-          message.priceDecorationGreenBee = Coin.decode(
-            reader,
-            reader.uint32()
+          message.priceDecorationGreenBee.push(
+            Coin.decode(reader, reader.uint32())
           );
           break;
         case 10:
-          message.priceDecorationFountain = Coin.decode(
-            reader,
-            reader.uint32()
+          message.priceDecorationFountain.push(
+            Coin.decode(reader, reader.uint32())
           );
           break;
         default:
@@ -123,76 +121,79 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
+    message.priceSetName = [];
+    message.priceTile = [];
+    message.priceTree = [];
+    message.rewardTree = [];
+    message.priceDecorationFlowers = [];
+    message.priceDecorationFlag = [];
+    message.priceDecorationLamp = [];
+    message.priceDecorationGreenBee = [];
+    message.priceDecorationFountain = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = String(object.burnRate);
     } else {
       message.burnRate = "";
     }
     if (object.priceSetName !== undefined && object.priceSetName !== null) {
-      message.priceSetName = Coin.fromJSON(object.priceSetName);
-    } else {
-      message.priceSetName = undefined;
+      for (const e of object.priceSetName) {
+        message.priceSetName.push(Coin.fromJSON(e));
+      }
     }
     if (object.priceTile !== undefined && object.priceTile !== null) {
-      message.priceTile = Coin.fromJSON(object.priceTile);
-    } else {
-      message.priceTile = undefined;
+      for (const e of object.priceTile) {
+        message.priceTile.push(Coin.fromJSON(e));
+      }
     }
     if (object.priceTree !== undefined && object.priceTree !== null) {
-      message.priceTree = Coin.fromJSON(object.priceTree);
-    } else {
-      message.priceTree = undefined;
+      for (const e of object.priceTree) {
+        message.priceTree.push(Coin.fromJSON(e));
+      }
     }
     if (object.rewardTree !== undefined && object.rewardTree !== null) {
-      message.rewardTree = Coin.fromJSON(object.rewardTree);
-    } else {
-      message.rewardTree = undefined;
+      for (const e of object.rewardTree) {
+        message.rewardTree.push(Coin.fromJSON(e));
+      }
     }
     if (
       object.priceDecorationFlowers !== undefined &&
       object.priceDecorationFlowers !== null
     ) {
-      message.priceDecorationFlowers = Coin.fromJSON(
-        object.priceDecorationFlowers
-      );
-    } else {
-      message.priceDecorationFlowers = undefined;
+      for (const e of object.priceDecorationFlowers) {
+        message.priceDecorationFlowers.push(Coin.fromJSON(e));
+      }
     }
     if (
       object.priceDecorationFlag !== undefined &&
       object.priceDecorationFlag !== null
     ) {
-      message.priceDecorationFlag = Coin.fromJSON(object.priceDecorationFlag);
-    } else {
-      message.priceDecorationFlag = undefined;
+      for (const e of object.priceDecorationFlag) {
+        message.priceDecorationFlag.push(Coin.fromJSON(e));
+      }
     }
     if (
       object.priceDecorationLamp !== undefined &&
       object.priceDecorationLamp !== null
     ) {
-      message.priceDecorationLamp = Coin.fromJSON(object.priceDecorationLamp);
-    } else {
-      message.priceDecorationLamp = undefined;
+      for (const e of object.priceDecorationLamp) {
+        message.priceDecorationLamp.push(Coin.fromJSON(e));
+      }
     }
     if (
       object.priceDecorationGreenBee !== undefined &&
       object.priceDecorationGreenBee !== null
     ) {
-      message.priceDecorationGreenBee = Coin.fromJSON(
-        object.priceDecorationGreenBee
-      );
-    } else {
-      message.priceDecorationGreenBee = undefined;
+      for (const e of object.priceDecorationGreenBee) {
+        message.priceDecorationGreenBee.push(Coin.fromJSON(e));
+      }
     }
     if (
       object.priceDecorationFountain !== undefined &&
       object.priceDecorationFountain !== null
     ) {
-      message.priceDecorationFountain = Coin.fromJSON(
-        object.priceDecorationFountain
-      );
-    } else {
-      message.priceDecorationFountain = undefined;
+      for (const e of object.priceDecorationFountain) {
+        message.priceDecorationFountain.push(Coin.fromJSON(e));
+      }
     }
     return message;
   },
@@ -200,121 +201,147 @@ export const Params = {
   toJSON(message: Params): unknown {
     const obj: any = {};
     message.burnRate !== undefined && (obj.burnRate = message.burnRate);
-    message.priceSetName !== undefined &&
-      (obj.priceSetName = message.priceSetName
-        ? Coin.toJSON(message.priceSetName)
-        : undefined);
-    message.priceTile !== undefined &&
-      (obj.priceTile = message.priceTile
-        ? Coin.toJSON(message.priceTile)
-        : undefined);
-    message.priceTree !== undefined &&
-      (obj.priceTree = message.priceTree
-        ? Coin.toJSON(message.priceTree)
-        : undefined);
-    message.rewardTree !== undefined &&
-      (obj.rewardTree = message.rewardTree
-        ? Coin.toJSON(message.rewardTree)
-        : undefined);
-    message.priceDecorationFlowers !== undefined &&
-      (obj.priceDecorationFlowers = message.priceDecorationFlowers
-        ? Coin.toJSON(message.priceDecorationFlowers)
-        : undefined);
-    message.priceDecorationFlag !== undefined &&
-      (obj.priceDecorationFlag = message.priceDecorationFlag
-        ? Coin.toJSON(message.priceDecorationFlag)
-        : undefined);
-    message.priceDecorationLamp !== undefined &&
-      (obj.priceDecorationLamp = message.priceDecorationLamp
-        ? Coin.toJSON(message.priceDecorationLamp)
-        : undefined);
-    message.priceDecorationGreenBee !== undefined &&
-      (obj.priceDecorationGreenBee = message.priceDecorationGreenBee
-        ? Coin.toJSON(message.priceDecorationGreenBee)
-        : undefined);
-    message.priceDecorationFountain !== undefined &&
-      (obj.priceDecorationFountain = message.priceDecorationFountain
-        ? Coin.toJSON(message.priceDecorationFountain)
-        : undefined);
+    if (message.priceSetName) {
+      obj.priceSetName = message.priceSetName.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceSetName = [];
+    }
+    if (message.priceTile) {
+      obj.priceTile = message.priceTile.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceTile = [];
+    }
+    if (message.priceTree) {
+      obj.priceTree = message.priceTree.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceTree = [];
+    }
+    if (message.rewardTree) {
+      obj.rewardTree = message.rewardTree.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.rewardTree = [];
+    }
+    if (message.priceDecorationFlowers) {
+      obj.priceDecorationFlowers = message.priceDecorationFlowers.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceDecorationFlowers = [];
+    }
+    if (message.priceDecorationFlag) {
+      obj.priceDecorationFlag = message.priceDecorationFlag.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceDecorationFlag = [];
+    }
+    if (message.priceDecorationLamp) {
+      obj.priceDecorationLamp = message.priceDecorationLamp.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceDecorationLamp = [];
+    }
+    if (message.priceDecorationGreenBee) {
+      obj.priceDecorationGreenBee = message.priceDecorationGreenBee.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceDecorationGreenBee = [];
+    }
+    if (message.priceDecorationFountain) {
+      obj.priceDecorationFountain = message.priceDecorationFountain.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceDecorationFountain = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
+    message.priceSetName = [];
+    message.priceTile = [];
+    message.priceTree = [];
+    message.rewardTree = [];
+    message.priceDecorationFlowers = [];
+    message.priceDecorationFlag = [];
+    message.priceDecorationLamp = [];
+    message.priceDecorationGreenBee = [];
+    message.priceDecorationFountain = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = object.burnRate;
     } else {
       message.burnRate = "";
     }
     if (object.priceSetName !== undefined && object.priceSetName !== null) {
-      message.priceSetName = Coin.fromPartial(object.priceSetName);
-    } else {
-      message.priceSetName = undefined;
+      for (const e of object.priceSetName) {
+        message.priceSetName.push(Coin.fromPartial(e));
+      }
     }
     if (object.priceTile !== undefined && object.priceTile !== null) {
-      message.priceTile = Coin.fromPartial(object.priceTile);
-    } else {
-      message.priceTile = undefined;
+      for (const e of object.priceTile) {
+        message.priceTile.push(Coin.fromPartial(e));
+      }
     }
     if (object.priceTree !== undefined && object.priceTree !== null) {
-      message.priceTree = Coin.fromPartial(object.priceTree);
-    } else {
-      message.priceTree = undefined;
+      for (const e of object.priceTree) {
+        message.priceTree.push(Coin.fromPartial(e));
+      }
     }
     if (object.rewardTree !== undefined && object.rewardTree !== null) {
-      message.rewardTree = Coin.fromPartial(object.rewardTree);
-    } else {
-      message.rewardTree = undefined;
+      for (const e of object.rewardTree) {
+        message.rewardTree.push(Coin.fromPartial(e));
+      }
     }
     if (
       object.priceDecorationFlowers !== undefined &&
       object.priceDecorationFlowers !== null
     ) {
-      message.priceDecorationFlowers = Coin.fromPartial(
-        object.priceDecorationFlowers
-      );
-    } else {
-      message.priceDecorationFlowers = undefined;
+      for (const e of object.priceDecorationFlowers) {
+        message.priceDecorationFlowers.push(Coin.fromPartial(e));
+      }
     }
     if (
       object.priceDecorationFlag !== undefined &&
       object.priceDecorationFlag !== null
     ) {
-      message.priceDecorationFlag = Coin.fromPartial(
-        object.priceDecorationFlag
-      );
-    } else {
-      message.priceDecorationFlag = undefined;
+      for (const e of object.priceDecorationFlag) {
+        message.priceDecorationFlag.push(Coin.fromPartial(e));
+      }
     }
     if (
       object.priceDecorationLamp !== undefined &&
       object.priceDecorationLamp !== null
     ) {
-      message.priceDecorationLamp = Coin.fromPartial(
-        object.priceDecorationLamp
-      );
-    } else {
-      message.priceDecorationLamp = undefined;
+      for (const e of object.priceDecorationLamp) {
+        message.priceDecorationLamp.push(Coin.fromPartial(e));
+      }
     }
     if (
       object.priceDecorationGreenBee !== undefined &&
       object.priceDecorationGreenBee !== null
     ) {
-      message.priceDecorationGreenBee = Coin.fromPartial(
-        object.priceDecorationGreenBee
-      );
-    } else {
-      message.priceDecorationGreenBee = undefined;
+      for (const e of object.priceDecorationGreenBee) {
+        message.priceDecorationGreenBee.push(Coin.fromPartial(e));
+      }
     }
     if (
       object.priceDecorationFountain !== undefined &&
       object.priceDecorationFountain !== null
     ) {
-      message.priceDecorationFountain = Coin.fromPartial(
-        object.priceDecorationFountain
-      );
-    } else {
-      message.priceDecorationFountain = undefined;
+      for (const e of object.priceDecorationFountain) {
+        message.priceDecorationFountain.push(Coin.fromPartial(e));
+      }
     }
     return message;
   },

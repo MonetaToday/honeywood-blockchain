@@ -4,15 +4,15 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
     burnRate: string;
-    priceSetName: Coin | undefined;
-    priceTile: Coin | undefined;
-    priceTree: Coin | undefined;
-    rewardTree: Coin | undefined;
-    priceDecorationFlowers: Coin | undefined;
-    priceDecorationFlag: Coin | undefined;
-    priceDecorationLamp: Coin | undefined;
-    priceDecorationGreenBee: Coin | undefined;
-    priceDecorationFountain: Coin | undefined;
+    priceSetName: Coin[];
+    priceTile: Coin[];
+    priceTree: Coin[];
+    rewardTree: Coin[];
+    priceDecorationFlowers: Coin[];
+    priceDecorationFlag: Coin[];
+    priceDecorationLamp: Coin[];
+    priceDecorationGreenBee: Coin[];
+    priceDecorationFountain: Coin[];
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

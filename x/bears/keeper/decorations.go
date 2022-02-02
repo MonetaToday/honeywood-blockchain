@@ -115,16 +115,16 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
-	priceDecoration := sdk.NewCoins(k.PriceDecorationFlowers(ctx))
+	priceDecoration := k.PriceDecorationFlowers(ctx)
 	switch decorationType {
 	case types.Decorations_FLAG.String():
-		priceDecoration = sdk.NewCoins(k.PriceDecorationFlag(ctx))
+		priceDecoration = k.PriceDecorationFlag(ctx)
 	case types.Decorations_LAMP.String():
-		priceDecoration = sdk.NewCoins(k.PriceDecorationLamp(ctx))
+		priceDecoration = k.PriceDecorationLamp(ctx)
 	case types.Decorations_GREEN_BEE.String():
-		priceDecoration = sdk.NewCoins(k.PriceDecorationGreenBee(ctx))
+		priceDecoration = k.PriceDecorationGreenBee(ctx)
 	case types.Decorations_FOUNTAIN.String():
-		priceDecoration = sdk.NewCoins(k.PriceDecorationFountain(ctx))
+		priceDecoration = k.PriceDecorationFountain(ctx)
 	}
 
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceDecoration)

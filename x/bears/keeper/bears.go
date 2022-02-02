@@ -163,7 +163,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	return &newBear, &newField, nil
 }
 
-func (k Keeper) BurnCoinsByBurnRate(ctx sdk.Context, moduleName string, coins []sdk.Coin) error {
+func (k Keeper) BurnCoinsByBurnRate(ctx sdk.Context, moduleName string, coins sdk.Coins) error {
 	burnRate := k.BurnRate(ctx)
 	burnedCoins := sdk.NormalizeCoins(sdk.NewDecCoinsFromCoins(coins...).MulDec(burnRate))
 	return k.bankKeeper.BurnCoins(ctx, moduleName, burnedCoins)

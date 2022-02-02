@@ -128,7 +128,7 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	priceTree := sdk.NewCoins(k.PriceTree(ctx))
+	priceTree := k.PriceTree(ctx)
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceTree)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
@@ -164,8 +164,8 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	k.SetBears(ctx, bear)
 
 	rewardTree := k.RewardTree(ctx)
-	k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(rewardTree))
-	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, creatorAcc, sdk.NewCoins(rewardTree))
+	k.bankKeeper.MintCoins(ctx, types.ModuleName, rewardTree)
+	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, creatorAcc, rewardTree)
 	if errSendFromModuleToAccount != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}

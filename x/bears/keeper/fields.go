@@ -138,13 +138,14 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	priceTile := k.PriceTile(ctx)
-	priceForExtending := sdk.NewCoins(
-		sdk.NewCoin(
-			priceTile.Denom,
-			priceTile.Amount.MulRaw(differenceTiles),
-		),
-	)
+	priceForExtending := k.PriceTile(ctx)
+
+	for i, price := range priceForExtending {
+		priceForExtending[i] = sdk.NewCoin(
+			price.Denom,
+			price.Amount.MulRaw(differenceTiles),
+		)
+	}
 
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceForExtending)
 	if err != nil {

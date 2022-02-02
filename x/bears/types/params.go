@@ -13,47 +13,47 @@ var (
 	KeyBurnRate        = []byte("BurnRate")
 	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
 
-	KeyPriceSetName              = []byte("PriceSetName")
-	DefaultPriceSetName sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
-	MaxNameLength                = 100
+	KeyPriceSetName                = []byte("PriceSetName")
+	DefaultPriceSetName sdk.Coins  = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
+	MaxNameLength                  = 100
 
 	KeyPriceTile              = []byte("PriceTile")
-	DefaultPriceTile sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+	DefaultPriceTile sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
 	KeyPriceTree              = []byte("PriceTree")
-	DefaultPriceTree sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+	DefaultPriceTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
 	KeyRewardTree              = []byte("RewardTree")
-	DefaultRewardTree sdk.Coin = sdk.NewCoin("cone", sdk.NewInt(100))
+	DefaultRewardTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("cone", sdk.NewInt(100)))
 
 	KeyPriceDecorationFlowers              = []byte("PriceDecorationFlowers")
-	DefaultPriceDecorationFlowers sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(100))
+	DefaultPriceDecorationFlowers sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
 	KeyPriceDecorationFlag              = []byte("PriceDecorationFlag")
-	DefaultPriceDecorationFlag sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(150))
+	DefaultPriceDecorationFlag sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(150)))
 
 	KeyPriceDecorationLamp              = []byte("PriceDecorationLamp")
-	DefaultPriceDecorationLamp sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(200))
+	DefaultPriceDecorationLamp sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(200)))
 
 	KeyPriceDecorationGreenBee              = []byte("PriceDecorationGreenBee")
-	DefaultPriceDecorationGreenBee sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(500))
+	DefaultPriceDecorationGreenBee sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500)))
 
 	KeyPriceDecorationFountain              = []byte("PriceDecorationFountain")
-	DefaultPriceDecorationFountain sdk.Coin = sdk.NewCoin("honey", sdk.NewInt(1000))
+	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
 )
 
 // NewParams creates a new Params instance
 func NewParams(
 	burnRate sdk.Dec,
-	priceSetName sdk.Coin,
-	priceTile sdk.Coin,
-	priceTree sdk.Coin,
-	rewardTree sdk.Coin,
-	priceDecorationFlowers sdk.Coin,
-	priceDecorationFlag sdk.Coin,
-	priceDecorationLamp sdk.Coin,
-	priceDecorationGreenBee sdk.Coin,
-	priceDecorationFountain sdk.Coin,
+	priceSetName sdk.Coins,
+	priceTile sdk.Coins,
+	priceTree sdk.Coins,
+	rewardTree sdk.Coins,
+	priceDecorationFlowers sdk.Coins,
+	priceDecorationFlag sdk.Coins,
+	priceDecorationLamp sdk.Coins,
+	priceDecorationGreenBee sdk.Coins,
+	priceDecorationFountain sdk.Coins,
 ) Params {
 	return Params{
 		BurnRate:            		 burnRate,
@@ -73,15 +73,15 @@ func NewParams(
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
-		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validatePrice),
-		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateRewardTree),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, &p.PriceDecorationFlowers, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, &p.PriceDecorationFlag, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validateCoins),
+		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, &p.PriceDecorationFlowers, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, &p.PriceDecorationFlag, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validateCoins),
 	}
 }
 
@@ -91,39 +91,39 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validatePrice(p.PriceSetName); err != nil {
+	if err := validateCoins(p.PriceSetName); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceTile); err != nil {
+	if err := validateCoins(p.PriceTile); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceTree); err != nil {
+	if err := validateCoins(p.PriceTree); err != nil {
 		return err
 	}
 
-	if err := validateRewardTree(p.RewardTree); err != nil {
+	if err := validateCoins(p.RewardTree); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceDecorationFlowers); err != nil {
+	if err := validateCoins(p.PriceDecorationFlowers); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceDecorationFlag); err != nil {
+	if err := validateCoins(p.PriceDecorationFlag); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceDecorationLamp); err != nil {
+	if err := validateCoins(p.PriceDecorationLamp); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceDecorationGreenBee); err != nil {
+	if err := validateCoins(p.PriceDecorationGreenBee); err != nil {
 		return err
 	}
 
-	if err := validatePrice(p.PriceDecorationFountain); err != nil {
+	if err := validateCoins(p.PriceDecorationFountain); err != nil {
 		return err
 	}
 
@@ -134,15 +134,15 @@ func (p Params) Validate() error {
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
 		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
-		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coin{}, validateRewardTree),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coin{}, validatePrice),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coin{}, validatePrice),
+		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coins{}, validateCoins),
 	)
 }
 
@@ -181,27 +181,14 @@ func validateBurnRate(i interface{}) error {
 	return nil
 }
 
-func validatePrice(i interface{}) error {
-	v, ok := i.(sdk.Coin)
+func validateCoins(i interface{}) error {
+	v, ok := i.(sdk.Coins)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
 	if !v.IsValid() {
-		return fmt.Errorf("invalid price parameter: %s", v)
-	}
-
-	return nil
-}
-
-func validateRewardTree(i interface{}) error {
-	v, ok := i.(sdk.Coin)
-	if !ok {
-		return fmt.Errorf("invalid parameter type: %T", i)
-	}
-
-	if !v.IsValid() {
-		return fmt.Errorf("invalid reward_tree: %s", v)
+		return fmt.Errorf("invalid coins parameter: %s", v)
 	}
 
 	return nil

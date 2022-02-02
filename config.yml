@@ -36,29 +36,29 @@ genesis:
       params:
         burn_rate: "0.5"
         price_set_name: 
-          denom: "honey"
-          amount: "100"
+          - denom: "honey"
+            amount: "100"
         price_tile: 
-          denom: "honey"
-          amount: "100"
+          - denom: "honey"
+            amount: "100"
         price_tree: 
-          denom: "honey"
-          amount: "100"
+          - denom: "honey"
+            amount: "100"
         reward_tree: 
-          denom: "cone"
-          amount: "100"
+          - denom: "cone"
+            amount: "100"
         price_decoration_flowers: 
-          denom: "honey"
-          amount: "100"
+          - denom: "honey"
+            amount: "100"
         price_decoration_flag: 
-          denom: "honey"
-          amount: "150"
+          - denom: "honey"
+            amount: "150"
         price_decoration_lamp: 
-          denom: "honey"
-          amount: "200"
+          - denom: "honey"
+            amount: "200"
         price_decoration_green_bee: 
-          denom: "honey"
-          amount: "500"
+          - denom: "honey"
+            amount: "500"
         price_decoration_fountain: 
-          denom: "honey"
-          amount: "1000"
+          - denom: "honey"
+            amount: "1000"
