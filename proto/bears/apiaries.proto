@@ -4,10 +4,11 @@ package MonetaToday.honeywood.bears;
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "gogoproto/gogo.proto"; 
 import "bears/fields.proto";
+import "bears/bears.proto";
 
 message Apiaries {
   uint64 id = 1;
-  uint64 bearId = 2; 
+  BearOwner bearOwner = 2; 
   enum ApiaryTypes {
     BEE_HOUSE = 0;
     APIARY = 1;

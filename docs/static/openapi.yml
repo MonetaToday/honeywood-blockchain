@@ -12763,9 +12763,12 @@ paths:
                     id:
                       type: string
                       format: uint64
-                    bearId:
-                      type: string
-                      format: uint64
+                    bearOwner:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uint64
                     apiaryType:
                       type: string
                       enum:
@@ -12905,9 +12908,12 @@ paths:
                   id:
                     type: string
                     format: uint64
-                  bearId:
-                    type: string
-                    format: uint64
+                  bearOwner:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uint64
                   apiaryType:
                     type: string
                     enum:
@@ -13360,9 +13366,12 @@ paths:
                     id:
                       type: string
                       format: uint64
-                    bearId:
-                      type: string
-                      format: uint64
+                    bearOwner:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uint64
                     decorationType:
                       type: string
                       enum:
@@ -13504,9 +13513,12 @@ paths:
                   id:
                     type: string
                     format: uint64
-                  bearId:
-                    type: string
-                    format: uint64
+                  bearOwner:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uint64
                   decorationType:
                     type: string
                     enum:
@@ -14010,9 +14022,12 @@ paths:
                         - APPLETREE
                         - WILLOW
                       default: OAK
-                    bearId:
-                      type: string
-                      format: uint64
+                    bearOwner:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uint64
                     position:
                       type: object
                       properties:
@@ -14153,9 +14168,12 @@ paths:
                       - APPLETREE
                       - WILLOW
                     default: OAK
-                  bearId:
-                    type: string
-                    format: uint64
+                  bearOwner:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uint64
                   position:
                     type: object
                     properties:
@@ -21560,9 +21578,12 @@ definitions:
       id:
         type: string
         format: uint64
-      bearId:
-        type: string
-        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
       apiaryType:
         type: string
         enum:
@@ -21644,9 +21665,12 @@ definitions:
       id:
         type: string
         format: uint64
-      bearId:
-        type: string
-        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
       decorationType:
         type: string
         enum:
@@ -21767,9 +21791,12 @@ definitions:
           id:
             type: string
             format: uint64
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           decorationType:
             type: string
             enum:
@@ -21808,9 +21835,12 @@ definitions:
               - APPLETREE
               - WILLOW
             default: OAK
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           position:
             type: object
             properties:
@@ -21838,9 +21868,12 @@ definitions:
           id:
             type: string
             format: uint64
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           decorationType:
             type: string
             enum:
@@ -21879,9 +21912,12 @@ definitions:
               - APPLETREE
               - WILLOW
             default: OAK
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           position:
             type: object
             properties:
@@ -22093,9 +22129,12 @@ definitions:
             id:
               type: string
               format: uint64
-            bearId:
-              type: string
-              format: uint64
+            bearOwner:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uint64
             apiaryType:
               type: string
               enum:
@@ -22254,9 +22293,12 @@ definitions:
             id:
               type: string
               format: uint64
-            bearId:
-              type: string
-              format: uint64
+            bearOwner:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uint64
             decorationType:
               type: string
               enum:
@@ -22395,9 +22437,12 @@ definitions:
                 - APPLETREE
                 - WILLOW
               default: OAK
-            bearId:
-              type: string
-              format: uint64
+            bearOwner:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uint64
             position:
               type: object
               properties:
@@ -22457,9 +22502,12 @@ definitions:
           id:
             type: string
             format: uint64
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           apiaryType:
             type: string
             enum:
@@ -22537,9 +22585,12 @@ definitions:
           id:
             type: string
             format: uint64
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           decorationType:
             type: string
             enum:
@@ -22624,9 +22675,12 @@ definitions:
               - APPLETREE
               - WILLOW
             default: OAK
-          bearId:
-            type: string
-            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
           position:
             type: object
             properties:
@@ -22852,9 +22906,12 @@ definitions:
           - APPLETREE
           - WILLOW
         default: OAK
-      bearId:
-        type: string
-        format: uint64
+      bearOwner:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
       position:
         type: object
         properties:

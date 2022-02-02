@@ -1,9 +1,10 @@
 import { Writer, Reader } from "protobufjs/minimal";
+import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Decorations {
     id: number;
-    bearId: number;
+    bearOwner: BearOwner | undefined;
     decorationType: Decorations_DecorationTypes;
     position: ItemPosition | undefined;
 }

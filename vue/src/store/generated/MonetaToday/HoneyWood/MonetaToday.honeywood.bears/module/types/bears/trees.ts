@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
@@ -8,7 +9,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 export interface Trees {
   id: number;
   treeType: Trees_TreeTypes;
-  bearId: number;
+  bearOwner: BearOwner | undefined;
   position: ItemPosition | undefined;
 }
 
@@ -56,7 +57,7 @@ export function trees_TreeTypesToJSON(object: Trees_TreeTypes): string {
   }
 }
 
-const baseTrees: object = { id: 0, treeType: 0, bearId: 0 };
+const baseTrees: object = { id: 0, treeType: 0 };
 
 export const Trees = {
   encode(message: Trees, writer: Writer = Writer.create()): Writer {
@@ -66,8 +67,8 @@ export const Trees = {
     if (message.treeType !== 0) {
       writer.uint32(16).int32(message.treeType);
     }
-    if (message.bearId !== 0) {
-      writer.uint32(24).uint64(message.bearId);
+    if (message.bearOwner !== undefined) {
+      BearOwner.encode(message.bearOwner, writer.uint32(26).fork()).ldelim();
     }
     if (message.position !== undefined) {
       ItemPosition.encode(message.position, writer.uint32(34).fork()).ldelim();
@@ -89,7 +90,7 @@ export const Trees = {
           message.treeType = reader.int32() as any;
           break;
         case 3:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.bearOwner = BearOwner.decode(reader, reader.uint32());
           break;
         case 4:
           message.position = ItemPosition.decode(reader, reader.uint32());
@@ -114,10 +115,10 @@ export const Trees = {
     } else {
       message.treeType = 0;
     }
-    if (object.bearId !== undefined && object.bearId !== null) {
-      message.bearId = Number(object.bearId);
+    if (object.bearOwner !== undefined && object.bearOwner !== null) {
+      message.bearOwner = BearOwner.fromJSON(object.bearOwner);
     } else {
-      message.bearId = 0;
+      message.bearOwner = undefined;
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = ItemPosition.fromJSON(object.position);
@@ -132,7 +133,10 @@ export const Trees = {
     message.id !== undefined && (obj.id = message.id);
     message.treeType !== undefined &&
       (obj.treeType = trees_TreeTypesToJSON(message.treeType));
-    message.bearId !== undefined && (obj.bearId = message.bearId);
+    message.bearOwner !== undefined &&
+      (obj.bearOwner = message.bearOwner
+        ? BearOwner.toJSON(message.bearOwner)
+        : undefined);
     message.position !== undefined &&
       (obj.position = message.position
         ? ItemPosition.toJSON(message.position)
@@ -152,10 +156,10 @@ export const Trees = {
     } else {
       message.treeType = 0;
     }
-    if (object.bearId !== undefined && object.bearId !== null) {
-      message.bearId = object.bearId;
+    if (object.bearOwner !== undefined && object.bearOwner !== null) {
+      message.bearOwner = BearOwner.fromPartial(object.bearOwner);
     } else {
-      message.bearId = 0;
+      message.bearOwner = undefined;
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = ItemPosition.fromPartial(object.position);

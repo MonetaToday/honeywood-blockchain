@@ -4,6 +4,7 @@ package MonetaToday.honeywood.bears;
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "gogoproto/gogo.proto"; 
 import "bears/fields.proto";
+import "bears/bears.proto";
 
 message Trees {
   uint64 id = 1;
@@ -14,6 +15,6 @@ message Trees {
     WILLOW = 3;
   }
   TreeTypes treeType = 2;
-  uint64 bearId = 3;
+  BearOwner bearOwner = 3;
   ItemPosition position = 4 [(gogoproto.nullable) = false];
 }

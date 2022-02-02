@@ -54,9 +54,7 @@ export interface BearsAddressBears {
 export interface BearsApiaries {
   /** @format uint64 */
   id?: string;
-
-  /** @format uint64 */
-  bearId?: string;
+  bearOwner?: BearsBearOwner;
   apiaryType?: ApiariesApiaryTypes;
   position?: BearsItemPosition;
 }
@@ -88,9 +86,7 @@ export interface BearsBears {
 export interface BearsDecorations {
   /** @format uint64 */
   id?: string;
-
-  /** @format uint64 */
-  bearId?: string;
+  bearOwner?: BearsBearOwner;
   decorationType?: DecorationsDecorationTypes;
   position?: BearsItemPosition;
 }
@@ -322,9 +318,7 @@ export interface BearsTrees {
   /** @format uint64 */
   id?: string;
   treeType?: TreesTreeTypes;
-
-  /** @format uint64 */
-  bearId?: string;
+  bearOwner?: BearsBearOwner;
   position?: BearsItemPosition;
 }
 

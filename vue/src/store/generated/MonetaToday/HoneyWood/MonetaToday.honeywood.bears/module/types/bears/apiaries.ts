@@ -1,13 +1,14 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface Apiaries {
   id: number;
-  bearId: number;
+  bearOwner: BearOwner | undefined;
   apiaryType: Apiaries_ApiaryTypes;
   position: ItemPosition | undefined;
 }
@@ -54,15 +55,15 @@ export function apiaries_ApiaryTypesToJSON(
   }
 }
 
-const baseApiaries: object = { id: 0, bearId: 0, apiaryType: 0 };
+const baseApiaries: object = { id: 0, apiaryType: 0 };
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
     if (message.id !== 0) {
       writer.uint32(8).uint64(message.id);
     }
-    if (message.bearId !== 0) {
-      writer.uint32(16).uint64(message.bearId);
+    if (message.bearOwner !== undefined) {
+      BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
     }
     if (message.apiaryType !== 0) {
       writer.uint32(24).int32(message.apiaryType);
@@ -84,7 +85,7 @@ export const Apiaries = {
           message.id = longToNumber(reader.uint64() as Long);
           break;
         case 2:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.bearOwner = BearOwner.decode(reader, reader.uint32());
           break;
         case 3:
           message.apiaryType = reader.int32() as any;
@@ -107,10 +108,10 @@ export const Apiaries = {
     } else {
       message.id = 0;
     }
-    if (object.bearId !== undefined && object.bearId !== null) {
-      message.bearId = Number(object.bearId);
+    if (object.bearOwner !== undefined && object.bearOwner !== null) {
+      message.bearOwner = BearOwner.fromJSON(object.bearOwner);
     } else {
-      message.bearId = 0;
+      message.bearOwner = undefined;
     }
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = apiaries_ApiaryTypesFromJSON(object.apiaryType);
@@ -128,7 +129,10 @@ export const Apiaries = {
   toJSON(message: Apiaries): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
-    message.bearId !== undefined && (obj.bearId = message.bearId);
+    message.bearOwner !== undefined &&
+      (obj.bearOwner = message.bearOwner
+        ? BearOwner.toJSON(message.bearOwner)
+        : undefined);
     message.apiaryType !== undefined &&
       (obj.apiaryType = apiaries_ApiaryTypesToJSON(message.apiaryType));
     message.position !== undefined &&
@@ -145,10 +149,10 @@ export const Apiaries = {
     } else {
       message.id = 0;
     }
-    if (object.bearId !== undefined && object.bearId !== null) {
-      message.bearId = object.bearId;
+    if (object.bearOwner !== undefined && object.bearOwner !== null) {
+      message.bearOwner = BearOwner.fromPartial(object.bearOwner);
     } else {
-      message.bearId = 0;
+      message.bearOwner = undefined;
     }
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = object.apiaryType;
