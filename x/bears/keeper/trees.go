@@ -7,7 +7,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	mintTypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 )
 
 // GetTreesCount get the total number of trees
@@ -129,10 +128,15 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	priceTree := k.PriceTree(ctx)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, sdk.NewCoins(priceTree))
+	priceTree := sdk.NewCoins(k.PriceTree(ctx))
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceTree)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceTree)
+	if errBurn != nil {
+		return nil, errBurn
 	}
 
 	newTree := types.Trees{
@@ -160,8 +164,8 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	k.SetBears(ctx, bear)
 
 	rewardTree := k.RewardTree(ctx)
-	k.bankKeeper.MintCoins(ctx, mintTypes.ModuleName, sdk.NewCoins(rewardTree))
-	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, mintTypes.ModuleName, creatorAcc, sdk.NewCoins(rewardTree))
+	k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(rewardTree))
+	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, creatorAcc, sdk.NewCoins(rewardTree))
 	if errSendFromModuleToAccount != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}

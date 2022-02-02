@@ -151,6 +151,11 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceForExtending)
+	if errBurn != nil {
+		return nil, errBurn
+	}
+
 	field.CountTiles = uint64(newCountTiles)
 	k.SetFields(ctx, field)
 

@@ -81,11 +81,16 @@ func (k Keeper) BuyBearNameForBear(ctx sdk.Context, buyer string, bearId uint64,
 	}
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	priceSetName := k.PriceSetName(ctx)
+	priceSetName := sdk.NewCoins(k.PriceSetName(ctx))
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, sdk.NewCoins(priceSetName))
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceSetName)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceSetName)
+	if errBurn != nil {
+		return errBurn
 	}
 
 	k.RemoveBearNames(ctx, bear.Name)

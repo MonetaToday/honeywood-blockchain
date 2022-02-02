@@ -115,21 +115,26 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
-	priceDecoration := k.PriceDecorationFlowers(ctx)
+	priceDecoration := sdk.NewCoins(k.PriceDecorationFlowers(ctx))
 	switch decorationType {
 	case types.Decorations_FLAG.String():
-		priceDecoration = k.PriceDecorationFlag(ctx)
+		priceDecoration = sdk.NewCoins(k.PriceDecorationFlag(ctx))
 	case types.Decorations_LAMP.String():
-		priceDecoration = k.PriceDecorationLamp(ctx)
+		priceDecoration = sdk.NewCoins(k.PriceDecorationLamp(ctx))
 	case types.Decorations_GREEN_BEE.String():
-		priceDecoration = k.PriceDecorationGreenBee(ctx)
+		priceDecoration = sdk.NewCoins(k.PriceDecorationGreenBee(ctx))
 	case types.Decorations_FOUNTAIN.String():
-		priceDecoration = k.PriceDecorationFountain(ctx)
+		priceDecoration = sdk.NewCoins(k.PriceDecorationFountain(ctx))
 	}
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, sdk.NewCoins(priceDecoration))
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceDecoration)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceDecoration)
+	if errBurn != nil {
+		return nil, errBurn
 	}
 
 	newDecoration := types.Decorations{
