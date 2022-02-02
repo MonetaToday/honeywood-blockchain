@@ -100,6 +100,7 @@ export declare type BearsMsgInitGameAndSetNameResponse = object;
 export declare type BearsMsgMoveItemOnFieldResponse = object;
 export declare type BearsMsgSetDecorationPositionResponse = object;
 export declare type BearsMsgSetNameResponse = object;
+export declare type BearsMsgUnsetDecorationPositionResponse = object;
 /**
  * Params defines the parameters for the module.
  */

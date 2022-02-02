@@ -19,6 +19,7 @@ service Msg {
   rpc InitGameAndCreateDecoration(MsgInitGameAndCreateDecoration) returns (MsgInitGameAndCreateDecorationResponse);
   rpc CreateDecoration(MsgCreateDecoration) returns (MsgCreateDecorationResponse);
   rpc SetDecorationPosition(MsgSetDecorationPosition) returns (MsgSetDecorationPositionResponse);
+  rpc UnsetDecorationPosition(MsgUnsetDecorationPosition) returns (MsgUnsetDecorationPositionResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -118,6 +119,14 @@ message MsgSetDecorationPosition {
 }
 
 message MsgSetDecorationPositionResponse {
+}
+
+message MsgUnsetDecorationPosition {
+  string creator = 1;
+  uint64 decorationId = 2;
+}
+
+message MsgUnsetDecorationPositionResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

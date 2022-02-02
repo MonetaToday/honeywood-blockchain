@@ -139,6 +139,8 @@ export type BearsMsgSetDecorationPositionResponse = object;
 
 export type BearsMsgSetNameResponse = object;
 
+export type BearsMsgUnsetDecorationPositionResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

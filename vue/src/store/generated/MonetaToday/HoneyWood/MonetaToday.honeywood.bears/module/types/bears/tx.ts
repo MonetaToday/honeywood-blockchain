@@ -100,6 +100,13 @@ export interface MsgSetDecorationPosition {
 
 export interface MsgSetDecorationPositionResponse {}
 
+export interface MsgUnsetDecorationPosition {
+  creator: string;
+  decorationId: number;
+}
+
+export interface MsgUnsetDecorationPositionResponse {}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -1720,6 +1727,145 @@ export const MsgSetDecorationPositionResponse = {
   },
 };
 
+const baseMsgUnsetDecorationPosition: object = { creator: "", decorationId: 0 };
+
+export const MsgUnsetDecorationPosition = {
+  encode(
+    message: MsgUnsetDecorationPosition,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.decorationId !== 0) {
+      writer.uint32(16).uint64(message.decorationId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUnsetDecorationPosition {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUnsetDecorationPosition,
+    } as MsgUnsetDecorationPosition;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.decorationId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUnsetDecorationPosition {
+    const message = {
+      ...baseMsgUnsetDecorationPosition,
+    } as MsgUnsetDecorationPosition;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationId !== undefined && object.decorationId !== null) {
+      message.decorationId = Number(object.decorationId);
+    } else {
+      message.decorationId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUnsetDecorationPosition): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.decorationId !== undefined &&
+      (obj.decorationId = message.decorationId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgUnsetDecorationPosition>
+  ): MsgUnsetDecorationPosition {
+    const message = {
+      ...baseMsgUnsetDecorationPosition,
+    } as MsgUnsetDecorationPosition;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationId !== undefined && object.decorationId !== null) {
+      message.decorationId = object.decorationId;
+    } else {
+      message.decorationId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgUnsetDecorationPositionResponse: object = {};
+
+export const MsgUnsetDecorationPositionResponse = {
+  encode(
+    _: MsgUnsetDecorationPositionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUnsetDecorationPositionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUnsetDecorationPositionResponse,
+    } as MsgUnsetDecorationPositionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUnsetDecorationPositionResponse {
+    const message = {
+      ...baseMsgUnsetDecorationPositionResponse,
+    } as MsgUnsetDecorationPositionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUnsetDecorationPositionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUnsetDecorationPositionResponse>
+  ): MsgUnsetDecorationPositionResponse {
+    const message = {
+      ...baseMsgUnsetDecorationPositionResponse,
+    } as MsgUnsetDecorationPositionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -1743,10 +1889,13 @@ export interface Msg {
   CreateDecoration(
     request: MsgCreateDecoration
   ): Promise<MsgCreateDecorationResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   SetDecorationPosition(
     request: MsgSetDecorationPosition
   ): Promise<MsgSetDecorationPositionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  UnsetDecorationPosition(
+    request: MsgUnsetDecorationPosition
+  ): Promise<MsgUnsetDecorationPositionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1883,6 +2032,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgSetDecorationPositionResponse.decode(new Reader(data))
+    );
+  }
+
+  UnsetDecorationPosition(
+    request: MsgUnsetDecorationPosition
+  ): Promise<MsgUnsetDecorationPositionResponse> {
+    const data = MsgUnsetDecorationPosition.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "UnsetDecorationPosition",
+      data
+    );
+    return promise.then((data) =>
+      MsgUnsetDecorationPositionResponse.decode(new Reader(data))
     );
   }
 }

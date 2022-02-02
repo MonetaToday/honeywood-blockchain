@@ -80,6 +80,12 @@ export interface MsgSetDecorationPosition {
 }
 export interface MsgSetDecorationPositionResponse {
 }
+export interface MsgUnsetDecorationPosition {
+    creator: string;
+    decorationId: number;
+}
+export interface MsgUnsetDecorationPositionResponse {
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -220,6 +226,20 @@ export declare const MsgSetDecorationPositionResponse: {
     toJSON(_: MsgSetDecorationPositionResponse): unknown;
     fromPartial(_: DeepPartial<MsgSetDecorationPositionResponse>): MsgSetDecorationPositionResponse;
 };
+export declare const MsgUnsetDecorationPosition: {
+    encode(message: MsgUnsetDecorationPosition, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnsetDecorationPosition;
+    fromJSON(object: any): MsgUnsetDecorationPosition;
+    toJSON(message: MsgUnsetDecorationPosition): unknown;
+    fromPartial(object: DeepPartial<MsgUnsetDecorationPosition>): MsgUnsetDecorationPosition;
+};
+export declare const MsgUnsetDecorationPositionResponse: {
+    encode(_: MsgUnsetDecorationPositionResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnsetDecorationPositionResponse;
+    fromJSON(_: any): MsgUnsetDecorationPositionResponse;
+    toJSON(_: MsgUnsetDecorationPositionResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUnsetDecorationPositionResponse>): MsgUnsetDecorationPositionResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
@@ -231,8 +251,9 @@ export interface Msg {
     MoveItemOnField(request: MsgMoveItemOnField): Promise<MsgMoveItemOnFieldResponse>;
     InitGameAndCreateDecoration(request: MsgInitGameAndCreateDecoration): Promise<MsgInitGameAndCreateDecorationResponse>;
     CreateDecoration(request: MsgCreateDecoration): Promise<MsgCreateDecorationResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     SetDecorationPosition(request: MsgSetDecorationPosition): Promise<MsgSetDecorationPositionResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -247,6 +268,7 @@ export declare class MsgClientImpl implements Msg {
     InitGameAndCreateDecoration(request: MsgInitGameAndCreateDecoration): Promise<MsgInitGameAndCreateDecorationResponse>;
     CreateDecoration(request: MsgCreateDecoration): Promise<MsgCreateDecorationResponse>;
     SetDecorationPosition(request: MsgSetDecorationPosition): Promise<MsgSetDecorationPositionResponse>;
+    UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -64,6 +64,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetDecorationPosition int = 100
 
+	opWeightMsgUnsetDecorationPosition = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUnsetDecorationPosition int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -221,6 +225,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetDecorationPosition,
 		bearssimulation.SimulateMsgSetDecorationPosition(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUnsetDecorationPosition int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUnsetDecorationPosition, &weightMsgUnsetDecorationPosition, nil,
+		func(_ *rand.Rand) {
+			weightMsgUnsetDecorationPosition = defaultWeightMsgUnsetDecorationPosition
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUnsetDecorationPosition,
+		bearssimulation.SimulateMsgUnsetDecorationPosition(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

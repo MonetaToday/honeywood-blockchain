@@ -1471,6 +1471,121 @@ export const MsgSetDecorationPositionResponse = {
         return message;
     },
 };
+const baseMsgUnsetDecorationPosition = { creator: "", decorationId: 0 };
+export const MsgUnsetDecorationPosition = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.decorationId !== 0) {
+            writer.uint32(16).uint64(message.decorationId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUnsetDecorationPosition,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.decorationId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgUnsetDecorationPosition,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.decorationId !== undefined && object.decorationId !== null) {
+            message.decorationId = Number(object.decorationId);
+        }
+        else {
+            message.decorationId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.decorationId !== undefined &&
+            (obj.decorationId = message.decorationId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgUnsetDecorationPosition,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.decorationId !== undefined && object.decorationId !== null) {
+            message.decorationId = object.decorationId;
+        }
+        else {
+            message.decorationId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgUnsetDecorationPositionResponse = {};
+export const MsgUnsetDecorationPositionResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUnsetDecorationPositionResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUnsetDecorationPositionResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUnsetDecorationPositionResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1524,6 +1639,11 @@ export class MsgClientImpl {
         const data = MsgSetDecorationPosition.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "SetDecorationPosition", data);
         return promise.then((data) => MsgSetDecorationPositionResponse.decode(new Reader(data)));
+    }
+    UnsetDecorationPosition(request) {
+        const data = MsgUnsetDecorationPosition.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "UnsetDecorationPosition", data);
+        return promise.then((data) => MsgUnsetDecorationPositionResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

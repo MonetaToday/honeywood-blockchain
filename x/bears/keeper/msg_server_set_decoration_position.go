@@ -22,7 +22,7 @@ func (k msgServer) SetDecorationPosition(goCtx context.Context, msg *types.MsgSe
 	if decoration.Position != nil {
 		return nil, types.ErrDecorationHasPosition
 	}
-	
+
 	hasRights := k.Keeper.HasRightsToBear(ctx, msg.Creator, decoration.BearId)
 	if !hasRights {
 		return nil, types.ErrAddressHasNoRights
