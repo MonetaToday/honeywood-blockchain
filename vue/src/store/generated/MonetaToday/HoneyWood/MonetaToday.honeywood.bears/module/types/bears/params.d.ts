@@ -13,6 +13,9 @@ export interface Params {
     priceDecorationLamp: Coin[];
     priceDecorationGreenBee: Coin[];
     priceDecorationFountain: Coin[];
+    priceApiaryBeeHouse: Coin[];
+    priceApiaryApiary: Coin[];
+    priceApiaryAlveary: Coin[];
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

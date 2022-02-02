@@ -16,6 +16,9 @@ export interface Params {
   priceDecorationLamp: Coin[];
   priceDecorationGreenBee: Coin[];
   priceDecorationFountain: Coin[];
+  priceApiaryBeeHouse: Coin[];
+  priceApiaryApiary: Coin[];
+  priceApiaryAlveary: Coin[];
 }
 
 const baseParams: object = { burnRate: "" };
@@ -52,6 +55,15 @@ export const Params = {
     for (const v of message.priceDecorationFountain) {
       Coin.encode(v!, writer.uint32(82).fork()).ldelim();
     }
+    for (const v of message.priceApiaryBeeHouse) {
+      Coin.encode(v!, writer.uint32(90).fork()).ldelim();
+    }
+    for (const v of message.priceApiaryApiary) {
+      Coin.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
+    for (const v of message.priceApiaryAlveary) {
+      Coin.encode(v!, writer.uint32(106).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -68,6 +80,9 @@ export const Params = {
     message.priceDecorationLamp = [];
     message.priceDecorationGreenBee = [];
     message.priceDecorationFountain = [];
+    message.priceApiaryBeeHouse = [];
+    message.priceApiaryApiary = [];
+    message.priceApiaryAlveary = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -111,6 +126,17 @@ export const Params = {
             Coin.decode(reader, reader.uint32())
           );
           break;
+        case 11:
+          message.priceApiaryBeeHouse.push(
+            Coin.decode(reader, reader.uint32())
+          );
+          break;
+        case 12:
+          message.priceApiaryApiary.push(Coin.decode(reader, reader.uint32()));
+          break;
+        case 13:
+          message.priceApiaryAlveary.push(Coin.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -130,6 +156,9 @@ export const Params = {
     message.priceDecorationLamp = [];
     message.priceDecorationGreenBee = [];
     message.priceDecorationFountain = [];
+    message.priceApiaryBeeHouse = [];
+    message.priceApiaryApiary = [];
+    message.priceApiaryAlveary = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = String(object.burnRate);
     } else {
@@ -193,6 +222,30 @@ export const Params = {
     ) {
       for (const e of object.priceDecorationFountain) {
         message.priceDecorationFountain.push(Coin.fromJSON(e));
+      }
+    }
+    if (
+      object.priceApiaryBeeHouse !== undefined &&
+      object.priceApiaryBeeHouse !== null
+    ) {
+      for (const e of object.priceApiaryBeeHouse) {
+        message.priceApiaryBeeHouse.push(Coin.fromJSON(e));
+      }
+    }
+    if (
+      object.priceApiaryApiary !== undefined &&
+      object.priceApiaryApiary !== null
+    ) {
+      for (const e of object.priceApiaryApiary) {
+        message.priceApiaryApiary.push(Coin.fromJSON(e));
+      }
+    }
+    if (
+      object.priceApiaryAlveary !== undefined &&
+      object.priceApiaryAlveary !== null
+    ) {
+      for (const e of object.priceApiaryAlveary) {
+        message.priceApiaryAlveary.push(Coin.fromJSON(e));
       }
     }
     return message;
@@ -264,6 +317,27 @@ export const Params = {
     } else {
       obj.priceDecorationFountain = [];
     }
+    if (message.priceApiaryBeeHouse) {
+      obj.priceApiaryBeeHouse = message.priceApiaryBeeHouse.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceApiaryBeeHouse = [];
+    }
+    if (message.priceApiaryApiary) {
+      obj.priceApiaryApiary = message.priceApiaryApiary.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceApiaryApiary = [];
+    }
+    if (message.priceApiaryAlveary) {
+      obj.priceApiaryAlveary = message.priceApiaryAlveary.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.priceApiaryAlveary = [];
+    }
     return obj;
   },
 
@@ -278,6 +352,9 @@ export const Params = {
     message.priceDecorationLamp = [];
     message.priceDecorationGreenBee = [];
     message.priceDecorationFountain = [];
+    message.priceApiaryBeeHouse = [];
+    message.priceApiaryApiary = [];
+    message.priceApiaryAlveary = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = object.burnRate;
     } else {
@@ -341,6 +418,30 @@ export const Params = {
     ) {
       for (const e of object.priceDecorationFountain) {
         message.priceDecorationFountain.push(Coin.fromPartial(e));
+      }
+    }
+    if (
+      object.priceApiaryBeeHouse !== undefined &&
+      object.priceApiaryBeeHouse !== null
+    ) {
+      for (const e of object.priceApiaryBeeHouse) {
+        message.priceApiaryBeeHouse.push(Coin.fromPartial(e));
+      }
+    }
+    if (
+      object.priceApiaryApiary !== undefined &&
+      object.priceApiaryApiary !== null
+    ) {
+      for (const e of object.priceApiaryApiary) {
+        message.priceApiaryApiary.push(Coin.fromPartial(e));
+      }
+    }
+    if (
+      object.priceApiaryAlveary !== undefined &&
+      object.priceApiaryAlveary !== null
+    ) {
+      for (const e of object.priceApiaryAlveary) {
+        message.priceApiaryAlveary.push(Coin.fromPartial(e));
       }
     }
     return message;

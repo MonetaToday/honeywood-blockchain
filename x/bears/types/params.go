@@ -40,6 +40,15 @@ var (
 
 	KeyPriceDecorationFountain               = []byte("PriceDecorationFountain")
 	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
+
+	KeyPriceApiaryBeeHouse               = []byte("PriceApiaryBeeHouse")
+	DefaultPriceApiaryBeeHouse sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500)))
+
+	KeyPriceApiaryApiary               = []byte("PriceApiaryApiary")
+	DefaultPriceApiaryApiary sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(900)))
+
+	KeyPriceApiaryAlveary               = []byte("PriceApiaryAlveary")
+	DefaultPriceApiaryAlveary sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1500)))
 )
 
 // NewParams creates a new Params instance
@@ -54,6 +63,9 @@ func NewParams(
 	priceDecorationLamp sdk.Coins,
 	priceDecorationGreenBee sdk.Coins,
 	priceDecorationFountain sdk.Coins,
+	priceApiaryBeeHouse sdk.Coins,
+	priceApiaryApiary sdk.Coins,
+	priceApiaryAlveary sdk.Coins,
 ) Params {
 	return Params{
 		BurnRate:                burnRate,
@@ -66,6 +78,9 @@ func NewParams(
 		PriceDecorationLamp:     priceDecorationLamp,
 		PriceDecorationGreenBee: priceDecorationGreenBee,
 		PriceDecorationFountain: priceDecorationFountain,
+		PriceApiaryBeeHouse:     priceApiaryBeeHouse,
+		PriceApiaryApiary:       priceApiaryApiary,
+		PriceApiaryAlveary:      priceApiaryAlveary,
 	}
 }
 
@@ -82,6 +97,9 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryBeeHouse, &p.PriceApiaryBeeHouse, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryApiary, &p.PriceApiaryApiary, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryAlveary, &p.PriceApiaryAlveary, validateCoins),
 	}
 }
 
@@ -127,6 +145,18 @@ func (p Params) Validate() error {
 		return err
 	}
 
+	if err := validateCoins(p.PriceApiaryBeeHouse); err != nil {
+		return err
+	}
+
+	if err := validateCoins(p.PriceApiaryApiary); err != nil {
+		return err
+	}
+
+	if err := validateCoins(p.PriceApiaryAlveary); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -143,6 +173,9 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryBeeHouse, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryApiary, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyPriceApiaryAlveary, sdk.Coins{}, validateCoins),
 	)
 }
 
@@ -159,6 +192,9 @@ func DefaultParams() Params {
 		DefaultPriceDecorationLamp,
 		DefaultPriceDecorationGreenBee,
 		DefaultPriceDecorationFountain,
+		DefaultPriceApiaryBeeHouse,
+		DefaultPriceApiaryApiary,
+		DefaultPriceApiaryAlveary,
 	)
 }
 

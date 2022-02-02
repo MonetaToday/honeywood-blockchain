@@ -18,6 +18,9 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.PriceDecorationLamp(ctx),
 		k.PriceDecorationGreenBee(ctx),
 		k.PriceDecorationFountain(ctx),
+		k.PriceApiaryBeeHouse(ctx),
+		k.PriceApiaryApiary(ctx),
+		k.PriceApiaryAlveary(ctx),
 	)
 }
 
@@ -83,5 +86,23 @@ func (k Keeper) PriceDecorationGreenBee(ctx sdk.Context) (res sdk.Coins) {
 // PriceDecorationFountain returns the PriceDecorationFountain param
 func (k Keeper) PriceDecorationFountain(ctx sdk.Context) (res sdk.Coins) {
 	k.paramstore.Get(ctx, types.KeyPriceDecorationFountain, &res)
+	return
+}
+
+// PriceApiaryBeeHouse returns the PriceApiaryBeeHouse param
+func (k Keeper) PriceApiaryBeeHouse(ctx sdk.Context) (res sdk.Coins) {
+	k.paramstore.Get(ctx, types.KeyPriceApiaryBeeHouse, &res)
+	return
+}
+
+// PriceApiaryApiary returns the PriceApiaryApiary param
+func (k Keeper) PriceApiaryApiary(ctx sdk.Context) (res sdk.Coins) {
+	k.paramstore.Get(ctx, types.KeyPriceApiaryApiary, &res)
+	return
+}
+
+// PriceApiaryAlveary returns the PriceApiaryAlveary param
+func (k Keeper) PriceApiaryAlveary(ctx sdk.Context) (res sdk.Coins) {
+	k.paramstore.Get(ctx, types.KeyPriceApiaryAlveary, &res)
 	return
 }

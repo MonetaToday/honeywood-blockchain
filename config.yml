@@ -62,3 +62,12 @@ genesis:
         price_decoration_fountain: 
           - denom: "honey"
             amount: "1000"
+        price_apiary_bee_house: 
+          - denom: "honey"
+            amount: "500"
+        price_apiary_apiary: 
+          - denom: "honey"
+            amount: "900"
+        price_apiary_alveary: 
+          - denom: "honey"
+            amount: "1500"

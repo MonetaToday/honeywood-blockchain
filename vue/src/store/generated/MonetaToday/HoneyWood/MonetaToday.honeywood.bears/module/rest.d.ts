@@ -129,6 +129,9 @@ export interface BearsParams {
     priceDecorationLamp?: V1Beta1Coin[];
     priceDecorationGreenBee?: V1Beta1Coin[];
     priceDecorationFountain?: V1Beta1Coin[];
+    priceApiaryBeeHouse?: V1Beta1Coin[];
+    priceApiaryApiary?: V1Beta1Coin[];
+    priceApiaryAlveary?: V1Beta1Coin[];
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];
