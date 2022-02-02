@@ -72,6 +72,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgInitGameAndCreateApiary int = 100
 
+	opWeightMsgCreateApiary = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateApiary int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -251,6 +255,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgInitGameAndCreateApiary,
 		bearssimulation.SimulateMsgInitGameAndCreateApiary(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateApiary int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateApiary, &weightMsgCreateApiary, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateApiary = defaultWeightMsgCreateApiary
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateApiary,
+		bearssimulation.SimulateMsgCreateApiary(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

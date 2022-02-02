@@ -1723,6 +1723,219 @@ export const MsgInitGameAndCreateApiaryResponse = {
         return message;
     },
 };
+const baseMsgCreateApiary = {
+    creator: "",
+    bearId: 0,
+    fieldId: 0,
+    rowId: 0,
+    columnId: 0,
+    apiaryType: "",
+};
+export const MsgCreateApiary = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.bearId !== 0) {
+            writer.uint32(16).uint64(message.bearId);
+        }
+        if (message.fieldId !== 0) {
+            writer.uint32(24).uint64(message.fieldId);
+        }
+        if (message.rowId !== 0) {
+            writer.uint32(32).uint64(message.rowId);
+        }
+        if (message.columnId !== 0) {
+            writer.uint32(40).uint64(message.columnId);
+        }
+        if (message.apiaryType !== "") {
+            writer.uint32(50).string(message.apiaryType);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateApiary };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.fieldId = longToNumber(reader.uint64());
+                    break;
+                case 4:
+                    message.rowId = longToNumber(reader.uint64());
+                    break;
+                case 5:
+                    message.columnId = longToNumber(reader.uint64());
+                    break;
+                case 6:
+                    message.apiaryType = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateApiary };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = Number(object.fieldId);
+        }
+        else {
+            message.fieldId = 0;
+        }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = Number(object.rowId);
+        }
+        else {
+            message.rowId = 0;
+        }
+        if (object.columnId !== undefined && object.columnId !== null) {
+            message.columnId = Number(object.columnId);
+        }
+        else {
+            message.columnId = 0;
+        }
+        if (object.apiaryType !== undefined && object.apiaryType !== null) {
+            message.apiaryType = String(object.apiaryType);
+        }
+        else {
+            message.apiaryType = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        message.fieldId !== undefined && (obj.fieldId = message.fieldId);
+        message.rowId !== undefined && (obj.rowId = message.rowId);
+        message.columnId !== undefined && (obj.columnId = message.columnId);
+        message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateApiary };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.fieldId !== undefined && object.fieldId !== null) {
+            message.fieldId = object.fieldId;
+        }
+        else {
+            message.fieldId = 0;
+        }
+        if (object.rowId !== undefined && object.rowId !== null) {
+            message.rowId = object.rowId;
+        }
+        else {
+            message.rowId = 0;
+        }
+        if (object.columnId !== undefined && object.columnId !== null) {
+            message.columnId = object.columnId;
+        }
+        else {
+            message.columnId = 0;
+        }
+        if (object.apiaryType !== undefined && object.apiaryType !== null) {
+            message.apiaryType = object.apiaryType;
+        }
+        else {
+            message.apiaryType = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateApiaryResponse = {};
+export const MsgCreateApiaryResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.apiary !== undefined) {
+            Apiaries.encode(message.apiary, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCreateApiaryResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apiary = Apiaries.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCreateApiaryResponse,
+        };
+        if (object.apiary !== undefined && object.apiary !== null) {
+            message.apiary = Apiaries.fromJSON(object.apiary);
+        }
+        else {
+            message.apiary = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.apiary !== undefined &&
+            (obj.apiary = message.apiary
+                ? Apiaries.toJSON(message.apiary)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCreateApiaryResponse,
+        };
+        if (object.apiary !== undefined && object.apiary !== null) {
+            message.apiary = Apiaries.fromPartial(object.apiary);
+        }
+        else {
+            message.apiary = undefined;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1786,6 +1999,11 @@ export class MsgClientImpl {
         const data = MsgInitGameAndCreateApiary.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateApiary", data);
         return promise.then((data) => MsgInitGameAndCreateApiaryResponse.decode(new Reader(data)));
+    }
+    CreateApiary(request) {
+        const data = MsgCreateApiary.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateApiary", data);
+        return promise.then((data) => MsgCreateApiaryResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

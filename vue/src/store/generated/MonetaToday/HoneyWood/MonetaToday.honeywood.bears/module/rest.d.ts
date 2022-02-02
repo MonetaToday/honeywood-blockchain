@@ -87,6 +87,9 @@ export interface BearsItemPosition {
     /** @format uint64 */
     columnId?: string;
 }
+export interface BearsMsgCreateApiaryResponse {
+    apiary?: BearsApiaries;
+}
 export interface BearsMsgCreateDecorationResponse {
     decoration?: BearsDecorations;
 }

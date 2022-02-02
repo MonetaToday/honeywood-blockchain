@@ -117,6 +117,10 @@ export interface BearsItemPosition {
   columnId?: string;
 }
 
+export interface BearsMsgCreateApiaryResponse {
+  apiary?: BearsApiaries;
+}
+
 export interface BearsMsgCreateDecorationResponse {
   decoration?: BearsDecorations;
 }

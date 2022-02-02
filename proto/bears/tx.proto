@@ -22,6 +22,7 @@ service Msg {
   rpc SetDecorationPosition(MsgSetDecorationPosition) returns (MsgSetDecorationPositionResponse);
   rpc UnsetDecorationPosition(MsgUnsetDecorationPosition) returns (MsgUnsetDecorationPositionResponse);
   rpc InitGameAndCreateApiary(MsgInitGameAndCreateApiary) returns (MsgInitGameAndCreateApiaryResponse);
+  rpc CreateApiary(MsgCreateApiary) returns (MsgCreateApiaryResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -137,6 +138,19 @@ message MsgInitGameAndCreateApiary {
 }
 
 message MsgInitGameAndCreateApiaryResponse {
+  Apiaries apiary = 1;
+}
+
+message MsgCreateApiary {
+  string creator = 1;
+  uint64 bearId = 2;
+  uint64 fieldId = 3;
+  uint64 rowId = 4;
+  uint64 columnId = 5;
+  string apiaryType = 6;
+}
+
+message MsgCreateApiaryResponse {
   Apiaries apiary = 1;
 }
 

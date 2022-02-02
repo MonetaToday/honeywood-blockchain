@@ -94,6 +94,17 @@ export interface MsgInitGameAndCreateApiary {
 export interface MsgInitGameAndCreateApiaryResponse {
     apiary: Apiaries | undefined;
 }
+export interface MsgCreateApiary {
+    creator: string;
+    bearId: number;
+    fieldId: number;
+    rowId: number;
+    columnId: number;
+    apiaryType: string;
+}
+export interface MsgCreateApiaryResponse {
+    apiary: Apiaries | undefined;
+}
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndSetName;
@@ -262,6 +273,20 @@ export declare const MsgInitGameAndCreateApiaryResponse: {
     toJSON(message: MsgInitGameAndCreateApiaryResponse): unknown;
     fromPartial(object: DeepPartial<MsgInitGameAndCreateApiaryResponse>): MsgInitGameAndCreateApiaryResponse;
 };
+export declare const MsgCreateApiary: {
+    encode(message: MsgCreateApiary, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateApiary;
+    fromJSON(object: any): MsgCreateApiary;
+    toJSON(message: MsgCreateApiary): unknown;
+    fromPartial(object: DeepPartial<MsgCreateApiary>): MsgCreateApiary;
+};
+export declare const MsgCreateApiaryResponse: {
+    encode(message: MsgCreateApiaryResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateApiaryResponse;
+    fromJSON(object: any): MsgCreateApiaryResponse;
+    toJSON(message: MsgCreateApiaryResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateApiaryResponse>): MsgCreateApiaryResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
@@ -275,8 +300,9 @@ export interface Msg {
     CreateDecoration(request: MsgCreateDecoration): Promise<MsgCreateDecorationResponse>;
     SetDecorationPosition(request: MsgSetDecorationPosition): Promise<MsgSetDecorationPositionResponse>;
     UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     InitGameAndCreateApiary(request: MsgInitGameAndCreateApiary): Promise<MsgInitGameAndCreateApiaryResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateApiary(request: MsgCreateApiary): Promise<MsgCreateApiaryResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -293,6 +319,7 @@ export declare class MsgClientImpl implements Msg {
     SetDecorationPosition(request: MsgSetDecorationPosition): Promise<MsgSetDecorationPositionResponse>;
     UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
     InitGameAndCreateApiary(request: MsgInitGameAndCreateApiary): Promise<MsgInitGameAndCreateApiaryResponse>;
+    CreateApiary(request: MsgCreateApiary): Promise<MsgCreateApiaryResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
