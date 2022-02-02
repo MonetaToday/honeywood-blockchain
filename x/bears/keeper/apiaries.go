@@ -128,14 +128,19 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	// TODO
-	priceTree := k.PriceTree(ctx)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceTree)
+	priceApiary := k.PriceApiaryBeeHouse(ctx)
+	switch apiaryType {
+	case types.Apiaries_APIARY.String():
+		priceApiary = k.PriceApiaryApiary(ctx)
+	case types.Apiaries_ALVEARY.String():
+		priceApiary = k.PriceApiaryAlveary(ctx)
+	}
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceApiary)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceTree)
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceApiary)
 	if errBurn != nil {
 		return nil, errBurn
 	}
