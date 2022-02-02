@@ -22,4 +22,5 @@ var (
 	ErrItemTypeIsNotDefined     = sdkerrors.Register(ModuleName, 13, "Item Type is not defined")
 	ErrTreeIsNotExisted         = sdkerrors.Register(ModuleName, 14, "Tree is not existed")
 	ErrDecorationIsNotExisted   = sdkerrors.Register(ModuleName, 15, "Decoration is not existed")
+	ErrDecorationHasPosition    = sdkerrors.Register(ModuleName, 16, "Decoration already has a position")
 )

@@ -135,6 +135,8 @@ export type BearsMsgInitGameAndSetNameResponse = object;
 
 export type BearsMsgMoveItemOnFieldResponse = object;
 
+export type BearsMsgSetDecorationPositionResponse = object;
+
 export type BearsMsgSetNameResponse = object;
 
 /**

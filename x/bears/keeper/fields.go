@@ -157,7 +157,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	return &field.CountTiles, nil
 }
 
-// GetBears returns a bears from its id
+// Check rights
 func (k Keeper) HasRightsToField(ctx sdk.Context, address string, field types.Fields) bool {
 	if field.BearOwner == nil {
 		return true
@@ -171,7 +171,7 @@ func (k Keeper) HasRightsToField(ctx sdk.Context, address string, field types.Fi
 	return true
 }
 
-// GetBears returns a bears from its id
+// Check if tile is empty
 func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, rowId uint64, columnId uint64) (bool, error) {
 	if len(field.Rows) <= int(rowId) {
 		return false, types.ErrFieldHasNoRowId

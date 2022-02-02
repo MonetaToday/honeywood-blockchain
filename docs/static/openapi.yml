@@ -21641,6 +21641,8 @@ definitions:
     type: object
   MonetaToday.honeywood.bears.MsgMoveItemOnFieldResponse:
     type: object
+  MonetaToday.honeywood.bears.MsgSetDecorationPositionResponse:
+    type: object
   MonetaToday.honeywood.bears.MsgSetNameResponse:
     type: object
   MonetaToday.honeywood.bears.Params:

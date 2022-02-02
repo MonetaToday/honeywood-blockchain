@@ -90,6 +90,16 @@ export interface MsgCreateDecorationResponse {
   decoration: Decorations | undefined;
 }
 
+export interface MsgSetDecorationPosition {
+  creator: string;
+  decorationId: number;
+  fieldId: number;
+  rowId: number;
+  columnId: number;
+}
+
+export interface MsgSetDecorationPositionResponse {}
+
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
 export const MsgInitGameAndSetName = {
@@ -1514,6 +1524,202 @@ export const MsgCreateDecorationResponse = {
   },
 };
 
+const baseMsgSetDecorationPosition: object = {
+  creator: "",
+  decorationId: 0,
+  fieldId: 0,
+  rowId: 0,
+  columnId: 0,
+};
+
+export const MsgSetDecorationPosition = {
+  encode(
+    message: MsgSetDecorationPosition,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.decorationId !== 0) {
+      writer.uint32(16).uint64(message.decorationId);
+    }
+    if (message.fieldId !== 0) {
+      writer.uint32(24).uint64(message.fieldId);
+    }
+    if (message.rowId !== 0) {
+      writer.uint32(32).uint64(message.rowId);
+    }
+    if (message.columnId !== 0) {
+      writer.uint32(40).uint64(message.columnId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSetDecorationPosition {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSetDecorationPosition,
+    } as MsgSetDecorationPosition;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.decorationId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.fieldId = longToNumber(reader.uint64() as Long);
+          break;
+        case 4:
+          message.rowId = longToNumber(reader.uint64() as Long);
+          break;
+        case 5:
+          message.columnId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSetDecorationPosition {
+    const message = {
+      ...baseMsgSetDecorationPosition,
+    } as MsgSetDecorationPosition;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationId !== undefined && object.decorationId !== null) {
+      message.decorationId = Number(object.decorationId);
+    } else {
+      message.decorationId = 0;
+    }
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = Number(object.fieldId);
+    } else {
+      message.fieldId = 0;
+    }
+    if (object.rowId !== undefined && object.rowId !== null) {
+      message.rowId = Number(object.rowId);
+    } else {
+      message.rowId = 0;
+    }
+    if (object.columnId !== undefined && object.columnId !== null) {
+      message.columnId = Number(object.columnId);
+    } else {
+      message.columnId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSetDecorationPosition): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.decorationId !== undefined &&
+      (obj.decorationId = message.decorationId);
+    message.fieldId !== undefined && (obj.fieldId = message.fieldId);
+    message.rowId !== undefined && (obj.rowId = message.rowId);
+    message.columnId !== undefined && (obj.columnId = message.columnId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgSetDecorationPosition>
+  ): MsgSetDecorationPosition {
+    const message = {
+      ...baseMsgSetDecorationPosition,
+    } as MsgSetDecorationPosition;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.decorationId !== undefined && object.decorationId !== null) {
+      message.decorationId = object.decorationId;
+    } else {
+      message.decorationId = 0;
+    }
+    if (object.fieldId !== undefined && object.fieldId !== null) {
+      message.fieldId = object.fieldId;
+    } else {
+      message.fieldId = 0;
+    }
+    if (object.rowId !== undefined && object.rowId !== null) {
+      message.rowId = object.rowId;
+    } else {
+      message.rowId = 0;
+    }
+    if (object.columnId !== undefined && object.columnId !== null) {
+      message.columnId = object.columnId;
+    } else {
+      message.columnId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgSetDecorationPositionResponse: object = {};
+
+export const MsgSetDecorationPositionResponse = {
+  encode(
+    _: MsgSetDecorationPositionResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSetDecorationPositionResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSetDecorationPositionResponse,
+    } as MsgSetDecorationPositionResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSetDecorationPositionResponse {
+    const message = {
+      ...baseMsgSetDecorationPositionResponse,
+    } as MsgSetDecorationPositionResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSetDecorationPositionResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSetDecorationPositionResponse>
+  ): MsgSetDecorationPositionResponse {
+    const message = {
+      ...baseMsgSetDecorationPositionResponse,
+    } as MsgSetDecorationPositionResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -1534,10 +1740,13 @@ export interface Msg {
   InitGameAndCreateDecoration(
     request: MsgInitGameAndCreateDecoration
   ): Promise<MsgInitGameAndCreateDecorationResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateDecoration(
     request: MsgCreateDecoration
   ): Promise<MsgCreateDecorationResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  SetDecorationPosition(
+    request: MsgSetDecorationPosition
+  ): Promise<MsgSetDecorationPositionResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1660,6 +1869,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateDecorationResponse.decode(new Reader(data))
+    );
+  }
+
+  SetDecorationPosition(
+    request: MsgSetDecorationPosition
+  ): Promise<MsgSetDecorationPositionResponse> {
+    const data = MsgSetDecorationPosition.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "SetDecorationPosition",
+      data
+    );
+    return promise.then((data) =>
+      MsgSetDecorationPositionResponse.decode(new Reader(data))
     );
   }
 }
