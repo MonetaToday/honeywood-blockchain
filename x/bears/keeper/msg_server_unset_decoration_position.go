@@ -9,7 +9,7 @@ import (
 
 func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.MsgUnsetDecorationPosition) (*types.MsgUnsetDecorationPositionResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	
+
 	decorationId := msg.DecorationId
 
 	decoration, decorationFound := k.Keeper.GetDecorations(ctx, decorationId)

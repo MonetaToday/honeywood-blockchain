@@ -135,6 +135,15 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				DecorationsCount: 2,
+				ApiariesList: []types.Apiaries{
+					{
+						Id: 0,
+					},
+					{
+						Id: 1,
+					},
+				},
+				ApiariesCount: 2,
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -326,6 +335,32 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				DecorationsCount: 0,
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated apiaries",
+			genState: &types.GenesisState{
+				ApiariesList: []types.Apiaries{
+					{
+						Id: 0,
+					},
+					{
+						Id: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "invalid apiaries count",
+			genState: &types.GenesisState{
+				ApiariesList: []types.Apiaries{
+					{
+						Id: 1,
+					},
+				},
+				ApiariesCount: 0,
 			},
 			valid: false,
 		},

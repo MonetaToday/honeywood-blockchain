@@ -1,3 +1,8 @@
+export declare enum ApiariesApiaryTypes {
+    BEE_HOUSE = "BEE_HOUSE",
+    APIARY = "APIARY",
+    ALVEARY = "ALVEARY"
+}
 export declare enum DecorationsDecorationTypes {
     FLOWERS = "FLOWERS",
     FLAG = "FLAG",
@@ -27,6 +32,14 @@ export declare enum TreesTreeTypes {
 export interface BearsAddressBears {
     address?: string;
     bears?: string[];
+}
+export interface BearsApiaries {
+    /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
+    bearId?: string;
+    apiaryType?: ApiariesApiaryTypes;
+    position?: BearsItemPosition;
 }
 export interface BearsBearNames {
     name?: string;
@@ -129,6 +142,19 @@ export interface BearsQueryAllAddressBearsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface BearsQueryAllApiariesResponse {
+    Apiaries?: BearsApiaries[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface BearsQueryAllBearNamesResponse {
     bearNames?: BearsBearNames[];
     /**
@@ -196,6 +222,9 @@ export interface BearsQueryAllTreesResponse {
 }
 export interface BearsQueryGetAddressBearsResponse {
     addressBears?: BearsAddressBears;
+}
+export interface BearsQueryGetApiariesResponse {
+    Apiaries?: BearsApiaries;
 }
 export interface BearsQueryGetBearNamesResponse {
     bearNames?: BearsBearNames;
@@ -387,6 +416,30 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/address_bears/{address}
      */
     queryAddressBears: (address: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetAddressBearsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryApiariesAll
+     * @summary Queries a list of Apiaries items.
+     * @request GET:/MonetaToday/honeywood/bears/apiaries
+     */
+    queryApiariesAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllApiariesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryApiaries
+     * @summary Queries a Apiaries by id.
+     * @request GET:/MonetaToday/honeywood/bears/apiaries/{id}
+     */
+    queryApiaries: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetApiariesResponse, RpcStatus>>;
     /**
      * No description
      *

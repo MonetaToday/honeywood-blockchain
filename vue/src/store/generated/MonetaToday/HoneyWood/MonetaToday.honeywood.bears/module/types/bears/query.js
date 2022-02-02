@@ -9,6 +9,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseQueryParamsRequest = {};
 export const QueryParamsRequest = {
@@ -1588,6 +1589,268 @@ export const QueryAllDecorationsResponse = {
         return message;
     },
 };
+const baseQueryGetApiariesRequest = { id: 0 };
+export const QueryGetApiariesRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetApiariesRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetApiariesRequest,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetApiariesRequest,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseQueryGetApiariesResponse = {};
+export const QueryGetApiariesResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Apiaries !== undefined) {
+            Apiaries.encode(message.Apiaries, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetApiariesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Apiaries = Apiaries.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetApiariesResponse,
+        };
+        if (object.Apiaries !== undefined && object.Apiaries !== null) {
+            message.Apiaries = Apiaries.fromJSON(object.Apiaries);
+        }
+        else {
+            message.Apiaries = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Apiaries !== undefined &&
+            (obj.Apiaries = message.Apiaries
+                ? Apiaries.toJSON(message.Apiaries)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetApiariesResponse,
+        };
+        if (object.Apiaries !== undefined && object.Apiaries !== null) {
+            message.Apiaries = Apiaries.fromPartial(object.Apiaries);
+        }
+        else {
+            message.Apiaries = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllApiariesRequest = {};
+export const QueryAllApiariesRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllApiariesRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllApiariesRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllApiariesRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllApiariesResponse = {};
+export const QueryAllApiariesResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Apiaries) {
+            Apiaries.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllApiariesResponse,
+        };
+        message.Apiaries = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Apiaries.push(Apiaries.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllApiariesResponse,
+        };
+        message.Apiaries = [];
+        if (object.Apiaries !== undefined && object.Apiaries !== null) {
+            for (const e of object.Apiaries) {
+                message.Apiaries.push(Apiaries.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Apiaries) {
+            obj.Apiaries = message.Apiaries.map((e) => e ? Apiaries.toJSON(e) : undefined);
+        }
+        else {
+            obj.Apiaries = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllApiariesResponse,
+        };
+        message.Apiaries = [];
+        if (object.Apiaries !== undefined && object.Apiaries !== null) {
+            for (const e of object.Apiaries) {
+                message.Apiaries.push(Apiaries.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1656,6 +1919,16 @@ export class QueryClientImpl {
         const data = QueryAllDecorationsRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "DecorationsAll", data);
         return promise.then((data) => QueryAllDecorationsResponse.decode(new Reader(data)));
+    }
+    Apiaries(request) {
+        const data = QueryGetApiariesRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "Apiaries", data);
+        return promise.then((data) => QueryGetApiariesResponse.decode(new Reader(data)));
+    }
+    ApiariesAll(request) {
+        const data = QueryAllApiariesRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ApiariesAll", data);
+        return promise.then((data) => QueryAllApiariesResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

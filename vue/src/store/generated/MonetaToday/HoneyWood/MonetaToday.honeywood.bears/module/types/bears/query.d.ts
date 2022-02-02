@@ -7,6 +7,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -92,6 +93,19 @@ export interface QueryAllDecorationsRequest {
 }
 export interface QueryAllDecorationsResponse {
     Decorations: Decorations[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetApiariesRequest {
+    id: number;
+}
+export interface QueryGetApiariesResponse {
+    Apiaries: Apiaries | undefined;
+}
+export interface QueryAllApiariesRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllApiariesResponse {
+    Apiaries: Apiaries[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryParamsRequest: {
@@ -276,6 +290,34 @@ export declare const QueryAllDecorationsResponse: {
     toJSON(message: QueryAllDecorationsResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllDecorationsResponse>): QueryAllDecorationsResponse;
 };
+export declare const QueryGetApiariesRequest: {
+    encode(message: QueryGetApiariesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetApiariesRequest;
+    fromJSON(object: any): QueryGetApiariesRequest;
+    toJSON(message: QueryGetApiariesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetApiariesRequest>): QueryGetApiariesRequest;
+};
+export declare const QueryGetApiariesResponse: {
+    encode(message: QueryGetApiariesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetApiariesResponse;
+    fromJSON(object: any): QueryGetApiariesResponse;
+    toJSON(message: QueryGetApiariesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetApiariesResponse>): QueryGetApiariesResponse;
+};
+export declare const QueryAllApiariesRequest: {
+    encode(message: QueryAllApiariesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllApiariesRequest;
+    fromJSON(object: any): QueryAllApiariesRequest;
+    toJSON(message: QueryAllApiariesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllApiariesRequest>): QueryAllApiariesRequest;
+};
+export declare const QueryAllApiariesResponse: {
+    encode(message: QueryAllApiariesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllApiariesResponse;
+    fromJSON(object: any): QueryAllApiariesResponse;
+    toJSON(message: QueryAllApiariesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllApiariesResponse>): QueryAllApiariesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -304,6 +346,10 @@ export interface Query {
     Decorations(request: QueryGetDecorationsRequest): Promise<QueryGetDecorationsResponse>;
     /** Queries a list of Decorations items. */
     DecorationsAll(request: QueryAllDecorationsRequest): Promise<QueryAllDecorationsResponse>;
+    /** Queries a Apiaries by id. */
+    Apiaries(request: QueryGetApiariesRequest): Promise<QueryGetApiariesResponse>;
+    /** Queries a list of Apiaries items. */
+    ApiariesAll(request: QueryAllApiariesRequest): Promise<QueryAllApiariesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -321,6 +367,8 @@ export declare class QueryClientImpl implements Query {
     TreesAll(request: QueryAllTreesRequest): Promise<QueryAllTreesResponse>;
     Decorations(request: QueryGetDecorationsRequest): Promise<QueryGetDecorationsResponse>;
     DecorationsAll(request: QueryAllDecorationsRequest): Promise<QueryAllDecorationsResponse>;
+    Apiaries(request: QueryGetApiariesRequest): Promise<QueryGetApiariesResponse>;
+    ApiariesAll(request: QueryAllApiariesRequest): Promise<QueryAllApiariesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

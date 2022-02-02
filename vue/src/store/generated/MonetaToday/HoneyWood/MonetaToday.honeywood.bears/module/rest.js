@@ -8,6 +8,12 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+export var ApiariesApiaryTypes;
+(function (ApiariesApiaryTypes) {
+    ApiariesApiaryTypes["BEE_HOUSE"] = "BEE_HOUSE";
+    ApiariesApiaryTypes["APIARY"] = "APIARY";
+    ApiariesApiaryTypes["ALVEARY"] = "ALVEARY";
+})(ApiariesApiaryTypes || (ApiariesApiaryTypes = {}));
 export var DecorationsDecorationTypes;
 (function (DecorationsDecorationTypes) {
     DecorationsDecorationTypes["FLOWERS"] = "FLOWERS";
@@ -186,6 +192,35 @@ export class Api extends HttpClient {
          */
         this.queryAddressBears = (address, params = {}) => this.request({
             path: `/MonetaToday/honeywood/bears/address_bears/${address}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryApiariesAll
+         * @summary Queries a list of Apiaries items.
+         * @request GET:/MonetaToday/honeywood/bears/apiaries
+         */
+        this.queryApiariesAll = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/apiaries`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryApiaries
+         * @summary Queries a Apiaries by id.
+         * @request GET:/MonetaToday/honeywood/bears/apiaries/{id}
+         */
+        this.queryApiaries = (id, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/apiaries/${id}`,
             method: "GET",
             format: "json",
             ...params,

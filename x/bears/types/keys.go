@@ -40,3 +40,8 @@ const (
 	DecorationsKey      = "Decorations-value-"
 	DecorationsCountKey = "Decorations-count-"
 )
+
+const (
+	ApiariesKey      = "Apiaries-value-"
+	ApiariesCountKey = "Apiaries-count-"
+)

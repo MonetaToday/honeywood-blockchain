@@ -13,32 +13,32 @@ var (
 	KeyBurnRate        = []byte("BurnRate")
 	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
 
-	KeyPriceSetName                = []byte("PriceSetName")
-	DefaultPriceSetName sdk.Coins  = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
-	MaxNameLength                  = 100
+	KeyPriceSetName               = []byte("PriceSetName")
+	DefaultPriceSetName sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
+	MaxNameLength                 = 100
 
-	KeyPriceTile              = []byte("PriceTile")
+	KeyPriceTile               = []byte("PriceTile")
 	DefaultPriceTile sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
-	KeyPriceTree              = []byte("PriceTree")
+	KeyPriceTree               = []byte("PriceTree")
 	DefaultPriceTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
-	KeyRewardTree              = []byte("RewardTree")
+	KeyRewardTree               = []byte("RewardTree")
 	DefaultRewardTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("cone", sdk.NewInt(100)))
 
-	KeyPriceDecorationFlowers              = []byte("PriceDecorationFlowers")
+	KeyPriceDecorationFlowers               = []byte("PriceDecorationFlowers")
 	DefaultPriceDecorationFlowers sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
-	KeyPriceDecorationFlag              = []byte("PriceDecorationFlag")
+	KeyPriceDecorationFlag               = []byte("PriceDecorationFlag")
 	DefaultPriceDecorationFlag sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(150)))
 
-	KeyPriceDecorationLamp              = []byte("PriceDecorationLamp")
+	KeyPriceDecorationLamp               = []byte("PriceDecorationLamp")
 	DefaultPriceDecorationLamp sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(200)))
 
-	KeyPriceDecorationGreenBee              = []byte("PriceDecorationGreenBee")
+	KeyPriceDecorationGreenBee               = []byte("PriceDecorationGreenBee")
 	DefaultPriceDecorationGreenBee sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500)))
 
-	KeyPriceDecorationFountain              = []byte("PriceDecorationFountain")
+	KeyPriceDecorationFountain               = []byte("PriceDecorationFountain")
 	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
 )
 
@@ -56,7 +56,7 @@ func NewParams(
 	priceDecorationFountain sdk.Coins,
 ) Params {
 	return Params{
-		BurnRate:            		 burnRate,
+		BurnRate:                burnRate,
 		PriceSetName:            priceSetName,
 		PriceTile:               priceTile,
 		PriceTree:               priceTree,

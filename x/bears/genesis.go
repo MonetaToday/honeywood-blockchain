@@ -45,6 +45,13 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set decorations count
 	k.SetDecorationsCount(ctx, genState.DecorationsCount)
+	// Set all the apiaries
+	for _, elem := range genState.ApiariesList {
+		k.SetApiaries(ctx, elem)
+	}
+
+	// Set apiaries count
+	k.SetApiariesCount(ctx, genState.ApiariesCount)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -64,6 +71,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.TreesCount = k.GetTreesCount(ctx)
 	genesis.DecorationsList = k.GetAllDecorations(ctx)
 	genesis.DecorationsCount = k.GetDecorationsCount(ctx)
+	genesis.ApiariesList = k.GetAllApiaries(ctx)
+	genesis.ApiariesCount = k.GetApiariesCount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

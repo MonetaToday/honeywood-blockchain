@@ -16,6 +16,7 @@ func DefaultGenesis() *GenesisState {
 		FieldsList:       []Fields{},
 		TreesList:        []Trees{},
 		DecorationsList:  []Decorations{},
+		ApiariesList:     []Apiaries{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -102,6 +103,18 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("decorations id should be lower or equal than the last id")
 		}
 		decorationsIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in apiaries
+	apiariesIdMap := make(map[uint64]bool)
+	apiariesCount := gs.GetApiariesCount()
+	for _, elem := range gs.ApiariesList {
+		if _, ok := apiariesIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for apiaries")
+		}
+		if elem.Id >= apiariesCount {
+			return fmt.Errorf("apiaries id should be lower or equal than the last id")
+		}
+		apiariesIdMap[elem.Id] = true
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

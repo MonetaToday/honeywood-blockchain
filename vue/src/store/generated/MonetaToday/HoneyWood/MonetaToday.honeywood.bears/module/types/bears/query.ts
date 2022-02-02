@@ -12,6 +12,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -123,6 +124,23 @@ export interface QueryAllDecorationsRequest {
 
 export interface QueryAllDecorationsResponse {
   Decorations: Decorations[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetApiariesRequest {
+  id: number;
+}
+
+export interface QueryGetApiariesResponse {
+  Apiaries: Apiaries | undefined;
+}
+
+export interface QueryAllApiariesRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllApiariesResponse {
+  Apiaries: Apiaries[];
   pagination: PageResponse | undefined;
 }
 
@@ -1989,6 +2007,314 @@ export const QueryAllDecorationsResponse = {
   },
 };
 
+const baseQueryGetApiariesRequest: object = { id: 0 };
+
+export const QueryGetApiariesRequest = {
+  encode(
+    message: QueryGetApiariesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetApiariesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetApiariesRequest,
+    } as QueryGetApiariesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetApiariesRequest {
+    const message = {
+      ...baseQueryGetApiariesRequest,
+    } as QueryGetApiariesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetApiariesRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetApiariesRequest>
+  ): QueryGetApiariesRequest {
+    const message = {
+      ...baseQueryGetApiariesRequest,
+    } as QueryGetApiariesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetApiariesResponse: object = {};
+
+export const QueryGetApiariesResponse = {
+  encode(
+    message: QueryGetApiariesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.Apiaries !== undefined) {
+      Apiaries.encode(message.Apiaries, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetApiariesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetApiariesResponse,
+    } as QueryGetApiariesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Apiaries = Apiaries.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetApiariesResponse {
+    const message = {
+      ...baseQueryGetApiariesResponse,
+    } as QueryGetApiariesResponse;
+    if (object.Apiaries !== undefined && object.Apiaries !== null) {
+      message.Apiaries = Apiaries.fromJSON(object.Apiaries);
+    } else {
+      message.Apiaries = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetApiariesResponse): unknown {
+    const obj: any = {};
+    message.Apiaries !== undefined &&
+      (obj.Apiaries = message.Apiaries
+        ? Apiaries.toJSON(message.Apiaries)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetApiariesResponse>
+  ): QueryGetApiariesResponse {
+    const message = {
+      ...baseQueryGetApiariesResponse,
+    } as QueryGetApiariesResponse;
+    if (object.Apiaries !== undefined && object.Apiaries !== null) {
+      message.Apiaries = Apiaries.fromPartial(object.Apiaries);
+    } else {
+      message.Apiaries = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllApiariesRequest: object = {};
+
+export const QueryAllApiariesRequest = {
+  encode(
+    message: QueryAllApiariesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllApiariesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllApiariesRequest,
+    } as QueryAllApiariesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllApiariesRequest {
+    const message = {
+      ...baseQueryAllApiariesRequest,
+    } as QueryAllApiariesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllApiariesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllApiariesRequest>
+  ): QueryAllApiariesRequest {
+    const message = {
+      ...baseQueryAllApiariesRequest,
+    } as QueryAllApiariesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllApiariesResponse: object = {};
+
+export const QueryAllApiariesResponse = {
+  encode(
+    message: QueryAllApiariesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.Apiaries) {
+      Apiaries.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllApiariesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllApiariesResponse,
+    } as QueryAllApiariesResponse;
+    message.Apiaries = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Apiaries.push(Apiaries.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllApiariesResponse {
+    const message = {
+      ...baseQueryAllApiariesResponse,
+    } as QueryAllApiariesResponse;
+    message.Apiaries = [];
+    if (object.Apiaries !== undefined && object.Apiaries !== null) {
+      for (const e of object.Apiaries) {
+        message.Apiaries.push(Apiaries.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllApiariesResponse): unknown {
+    const obj: any = {};
+    if (message.Apiaries) {
+      obj.Apiaries = message.Apiaries.map((e) =>
+        e ? Apiaries.toJSON(e) : undefined
+      );
+    } else {
+      obj.Apiaries = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllApiariesResponse>
+  ): QueryAllApiariesResponse {
+    const message = {
+      ...baseQueryAllApiariesResponse,
+    } as QueryAllApiariesResponse;
+    message.Apiaries = [];
+    if (object.Apiaries !== undefined && object.Apiaries !== null) {
+      for (const e of object.Apiaries) {
+        message.Apiaries.push(Apiaries.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2029,6 +2355,12 @@ export interface Query {
   DecorationsAll(
     request: QueryAllDecorationsRequest
   ): Promise<QueryAllDecorationsResponse>;
+  /** Queries a Apiaries by id. */
+  Apiaries(request: QueryGetApiariesRequest): Promise<QueryGetApiariesResponse>;
+  /** Queries a list of Apiaries items. */
+  ApiariesAll(
+    request: QueryAllApiariesRequest
+  ): Promise<QueryAllApiariesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2199,6 +2531,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllDecorationsResponse.decode(new Reader(data))
+    );
+  }
+
+  Apiaries(
+    request: QueryGetApiariesRequest
+  ): Promise<QueryGetApiariesResponse> {
+    const data = QueryGetApiariesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "Apiaries",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetApiariesResponse.decode(new Reader(data))
+    );
+  }
+
+  ApiariesAll(
+    request: QueryAllApiariesRequest
+  ): Promise<QueryAllApiariesResponse> {
+    const data = QueryAllApiariesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "ApiariesAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllApiariesResponse.decode(new Reader(data))
     );
   }
 }

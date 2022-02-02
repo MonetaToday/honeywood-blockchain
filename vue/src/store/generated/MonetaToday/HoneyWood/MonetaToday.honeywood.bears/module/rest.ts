@@ -9,6 +9,12 @@
  * ---------------------------------------------------------------
  */
 
+export enum ApiariesApiaryTypes {
+  BEE_HOUSE = "BEE_HOUSE",
+  APIARY = "APIARY",
+  ALVEARY = "ALVEARY",
+}
+
 export enum DecorationsDecorationTypes {
   FLOWERS = "FLOWERS",
   FLAG = "FLAG",
@@ -43,6 +49,16 @@ export enum TreesTreeTypes {
 export interface BearsAddressBears {
   address?: string;
   bears?: string[];
+}
+
+export interface BearsApiaries {
+  /** @format uint64 */
+  id?: string;
+
+  /** @format uint64 */
+  bearId?: string;
+  apiaryType?: ApiariesApiaryTypes;
+  position?: BearsItemPosition;
 }
 
 export interface BearsBearNames {
@@ -172,6 +188,21 @@ export interface BearsQueryAllAddressBearsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface BearsQueryAllApiariesResponse {
+  Apiaries?: BearsApiaries[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface BearsQueryAllBearNamesResponse {
   bearNames?: BearsBearNames[];
 
@@ -249,6 +280,10 @@ export interface BearsQueryAllTreesResponse {
 
 export interface BearsQueryGetAddressBearsResponse {
   addressBears?: BearsAddressBears;
+}
+
+export interface BearsQueryGetApiariesResponse {
+  Apiaries?: BearsApiaries;
 }
 
 export interface BearsQueryGetBearNamesResponse {
@@ -611,6 +646,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryAddressBears = (address: string, params: RequestParams = {}) =>
     this.request<BearsQueryGetAddressBearsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/address_bears/${address}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryApiariesAll
+   * @summary Queries a list of Apiaries items.
+   * @request GET:/MonetaToday/honeywood/bears/apiaries
+   */
+  queryApiariesAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BearsQueryAllApiariesResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/apiaries`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryApiaries
+   * @summary Queries a Apiaries by id.
+   * @request GET:/MonetaToday/honeywood/bears/apiaries/{id}
+   */
+  queryApiaries = (id: string, params: RequestParams = {}) =>
+    this.request<BearsQueryGetApiariesResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/apiaries/${id}`,
       method: "GET",
       format: "json",
       ...params,

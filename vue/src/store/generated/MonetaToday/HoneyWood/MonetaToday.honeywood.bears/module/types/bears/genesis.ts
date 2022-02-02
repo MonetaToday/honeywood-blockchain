@@ -8,6 +8,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -23,8 +24,10 @@ export interface GenesisState {
   treesList: Trees[];
   treesCount: number;
   decorationsList: Decorations[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   decorationsCount: number;
+  apiariesList: Apiaries[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  apiariesCount: number;
 }
 
 const baseGenesisState: object = {
@@ -32,6 +35,7 @@ const baseGenesisState: object = {
   fieldsCount: 0,
   treesCount: 0,
   decorationsCount: 0,
+  apiariesCount: 0,
 };
 
 export const GenesisState = {
@@ -69,6 +73,12 @@ export const GenesisState = {
     if (message.decorationsCount !== 0) {
       writer.uint32(88).uint64(message.decorationsCount);
     }
+    for (const v of message.apiariesList) {
+      Apiaries.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
+    if (message.apiariesCount !== 0) {
+      writer.uint32(104).uint64(message.apiariesCount);
+    }
     return writer;
   },
 
@@ -82,6 +92,7 @@ export const GenesisState = {
     message.fieldsList = [];
     message.treesList = [];
     message.decorationsList = [];
+    message.apiariesList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -122,6 +133,12 @@ export const GenesisState = {
         case 11:
           message.decorationsCount = longToNumber(reader.uint64() as Long);
           break;
+        case 12:
+          message.apiariesList.push(Apiaries.decode(reader, reader.uint32()));
+          break;
+        case 13:
+          message.apiariesCount = longToNumber(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -138,6 +155,7 @@ export const GenesisState = {
     message.fieldsList = [];
     message.treesList = [];
     message.decorationsList = [];
+    message.apiariesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -202,6 +220,16 @@ export const GenesisState = {
     } else {
       message.decorationsCount = 0;
     }
+    if (object.apiariesList !== undefined && object.apiariesList !== null) {
+      for (const e of object.apiariesList) {
+        message.apiariesList.push(Apiaries.fromJSON(e));
+      }
+    }
+    if (object.apiariesCount !== undefined && object.apiariesCount !== null) {
+      message.apiariesCount = Number(object.apiariesCount);
+    } else {
+      message.apiariesCount = 0;
+    }
     return message;
   },
 
@@ -257,6 +285,15 @@ export const GenesisState = {
     }
     message.decorationsCount !== undefined &&
       (obj.decorationsCount = message.decorationsCount);
+    if (message.apiariesList) {
+      obj.apiariesList = message.apiariesList.map((e) =>
+        e ? Apiaries.toJSON(e) : undefined
+      );
+    } else {
+      obj.apiariesList = [];
+    }
+    message.apiariesCount !== undefined &&
+      (obj.apiariesCount = message.apiariesCount);
     return obj;
   },
 
@@ -268,6 +305,7 @@ export const GenesisState = {
     message.fieldsList = [];
     message.treesList = [];
     message.decorationsList = [];
+    message.apiariesList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -331,6 +369,16 @@ export const GenesisState = {
       message.decorationsCount = object.decorationsCount;
     } else {
       message.decorationsCount = 0;
+    }
+    if (object.apiariesList !== undefined && object.apiariesList !== null) {
+      for (const e of object.apiariesList) {
+        message.apiariesList.push(Apiaries.fromPartial(e));
+      }
+    }
+    if (object.apiariesCount !== undefined && object.apiariesCount !== null) {
+      message.apiariesCount = object.apiariesCount;
+    } else {
+      message.apiariesCount = 0;
     }
     return message;
   },
