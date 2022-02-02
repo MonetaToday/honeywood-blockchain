@@ -43,7 +43,16 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 
 	switch itemType {
 	case types.Tiles_Items_APIARY:
-		//TODO
+		apiary, apiaryFound := k.Keeper.GetApiaries(ctx, itemId)
+		if !apiaryFound {
+			return nil, types.ErrApiaryIsNotExisted
+		}
+		apiary.Position = types.ItemPosition{
+			FieldId:  fieldId,
+			RowId:    newRowId,
+			ColumnId: newColumnId,
+		}
+		k.Keeper.SetApiaries(ctx, apiary)
 	case types.Tiles_Items_TREE:
 		tree, treeFound := k.Keeper.GetTrees(ctx, itemId)
 		if !treeFound {

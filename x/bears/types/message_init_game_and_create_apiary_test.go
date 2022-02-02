@@ -1,0 +1,40 @@
+package types
+
+import (
+	"testing"
+
+	"github.com/MonetaToday/HoneyWood/testutil/sample"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/stretchr/testify/require"
+)
+
+func TestMsgInitGameAndCreateApiary_ValidateBasic(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  MsgInitGameAndCreateApiary
+		err  error
+	}{
+		{
+			name: "invalid address",
+			msg: MsgInitGameAndCreateApiary{
+				Creator: "invalid_address",
+			},
+			err: sdkerrors.ErrInvalidAddress,
+		}, {
+			name: "valid address",
+			msg: MsgInitGameAndCreateApiary{
+				Creator: sample.AccAddress(),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := tt.msg.ValidateBasic()
+			if tt.err != nil {
+				require.ErrorIs(t, err, tt.err)
+				return
+			}
+			require.NoError(t, err)
+		})
+	}
+}

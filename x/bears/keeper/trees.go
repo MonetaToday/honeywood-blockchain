@@ -106,7 +106,7 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-// BuyBearName for specific bear
+// Create tree on field for specific bear
 func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, treeType string) (*types.Trees, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
@@ -140,7 +140,7 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 
 	newTree := types.Trees{
-		BearOwner: &types.BearOwner{ Id: bearId },
+		BearOwner: &types.BearOwner{Id: bearId},
 		Position: types.ItemPosition{
 			FieldId:  field.Id,
 			RowId:    rowId,

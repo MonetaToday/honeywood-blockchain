@@ -3,6 +3,7 @@ import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -106,6 +107,15 @@ export interface MsgUnsetDecorationPosition {
 }
 
 export interface MsgUnsetDecorationPositionResponse {}
+
+export interface MsgInitGameAndCreateApiary {
+  creator: string;
+  apiaryType: string;
+}
+
+export interface MsgInitGameAndCreateApiaryResponse {
+  apiary: Apiaries | undefined;
+}
 
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
@@ -1866,6 +1876,164 @@ export const MsgUnsetDecorationPositionResponse = {
   },
 };
 
+const baseMsgInitGameAndCreateApiary: object = { creator: "", apiaryType: "" };
+
+export const MsgInitGameAndCreateApiary = {
+  encode(
+    message: MsgInitGameAndCreateApiary,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.apiaryType !== "") {
+      writer.uint32(18).string(message.apiaryType);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateApiary {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateApiary,
+    } as MsgInitGameAndCreateApiary;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.apiaryType = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateApiary {
+    const message = {
+      ...baseMsgInitGameAndCreateApiary,
+    } as MsgInitGameAndCreateApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryType !== undefined && object.apiaryType !== null) {
+      message.apiaryType = String(object.apiaryType);
+    } else {
+      message.apiaryType = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateApiary): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateApiary>
+  ): MsgInitGameAndCreateApiary {
+    const message = {
+      ...baseMsgInitGameAndCreateApiary,
+    } as MsgInitGameAndCreateApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryType !== undefined && object.apiaryType !== null) {
+      message.apiaryType = object.apiaryType;
+    } else {
+      message.apiaryType = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgInitGameAndCreateApiaryResponse: object = {};
+
+export const MsgInitGameAndCreateApiaryResponse = {
+  encode(
+    message: MsgInitGameAndCreateApiaryResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.apiary !== undefined) {
+      Apiaries.encode(message.apiary, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateApiaryResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateApiaryResponse,
+    } as MsgInitGameAndCreateApiaryResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.apiary = Apiaries.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateApiaryResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateApiaryResponse,
+    } as MsgInitGameAndCreateApiaryResponse;
+    if (object.apiary !== undefined && object.apiary !== null) {
+      message.apiary = Apiaries.fromJSON(object.apiary);
+    } else {
+      message.apiary = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateApiaryResponse): unknown {
+    const obj: any = {};
+    message.apiary !== undefined &&
+      (obj.apiary = message.apiary
+        ? Apiaries.toJSON(message.apiary)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateApiaryResponse>
+  ): MsgInitGameAndCreateApiaryResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateApiaryResponse,
+    } as MsgInitGameAndCreateApiaryResponse;
+    if (object.apiary !== undefined && object.apiary !== null) {
+      message.apiary = Apiaries.fromPartial(object.apiary);
+    } else {
+      message.apiary = undefined;
+    }
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -1892,10 +2060,13 @@ export interface Msg {
   SetDecorationPosition(
     request: MsgSetDecorationPosition
   ): Promise<MsgSetDecorationPositionResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   UnsetDecorationPosition(
     request: MsgUnsetDecorationPosition
   ): Promise<MsgUnsetDecorationPositionResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  InitGameAndCreateApiary(
+    request: MsgInitGameAndCreateApiary
+  ): Promise<MsgInitGameAndCreateApiaryResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2046,6 +2217,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgUnsetDecorationPositionResponse.decode(new Reader(data))
+    );
+  }
+
+  InitGameAndCreateApiary(
+    request: MsgInitGameAndCreateApiary
+  ): Promise<MsgInitGameAndCreateApiaryResponse> {
+    const data = MsgInitGameAndCreateApiary.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "InitGameAndCreateApiary",
+      data
+    );
+    return promise.then((data) =>
+      MsgInitGameAndCreateApiaryResponse.decode(new Reader(data))
     );
   }
 }

@@ -97,6 +97,9 @@ export interface BearsMsgExtendFieldResponse {
     /** @format uint64 */
     countTiles?: string;
 }
+export interface BearsMsgInitGameAndCreateApiaryResponse {
+    apiary?: BearsApiaries;
+}
 export interface BearsMsgInitGameAndCreateDecorationResponse {
     decoration?: BearsDecorations;
 }

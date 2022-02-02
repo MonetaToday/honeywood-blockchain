@@ -21859,6 +21859,40 @@ definitions:
       countTiles:
         type: string
         format: uint64
+  MonetaToday.honeywood.bears.MsgInitGameAndCreateApiaryResponse:
+    type: object
+    properties:
+      apiary:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          bearOwner:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
+          apiaryType:
+            type: string
+            enum:
+              - BEE_HOUSE
+              - APIARY
+              - ALVEARY
+            default: BEE_HOUSE
+          position:
+            type: object
+            properties:
+              fieldId:
+                type: string
+                format: uint64
+              rowId:
+                type: string
+                format: uint64
+              columnId:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateDecorationResponse:
     type: object
     properties:

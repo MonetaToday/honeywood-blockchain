@@ -130,6 +130,10 @@ export interface BearsMsgExtendFieldResponse {
   countTiles?: string;
 }
 
+export interface BearsMsgInitGameAndCreateApiaryResponse {
+  apiary?: BearsApiaries;
+}
+
 export interface BearsMsgInitGameAndCreateDecorationResponse {
   decoration?: BearsDecorations;
 }

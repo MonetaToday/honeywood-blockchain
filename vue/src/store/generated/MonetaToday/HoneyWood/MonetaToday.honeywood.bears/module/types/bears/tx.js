@@ -3,6 +3,7 @@ import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
+import { Apiaries } from "../bears/apiaries";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseMsgInitGameAndSetName = { creator: "", name: "" };
 export const MsgInitGameAndSetName = {
@@ -1586,6 +1587,142 @@ export const MsgUnsetDecorationPositionResponse = {
         return message;
     },
 };
+const baseMsgInitGameAndCreateApiary = { creator: "", apiaryType: "" };
+export const MsgInitGameAndCreateApiary = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.apiaryType !== "") {
+            writer.uint32(18).string(message.apiaryType);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateApiary,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.apiaryType = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateApiary,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryType !== undefined && object.apiaryType !== null) {
+            message.apiaryType = String(object.apiaryType);
+        }
+        else {
+            message.apiaryType = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateApiary,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryType !== undefined && object.apiaryType !== null) {
+            message.apiaryType = object.apiaryType;
+        }
+        else {
+            message.apiaryType = "";
+        }
+        return message;
+    },
+};
+const baseMsgInitGameAndCreateApiaryResponse = {};
+export const MsgInitGameAndCreateApiaryResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.apiary !== undefined) {
+            Apiaries.encode(message.apiary, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateApiaryResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apiary = Apiaries.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateApiaryResponse,
+        };
+        if (object.apiary !== undefined && object.apiary !== null) {
+            message.apiary = Apiaries.fromJSON(object.apiary);
+        }
+        else {
+            message.apiary = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.apiary !== undefined &&
+            (obj.apiary = message.apiary
+                ? Apiaries.toJSON(message.apiary)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateApiaryResponse,
+        };
+        if (object.apiary !== undefined && object.apiary !== null) {
+            message.apiary = Apiaries.fromPartial(object.apiary);
+        }
+        else {
+            message.apiary = undefined;
+        }
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1644,6 +1781,11 @@ export class MsgClientImpl {
         const data = MsgUnsetDecorationPosition.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "UnsetDecorationPosition", data);
         return promise.then((data) => MsgUnsetDecorationPositionResponse.decode(new Reader(data)));
+    }
+    InitGameAndCreateApiary(request) {
+        const data = MsgInitGameAndCreateApiary.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateApiary", data);
+        return promise.then((data) => MsgInitGameAndCreateApiaryResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
