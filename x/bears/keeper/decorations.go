@@ -106,7 +106,7 @@ func GetDecorationsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-func (k Keeper) GetDecorationParams(ctx sdk.Context, decorationType types.DecorationParams_DecorationTypes) (*types.DecorationParams, bool) {
+func (k Keeper) GetDecorationParams(ctx sdk.Context, decorationType string) (*types.DecorationParams, bool) {
 	decorationTypes := k.DecorationTypes(ctx)
 	for _, params := range decorationTypes {
 		if params.DecorationType == decorationType {
@@ -124,13 +124,12 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-
-	decorationParams, _ := k.GetDecorationParams(ctx, types.DecorationParams_DecorationTypes(types.DecorationParams_DecorationTypes_value[decorationType]))
+	decorationParams, _ := k.GetDecorationParams(ctx, decorationType)
 	if decorationParams == nil {
 		return nil, types.ErrDecorationTypeIsNotDefined
 	}
 
+	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, decorationParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())

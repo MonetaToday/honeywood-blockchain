@@ -4,19 +4,11 @@ import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface ApiaryParams {
-    apiaryType: ApiaryParams_ApiaryTypes;
+    apiaryType: string;
     price: Coin[];
     maxCountBees: number;
     maxCountHoney: number;
 }
-export declare enum ApiaryParams_ApiaryTypes {
-    BEE_HOUSE = 0,
-    APIARY = 1,
-    ALVEARY = 2,
-    UNRECOGNIZED = -1
-}
-export declare function apiaryParams_ApiaryTypesFromJSON(object: any): ApiaryParams_ApiaryTypes;
-export declare function apiaryParams_ApiaryTypesToJSON(object: ApiaryParams_ApiaryTypes): string;
 export interface CycleBeesHistory {
     block: number;
     bees: number[];

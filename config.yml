@@ -88,4 +88,13 @@ genesis:
             max_count_honey: 25
             price:
             - denom: "honey"
-              amount: "1500"   
+              amount: "1500"
+
+        bee_types:
+          - bee_type: "BEE_1"
+            honey_per_block: "0.01"
+            body_size: 1
+            oxygen_sense: "1"
+            price:
+            - denom: "honey"
+              amount: "500"

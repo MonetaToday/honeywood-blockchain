@@ -3,10 +3,11 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface BeeParams {
+    beeType: string;
     price: Coin[];
-    countHoneyPerBlock: number;
-    apiarySize: number;
-    oxygenSense: number;
+    honeyPerBlock: string;
+    bodySize: number;
+    oxygenSense: string;
 }
 export interface ApiaryHouse {
     id: number;

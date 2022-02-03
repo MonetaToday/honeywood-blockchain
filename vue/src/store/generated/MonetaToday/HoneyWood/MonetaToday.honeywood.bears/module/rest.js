@@ -8,12 +8,6 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-export var ApiaryParamsApiaryTypes;
-(function (ApiaryParamsApiaryTypes) {
-    ApiaryParamsApiaryTypes["BEE_HOUSE"] = "BEE_HOUSE";
-    ApiaryParamsApiaryTypes["APIARY"] = "APIARY";
-    ApiaryParamsApiaryTypes["ALVEARY"] = "ALVEARY";
-})(ApiaryParamsApiaryTypes || (ApiaryParamsApiaryTypes = {}));
 export var FieldsFieldTypes;
 (function (FieldsFieldTypes) {
     FieldsFieldTypes["DEFAULT"] = "DEFAULT";
@@ -31,14 +25,6 @@ export var TreesTreeTypes;
     TreesTreeTypes["APPLETREE"] = "APPLETREE";
     TreesTreeTypes["WILLOW"] = "WILLOW";
 })(TreesTreeTypes || (TreesTreeTypes = {}));
-export var BearsDecorationParamsDecorationTypes;
-(function (BearsDecorationParamsDecorationTypes) {
-    BearsDecorationParamsDecorationTypes["FLOWERS"] = "FLOWERS";
-    BearsDecorationParamsDecorationTypes["FLAG"] = "FLAG";
-    BearsDecorationParamsDecorationTypes["LAMP"] = "LAMP";
-    BearsDecorationParamsDecorationTypes["GREEN_BEE"] = "GREEN_BEE";
-    BearsDecorationParamsDecorationTypes["FOUNTAIN"] = "FOUNTAIN";
-})(BearsDecorationParamsDecorationTypes || (BearsDecorationParamsDecorationTypes = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";

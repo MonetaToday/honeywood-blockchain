@@ -106,7 +106,7 @@ func GetApiariesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-func (k Keeper) GetApiaryParams(ctx sdk.Context, apiaryType types.ApiaryParams_ApiaryTypes) (*types.ApiaryParams, bool) {
+func (k Keeper) GetApiaryParams(ctx sdk.Context, apiaryType string) (*types.ApiaryParams, bool) {
 	apiaryTypes := k.ApiaryTypes(ctx)
 	for _, params := range apiaryTypes {
 		if params.ApiaryType == apiaryType {
@@ -143,7 +143,7 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 		return nil, errEmptyTile
 	}
 
-	apiaryParams, _ := k.GetApiaryParams(ctx, types.ApiaryParams_ApiaryTypes(types.ApiaryParams_ApiaryTypes_value[apiaryType]))
+	apiaryParams, _ := k.GetApiaryParams(ctx, apiaryType)
 	if apiaryParams == nil {
 		return nil, types.ErrApiaryTypeIsNotDefined
 	}
@@ -166,7 +166,6 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		// ApiaryType:       types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
 		CountBees:        0,
 		Params: *apiaryParams,
 		CycleStartBlock:  0,

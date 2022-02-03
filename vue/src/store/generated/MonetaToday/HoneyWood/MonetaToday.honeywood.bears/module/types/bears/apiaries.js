@@ -5,51 +5,15 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var ApiaryParams_ApiaryTypes;
-(function (ApiaryParams_ApiaryTypes) {
-    ApiaryParams_ApiaryTypes[ApiaryParams_ApiaryTypes["BEE_HOUSE"] = 0] = "BEE_HOUSE";
-    ApiaryParams_ApiaryTypes[ApiaryParams_ApiaryTypes["APIARY"] = 1] = "APIARY";
-    ApiaryParams_ApiaryTypes[ApiaryParams_ApiaryTypes["ALVEARY"] = 2] = "ALVEARY";
-    ApiaryParams_ApiaryTypes[ApiaryParams_ApiaryTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(ApiaryParams_ApiaryTypes || (ApiaryParams_ApiaryTypes = {}));
-export function apiaryParams_ApiaryTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "BEE_HOUSE":
-            return ApiaryParams_ApiaryTypes.BEE_HOUSE;
-        case 1:
-        case "APIARY":
-            return ApiaryParams_ApiaryTypes.APIARY;
-        case 2:
-        case "ALVEARY":
-            return ApiaryParams_ApiaryTypes.ALVEARY;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return ApiaryParams_ApiaryTypes.UNRECOGNIZED;
-    }
-}
-export function apiaryParams_ApiaryTypesToJSON(object) {
-    switch (object) {
-        case ApiaryParams_ApiaryTypes.BEE_HOUSE:
-            return "BEE_HOUSE";
-        case ApiaryParams_ApiaryTypes.APIARY:
-            return "APIARY";
-        case ApiaryParams_ApiaryTypes.ALVEARY:
-            return "ALVEARY";
-        default:
-            return "UNKNOWN";
-    }
-}
 const baseApiaryParams = {
-    apiaryType: 0,
+    apiaryType: "",
     maxCountBees: 0,
     maxCountHoney: 0,
 };
 export const ApiaryParams = {
     encode(message, writer = Writer.create()) {
-        if (message.apiaryType !== 0) {
-            writer.uint32(8).int32(message.apiaryType);
+        if (message.apiaryType !== "") {
+            writer.uint32(10).string(message.apiaryType);
         }
         for (const v of message.price) {
             Coin.encode(v, writer.uint32(18).fork()).ldelim();
@@ -71,7 +35,7 @@ export const ApiaryParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.apiaryType = reader.int32();
+                    message.apiaryType = reader.string();
                     break;
                 case 2:
                     message.price.push(Coin.decode(reader, reader.uint32()));
@@ -93,10 +57,10 @@ export const ApiaryParams = {
         const message = { ...baseApiaryParams };
         message.price = [];
         if (object.apiaryType !== undefined && object.apiaryType !== null) {
-            message.apiaryType = apiaryParams_ApiaryTypesFromJSON(object.apiaryType);
+            message.apiaryType = String(object.apiaryType);
         }
         else {
-            message.apiaryType = 0;
+            message.apiaryType = "";
         }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {
@@ -119,8 +83,7 @@ export const ApiaryParams = {
     },
     toJSON(message) {
         const obj = {};
-        message.apiaryType !== undefined &&
-            (obj.apiaryType = apiaryParams_ApiaryTypesToJSON(message.apiaryType));
+        message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
         if (message.price) {
             obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
         }
@@ -140,7 +103,7 @@ export const ApiaryParams = {
             message.apiaryType = object.apiaryType;
         }
         else {
-            message.apiaryType = 0;
+            message.apiaryType = "";
         }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {

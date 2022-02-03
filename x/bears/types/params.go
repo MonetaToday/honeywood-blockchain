@@ -31,6 +31,9 @@ var (
 
 	KeyApiaryTypes     = []byte("ApiaryTypes")
 	DefaultApiaryTypes = []ApiaryParams{}
+
+	KeyBeeTypes     = []byte("BeeTypes")
+	DefaultBeeTypes = []BeeParams{}
 )
 
 // NewParams creates a new Params instance
@@ -42,6 +45,7 @@ func NewParams(
 	rewardTree sdk.Coins,
 	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
+	beeTypes []BeeParams,
 ) Params {
 	return Params{
 		BurnRate:                burnRate,
@@ -51,6 +55,7 @@ func NewParams(
 		RewardTree:              rewardTree,
 		DecorationTypes:  			 decorationTypes,
 		ApiaryTypes:    				 apiaryTypes,
+		BeeTypes:    				 		 beeTypes,
 	}
 }
 
@@ -64,6 +69,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateCoins),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
+		paramtypes.NewParamSetPair(KeyBeeTypes, &p.BeeTypes, validateBeeTypes),
 	}
 }
 
@@ -97,6 +103,10 @@ func (p Params) Validate() error {
 		return err
 	}
 
+	if err := validateBeeTypes(p.BeeTypes); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -110,6 +120,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
+		paramtypes.NewParamSetPair(KeyBeeTypes, []BeeParams{}, validateBeeTypes),
 	)
 }
 
@@ -123,6 +134,7 @@ func DefaultParams() Params {
 		DefaultRewardTree,
 		DefaultDecorationTypes,
 		DefaultApiaryTypes,
+		DefaultBeeTypes,
 	)
 }
 
@@ -191,6 +203,25 @@ func validateApiaryTypes(i interface{}) error {
 	
 		if params.MaxCountHoney <= 0 {
 			return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
+		}
+	}
+
+	return nil
+}
+
+func validateBeeTypes(i interface{}) error {
+	v, ok := i.([]BeeParams)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	for _, params := range v {
+		if !params.Price.IsValid() {
+			return fmt.Errorf("invalid coins parameter in BeeParams: %v", v)
+		}
+
+		if params.BodySize <= 0 {
+			return fmt.Errorf("invalid Size parameter in BeeParams: %v", v)
 		}
 	}
 

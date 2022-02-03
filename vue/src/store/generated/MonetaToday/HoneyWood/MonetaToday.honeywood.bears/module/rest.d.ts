@@ -1,8 +1,3 @@
-export declare enum ApiaryParamsApiaryTypes {
-    BEE_HOUSE = "BEE_HOUSE",
-    APIARY = "APIARY",
-    ALVEARY = "ALVEARY"
-}
 export declare enum FieldsFieldTypes {
     DEFAULT = "DEFAULT"
 }
@@ -43,7 +38,7 @@ export interface BearsApiaryHouse {
     id?: string;
 }
 export interface BearsApiaryParams {
-    apiaryType?: ApiaryParamsApiaryTypes;
+    apiaryType?: string;
     price?: V1Beta1Coin[];
     /** @format uint64 */
     maxCountBees?: string;
@@ -71,12 +66,11 @@ export interface BearsBears {
     decorations?: string[];
 }
 export interface BearsBeeParams {
+    beeType?: string;
     price?: V1Beta1Coin[];
+    honeyPerBlock?: string;
     /** @format uint64 */
-    countHoneyPerBlock?: string;
-    /** @format uint64 */
-    apiarySize?: string;
-    /** @format uint64 */
+    bodySize?: string;
     oxygenSense?: string;
 }
 export interface BearsBees {
@@ -92,15 +86,8 @@ export interface BearsCycleBeesHistory {
     bees?: string[];
 }
 export interface BearsDecorationParams {
-    decorationType?: BearsDecorationParamsDecorationTypes;
+    decorationType?: string;
     price?: V1Beta1Coin[];
-}
-export declare enum BearsDecorationParamsDecorationTypes {
-    FLOWERS = "FLOWERS",
-    FLAG = "FLAG",
-    LAMP = "LAMP",
-    GREEN_BEE = "GREEN_BEE",
-    FOUNTAIN = "FOUNTAIN"
 }
 export interface BearsDecorations {
     /** @format uint64 */
@@ -171,6 +158,7 @@ export interface BearsParams {
     rewardTree?: V1Beta1Coin[];
     decorationTypes?: BearsDecorationParams[];
     apiaryTypes?: BearsApiaryParams[];
+    beeTypes?: BearsBeeParams[];
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];

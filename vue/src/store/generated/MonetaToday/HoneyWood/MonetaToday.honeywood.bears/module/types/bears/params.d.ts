@@ -1,6 +1,7 @@
 import { Coin } from "../cosmos/base/v1beta1/coin";
 import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
+import { BeeParams } from "../bears/bees";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
@@ -12,6 +13,7 @@ export interface Params {
     rewardTree: Coin[];
     decorationTypes: DecorationParams[];
     apiaryTypes: ApiaryParams[];
+    beeTypes: BeeParams[];
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

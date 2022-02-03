@@ -2,6 +2,7 @@
 import { Coin } from "../cosmos/base/v1beta1/coin";
 import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
+import { BeeParams } from "../bears/bees";
 import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseParams = { burnRate: "" };
@@ -28,6 +29,9 @@ export const Params = {
         for (const v of message.apiaryTypes) {
             ApiaryParams.encode(v, writer.uint32(58).fork()).ldelim();
         }
+        for (const v of message.beeTypes) {
+            BeeParams.encode(v, writer.uint32(66).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -40,6 +44,7 @@ export const Params = {
         message.rewardTree = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
+        message.beeTypes = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -64,6 +69,9 @@ export const Params = {
                 case 7:
                     message.apiaryTypes.push(ApiaryParams.decode(reader, reader.uint32()));
                     break;
+                case 8:
+                    message.beeTypes.push(BeeParams.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -79,6 +87,7 @@ export const Params = {
         message.rewardTree = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
+        message.beeTypes = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = String(object.burnRate);
         }
@@ -114,6 +123,11 @@ export const Params = {
         if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
             for (const e of object.apiaryTypes) {
                 message.apiaryTypes.push(ApiaryParams.fromJSON(e));
+            }
+        }
+        if (object.beeTypes !== undefined && object.beeTypes !== null) {
+            for (const e of object.beeTypes) {
+                message.beeTypes.push(BeeParams.fromJSON(e));
             }
         }
         return message;
@@ -157,6 +171,12 @@ export const Params = {
         else {
             obj.apiaryTypes = [];
         }
+        if (message.beeTypes) {
+            obj.beeTypes = message.beeTypes.map((e) => e ? BeeParams.toJSON(e) : undefined);
+        }
+        else {
+            obj.beeTypes = [];
+        }
         return obj;
     },
     fromPartial(object) {
@@ -167,6 +187,7 @@ export const Params = {
         message.rewardTree = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
+        message.beeTypes = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = object.burnRate;
         }
@@ -202,6 +223,11 @@ export const Params = {
         if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
             for (const e of object.apiaryTypes) {
                 message.apiaryTypes.push(ApiaryParams.fromPartial(e));
+            }
+        }
+        if (object.beeTypes !== undefined && object.beeTypes !== null) {
+            for (const e of object.beeTypes) {
+                message.beeTypes.push(BeeParams.fromPartial(e));
             }
         }
         return message;

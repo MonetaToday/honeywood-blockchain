@@ -4,19 +4,9 @@ import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface DecorationParams {
-    decorationType: DecorationParams_DecorationTypes;
+    decorationType: string;
     price: Coin[];
 }
-export declare enum DecorationParams_DecorationTypes {
-    FLOWERS = 0,
-    FLAG = 1,
-    LAMP = 2,
-    GREEN_BEE = 3,
-    FOUNTAIN = 4,
-    UNRECOGNIZED = -1
-}
-export declare function decorationParams_DecorationTypesFromJSON(object: any): DecorationParams_DecorationTypes;
-export declare function decorationParams_DecorationTypesToJSON(object: DecorationParams_DecorationTypes): string;
 export interface Decorations {
     id: number;
     bearOwner: BearOwner | undefined;

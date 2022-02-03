@@ -5,23 +5,27 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseBeeParams = {
-    countHoneyPerBlock: 0,
-    apiarySize: 0,
-    oxygenSense: 0,
+    beeType: "",
+    honeyPerBlock: "",
+    bodySize: 0,
+    oxygenSense: "",
 };
 export const BeeParams = {
     encode(message, writer = Writer.create()) {
+        if (message.beeType !== "") {
+            writer.uint32(10).string(message.beeType);
+        }
         for (const v of message.price) {
-            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+            Coin.encode(v, writer.uint32(18).fork()).ldelim();
         }
-        if (message.countHoneyPerBlock !== 0) {
-            writer.uint32(16).uint64(message.countHoneyPerBlock);
+        if (message.honeyPerBlock !== "") {
+            writer.uint32(26).string(message.honeyPerBlock);
         }
-        if (message.apiarySize !== 0) {
-            writer.uint32(24).uint64(message.apiarySize);
+        if (message.bodySize !== 0) {
+            writer.uint32(32).uint64(message.bodySize);
         }
-        if (message.oxygenSense !== 0) {
-            writer.uint32(32).uint64(message.oxygenSense);
+        if (message.oxygenSense !== "") {
+            writer.uint32(42).string(message.oxygenSense);
         }
         return writer;
     },
@@ -34,16 +38,19 @@ export const BeeParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.price.push(Coin.decode(reader, reader.uint32()));
+                    message.beeType = reader.string();
                     break;
                 case 2:
-                    message.countHoneyPerBlock = longToNumber(reader.uint64());
+                    message.price.push(Coin.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.apiarySize = longToNumber(reader.uint64());
+                    message.honeyPerBlock = reader.string();
                     break;
                 case 4:
-                    message.oxygenSense = longToNumber(reader.uint64());
+                    message.bodySize = longToNumber(reader.uint64());
+                    break;
+                case 5:
+                    message.oxygenSense = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -55,43 +62,49 @@ export const BeeParams = {
     fromJSON(object) {
         const message = { ...baseBeeParams };
         message.price = [];
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = String(object.beeType);
+        }
+        else {
+            message.beeType = "";
+        }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {
                 message.price.push(Coin.fromJSON(e));
             }
         }
-        if (object.countHoneyPerBlock !== undefined &&
-            object.countHoneyPerBlock !== null) {
-            message.countHoneyPerBlock = Number(object.countHoneyPerBlock);
+        if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+            message.honeyPerBlock = String(object.honeyPerBlock);
         }
         else {
-            message.countHoneyPerBlock = 0;
+            message.honeyPerBlock = "";
         }
-        if (object.apiarySize !== undefined && object.apiarySize !== null) {
-            message.apiarySize = Number(object.apiarySize);
+        if (object.bodySize !== undefined && object.bodySize !== null) {
+            message.bodySize = Number(object.bodySize);
         }
         else {
-            message.apiarySize = 0;
+            message.bodySize = 0;
         }
         if (object.oxygenSense !== undefined && object.oxygenSense !== null) {
-            message.oxygenSense = Number(object.oxygenSense);
+            message.oxygenSense = String(object.oxygenSense);
         }
         else {
-            message.oxygenSense = 0;
+            message.oxygenSense = "";
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
+        message.beeType !== undefined && (obj.beeType = message.beeType);
         if (message.price) {
             obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
         }
         else {
             obj.price = [];
         }
-        message.countHoneyPerBlock !== undefined &&
-            (obj.countHoneyPerBlock = message.countHoneyPerBlock);
-        message.apiarySize !== undefined && (obj.apiarySize = message.apiarySize);
+        message.honeyPerBlock !== undefined &&
+            (obj.honeyPerBlock = message.honeyPerBlock);
+        message.bodySize !== undefined && (obj.bodySize = message.bodySize);
         message.oxygenSense !== undefined &&
             (obj.oxygenSense = message.oxygenSense);
         return obj;
@@ -99,29 +112,34 @@ export const BeeParams = {
     fromPartial(object) {
         const message = { ...baseBeeParams };
         message.price = [];
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = object.beeType;
+        }
+        else {
+            message.beeType = "";
+        }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {
                 message.price.push(Coin.fromPartial(e));
             }
         }
-        if (object.countHoneyPerBlock !== undefined &&
-            object.countHoneyPerBlock !== null) {
-            message.countHoneyPerBlock = object.countHoneyPerBlock;
+        if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+            message.honeyPerBlock = object.honeyPerBlock;
         }
         else {
-            message.countHoneyPerBlock = 0;
+            message.honeyPerBlock = "";
         }
-        if (object.apiarySize !== undefined && object.apiarySize !== null) {
-            message.apiarySize = object.apiarySize;
+        if (object.bodySize !== undefined && object.bodySize !== null) {
+            message.bodySize = object.bodySize;
         }
         else {
-            message.apiarySize = 0;
+            message.bodySize = 0;
         }
         if (object.oxygenSense !== undefined && object.oxygenSense !== null) {
             message.oxygenSense = object.oxygenSense;
         }
         else {
-            message.oxygenSense = 0;
+            message.oxygenSense = "";
         }
         return message;
     },

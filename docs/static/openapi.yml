@@ -12789,11 +12789,6 @@ paths:
                       properties:
                         apiaryType:
                           type: string
-                          enum:
-                            - BEE_HOUSE
-                            - APIARY
-                            - ALVEARY
-                          default: BEE_HOUSE
                         price:
                           type: array
                           items:
@@ -12980,11 +12975,6 @@ paths:
                     properties:
                       apiaryType:
                         type: string
-                        enum:
-                          - BEE_HOUSE
-                          - APIARY
-                          - ALVEARY
-                        default: BEE_HOUSE
                       price:
                         type: array
                         items:
@@ -13473,6 +13463,8 @@ paths:
                     params:
                       type: object
                       properties:
+                        beeType:
+                          type: string
                         price:
                           type: array
                           items:
@@ -13491,15 +13483,13 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
-                        countHoneyPerBlock:
+                        honeyPerBlock:
                           type: string
-                          format: uint64
-                        apiarySize:
+                        bodySize:
                           type: string
                           format: uint64
                         oxygenSense:
                           type: string
-                          format: uint64
               pagination:
                 type: object
                 properties:
@@ -13635,6 +13625,8 @@ paths:
                   params:
                     type: object
                     properties:
+                      beeType:
+                        type: string
                       price:
                         type: array
                         items:
@@ -13653,15 +13645,13 @@ paths:
                             the custom method
 
                             signatures required by gogoproto.
-                      countHoneyPerBlock:
+                      honeyPerBlock:
                         type: string
-                        format: uint64
-                      apiarySize:
+                      bodySize:
                         type: string
                         format: uint64
                       oxygenSense:
                         type: string
-                        format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -13717,13 +13707,6 @@ paths:
                       properties:
                         decorationType:
                           type: string
-                          enum:
-                            - FLOWERS
-                            - FLAG
-                            - LAMP
-                            - GREEN_BEE
-                            - FOUNTAIN
-                          default: FLOWERS
                         price:
                           type: array
                           items:
@@ -13885,13 +13868,6 @@ paths:
                     properties:
                       decorationType:
                         type: string
-                        enum:
-                          - FLOWERS
-                          - FLAG
-                          - LAMP
-                          - GREEN_BEE
-                          - FOUNTAIN
-                        default: FLOWERS
                       price:
                         type: array
                         items:
@@ -14277,13 +14253,6 @@ paths:
                       properties:
                         decorationType:
                           type: string
-                          enum:
-                            - FLOWERS
-                            - FLAG
-                            - LAMP
-                            - GREEN_BEE
-                            - FOUNTAIN
-                          default: FLOWERS
                         price:
                           type: array
                           items:
@@ -14309,11 +14278,6 @@ paths:
                       properties:
                         apiaryType:
                           type: string
-                          enum:
-                            - BEE_HOUSE
-                            - APIARY
-                            - ALVEARY
-                          default: BEE_HOUSE
                         price:
                           type: array
                           items:
@@ -14338,6 +14302,38 @@ paths:
                         maxCountHoney:
                           type: string
                           format: uint64
+                  beeTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        beeType:
+                          type: string
+                        price:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
+                        honeyPerBlock:
+                          type: string
+                        bodySize:
+                          type: string
+                          format: uint64
+                        oxygenSense:
+                          type: string
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -21969,11 +21965,6 @@ definitions:
         properties:
           apiaryType:
             type: string
-            enum:
-              - BEE_HOUSE
-              - APIARY
-              - ALVEARY
-            default: BEE_HOUSE
           price:
             type: array
             items:
@@ -22024,11 +22015,6 @@ definitions:
     properties:
       apiaryType:
         type: string
-        enum:
-          - BEE_HOUSE
-          - APIARY
-          - ALVEARY
-        default: BEE_HOUSE
       price:
         type: array
         items:
@@ -22049,13 +22035,6 @@ definitions:
       maxCountHoney:
         type: string
         format: uint64
-  MonetaToday.honeywood.bears.ApiaryParams.ApiaryTypes:
-    type: string
-    enum:
-      - BEE_HOUSE
-      - APIARY
-      - ALVEARY
-    default: BEE_HOUSE
   MonetaToday.honeywood.bears.BearNames:
     type: object
     properties:
@@ -22108,6 +22087,8 @@ definitions:
   MonetaToday.honeywood.bears.BeeParams:
     type: object
     properties:
+      beeType:
+        type: string
       price:
         type: array
         items:
@@ -22122,15 +22103,13 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      countHoneyPerBlock:
+      honeyPerBlock:
         type: string
-        format: uint64
-      apiarySize:
+      bodySize:
         type: string
         format: uint64
       oxygenSense:
         type: string
-        format: uint64
   MonetaToday.honeywood.bears.Bees:
     type: object
     properties:
@@ -22152,6 +22131,8 @@ definitions:
       params:
         type: object
         properties:
+          beeType:
+            type: string
           price:
             type: array
             items:
@@ -22169,15 +22150,13 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          countHoneyPerBlock:
+          honeyPerBlock:
             type: string
-            format: uint64
-          apiarySize:
+          bodySize:
             type: string
             format: uint64
           oxygenSense:
             type: string
-            format: uint64
   MonetaToday.honeywood.bears.CycleBeesHistory:
     type: object
     properties:
@@ -22194,13 +22173,6 @@ definitions:
     properties:
       decorationType:
         type: string
-        enum:
-          - FLOWERS
-          - FLAG
-          - LAMP
-          - GREEN_BEE
-          - FOUNTAIN
-        default: FLOWERS
       price:
         type: array
         items:
@@ -22215,15 +22187,6 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-  MonetaToday.honeywood.bears.DecorationParams.DecorationTypes:
-    type: string
-    enum:
-      - FLOWERS
-      - FLAG
-      - LAMP
-      - GREEN_BEE
-      - FOUNTAIN
-    default: FLOWERS
   MonetaToday.honeywood.bears.Decorations:
     type: object
     properties:
@@ -22241,13 +22204,6 @@ definitions:
         properties:
           decorationType:
             type: string
-            enum:
-              - FLOWERS
-              - FLAG
-              - LAMP
-              - GREEN_BEE
-              - FOUNTAIN
-            default: FLOWERS
           price:
             type: array
             items:
@@ -22393,11 +22349,6 @@ definitions:
             properties:
               apiaryType:
                 type: string
-                enum:
-                  - BEE_HOUSE
-                  - APIARY
-                  - ALVEARY
-                default: BEE_HOUSE
               price:
                 type: array
                 items:
@@ -22457,13 +22408,6 @@ definitions:
             properties:
               decorationType:
                 type: string
-                enum:
-                  - FLOWERS
-                  - FLAG
-                  - LAMP
-                  - GREEN_BEE
-                  - FOUNTAIN
-                default: FLOWERS
               price:
                 type: array
                 items:
@@ -22569,11 +22513,6 @@ definitions:
             properties:
               apiaryType:
                 type: string
-                enum:
-                  - BEE_HOUSE
-                  - APIARY
-                  - ALVEARY
-                default: BEE_HOUSE
               price:
                 type: array
                 items:
@@ -22633,13 +22572,6 @@ definitions:
             properties:
               decorationType:
                 type: string
-                enum:
-                  - FLOWERS
-                  - FLAG
-                  - LAMP
-                  - GREEN_BEE
-                  - FOUNTAIN
-                default: FLOWERS
               price:
                 type: array
                 items:
@@ -22788,13 +22720,6 @@ definitions:
           properties:
             decorationType:
               type: string
-              enum:
-                - FLOWERS
-                - FLAG
-                - LAMP
-                - GREEN_BEE
-                - FOUNTAIN
-              default: FLOWERS
             price:
               type: array
               items:
@@ -22819,11 +22744,6 @@ definitions:
           properties:
             apiaryType:
               type: string
-              enum:
-                - BEE_HOUSE
-                - APIARY
-                - ALVEARY
-              default: BEE_HOUSE
             price:
               type: array
               items:
@@ -22847,6 +22767,37 @@ definitions:
             maxCountHoney:
               type: string
               format: uint64
+      beeTypes:
+        type: array
+        items:
+          type: object
+          properties:
+            beeType:
+              type: string
+            price:
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+            honeyPerBlock:
+              type: string
+            bodySize:
+              type: string
+              format: uint64
+            oxygenSense:
+              type: string
     description: Params defines the parameters for the module.
   MonetaToday.honeywood.bears.QueryAllAddressBearsResponse:
     type: object
@@ -22925,11 +22876,6 @@ definitions:
               properties:
                 apiaryType:
                   type: string
-                  enum:
-                    - BEE_HOUSE
-                    - APIARY
-                    - ALVEARY
-                  default: BEE_HOUSE
                 price:
                   type: array
                   items:
@@ -23123,6 +23069,8 @@ definitions:
             params:
               type: object
               properties:
+                beeType:
+                  type: string
                 price:
                   type: array
                   items:
@@ -23140,15 +23088,13 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-                countHoneyPerBlock:
+                honeyPerBlock:
                   type: string
-                  format: uint64
-                apiarySize:
+                bodySize:
                   type: string
                   format: uint64
                 oxygenSense:
                   type: string
-                  format: uint64
       pagination:
         type: object
         properties:
@@ -23196,13 +23142,6 @@ definitions:
               properties:
                 decorationType:
                   type: string
-                  enum:
-                    - FLOWERS
-                    - FLAG
-                    - LAMP
-                    - GREEN_BEE
-                    - FOUNTAIN
-                  default: FLOWERS
                 price:
                   type: array
                   items:
@@ -23440,11 +23379,6 @@ definitions:
             properties:
               apiaryType:
                 type: string
-                enum:
-                  - BEE_HOUSE
-                  - APIARY
-                  - ALVEARY
-                default: BEE_HOUSE
               price:
                 type: array
                 items:
@@ -23557,6 +23491,8 @@ definitions:
           params:
             type: object
             properties:
+              beeType:
+                type: string
               price:
                 type: array
                 items:
@@ -23574,15 +23510,13 @@ definitions:
                     method
 
                     signatures required by gogoproto.
-              countHoneyPerBlock:
+              honeyPerBlock:
                 type: string
-                format: uint64
-              apiarySize:
+              bodySize:
                 type: string
                 format: uint64
               oxygenSense:
                 type: string
-                format: uint64
   MonetaToday.honeywood.bears.QueryGetDecorationsResponse:
     type: object
     properties:
@@ -23603,13 +23537,6 @@ definitions:
             properties:
               decorationType:
                 type: string
-                enum:
-                  - FLOWERS
-                  - FLAG
-                  - LAMP
-                  - GREEN_BEE
-                  - FOUNTAIN
-                default: FLOWERS
               price:
                 type: array
                 items:
@@ -23804,13 +23731,6 @@ definitions:
               properties:
                 decorationType:
                   type: string
-                  enum:
-                    - FLOWERS
-                    - FLAG
-                    - LAMP
-                    - GREEN_BEE
-                    - FOUNTAIN
-                  default: FLOWERS
                 price:
                   type: array
                   items:
@@ -23835,11 +23755,6 @@ definitions:
               properties:
                 apiaryType:
                   type: string
-                  enum:
-                    - BEE_HOUSE
-                    - APIARY
-                    - ALVEARY
-                  default: BEE_HOUSE
                 price:
                   type: array
                   items:
@@ -23863,6 +23778,37 @@ definitions:
                 maxCountHoney:
                   type: string
                   format: uint64
+          beeTypes:
+            type: array
+            items:
+              type: object
+              properties:
+                beeType:
+                  type: string
+                price:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                honeyPerBlock:
+                  type: string
+                bodySize:
+                  type: string
+                  format: uint64
+                oxygenSense:
+                  type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   MonetaToday.honeywood.bears.Tiles:
     type: object

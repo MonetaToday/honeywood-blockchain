@@ -5,54 +5,6 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var DecorationParams_DecorationTypes;
-(function (DecorationParams_DecorationTypes) {
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["FLOWERS"] = 0] = "FLOWERS";
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["FLAG"] = 1] = "FLAG";
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["LAMP"] = 2] = "LAMP";
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["GREEN_BEE"] = 3] = "GREEN_BEE";
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["FOUNTAIN"] = 4] = "FOUNTAIN";
-    DecorationParams_DecorationTypes[DecorationParams_DecorationTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(DecorationParams_DecorationTypes || (DecorationParams_DecorationTypes = {}));
-export function decorationParams_DecorationTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "FLOWERS":
-            return DecorationParams_DecorationTypes.FLOWERS;
-        case 1:
-        case "FLAG":
-            return DecorationParams_DecorationTypes.FLAG;
-        case 2:
-        case "LAMP":
-            return DecorationParams_DecorationTypes.LAMP;
-        case 3:
-        case "GREEN_BEE":
-            return DecorationParams_DecorationTypes.GREEN_BEE;
-        case 4:
-        case "FOUNTAIN":
-            return DecorationParams_DecorationTypes.FOUNTAIN;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return DecorationParams_DecorationTypes.UNRECOGNIZED;
-    }
-}
-export function decorationParams_DecorationTypesToJSON(object) {
-    switch (object) {
-        case DecorationParams_DecorationTypes.FLOWERS:
-            return "FLOWERS";
-        case DecorationParams_DecorationTypes.FLAG:
-            return "FLAG";
-        case DecorationParams_DecorationTypes.LAMP:
-            return "LAMP";
-        case DecorationParams_DecorationTypes.GREEN_BEE:
-            return "GREEN_BEE";
-        case DecorationParams_DecorationTypes.FOUNTAIN:
-            return "FOUNTAIN";
-        default:
-            return "UNKNOWN";
-    }
-}
 export var Decorations_DecorationTypes;
 (function (Decorations_DecorationTypes) {
     Decorations_DecorationTypes[Decorations_DecorationTypes["FLOWERS"] = 0] = "FLOWERS";
@@ -101,11 +53,11 @@ export function decorations_DecorationTypesToJSON(object) {
             return "UNKNOWN";
     }
 }
-const baseDecorationParams = { decorationType: 0 };
+const baseDecorationParams = { decorationType: "" };
 export const DecorationParams = {
     encode(message, writer = Writer.create()) {
-        if (message.decorationType !== 0) {
-            writer.uint32(8).int32(message.decorationType);
+        if (message.decorationType !== "") {
+            writer.uint32(10).string(message.decorationType);
         }
         for (const v of message.price) {
             Coin.encode(v, writer.uint32(18).fork()).ldelim();
@@ -121,7 +73,7 @@ export const DecorationParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.decorationType = reader.int32();
+                    message.decorationType = reader.string();
                     break;
                 case 2:
                     message.price.push(Coin.decode(reader, reader.uint32()));
@@ -137,10 +89,10 @@ export const DecorationParams = {
         const message = { ...baseDecorationParams };
         message.price = [];
         if (object.decorationType !== undefined && object.decorationType !== null) {
-            message.decorationType = decorationParams_DecorationTypesFromJSON(object.decorationType);
+            message.decorationType = String(object.decorationType);
         }
         else {
-            message.decorationType = 0;
+            message.decorationType = "";
         }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {
@@ -152,7 +104,7 @@ export const DecorationParams = {
     toJSON(message) {
         const obj = {};
         message.decorationType !== undefined &&
-            (obj.decorationType = decorationParams_DecorationTypesToJSON(message.decorationType));
+            (obj.decorationType = message.decorationType);
         if (message.price) {
             obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
         }
@@ -168,7 +120,7 @@ export const DecorationParams = {
             message.decorationType = object.decorationType;
         }
         else {
-            message.decorationType = 0;
+            message.decorationType = "";
         }
         if (object.price !== undefined && object.price !== null) {
             for (const e of object.price) {
