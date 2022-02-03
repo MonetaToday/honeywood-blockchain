@@ -6,6 +6,11 @@ import "gogoproto/gogo.proto";
 import "bears/fields.proto";
 import "bears/bears.proto";
 
+message CycleBeesHistory {
+  uint64 block = 1;
+  repeated uint64 bees = 2;
+}
+
 message Apiaries {
   uint64 id = 1;
   BearOwner bearOwner = 2; 
@@ -16,4 +21,9 @@ message Apiaries {
   }
   ApiaryTypes apiaryType = 3;
   ItemPosition position = 4 [(gogoproto.nullable) = false];
+  uint64 countBees = 5;
+  uint64 maxCountBees = 6;
+  uint64 maxCountHoney = 7;
+  uint64 cycleStartBlock = 8;
+  repeated CycleBeesHistory cycleBeesHistory = 10 [(gogoproto.nullable) = false];
 }

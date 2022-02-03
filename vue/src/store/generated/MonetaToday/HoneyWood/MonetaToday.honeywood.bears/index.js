@@ -2,6 +2,7 @@ import { txClient, queryClient, MissingWalletError, registry } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
 import { AddressBears } from "./module/types/bears/address_bears";
+import { CycleBeesHistory } from "./module/types/bears/apiaries";
 import { Apiaries } from "./module/types/bears/apiaries";
 import { BearNames } from "./module/types/bears/bear_names";
 import { BearOwner } from "./module/types/bears/bears";
@@ -10,11 +11,12 @@ import { Decorations } from "./module/types/bears/decorations";
 import { FieldRows } from "./module/types/bears/fields";
 import { ItemPosition } from "./module/types/bears/fields";
 import { Fields } from "./module/types/bears/fields";
+import { ApiaryParams } from "./module/types/bears/params";
 import { Params } from "./module/types/bears/params";
 import { Tiles } from "./module/types/bears/tiles";
 import { Tiles_Items } from "./module/types/bears/tiles";
 import { Trees } from "./module/types/bears/trees";
-export { AddressBears, Apiaries, BearNames, BearOwner, Bears, Decorations, FieldRows, ItemPosition, Fields, Params, Tiles, Tiles_Items, Trees };
+export { AddressBears, CycleBeesHistory, Apiaries, BearNames, BearOwner, Bears, Decorations, FieldRows, ItemPosition, Fields, ApiaryParams, Params, Tiles, Tiles_Items, Trees };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -65,6 +67,7 @@ const getDefaultState = () => {
         ApiariesAll: {},
         _Structure: {
             AddressBears: getStructure(AddressBears.fromPartial({})),
+            CycleBeesHistory: getStructure(CycleBeesHistory.fromPartial({})),
             Apiaries: getStructure(Apiaries.fromPartial({})),
             BearNames: getStructure(BearNames.fromPartial({})),
             BearOwner: getStructure(BearOwner.fromPartial({})),
@@ -73,6 +76,7 @@ const getDefaultState = () => {
             FieldRows: getStructure(FieldRows.fromPartial({})),
             ItemPosition: getStructure(ItemPosition.fromPartial({})),
             Fields: getStructure(Fields.fromPartial({})),
+            ApiaryParams: getStructure(ApiaryParams.fromPartial({})),
             Params: getStructure(Params.fromPartial({})),
             Tiles: getStructure(Tiles.fromPartial({})),
             Tiles_Items: getStructure(Tiles_Items.fromPartial({})),
@@ -463,6 +467,57 @@ export default {
                 throw new SpVuexError('QueryClient:QueryApiariesAll', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
+        async sendMsgMoveItemOnField({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgMoveItemOnField(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgInitGameAndExtendField({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndExtendField(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateTree(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateTree:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgSetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -477,6 +532,23 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgSetDecorationPosition:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgInitGameAndCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateDecoration(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -497,6 +569,23 @@ export default {
                 }
             }
         },
+        async sendMsgInitGameAndCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateTree(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgUnsetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -514,20 +603,37 @@ export default {
                 }
             }
         },
-        async sendMsgMoveItemOnField({ rootGetters }, { value, fee = [], memo = '' }) {
+        async sendMsgCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgMoveItemOnField(value);
+                const msg = await txClient.msgCreateDecoration(value);
                 const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
                         gas: "200000" }, memo });
                 return result;
             }
             catch (e) {
                 if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.');
+                    throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgCreateDecoration:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgInitGameAndCreateApiary({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateApiary(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -565,40 +671,6 @@ export default {
                 }
             }
         },
-        async sendMsgInitGameAndExtendField({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndExtendField(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgInitGameAndCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateDecoration(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
         async sendMsgInitGameAndSetName({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -616,71 +688,48 @@ export default {
                 }
             }
         },
-        async sendMsgInitGameAndCreateApiary({ rootGetters }, { value, fee = [], memo = '' }) {
+        async MsgMoveItemOnField({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateApiary(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
+                const msg = await txClient.msgMoveItemOnField(value);
+                return msg;
             }
             catch (e) {
                 if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.');
+                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
-        async sendMsgCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
+        async MsgInitGameAndExtendField({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndExtendField(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateTree({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
                 const msg = await txClient.msgCreateTree(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
+                return msg;
             }
             catch (e) {
                 if (e == MissingWalletError) {
                     throw new SpVuexError('TxClient:MsgCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgCreateTree:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgCreateDecoration(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateDecoration:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgInitGameAndCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateTree(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Send', 'Could not broadcast Tx: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgCreateTree:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -699,6 +748,21 @@ export default {
                 }
             }
         },
+        async MsgInitGameAndCreateDecoration({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateDecoration(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
         async MsgSetName({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -711,6 +775,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgSetName:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgInitGameAndCreateTree({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateTree(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -729,18 +808,33 @@ export default {
                 }
             }
         },
-        async MsgMoveItemOnField({ rootGetters }, { value }) {
+        async MsgCreateDecoration({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgMoveItemOnField(value);
+                const msg = await txClient.msgCreateDecoration(value);
                 return msg;
             }
             catch (e) {
                 if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.');
+                    throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
                 }
                 else {
-                    throw new SpVuexError('TxClient:MsgMoveItemOnField:Create', 'Could not create message: ' + e.message);
+                    throw new SpVuexError('TxClient:MsgCreateDecoration:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgInitGameAndCreateApiary({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgInitGameAndCreateApiary(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Create', 'Could not create message: ' + e.message);
                 }
             }
         },
@@ -774,36 +868,6 @@ export default {
                 }
             }
         },
-        async MsgInitGameAndExtendField({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndExtendField(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgInitGameAndCreateDecoration({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateDecoration(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
         async MsgInitGameAndSetName({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -816,66 +880,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgInitGameAndSetName:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgInitGameAndCreateApiary({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateApiary(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgCreateTree({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgCreateTree(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateTree:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgCreateDecoration({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgCreateDecoration(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgCreateDecoration:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgInitGameAndCreateTree({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgInitGameAndCreateTree(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

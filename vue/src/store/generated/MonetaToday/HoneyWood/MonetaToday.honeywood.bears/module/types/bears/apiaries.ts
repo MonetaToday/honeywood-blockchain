@@ -6,11 +6,21 @@ import { ItemPosition } from "../bears/fields";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
+export interface CycleBeesHistory {
+  block: number;
+  bees: number[];
+}
+
 export interface Apiaries {
   id: number;
   bearOwner: BearOwner | undefined;
   apiaryType: Apiaries_ApiaryTypes;
   position: ItemPosition | undefined;
+  countBees: number;
+  maxCountBees: number;
+  maxCountHoney: number;
+  cycleStartBlock: number;
+  cycleBeesHistory: CycleBeesHistory[];
 }
 
 export enum Apiaries_ApiaryTypes {
@@ -55,7 +65,102 @@ export function apiaries_ApiaryTypesToJSON(
   }
 }
 
-const baseApiaries: object = { id: 0, apiaryType: 0 };
+const baseCycleBeesHistory: object = { block: 0, bees: 0 };
+
+export const CycleBeesHistory = {
+  encode(message: CycleBeesHistory, writer: Writer = Writer.create()): Writer {
+    if (message.block !== 0) {
+      writer.uint32(8).uint64(message.block);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.bees) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): CycleBeesHistory {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+    message.bees = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.block = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.bees.push(longToNumber(reader.uint64() as Long));
+            }
+          } else {
+            message.bees.push(longToNumber(reader.uint64() as Long));
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CycleBeesHistory {
+    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+    message.bees = [];
+    if (object.block !== undefined && object.block !== null) {
+      message.block = Number(object.block);
+    } else {
+      message.block = 0;
+    }
+    if (object.bees !== undefined && object.bees !== null) {
+      for (const e of object.bees) {
+        message.bees.push(Number(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: CycleBeesHistory): unknown {
+    const obj: any = {};
+    message.block !== undefined && (obj.block = message.block);
+    if (message.bees) {
+      obj.bees = message.bees.map((e) => e);
+    } else {
+      obj.bees = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CycleBeesHistory>): CycleBeesHistory {
+    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+    message.bees = [];
+    if (object.block !== undefined && object.block !== null) {
+      message.block = object.block;
+    } else {
+      message.block = 0;
+    }
+    if (object.bees !== undefined && object.bees !== null) {
+      for (const e of object.bees) {
+        message.bees.push(e);
+      }
+    }
+    return message;
+  },
+};
+
+const baseApiaries: object = {
+  id: 0,
+  apiaryType: 0,
+  countBees: 0,
+  maxCountBees: 0,
+  maxCountHoney: 0,
+  cycleStartBlock: 0,
+};
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
@@ -71,6 +176,21 @@ export const Apiaries = {
     if (message.position !== undefined) {
       ItemPosition.encode(message.position, writer.uint32(34).fork()).ldelim();
     }
+    if (message.countBees !== 0) {
+      writer.uint32(40).uint64(message.countBees);
+    }
+    if (message.maxCountBees !== 0) {
+      writer.uint32(48).uint64(message.maxCountBees);
+    }
+    if (message.maxCountHoney !== 0) {
+      writer.uint32(56).uint64(message.maxCountHoney);
+    }
+    if (message.cycleStartBlock !== 0) {
+      writer.uint32(64).uint64(message.cycleStartBlock);
+    }
+    for (const v of message.cycleBeesHistory) {
+      CycleBeesHistory.encode(v!, writer.uint32(82).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -78,6 +198,7 @@ export const Apiaries = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseApiaries } as Apiaries;
+    message.cycleBeesHistory = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -93,6 +214,23 @@ export const Apiaries = {
         case 4:
           message.position = ItemPosition.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.countBees = longToNumber(reader.uint64() as Long);
+          break;
+        case 6:
+          message.maxCountBees = longToNumber(reader.uint64() as Long);
+          break;
+        case 7:
+          message.maxCountHoney = longToNumber(reader.uint64() as Long);
+          break;
+        case 8:
+          message.cycleStartBlock = longToNumber(reader.uint64() as Long);
+          break;
+        case 10:
+          message.cycleBeesHistory.push(
+            CycleBeesHistory.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -103,6 +241,7 @@ export const Apiaries = {
 
   fromJSON(object: any): Apiaries {
     const message = { ...baseApiaries } as Apiaries;
+    message.cycleBeesHistory = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -123,6 +262,37 @@ export const Apiaries = {
     } else {
       message.position = undefined;
     }
+    if (object.countBees !== undefined && object.countBees !== null) {
+      message.countBees = Number(object.countBees);
+    } else {
+      message.countBees = 0;
+    }
+    if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+      message.maxCountBees = Number(object.maxCountBees);
+    } else {
+      message.maxCountBees = 0;
+    }
+    if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+      message.maxCountHoney = Number(object.maxCountHoney);
+    } else {
+      message.maxCountHoney = 0;
+    }
+    if (
+      object.cycleStartBlock !== undefined &&
+      object.cycleStartBlock !== null
+    ) {
+      message.cycleStartBlock = Number(object.cycleStartBlock);
+    } else {
+      message.cycleStartBlock = 0;
+    }
+    if (
+      object.cycleBeesHistory !== undefined &&
+      object.cycleBeesHistory !== null
+    ) {
+      for (const e of object.cycleBeesHistory) {
+        message.cycleBeesHistory.push(CycleBeesHistory.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -139,11 +309,26 @@ export const Apiaries = {
       (obj.position = message.position
         ? ItemPosition.toJSON(message.position)
         : undefined);
+    message.countBees !== undefined && (obj.countBees = message.countBees);
+    message.maxCountBees !== undefined &&
+      (obj.maxCountBees = message.maxCountBees);
+    message.maxCountHoney !== undefined &&
+      (obj.maxCountHoney = message.maxCountHoney);
+    message.cycleStartBlock !== undefined &&
+      (obj.cycleStartBlock = message.cycleStartBlock);
+    if (message.cycleBeesHistory) {
+      obj.cycleBeesHistory = message.cycleBeesHistory.map((e) =>
+        e ? CycleBeesHistory.toJSON(e) : undefined
+      );
+    } else {
+      obj.cycleBeesHistory = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<Apiaries>): Apiaries {
     const message = { ...baseApiaries } as Apiaries;
+    message.cycleBeesHistory = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
@@ -163,6 +348,37 @@ export const Apiaries = {
       message.position = ItemPosition.fromPartial(object.position);
     } else {
       message.position = undefined;
+    }
+    if (object.countBees !== undefined && object.countBees !== null) {
+      message.countBees = object.countBees;
+    } else {
+      message.countBees = 0;
+    }
+    if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+      message.maxCountBees = object.maxCountBees;
+    } else {
+      message.maxCountBees = 0;
+    }
+    if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+      message.maxCountHoney = object.maxCountHoney;
+    } else {
+      message.maxCountHoney = 0;
+    }
+    if (
+      object.cycleStartBlock !== undefined &&
+      object.cycleStartBlock !== null
+    ) {
+      message.cycleStartBlock = object.cycleStartBlock;
+    } else {
+      message.cycleStartBlock = 0;
+    }
+    if (
+      object.cycleBeesHistory !== undefined &&
+      object.cycleBeesHistory !== null
+    ) {
+      for (const e of object.cycleBeesHistory) {
+        message.cycleBeesHistory.push(CycleBeesHistory.fromPartial(e));
+      }
     }
     return message;
   },

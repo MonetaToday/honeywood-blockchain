@@ -12788,6 +12788,31 @@ paths:
                         columnId:
                           type: string
                           format: uint64
+                    countBees:
+                      type: string
+                      format: uint64
+                    maxCountBees:
+                      type: string
+                      format: uint64
+                    maxCountHoney:
+                      type: string
+                      format: uint64
+                    cycleStartBlock:
+                      type: string
+                      format: uint64
+                    cycleBeesHistory:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          block:
+                            type: string
+                            format: uint64
+                          bees:
+                            type: array
+                            items:
+                              type: string
+                              format: uint64
               pagination:
                 type: object
                 properties:
@@ -12933,6 +12958,31 @@ paths:
                       columnId:
                         type: string
                         format: uint64
+                  countBees:
+                    type: string
+                    format: uint64
+                  maxCountBees:
+                    type: string
+                    format: uint64
+                  maxCountHoney:
+                    type: string
+                    format: uint64
+                  cycleStartBlock:
+                    type: string
+                    format: uint64
+                  cycleBeesHistory:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        block:
+                          type: string
+                          format: uint64
+                        bees:
+                          type: array
+                          items:
+                            type: string
+                            format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -13973,57 +14023,87 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                  priceApiaryBeeHouse:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
+                  apiaryBeeHouseParams:
+                    type: object
+                    properties:
+                      price:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
 
 
-                        NOTE: The amount field is an Int which implements the
-                        custom method
+                            NOTE: The amount field is an Int which implements
+                            the custom method
 
-                        signatures required by gogoproto.
-                  priceApiaryApiary:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-                  priceApiaryAlveary:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
+                            signatures required by gogoproto.
+                      maxCountBees:
+                        type: string
+                        format: uint64
+                      maxCountHoney:
+                        type: string
+                        format: uint64
+                  apiaryApiaryParams:
+                    type: object
+                    properties:
+                      price:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
 
 
-                        NOTE: The amount field is an Int which implements the
-                        custom method
+                            NOTE: The amount field is an Int which implements
+                            the custom method
 
-                        signatures required by gogoproto.
+                            signatures required by gogoproto.
+                      maxCountBees:
+                        type: string
+                        format: uint64
+                      maxCountHoney:
+                        type: string
+                        format: uint64
+                  apiaryAlvearyParams:
+                    type: object
+                    properties:
+                      price:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                      maxCountBees:
+                        type: string
+                        format: uint64
+                      maxCountHoney:
+                        type: string
+                        format: uint64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -21654,6 +21734,31 @@ definitions:
           columnId:
             type: string
             format: uint64
+      countBees:
+        type: string
+        format: uint64
+      maxCountBees:
+        type: string
+        format: uint64
+      maxCountHoney:
+        type: string
+        format: uint64
+      cycleStartBlock:
+        type: string
+        format: uint64
+      cycleBeesHistory:
+        type: array
+        items:
+          type: object
+          properties:
+            block:
+              type: string
+              format: uint64
+            bees:
+              type: array
+              items:
+                type: string
+                format: uint64
   MonetaToday.honeywood.bears.Apiaries.ApiaryTypes:
     type: string
     enum:
@@ -21661,6 +21766,29 @@ definitions:
       - APIARY
       - ALVEARY
     default: BEE_HOUSE
+  MonetaToday.honeywood.bears.ApiaryParams:
+    type: object
+    properties:
+      price:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
+      maxCountBees:
+        type: string
+        format: uint64
+      maxCountHoney:
+        type: string
+        format: uint64
   MonetaToday.honeywood.bears.BearNames:
     type: object
     properties:
@@ -21706,6 +21834,17 @@ definitions:
           type: string
           format: uint64
       decorations:
+        type: array
+        items:
+          type: string
+          format: uint64
+  MonetaToday.honeywood.bears.CycleBeesHistory:
+    type: object
+    properties:
+      block:
+        type: string
+        format: uint64
+      bees:
         type: array
         items:
           type: string
@@ -21867,6 +22006,31 @@ definitions:
               columnId:
                 type: string
                 format: uint64
+          countBees:
+            type: string
+            format: uint64
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
+          cycleStartBlock:
+            type: string
+            format: uint64
+          cycleBeesHistory:
+            type: array
+            items:
+              type: object
+              properties:
+                block:
+                  type: string
+                  format: uint64
+                bees:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
   MonetaToday.honeywood.bears.MsgCreateDecorationResponse:
     type: object
     properties:
@@ -21978,6 +22142,31 @@ definitions:
               columnId:
                 type: string
                 format: uint64
+          countBees:
+            type: string
+            format: uint64
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
+          cycleStartBlock:
+            type: string
+            format: uint64
+          cycleBeesHistory:
+            type: array
+            items:
+              type: object
+              properties:
+                block:
+                  type: string
+                  format: uint64
+                bees:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
   MonetaToday.honeywood.bears.MsgInitGameAndCreateDecorationResponse:
     type: object
     properties:
@@ -22196,48 +22385,84 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      priceApiaryBeeHouse:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
+      apiaryBeeHouseParams:
+        type: object
+        properties:
+          price:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceApiaryApiary:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceApiaryAlveary:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
+                NOTE: The amount field is an Int which implements the custom
+                method
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
+                signatures required by gogoproto.
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
+      apiaryApiaryParams:
+        type: object
+        properties:
+          price:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
+      apiaryAlvearyParams:
+        type: object
+        properties:
+          price:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
     description: Params defines the parameters for the module.
   MonetaToday.honeywood.bears.QueryAllAddressBearsResponse:
     type: object
@@ -22315,6 +22540,31 @@ definitions:
                 columnId:
                   type: string
                   format: uint64
+            countBees:
+              type: string
+              format: uint64
+            maxCountBees:
+              type: string
+              format: uint64
+            maxCountHoney:
+              type: string
+              format: uint64
+            cycleStartBlock:
+              type: string
+              format: uint64
+            cycleBeesHistory:
+              type: array
+              items:
+                type: object
+                properties:
+                  block:
+                    type: string
+                    format: uint64
+                  bees:
+                    type: array
+                    items:
+                      type: string
+                      format: uint64
       pagination:
         type: object
         properties:
@@ -22688,6 +22938,31 @@ definitions:
               columnId:
                 type: string
                 format: uint64
+          countBees:
+            type: string
+            format: uint64
+          maxCountBees:
+            type: string
+            format: uint64
+          maxCountHoney:
+            type: string
+            format: uint64
+          cycleStartBlock:
+            type: string
+            format: uint64
+          cycleBeesHistory:
+            type: array
+            items:
+              type: object
+              properties:
+                block:
+                  type: string
+                  format: uint64
+                bees:
+                  type: array
+                  items:
+                    type: string
+                    format: uint64
   MonetaToday.honeywood.bears.QueryGetBearNamesResponse:
     type: object
     properties:
@@ -23016,57 +23291,84 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          priceApiaryBeeHouse:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
+          apiaryBeeHouseParams:
+            type: object
+            properties:
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
 
 
-                NOTE: The amount field is an Int which implements the custom
-                method
+                    NOTE: The amount field is an Int which implements the custom
+                    method
 
-                signatures required by gogoproto.
-          priceApiaryApiary:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
-
-
-                NOTE: The amount field is an Int which implements the custom
-                method
-
-                signatures required by gogoproto.
-          priceApiaryAlveary:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
+                    signatures required by gogoproto.
+              maxCountBees:
+                type: string
+                format: uint64
+              maxCountHoney:
+                type: string
+                format: uint64
+          apiaryApiaryParams:
+            type: object
+            properties:
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
 
 
-                NOTE: The amount field is an Int which implements the custom
-                method
+                    NOTE: The amount field is an Int which implements the custom
+                    method
 
-                signatures required by gogoproto.
+                    signatures required by gogoproto.
+              maxCountBees:
+                type: string
+                format: uint64
+              maxCountHoney:
+                type: string
+                format: uint64
+          apiaryAlvearyParams:
+            type: object
+            properties:
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
+              maxCountBees:
+                type: string
+                format: uint64
+              maxCountHoney:
+                type: string
+                format: uint64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   MonetaToday.honeywood.bears.Tiles:
     type: object

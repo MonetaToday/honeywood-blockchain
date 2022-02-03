@@ -1,7 +1,105 @@
 /* eslint-disable */
+import * as Long from "long";
+import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Coin } from "../cosmos/base/v1beta1/coin";
-import { Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
+const baseApiaryParams = { maxCountBees: 0, maxCountHoney: 0 };
+export const ApiaryParams = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.price) {
+            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.maxCountBees !== 0) {
+            writer.uint32(16).uint64(message.maxCountBees);
+        }
+        if (message.maxCountHoney !== 0) {
+            writer.uint32(24).uint64(message.maxCountHoney);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.price.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.maxCountBees = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.maxCountHoney = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromJSON(e));
+            }
+        }
+        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+            message.maxCountBees = Number(object.maxCountBees);
+        }
+        else {
+            message.maxCountBees = 0;
+        }
+        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+            message.maxCountHoney = Number(object.maxCountHoney);
+        }
+        else {
+            message.maxCountHoney = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.price) {
+            obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
+        }
+        else {
+            obj.price = [];
+        }
+        message.maxCountBees !== undefined &&
+            (obj.maxCountBees = message.maxCountBees);
+        message.maxCountHoney !== undefined &&
+            (obj.maxCountHoney = message.maxCountHoney);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromPartial(e));
+            }
+        }
+        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+            message.maxCountBees = object.maxCountBees;
+        }
+        else {
+            message.maxCountBees = 0;
+        }
+        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+            message.maxCountHoney = object.maxCountHoney;
+        }
+        else {
+            message.maxCountHoney = 0;
+        }
+        return message;
+    },
+};
 const baseParams = { burnRate: "" };
 export const Params = {
     encode(message, writer = Writer.create()) {
@@ -35,14 +133,14 @@ export const Params = {
         for (const v of message.priceDecorationFountain) {
             Coin.encode(v, writer.uint32(82).fork()).ldelim();
         }
-        for (const v of message.priceApiaryBeeHouse) {
-            Coin.encode(v, writer.uint32(90).fork()).ldelim();
+        if (message.apiaryBeeHouseParams !== undefined) {
+            ApiaryParams.encode(message.apiaryBeeHouseParams, writer.uint32(90).fork()).ldelim();
         }
-        for (const v of message.priceApiaryApiary) {
-            Coin.encode(v, writer.uint32(98).fork()).ldelim();
+        if (message.apiaryApiaryParams !== undefined) {
+            ApiaryParams.encode(message.apiaryApiaryParams, writer.uint32(98).fork()).ldelim();
         }
-        for (const v of message.priceApiaryAlveary) {
-            Coin.encode(v, writer.uint32(106).fork()).ldelim();
+        if (message.apiaryAlvearyParams !== undefined) {
+            ApiaryParams.encode(message.apiaryAlvearyParams, writer.uint32(106).fork()).ldelim();
         }
         return writer;
     },
@@ -59,9 +157,6 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
-        message.priceApiaryBeeHouse = [];
-        message.priceApiaryApiary = [];
-        message.priceApiaryAlveary = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -96,13 +191,13 @@ export const Params = {
                     message.priceDecorationFountain.push(Coin.decode(reader, reader.uint32()));
                     break;
                 case 11:
-                    message.priceApiaryBeeHouse.push(Coin.decode(reader, reader.uint32()));
+                    message.apiaryBeeHouseParams = ApiaryParams.decode(reader, reader.uint32());
                     break;
                 case 12:
-                    message.priceApiaryApiary.push(Coin.decode(reader, reader.uint32()));
+                    message.apiaryApiaryParams = ApiaryParams.decode(reader, reader.uint32());
                     break;
                 case 13:
-                    message.priceApiaryAlveary.push(Coin.decode(reader, reader.uint32()));
+                    message.apiaryAlvearyParams = ApiaryParams.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -122,9 +217,6 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
-        message.priceApiaryBeeHouse = [];
-        message.priceApiaryApiary = [];
-        message.priceApiaryAlveary = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = String(object.burnRate);
         }
@@ -181,23 +273,26 @@ export const Params = {
                 message.priceDecorationFountain.push(Coin.fromJSON(e));
             }
         }
-        if (object.priceApiaryBeeHouse !== undefined &&
-            object.priceApiaryBeeHouse !== null) {
-            for (const e of object.priceApiaryBeeHouse) {
-                message.priceApiaryBeeHouse.push(Coin.fromJSON(e));
-            }
+        if (object.apiaryBeeHouseParams !== undefined &&
+            object.apiaryBeeHouseParams !== null) {
+            message.apiaryBeeHouseParams = ApiaryParams.fromJSON(object.apiaryBeeHouseParams);
         }
-        if (object.priceApiaryApiary !== undefined &&
-            object.priceApiaryApiary !== null) {
-            for (const e of object.priceApiaryApiary) {
-                message.priceApiaryApiary.push(Coin.fromJSON(e));
-            }
+        else {
+            message.apiaryBeeHouseParams = undefined;
         }
-        if (object.priceApiaryAlveary !== undefined &&
-            object.priceApiaryAlveary !== null) {
-            for (const e of object.priceApiaryAlveary) {
-                message.priceApiaryAlveary.push(Coin.fromJSON(e));
-            }
+        if (object.apiaryApiaryParams !== undefined &&
+            object.apiaryApiaryParams !== null) {
+            message.apiaryApiaryParams = ApiaryParams.fromJSON(object.apiaryApiaryParams);
+        }
+        else {
+            message.apiaryApiaryParams = undefined;
+        }
+        if (object.apiaryAlvearyParams !== undefined &&
+            object.apiaryAlvearyParams !== null) {
+            message.apiaryAlvearyParams = ApiaryParams.fromJSON(object.apiaryAlvearyParams);
+        }
+        else {
+            message.apiaryAlvearyParams = undefined;
         }
         return message;
     },
@@ -258,24 +353,18 @@ export const Params = {
         else {
             obj.priceDecorationFountain = [];
         }
-        if (message.priceApiaryBeeHouse) {
-            obj.priceApiaryBeeHouse = message.priceApiaryBeeHouse.map((e) => e ? Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.priceApiaryBeeHouse = [];
-        }
-        if (message.priceApiaryApiary) {
-            obj.priceApiaryApiary = message.priceApiaryApiary.map((e) => e ? Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.priceApiaryApiary = [];
-        }
-        if (message.priceApiaryAlveary) {
-            obj.priceApiaryAlveary = message.priceApiaryAlveary.map((e) => e ? Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.priceApiaryAlveary = [];
-        }
+        message.apiaryBeeHouseParams !== undefined &&
+            (obj.apiaryBeeHouseParams = message.apiaryBeeHouseParams
+                ? ApiaryParams.toJSON(message.apiaryBeeHouseParams)
+                : undefined);
+        message.apiaryApiaryParams !== undefined &&
+            (obj.apiaryApiaryParams = message.apiaryApiaryParams
+                ? ApiaryParams.toJSON(message.apiaryApiaryParams)
+                : undefined);
+        message.apiaryAlvearyParams !== undefined &&
+            (obj.apiaryAlvearyParams = message.apiaryAlvearyParams
+                ? ApiaryParams.toJSON(message.apiaryAlvearyParams)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -289,9 +378,6 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
-        message.priceApiaryBeeHouse = [];
-        message.priceApiaryApiary = [];
-        message.priceApiaryAlveary = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = object.burnRate;
         }
@@ -348,24 +434,48 @@ export const Params = {
                 message.priceDecorationFountain.push(Coin.fromPartial(e));
             }
         }
-        if (object.priceApiaryBeeHouse !== undefined &&
-            object.priceApiaryBeeHouse !== null) {
-            for (const e of object.priceApiaryBeeHouse) {
-                message.priceApiaryBeeHouse.push(Coin.fromPartial(e));
-            }
+        if (object.apiaryBeeHouseParams !== undefined &&
+            object.apiaryBeeHouseParams !== null) {
+            message.apiaryBeeHouseParams = ApiaryParams.fromPartial(object.apiaryBeeHouseParams);
         }
-        if (object.priceApiaryApiary !== undefined &&
-            object.priceApiaryApiary !== null) {
-            for (const e of object.priceApiaryApiary) {
-                message.priceApiaryApiary.push(Coin.fromPartial(e));
-            }
+        else {
+            message.apiaryBeeHouseParams = undefined;
         }
-        if (object.priceApiaryAlveary !== undefined &&
-            object.priceApiaryAlveary !== null) {
-            for (const e of object.priceApiaryAlveary) {
-                message.priceApiaryAlveary.push(Coin.fromPartial(e));
-            }
+        if (object.apiaryApiaryParams !== undefined &&
+            object.apiaryApiaryParams !== null) {
+            message.apiaryApiaryParams = ApiaryParams.fromPartial(object.apiaryApiaryParams);
+        }
+        else {
+            message.apiaryApiaryParams = undefined;
+        }
+        if (object.apiaryAlvearyParams !== undefined &&
+            object.apiaryAlvearyParams !== null) {
+            message.apiaryAlvearyParams = ApiaryParams.fromPartial(object.apiaryAlvearyParams);
+        }
+        else {
+            message.apiaryAlvearyParams = undefined;
         }
         return message;
     },
 };
+var globalThis = (() => {
+    if (typeof globalThis !== "undefined")
+        return globalThis;
+    if (typeof self !== "undefined")
+        return self;
+    if (typeof window !== "undefined")
+        return window;
+    if (typeof global !== "undefined")
+        return global;
+    throw "Unable to locate global object";
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}

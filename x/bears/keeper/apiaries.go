@@ -133,19 +133,19 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	priceApiary := k.PriceApiaryBeeHouse(ctx)
+	apiaryParams := k.ApiaryBeeHouseParams(ctx)
 	switch apiaryType {
 	case types.Apiaries_APIARY.String():
-		priceApiary = k.PriceApiaryApiary(ctx)
+		apiaryParams = k.ApiaryApiaryParams(ctx)
 	case types.Apiaries_ALVEARY.String():
-		priceApiary = k.PriceApiaryAlveary(ctx)
+		apiaryParams = k.ApiaryAlvearyParams(ctx)
 	}
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceApiary)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, apiaryParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceApiary)
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, apiaryParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}
@@ -158,6 +158,11 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			ColumnId: columnId,
 		},
 		ApiaryType: types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
+		CountBees: 0,
+		MaxCountBees: apiaryParams.MaxCountBees,
+		MaxCountHoney: apiaryParams.MaxCountHoney,
+		CycleStartBlock: 0,
+		CycleBeesHistory: []types.CycleBeesHistory{},
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
 

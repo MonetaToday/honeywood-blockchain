@@ -57,6 +57,29 @@ export interface BearsApiaries {
   bearOwner?: BearsBearOwner;
   apiaryType?: ApiariesApiaryTypes;
   position?: BearsItemPosition;
+
+  /** @format uint64 */
+  countBees?: string;
+
+  /** @format uint64 */
+  maxCountBees?: string;
+
+  /** @format uint64 */
+  maxCountHoney?: string;
+
+  /** @format uint64 */
+  cycleStartBlock?: string;
+  cycleBeesHistory?: BearsCycleBeesHistory[];
+}
+
+export interface BearsApiaryParams {
+  price?: V1Beta1Coin[];
+
+  /** @format uint64 */
+  maxCountBees?: string;
+
+  /** @format uint64 */
+  maxCountHoney?: string;
 }
 
 export interface BearsBearNames {
@@ -81,6 +104,12 @@ export interface BearsBears {
   bees?: string[];
   trees?: string[];
   decorations?: string[];
+}
+
+export interface BearsCycleBeesHistory {
+  /** @format uint64 */
+  block?: string;
+  bees?: string[];
 }
 
 export interface BearsDecorations {
@@ -175,9 +204,9 @@ export interface BearsParams {
   priceDecorationLamp?: V1Beta1Coin[];
   priceDecorationGreenBee?: V1Beta1Coin[];
   priceDecorationFountain?: V1Beta1Coin[];
-  priceApiaryBeeHouse?: V1Beta1Coin[];
-  priceApiaryApiary?: V1Beta1Coin[];
-  priceApiaryAlveary?: V1Beta1Coin[];
+  apiaryBeeHouseParams?: BearsApiaryParams;
+  apiaryApiaryParams?: BearsApiaryParams;
+  apiaryAlvearyParams?: BearsApiaryParams;
 }
 
 export interface BearsQueryAllAddressBearsResponse {

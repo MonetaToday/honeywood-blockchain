@@ -6,6 +6,13 @@ import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
+message ApiaryParams {
+  repeated cosmos.base.v1beta1.Coin price = 1
+    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price\""];
+  uint64 max_count_bees = 2 [(gogoproto.moretags) = "yaml:\"max_count_bees\""];
+  uint64 max_count_honey = 3 [(gogoproto.moretags) = "yaml:\"max_count_honey\""];
+}
+
 // Params defines the parameters for the module.
 message Params {
   option (gogoproto.goproto_stringer) = false;
@@ -35,10 +42,10 @@ message Params {
   repeated cosmos.base.v1beta1.Coin price_decoration_fountain = 10
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_fountain\""];
 
-  repeated cosmos.base.v1beta1.Coin price_apiary_bee_house = 11
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_apiary_bee_house\""];
-  repeated cosmos.base.v1beta1.Coin price_apiary_apiary = 12
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_apiary_apiary\""]; 
-  repeated cosmos.base.v1beta1.Coin price_apiary_alveary = 13
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_apiary_alveary\""]; 
+  ApiaryParams apiary_bee_house_params = 11
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_bee_house_params\""]; 
+  ApiaryParams apiary_apiary_params = 12
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_apiary_params\""];
+  ApiaryParams apiary_alveary_params = 13
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_alveary_params\""];
 }
