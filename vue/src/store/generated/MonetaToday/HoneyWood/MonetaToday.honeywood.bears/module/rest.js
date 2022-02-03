@@ -14,14 +14,6 @@ export var ApiaryParamsApiaryTypes;
     ApiaryParamsApiaryTypes["APIARY"] = "APIARY";
     ApiaryParamsApiaryTypes["ALVEARY"] = "ALVEARY";
 })(ApiaryParamsApiaryTypes || (ApiaryParamsApiaryTypes = {}));
-export var DecorationsDecorationTypes;
-(function (DecorationsDecorationTypes) {
-    DecorationsDecorationTypes["FLOWERS"] = "FLOWERS";
-    DecorationsDecorationTypes["FLAG"] = "FLAG";
-    DecorationsDecorationTypes["LAMP"] = "LAMP";
-    DecorationsDecorationTypes["GREEN_BEE"] = "GREEN_BEE";
-    DecorationsDecorationTypes["FOUNTAIN"] = "FOUNTAIN";
-})(DecorationsDecorationTypes || (DecorationsDecorationTypes = {}));
 export var FieldsFieldTypes;
 (function (FieldsFieldTypes) {
     FieldsFieldTypes["DEFAULT"] = "DEFAULT";
@@ -39,6 +31,14 @@ export var TreesTreeTypes;
     TreesTreeTypes["APPLETREE"] = "APPLETREE";
     TreesTreeTypes["WILLOW"] = "WILLOW";
 })(TreesTreeTypes || (TreesTreeTypes = {}));
+export var BearsDecorationParamsDecorationTypes;
+(function (BearsDecorationParamsDecorationTypes) {
+    BearsDecorationParamsDecorationTypes["FLOWERS"] = "FLOWERS";
+    BearsDecorationParamsDecorationTypes["FLAG"] = "FLAG";
+    BearsDecorationParamsDecorationTypes["LAMP"] = "LAMP";
+    BearsDecorationParamsDecorationTypes["GREEN_BEE"] = "GREEN_BEE";
+    BearsDecorationParamsDecorationTypes["FOUNTAIN"] = "FOUNTAIN";
+})(BearsDecorationParamsDecorationTypes || (BearsDecorationParamsDecorationTypes = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";

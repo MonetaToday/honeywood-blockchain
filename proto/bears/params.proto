@@ -6,6 +6,7 @@ import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "bears/apiaries.proto";
+import "bears/decorations.proto";
 
 // Params defines the parameters for the module.
 message Params {
@@ -25,17 +26,9 @@ message Params {
   repeated cosmos.base.v1beta1.Coin reward_tree = 5
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"reward_tree\""];  
 
-  repeated cosmos.base.v1beta1.Coin price_decoration_flowers = 6
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_flowers\""];
-  repeated cosmos.base.v1beta1.Coin price_decoration_flag = 7
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_flag\""]; 
-  repeated cosmos.base.v1beta1.Coin price_decoration_lamp = 8
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_lamp\""]; 
-  repeated cosmos.base.v1beta1.Coin price_decoration_green_bee = 9
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_green_bee\""]; 
-  repeated cosmos.base.v1beta1.Coin price_decoration_fountain = 10
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_decoration_fountain\""];
+  repeated DecorationParams decoration_types = 6
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"decoration_types\""];
 
-  repeated ApiaryParams apiary_types = 11
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_bee_house_params\""];
+  repeated ApiaryParams apiary_types = 7
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_types\""];
 }

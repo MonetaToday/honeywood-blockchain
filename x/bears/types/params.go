@@ -26,20 +26,8 @@ var (
 	KeyRewardTree               = []byte("RewardTree")
 	DefaultRewardTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("cone", sdk.NewInt(100)))
 
-	KeyPriceDecorationFlowers               = []byte("PriceDecorationFlowers")
-	DefaultPriceDecorationFlowers sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
-
-	KeyPriceDecorationFlag               = []byte("PriceDecorationFlag")
-	DefaultPriceDecorationFlag sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(150)))
-
-	KeyPriceDecorationLamp               = []byte("PriceDecorationLamp")
-	DefaultPriceDecorationLamp sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(200)))
-
-	KeyPriceDecorationGreenBee               = []byte("PriceDecorationGreenBee")
-	DefaultPriceDecorationGreenBee sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500)))
-
-	KeyPriceDecorationFountain               = []byte("PriceDecorationFountain")
-	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
+	KeyDecorationTypes     = []byte("DecorationTypes")
+	DefaultDecorationTypes = []DecorationParams{}
 
 	KeyApiaryTypes     = []byte("ApiaryTypes")
 	DefaultApiaryTypes = []ApiaryParams{}
@@ -52,11 +40,7 @@ func NewParams(
 	priceTile sdk.Coins,
 	priceTree sdk.Coins,
 	rewardTree sdk.Coins,
-	priceDecorationFlowers sdk.Coins,
-	priceDecorationFlag sdk.Coins,
-	priceDecorationLamp sdk.Coins,
-	priceDecorationGreenBee sdk.Coins,
-	priceDecorationFountain sdk.Coins,
+	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
 ) Params {
 	return Params{
@@ -65,11 +49,7 @@ func NewParams(
 		PriceTile:               priceTile,
 		PriceTree:               priceTree,
 		RewardTree:              rewardTree,
-		PriceDecorationFlowers:  priceDecorationFlowers,
-		PriceDecorationFlag:     priceDecorationFlag,
-		PriceDecorationLamp:     priceDecorationLamp,
-		PriceDecorationGreenBee: priceDecorationGreenBee,
-		PriceDecorationFountain: priceDecorationFountain,
+		DecorationTypes:  			 decorationTypes,
 		ApiaryTypes:    				 apiaryTypes,
 	}
 }
@@ -82,11 +62,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validateCoins),
 		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, &p.PriceDecorationFlowers, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, &p.PriceDecorationFlag, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validateCoins),
+		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 	}
 }
@@ -113,23 +89,7 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validateCoins(p.PriceDecorationFlowers); err != nil {
-		return err
-	}
-
-	if err := validateCoins(p.PriceDecorationFlag); err != nil {
-		return err
-	}
-
-	if err := validateCoins(p.PriceDecorationLamp); err != nil {
-		return err
-	}
-
-	if err := validateCoins(p.PriceDecorationGreenBee); err != nil {
-		return err
-	}
-
-	if err := validateCoins(p.PriceDecorationFountain); err != nil {
+	if err := validateDecorationTypes(p.DecorationTypes); err != nil {
 		return err
 	}
 
@@ -148,11 +108,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlowers, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFlag, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 	)
 }
@@ -165,11 +121,7 @@ func DefaultParams() Params {
 		DefaultPriceTile,
 		DefaultPriceTree,
 		DefaultRewardTree,
-		DefaultPriceDecorationFlowers,
-		DefaultPriceDecorationFlag,
-		DefaultPriceDecorationLamp,
-		DefaultPriceDecorationGreenBee,
-		DefaultPriceDecorationFountain,
+		DefaultDecorationTypes,
 		DefaultApiaryTypes,
 	)
 }
@@ -205,6 +157,22 @@ func validateCoins(i interface{}) error {
 
 	return nil
 }
+
+func validateDecorationTypes(i interface{}) error {
+	v, ok := i.([]DecorationParams)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	for _, params := range v {
+		if !params.Price.IsValid() {
+			return fmt.Errorf("invalid coins parameter in DecorationParams: %v", v)
+		}
+	}
+
+	return nil
+}
+
 
 func validateApiaryTypes(i interface{}) error {
 	v, ok := i.([]ApiaryParams)

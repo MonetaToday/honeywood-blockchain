@@ -117,8 +117,6 @@ func (k Keeper) GetApiaryParams(ctx sdk.Context, apiaryType types.ApiaryParams_A
 	return nil, false
 }
 
-
-
 // Create apiary on field for specific bear
 func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) (*types.Apiaries, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)

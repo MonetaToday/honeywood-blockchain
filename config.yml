@@ -47,21 +47,28 @@ genesis:
         reward_tree: 
           - denom: "cone"
             amount: "100"
-        price_decoration_flowers: 
-          - denom: "honey"
-            amount: "100"
-        price_decoration_flag: 
-          - denom: "honey"
-            amount: "150"
-        price_decoration_lamp: 
-          - denom: "honey"
-            amount: "200"
-        price_decoration_green_bee: 
-          - denom: "honey"
-            amount: "500"
-        price_decoration_fountain: 
-          - denom: "honey"
-            amount: "1000"
+
+        decoration_types:
+          - decoration_type: "FLOWERS"
+            price:
+              - denom: "honey"
+                amount: "100"
+          - decoration_type: "FLAG"
+            price:
+              - denom: "honey"
+                amount: "150"
+          - decoration_type: "LAMP"
+            price:
+              - denom: "honey"
+                amount: "200"
+          - decoration_type: "GREEN_BEE"
+            price:
+              - denom: "honey"
+                amount: "500" 
+          - decoration_type: "FOUNTAIN"
+            price:
+              - denom: "honey"
+                amount: "1000" 
         
         apiary_types:
           - apiary_type: "BEE_HOUSE"

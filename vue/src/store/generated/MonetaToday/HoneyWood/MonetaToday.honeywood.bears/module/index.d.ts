@@ -1,19 +1,19 @@
 import { StdFee } from "@cosmjs/launchpad";
 import { Registry, OfflineSigner, EncodeObject } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgSetDecorationPosition } from "./types/bears/tx";
-import { MsgCreateTree } from "./types/bears/tx";
-import { MsgInitGameAndCreateTree } from "./types/bears/tx";
-import { MsgInitGameAndCreateApiary } from "./types/bears/tx";
-import { MsgInitGameAndCreateDecoration } from "./types/bears/tx";
-import { MsgCreateDecoration } from "./types/bears/tx";
-import { MsgInitGameAndSetName } from "./types/bears/tx";
-import { MsgExtendField } from "./types/bears/tx";
-import { MsgMoveItemOnField } from "./types/bears/tx";
-import { MsgUnsetDecorationPosition } from "./types/bears/tx";
 import { MsgSetName } from "./types/bears/tx";
+import { MsgInitGameAndCreateDecoration } from "./types/bears/tx";
+import { MsgMoveItemOnField } from "./types/bears/tx";
+import { MsgExtendField } from "./types/bears/tx";
+import { MsgInitGameAndCreateTree } from "./types/bears/tx";
+import { MsgCreateTree } from "./types/bears/tx";
 import { MsgInitGameAndExtendField } from "./types/bears/tx";
 import { MsgCreateApiary } from "./types/bears/tx";
+import { MsgUnsetDecorationPosition } from "./types/bears/tx";
+import { MsgSetDecorationPosition } from "./types/bears/tx";
+import { MsgInitGameAndCreateApiary } from "./types/bears/tx";
+import { MsgInitGameAndSetName } from "./types/bears/tx";
+import { MsgCreateDecoration } from "./types/bears/tx";
 export declare const MissingWalletError: Error;
 export declare const registry: Registry;
 interface TxClientOptions {
@@ -25,19 +25,19 @@ interface SignAndBroadcastOptions {
 }
 declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions) => Promise<{
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }?: SignAndBroadcastOptions) => any;
-    msgSetDecorationPosition: (data: MsgSetDecorationPosition) => EncodeObject;
-    msgCreateTree: (data: MsgCreateTree) => EncodeObject;
-    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
-    msgInitGameAndCreateApiary: (data: MsgInitGameAndCreateApiary) => EncodeObject;
-    msgInitGameAndCreateDecoration: (data: MsgInitGameAndCreateDecoration) => EncodeObject;
-    msgCreateDecoration: (data: MsgCreateDecoration) => EncodeObject;
-    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
-    msgExtendField: (data: MsgExtendField) => EncodeObject;
-    msgMoveItemOnField: (data: MsgMoveItemOnField) => EncodeObject;
-    msgUnsetDecorationPosition: (data: MsgUnsetDecorationPosition) => EncodeObject;
     msgSetName: (data: MsgSetName) => EncodeObject;
+    msgInitGameAndCreateDecoration: (data: MsgInitGameAndCreateDecoration) => EncodeObject;
+    msgMoveItemOnField: (data: MsgMoveItemOnField) => EncodeObject;
+    msgExtendField: (data: MsgExtendField) => EncodeObject;
+    msgInitGameAndCreateTree: (data: MsgInitGameAndCreateTree) => EncodeObject;
+    msgCreateTree: (data: MsgCreateTree) => EncodeObject;
     msgInitGameAndExtendField: (data: MsgInitGameAndExtendField) => EncodeObject;
     msgCreateApiary: (data: MsgCreateApiary) => EncodeObject;
+    msgUnsetDecorationPosition: (data: MsgUnsetDecorationPosition) => EncodeObject;
+    msgSetDecorationPosition: (data: MsgSetDecorationPosition) => EncodeObject;
+    msgInitGameAndCreateApiary: (data: MsgInitGameAndCreateApiary) => EncodeObject;
+    msgInitGameAndSetName: (data: MsgInitGameAndSetName) => EncodeObject;
+    msgCreateDecoration: (data: MsgCreateDecoration) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;

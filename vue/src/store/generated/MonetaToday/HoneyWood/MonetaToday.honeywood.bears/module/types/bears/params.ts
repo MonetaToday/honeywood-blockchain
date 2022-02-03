@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
 import { Writer, Reader } from "protobufjs/minimal";
 
@@ -12,11 +13,7 @@ export interface Params {
   priceTile: Coin[];
   priceTree: Coin[];
   rewardTree: Coin[];
-  priceDecorationFlowers: Coin[];
-  priceDecorationFlag: Coin[];
-  priceDecorationLamp: Coin[];
-  priceDecorationGreenBee: Coin[];
-  priceDecorationFountain: Coin[];
+  decorationTypes: DecorationParams[];
   apiaryTypes: ApiaryParams[];
 }
 
@@ -39,23 +36,11 @@ export const Params = {
     for (const v of message.rewardTree) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    for (const v of message.priceDecorationFlowers) {
-      Coin.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
-    for (const v of message.priceDecorationFlag) {
-      Coin.encode(v!, writer.uint32(58).fork()).ldelim();
-    }
-    for (const v of message.priceDecorationLamp) {
-      Coin.encode(v!, writer.uint32(66).fork()).ldelim();
-    }
-    for (const v of message.priceDecorationGreenBee) {
-      Coin.encode(v!, writer.uint32(74).fork()).ldelim();
-    }
-    for (const v of message.priceDecorationFountain) {
-      Coin.encode(v!, writer.uint32(82).fork()).ldelim();
+    for (const v of message.decorationTypes) {
+      DecorationParams.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     for (const v of message.apiaryTypes) {
-      ApiaryParams.encode(v!, writer.uint32(90).fork()).ldelim();
+      ApiaryParams.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -68,11 +53,7 @@ export const Params = {
     message.priceTile = [];
     message.priceTree = [];
     message.rewardTree = [];
-    message.priceDecorationFlowers = [];
-    message.priceDecorationFlag = [];
-    message.priceDecorationLamp = [];
-    message.priceDecorationGreenBee = [];
-    message.priceDecorationFountain = [];
+    message.decorationTypes = [];
     message.apiaryTypes = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -93,31 +74,11 @@ export const Params = {
           message.rewardTree.push(Coin.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.priceDecorationFlowers.push(
-            Coin.decode(reader, reader.uint32())
+          message.decorationTypes.push(
+            DecorationParams.decode(reader, reader.uint32())
           );
           break;
         case 7:
-          message.priceDecorationFlag.push(
-            Coin.decode(reader, reader.uint32())
-          );
-          break;
-        case 8:
-          message.priceDecorationLamp.push(
-            Coin.decode(reader, reader.uint32())
-          );
-          break;
-        case 9:
-          message.priceDecorationGreenBee.push(
-            Coin.decode(reader, reader.uint32())
-          );
-          break;
-        case 10:
-          message.priceDecorationFountain.push(
-            Coin.decode(reader, reader.uint32())
-          );
-          break;
-        case 11:
           message.apiaryTypes.push(
             ApiaryParams.decode(reader, reader.uint32())
           );
@@ -136,11 +97,7 @@ export const Params = {
     message.priceTile = [];
     message.priceTree = [];
     message.rewardTree = [];
-    message.priceDecorationFlowers = [];
-    message.priceDecorationFlag = [];
-    message.priceDecorationLamp = [];
-    message.priceDecorationGreenBee = [];
-    message.priceDecorationFountain = [];
+    message.decorationTypes = [];
     message.apiaryTypes = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = String(object.burnRate);
@@ -168,43 +125,11 @@ export const Params = {
       }
     }
     if (
-      object.priceDecorationFlowers !== undefined &&
-      object.priceDecorationFlowers !== null
+      object.decorationTypes !== undefined &&
+      object.decorationTypes !== null
     ) {
-      for (const e of object.priceDecorationFlowers) {
-        message.priceDecorationFlowers.push(Coin.fromJSON(e));
-      }
-    }
-    if (
-      object.priceDecorationFlag !== undefined &&
-      object.priceDecorationFlag !== null
-    ) {
-      for (const e of object.priceDecorationFlag) {
-        message.priceDecorationFlag.push(Coin.fromJSON(e));
-      }
-    }
-    if (
-      object.priceDecorationLamp !== undefined &&
-      object.priceDecorationLamp !== null
-    ) {
-      for (const e of object.priceDecorationLamp) {
-        message.priceDecorationLamp.push(Coin.fromJSON(e));
-      }
-    }
-    if (
-      object.priceDecorationGreenBee !== undefined &&
-      object.priceDecorationGreenBee !== null
-    ) {
-      for (const e of object.priceDecorationGreenBee) {
-        message.priceDecorationGreenBee.push(Coin.fromJSON(e));
-      }
-    }
-    if (
-      object.priceDecorationFountain !== undefined &&
-      object.priceDecorationFountain !== null
-    ) {
-      for (const e of object.priceDecorationFountain) {
-        message.priceDecorationFountain.push(Coin.fromJSON(e));
+      for (const e of object.decorationTypes) {
+        message.decorationTypes.push(DecorationParams.fromJSON(e));
       }
     }
     if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
@@ -246,40 +171,12 @@ export const Params = {
     } else {
       obj.rewardTree = [];
     }
-    if (message.priceDecorationFlowers) {
-      obj.priceDecorationFlowers = message.priceDecorationFlowers.map((e) =>
-        e ? Coin.toJSON(e) : undefined
+    if (message.decorationTypes) {
+      obj.decorationTypes = message.decorationTypes.map((e) =>
+        e ? DecorationParams.toJSON(e) : undefined
       );
     } else {
-      obj.priceDecorationFlowers = [];
-    }
-    if (message.priceDecorationFlag) {
-      obj.priceDecorationFlag = message.priceDecorationFlag.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.priceDecorationFlag = [];
-    }
-    if (message.priceDecorationLamp) {
-      obj.priceDecorationLamp = message.priceDecorationLamp.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.priceDecorationLamp = [];
-    }
-    if (message.priceDecorationGreenBee) {
-      obj.priceDecorationGreenBee = message.priceDecorationGreenBee.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.priceDecorationGreenBee = [];
-    }
-    if (message.priceDecorationFountain) {
-      obj.priceDecorationFountain = message.priceDecorationFountain.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.priceDecorationFountain = [];
+      obj.decorationTypes = [];
     }
     if (message.apiaryTypes) {
       obj.apiaryTypes = message.apiaryTypes.map((e) =>
@@ -297,11 +194,7 @@ export const Params = {
     message.priceTile = [];
     message.priceTree = [];
     message.rewardTree = [];
-    message.priceDecorationFlowers = [];
-    message.priceDecorationFlag = [];
-    message.priceDecorationLamp = [];
-    message.priceDecorationGreenBee = [];
-    message.priceDecorationFountain = [];
+    message.decorationTypes = [];
     message.apiaryTypes = [];
     if (object.burnRate !== undefined && object.burnRate !== null) {
       message.burnRate = object.burnRate;
@@ -329,43 +222,11 @@ export const Params = {
       }
     }
     if (
-      object.priceDecorationFlowers !== undefined &&
-      object.priceDecorationFlowers !== null
+      object.decorationTypes !== undefined &&
+      object.decorationTypes !== null
     ) {
-      for (const e of object.priceDecorationFlowers) {
-        message.priceDecorationFlowers.push(Coin.fromPartial(e));
-      }
-    }
-    if (
-      object.priceDecorationFlag !== undefined &&
-      object.priceDecorationFlag !== null
-    ) {
-      for (const e of object.priceDecorationFlag) {
-        message.priceDecorationFlag.push(Coin.fromPartial(e));
-      }
-    }
-    if (
-      object.priceDecorationLamp !== undefined &&
-      object.priceDecorationLamp !== null
-    ) {
-      for (const e of object.priceDecorationLamp) {
-        message.priceDecorationLamp.push(Coin.fromPartial(e));
-      }
-    }
-    if (
-      object.priceDecorationGreenBee !== undefined &&
-      object.priceDecorationGreenBee !== null
-    ) {
-      for (const e of object.priceDecorationGreenBee) {
-        message.priceDecorationGreenBee.push(Coin.fromPartial(e));
-      }
-    }
-    if (
-      object.priceDecorationFountain !== undefined &&
-      object.priceDecorationFountain !== null
-    ) {
-      for (const e of object.priceDecorationFountain) {
-        message.priceDecorationFountain.push(Coin.fromPartial(e));
+      for (const e of object.decorationTypes) {
+        message.decorationTypes.push(DecorationParams.fromPartial(e));
       }
     }
     if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {

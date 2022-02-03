@@ -106,6 +106,17 @@ func GetDecorationsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
+func (k Keeper) GetDecorationParams(ctx sdk.Context, decorationType types.DecorationParams_DecorationTypes) (*types.DecorationParams, bool) {
+	decorationTypes := k.DecorationTypes(ctx)
+	for _, params := range decorationTypes {
+		if params.DecorationType == decorationType {
+			return &params, true
+		}
+	}
+
+	return nil, false
+}
+
 // create decoration for specific bear
 func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64, decorationType string) (*types.Decorations, error) {
 	hasRights := k.HasRightsToBear(ctx, creator, bearId)
@@ -115,31 +126,24 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
-	priceDecoration := k.PriceDecorationFlowers(ctx)
-	switch decorationType {
-	case types.Decorations_FLAG.String():
-		priceDecoration = k.PriceDecorationFlag(ctx)
-	case types.Decorations_LAMP.String():
-		priceDecoration = k.PriceDecorationLamp(ctx)
-	case types.Decorations_GREEN_BEE.String():
-		priceDecoration = k.PriceDecorationGreenBee(ctx)
-	case types.Decorations_FOUNTAIN.String():
-		priceDecoration = k.PriceDecorationFountain(ctx)
+	decorationParams, _ := k.GetDecorationParams(ctx, types.DecorationParams_DecorationTypes(types.DecorationParams_DecorationTypes_value[decorationType]))
+	if decorationParams == nil {
+		return nil, types.ErrDecorationTypeIsNotDefined
 	}
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceDecoration)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, decorationParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceDecoration)
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, decorationParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}
 
 	newDecoration := types.Decorations{
 		BearOwner:      &types.BearOwner{Id: bearId},
-		DecorationType: types.Decorations_DecorationTypes(types.Decorations_DecorationTypes_value[decorationType]),
+		Params: decorationParams,
 	}
 	newDecorationId := k.AppendDecorations(ctx, newDecoration)
 

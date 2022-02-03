@@ -1,4 +1,5 @@
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
@@ -9,11 +10,7 @@ export interface Params {
     priceTile: Coin[];
     priceTree: Coin[];
     rewardTree: Coin[];
-    priceDecorationFlowers: Coin[];
-    priceDecorationFlag: Coin[];
-    priceDecorationLamp: Coin[];
-    priceDecorationGreenBee: Coin[];
-    priceDecorationFountain: Coin[];
+    decorationTypes: DecorationParams[];
     apiaryTypes: ApiaryParams[];
 }
 export declare const Params: {

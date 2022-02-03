@@ -13,11 +13,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.PriceTile(ctx),
 		k.PriceTree(ctx),
 		k.RewardTree(ctx),
-		k.PriceDecorationFlowers(ctx),
-		k.PriceDecorationFlag(ctx),
-		k.PriceDecorationLamp(ctx),
-		k.PriceDecorationGreenBee(ctx),
-		k.PriceDecorationFountain(ctx),
+		k.DecorationTypes(ctx),
 		k.ApiaryTypes(ctx),
 	)
 }
@@ -57,36 +53,11 @@ func (k Keeper) RewardTree(ctx sdk.Context) (res sdk.Coins) {
 	return
 }
 
-// PriceDecorationFlowers returns the PriceDecorationFlowers param
-func (k Keeper) PriceDecorationFlowers(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceDecorationFlowers, &res)
+// DecorationTypes returns the DecorationTypes param
+func (k Keeper) DecorationTypes(ctx sdk.Context) (res []types.DecorationParams) {
+	k.paramstore.Get(ctx, types.KeyDecorationTypes, &res)
 	return
 }
-
-// PriceDecorationFlag returns the PriceDecorationFlag param
-func (k Keeper) PriceDecorationFlag(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceDecorationFlag, &res)
-	return
-}
-
-// PriceDecorationLamp returns the PriceDecorationLamp param
-func (k Keeper) PriceDecorationLamp(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceDecorationLamp, &res)
-	return
-}
-
-// PriceDecorationGreenBee returns the PriceDecorationGreenBee param
-func (k Keeper) PriceDecorationGreenBee(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceDecorationGreenBee, &res)
-	return
-}
-
-// PriceDecorationFountain returns the PriceDecorationFountain param
-func (k Keeper) PriceDecorationFountain(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceDecorationFountain, &res)
-	return
-}
-
 // ApiaryTypes returns the ApiaryTypes param
 func (k Keeper) ApiaryTypes(ctx sdk.Context) (res []types.ApiaryParams) {
 	k.paramstore.Get(ctx, types.KeyApiaryTypes, &res)

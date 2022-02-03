@@ -13712,15 +13712,36 @@ paths:
                         id:
                           type: string
                           format: uint64
-                    decorationType:
-                      type: string
-                      enum:
-                        - FLOWERS
-                        - FLAG
-                        - LAMP
-                        - GREEN_BEE
-                        - FOUNTAIN
-                      default: FLOWERS
+                    params:
+                      type: object
+                      properties:
+                        decorationType:
+                          type: string
+                          enum:
+                            - FLOWERS
+                            - FLAG
+                            - LAMP
+                            - GREEN_BEE
+                            - FOUNTAIN
+                          default: FLOWERS
+                        price:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
                     position:
                       type: object
                       properties:
@@ -13859,15 +13880,36 @@ paths:
                       id:
                         type: string
                         format: uint64
-                  decorationType:
-                    type: string
-                    enum:
-                      - FLOWERS
-                      - FLAG
-                      - LAMP
-                      - GREEN_BEE
-                      - FOUNTAIN
-                    default: FLOWERS
+                  params:
+                    type: object
+                    properties:
+                      decorationType:
+                        type: string
+                        enum:
+                          - FLOWERS
+                          - FLAG
+                          - LAMP
+                          - GREEN_BEE
+                          - FOUNTAIN
+                        default: FLOWERS
+                      price:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
                   position:
                     type: object
                     properties:
@@ -14228,91 +14270,38 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                  priceDecorationFlowers:
+                  decorationTypes:
                     type: array
                     items:
                       type: object
                       properties:
-                        denom:
+                        decorationType:
                           type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
+                          enum:
+                            - FLOWERS
+                            - FLAG
+                            - LAMP
+                            - GREEN_BEE
+                            - FOUNTAIN
+                          default: FLOWERS
+                        price:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
 
 
-                        NOTE: The amount field is an Int which implements the
-                        custom method
+                              NOTE: The amount field is an Int which implements
+                              the custom method
 
-                        signatures required by gogoproto.
-                  priceDecorationFlag:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-                  priceDecorationLamp:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-                  priceDecorationGreenBee:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-                  priceDecorationFountain:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
+                              signatures required by gogoproto.
                   apiaryTypes:
                     type: array
                     items:
@@ -22200,6 +22189,41 @@ definitions:
         items:
           type: string
           format: uint64
+  MonetaToday.honeywood.bears.DecorationParams:
+    type: object
+    properties:
+      decorationType:
+        type: string
+        enum:
+          - FLOWERS
+          - FLAG
+          - LAMP
+          - GREEN_BEE
+          - FOUNTAIN
+        default: FLOWERS
+      price:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
+  MonetaToday.honeywood.bears.DecorationParams.DecorationTypes:
+    type: string
+    enum:
+      - FLOWERS
+      - FLAG
+      - LAMP
+      - GREEN_BEE
+      - FOUNTAIN
+    default: FLOWERS
   MonetaToday.honeywood.bears.Decorations:
     type: object
     properties:
@@ -22212,15 +22236,35 @@ definitions:
           id:
             type: string
             format: uint64
-      decorationType:
-        type: string
-        enum:
-          - FLOWERS
-          - FLAG
-          - LAMP
-          - GREEN_BEE
-          - FOUNTAIN
-        default: FLOWERS
+      params:
+        type: object
+        properties:
+          decorationType:
+            type: string
+            enum:
+              - FLOWERS
+              - FLAG
+              - LAMP
+              - GREEN_BEE
+              - FOUNTAIN
+            default: FLOWERS
+          price:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
       position:
         type: object
         properties:
@@ -22233,15 +22277,6 @@ definitions:
           columnId:
             type: string
             format: uint64
-  MonetaToday.honeywood.bears.Decorations.DecorationTypes:
-    type: string
-    enum:
-      - FLOWERS
-      - FLAG
-      - LAMP
-      - GREEN_BEE
-      - FOUNTAIN
-    default: FLOWERS
   MonetaToday.honeywood.bears.FieldRows:
     type: object
     properties:
@@ -22417,15 +22452,35 @@ definitions:
               id:
                 type: string
                 format: uint64
-          decorationType:
-            type: string
-            enum:
-              - FLOWERS
-              - FLAG
-              - LAMP
-              - GREEN_BEE
-              - FOUNTAIN
-            default: FLOWERS
+          params:
+            type: object
+            properties:
+              decorationType:
+                type: string
+                enum:
+                  - FLOWERS
+                  - FLAG
+                  - LAMP
+                  - GREEN_BEE
+                  - FOUNTAIN
+                default: FLOWERS
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
           position:
             type: object
             properties:
@@ -22573,15 +22628,35 @@ definitions:
               id:
                 type: string
                 format: uint64
-          decorationType:
-            type: string
-            enum:
-              - FLOWERS
-              - FLAG
-              - LAMP
-              - GREEN_BEE
-              - FOUNTAIN
-            default: FLOWERS
+          params:
+            type: object
+            properties:
+              decorationType:
+                type: string
+                enum:
+                  - FLOWERS
+                  - FLAG
+                  - LAMP
+                  - GREEN_BEE
+                  - FOUNTAIN
+                default: FLOWERS
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
           position:
             type: object
             properties:
@@ -22706,76 +22781,37 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      priceDecorationFlowers:
+      decorationTypes:
         type: array
         items:
           type: object
           properties:
-            denom:
+            decorationType:
               type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
+              enum:
+                - FLOWERS
+                - FLAG
+                - LAMP
+                - GREEN_BEE
+                - FOUNTAIN
+              default: FLOWERS
+            price:
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceDecorationFlag:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceDecorationLamp:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
+                  NOTE: The amount field is an Int which implements the custom
+                  method
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceDecorationGreenBee:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
-
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
-      priceDecorationFountain:
-        type: array
-        items:
-          type: object
-          properties:
-            denom:
-              type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
-
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
+                  signatures required by gogoproto.
       apiaryTypes:
         type: array
         items:
@@ -23155,15 +23191,35 @@ definitions:
                 id:
                   type: string
                   format: uint64
-            decorationType:
-              type: string
-              enum:
-                - FLOWERS
-                - FLAG
-                - LAMP
-                - GREEN_BEE
-                - FOUNTAIN
-              default: FLOWERS
+            params:
+              type: object
+              properties:
+                decorationType:
+                  type: string
+                  enum:
+                    - FLOWERS
+                    - FLAG
+                    - LAMP
+                    - GREEN_BEE
+                    - FOUNTAIN
+                  default: FLOWERS
+                price:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
             position:
               type: object
               properties:
@@ -23542,15 +23598,35 @@ definitions:
               id:
                 type: string
                 format: uint64
-          decorationType:
-            type: string
-            enum:
-              - FLOWERS
-              - FLAG
-              - LAMP
-              - GREEN_BEE
-              - FOUNTAIN
-            default: FLOWERS
+          params:
+            type: object
+            properties:
+              decorationType:
+                type: string
+                enum:
+                  - FLOWERS
+                  - FLAG
+                  - LAMP
+                  - GREEN_BEE
+                  - FOUNTAIN
+                default: FLOWERS
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
           position:
             type: object
             properties:
@@ -23721,91 +23797,37 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          priceDecorationFlowers:
+          decorationTypes:
             type: array
             items:
               type: object
               properties:
-                denom:
+                decorationType:
                   type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
+                  enum:
+                    - FLOWERS
+                    - FLAG
+                    - LAMP
+                    - GREEN_BEE
+                    - FOUNTAIN
+                  default: FLOWERS
+                price:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
 
 
-                NOTE: The amount field is an Int which implements the custom
-                method
+                      NOTE: The amount field is an Int which implements the
+                      custom method
 
-                signatures required by gogoproto.
-          priceDecorationFlag:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
-
-
-                NOTE: The amount field is an Int which implements the custom
-                method
-
-                signatures required by gogoproto.
-          priceDecorationLamp:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
-
-
-                NOTE: The amount field is an Int which implements the custom
-                method
-
-                signatures required by gogoproto.
-          priceDecorationGreenBee:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
-
-
-                NOTE: The amount field is an Int which implements the custom
-                method
-
-                signatures required by gogoproto.
-          priceDecorationFountain:
-            type: array
-            items:
-              type: object
-              properties:
-                denom:
-                  type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
-
-
-                NOTE: The amount field is an Int which implements the custom
-                method
-
-                signatures required by gogoproto.
+                      signatures required by gogoproto.
           apiaryTypes:
             type: array
             items:
