@@ -104,3 +104,14 @@ func GetBeesIDBytes(id uint64) []byte {
 func GetBeesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
+
+func (k Keeper) GetBeeParams(ctx sdk.Context, beeType string) (*types.BeeParams, bool) {
+	beeTypes := k.BeeTypes(ctx)
+	for _, params := range beeTypes {
+		if params.BeeType == beeType {
+			return &params, true
+		}
+	}
+
+	return nil, false
+}
