@@ -47,9 +47,5 @@ func (msg *MsgCreateApiary) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	if _, ok := Apiaries_ApiaryTypes_value[msg.ApiaryType]; !ok {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Apiary type must be in enum")
-	}
-
 	return nil
 }

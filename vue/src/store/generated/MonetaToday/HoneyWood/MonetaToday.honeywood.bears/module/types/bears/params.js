@@ -36,14 +36,8 @@ export const Params = {
         for (const v of message.priceDecorationFountain) {
             Coin.encode(v, writer.uint32(82).fork()).ldelim();
         }
-        if (message.apiaryBeeHouseParams !== undefined) {
-            ApiaryParams.encode(message.apiaryBeeHouseParams, writer.uint32(90).fork()).ldelim();
-        }
-        if (message.apiaryApiaryParams !== undefined) {
-            ApiaryParams.encode(message.apiaryApiaryParams, writer.uint32(98).fork()).ldelim();
-        }
-        if (message.apiaryAlvearyParams !== undefined) {
-            ApiaryParams.encode(message.apiaryAlvearyParams, writer.uint32(106).fork()).ldelim();
+        for (const v of message.apiaryTypes) {
+            ApiaryParams.encode(v, writer.uint32(90).fork()).ldelim();
         }
         return writer;
     },
@@ -60,6 +54,7 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
+        message.apiaryTypes = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -94,13 +89,7 @@ export const Params = {
                     message.priceDecorationFountain.push(Coin.decode(reader, reader.uint32()));
                     break;
                 case 11:
-                    message.apiaryBeeHouseParams = ApiaryParams.decode(reader, reader.uint32());
-                    break;
-                case 12:
-                    message.apiaryApiaryParams = ApiaryParams.decode(reader, reader.uint32());
-                    break;
-                case 13:
-                    message.apiaryAlvearyParams = ApiaryParams.decode(reader, reader.uint32());
+                    message.apiaryTypes.push(ApiaryParams.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -120,6 +109,7 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
+        message.apiaryTypes = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = String(object.burnRate);
         }
@@ -176,26 +166,10 @@ export const Params = {
                 message.priceDecorationFountain.push(Coin.fromJSON(e));
             }
         }
-        if (object.apiaryBeeHouseParams !== undefined &&
-            object.apiaryBeeHouseParams !== null) {
-            message.apiaryBeeHouseParams = ApiaryParams.fromJSON(object.apiaryBeeHouseParams);
-        }
-        else {
-            message.apiaryBeeHouseParams = undefined;
-        }
-        if (object.apiaryApiaryParams !== undefined &&
-            object.apiaryApiaryParams !== null) {
-            message.apiaryApiaryParams = ApiaryParams.fromJSON(object.apiaryApiaryParams);
-        }
-        else {
-            message.apiaryApiaryParams = undefined;
-        }
-        if (object.apiaryAlvearyParams !== undefined &&
-            object.apiaryAlvearyParams !== null) {
-            message.apiaryAlvearyParams = ApiaryParams.fromJSON(object.apiaryAlvearyParams);
-        }
-        else {
-            message.apiaryAlvearyParams = undefined;
+        if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
+            for (const e of object.apiaryTypes) {
+                message.apiaryTypes.push(ApiaryParams.fromJSON(e));
+            }
         }
         return message;
     },
@@ -256,18 +230,12 @@ export const Params = {
         else {
             obj.priceDecorationFountain = [];
         }
-        message.apiaryBeeHouseParams !== undefined &&
-            (obj.apiaryBeeHouseParams = message.apiaryBeeHouseParams
-                ? ApiaryParams.toJSON(message.apiaryBeeHouseParams)
-                : undefined);
-        message.apiaryApiaryParams !== undefined &&
-            (obj.apiaryApiaryParams = message.apiaryApiaryParams
-                ? ApiaryParams.toJSON(message.apiaryApiaryParams)
-                : undefined);
-        message.apiaryAlvearyParams !== undefined &&
-            (obj.apiaryAlvearyParams = message.apiaryAlvearyParams
-                ? ApiaryParams.toJSON(message.apiaryAlvearyParams)
-                : undefined);
+        if (message.apiaryTypes) {
+            obj.apiaryTypes = message.apiaryTypes.map((e) => e ? ApiaryParams.toJSON(e) : undefined);
+        }
+        else {
+            obj.apiaryTypes = [];
+        }
         return obj;
     },
     fromPartial(object) {
@@ -281,6 +249,7 @@ export const Params = {
         message.priceDecorationLamp = [];
         message.priceDecorationGreenBee = [];
         message.priceDecorationFountain = [];
+        message.apiaryTypes = [];
         if (object.burnRate !== undefined && object.burnRate !== null) {
             message.burnRate = object.burnRate;
         }
@@ -337,26 +306,10 @@ export const Params = {
                 message.priceDecorationFountain.push(Coin.fromPartial(e));
             }
         }
-        if (object.apiaryBeeHouseParams !== undefined &&
-            object.apiaryBeeHouseParams !== null) {
-            message.apiaryBeeHouseParams = ApiaryParams.fromPartial(object.apiaryBeeHouseParams);
-        }
-        else {
-            message.apiaryBeeHouseParams = undefined;
-        }
-        if (object.apiaryApiaryParams !== undefined &&
-            object.apiaryApiaryParams !== null) {
-            message.apiaryApiaryParams = ApiaryParams.fromPartial(object.apiaryApiaryParams);
-        }
-        else {
-            message.apiaryApiaryParams = undefined;
-        }
-        if (object.apiaryAlvearyParams !== undefined &&
-            object.apiaryAlvearyParams !== null) {
-            message.apiaryAlvearyParams = ApiaryParams.fromPartial(object.apiaryAlvearyParams);
-        }
-        else {
-            message.apiaryAlvearyParams = undefined;
+        if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
+            for (const e of object.apiaryTypes) {
+                message.apiaryTypes.push(ApiaryParams.fromPartial(e));
+            }
         }
         return message;
     },

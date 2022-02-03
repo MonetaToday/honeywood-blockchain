@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-export enum ApiariesApiaryTypes {
+export enum ApiaryParamsApiaryTypes {
   BEE_HOUSE = "BEE_HOUSE",
   APIARY = "APIARY",
   ALVEARY = "ALVEARY",
@@ -55,7 +55,6 @@ export interface BearsApiaries {
   /** @format uint64 */
   id?: string;
   bearOwner?: BearsBearOwner;
-  apiaryType?: ApiariesApiaryTypes;
   position?: BearsItemPosition;
 
   /** @format uint64 */
@@ -73,6 +72,7 @@ export interface BearsApiaryHouse {
 }
 
 export interface BearsApiaryParams {
+  apiaryType?: ApiaryParamsApiaryTypes;
   price?: V1Beta1Coin[];
 
   /** @format uint64 */
@@ -225,9 +225,7 @@ export interface BearsParams {
   priceDecorationLamp?: V1Beta1Coin[];
   priceDecorationGreenBee?: V1Beta1Coin[];
   priceDecorationFountain?: V1Beta1Coin[];
-  apiaryBeeHouseParams?: BearsApiaryParams;
-  apiaryApiaryParams?: BearsApiaryParams;
-  apiaryAlvearyParams?: BearsApiaryParams;
+  apiaryTypes?: BearsApiaryParams[];
 }
 
 export interface BearsQueryAllAddressBearsResponse {

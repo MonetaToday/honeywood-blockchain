@@ -41,20 +41,8 @@ var (
 	KeyPriceDecorationFountain               = []byte("PriceDecorationFountain")
 	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
 
-	KeyApiaryBeeHouseParams     = []byte("ApiaryBeeHouseParams")
-	DefaultApiaryBeeHouseParams = ApiaryParams{
-		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500))),
-	}
-
-	KeyApiaryApiaryParams     = []byte("ApiaryApiaryParams")
-	DefaultApiaryApiaryParams = ApiaryParams{
-		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(900))),
-	}
-
-	KeyApiaryAlvearyParams     = []byte("ApiaryAlvearyParams")
-	DefaultApiaryAlvearyParams = ApiaryParams{
-		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1500))),
-	}
+	KeyApiaryTypes     = []byte("ApiaryTypes")
+	DefaultApiaryTypes = []ApiaryParams{}
 )
 
 // NewParams creates a new Params instance
@@ -69,9 +57,7 @@ func NewParams(
 	priceDecorationLamp sdk.Coins,
 	priceDecorationGreenBee sdk.Coins,
 	priceDecorationFountain sdk.Coins,
-	apiaryBeeHouseParams ApiaryParams,
-	apiaryApiaryParams ApiaryParams,
-	apiaryAlvearyParams ApiaryParams,
+	apiaryTypes []ApiaryParams,
 ) Params {
 	return Params{
 		BurnRate:                burnRate,
@@ -84,9 +70,7 @@ func NewParams(
 		PriceDecorationLamp:     priceDecorationLamp,
 		PriceDecorationGreenBee: priceDecorationGreenBee,
 		PriceDecorationFountain: priceDecorationFountain,
-		ApiaryBeeHouseParams:    apiaryBeeHouseParams,
-		ApiaryApiaryParams:      apiaryApiaryParams,
-		ApiaryAlvearyParams:     apiaryAlvearyParams,
+		ApiaryTypes:    				 apiaryTypes,
 	}
 }
 
@@ -103,9 +87,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, &p.PriceDecorationLamp, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, &p.PriceDecorationGreenBee, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, &p.PriceDecorationFountain, validateCoins),
-		paramtypes.NewParamSetPair(KeyApiaryBeeHouseParams, &p.ApiaryBeeHouseParams, validateApiaryParams),
-		paramtypes.NewParamSetPair(KeyApiaryApiaryParams, &p.ApiaryApiaryParams, validateApiaryParams),
-		paramtypes.NewParamSetPair(KeyApiaryAlvearyParams, &p.ApiaryAlvearyParams, validateApiaryParams),
+		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 	}
 }
 
@@ -151,15 +133,7 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validateApiaryParams(p.ApiaryBeeHouseParams); err != nil {
-		return err
-	}
-
-	if err := validateApiaryParams(p.ApiaryApiaryParams); err != nil {
-		return err
-	}
-
-	if err := validateApiaryParams(p.ApiaryAlvearyParams); err != nil {
+	if err := validateApiaryTypes(p.ApiaryTypes); err != nil {
 		return err
 	}
 
@@ -179,9 +153,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyPriceDecorationLamp, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationGreenBee, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceDecorationFountain, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyApiaryBeeHouseParams, ApiaryParams{}, validateApiaryParams),
-		paramtypes.NewParamSetPair(KeyApiaryApiaryParams, ApiaryParams{}, validateApiaryParams),
-		paramtypes.NewParamSetPair(KeyApiaryAlvearyParams, ApiaryParams{}, validateApiaryParams),
+		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 	)
 }
 
@@ -198,9 +170,7 @@ func DefaultParams() Params {
 		DefaultPriceDecorationLamp,
 		DefaultPriceDecorationGreenBee,
 		DefaultPriceDecorationFountain,
-		DefaultApiaryBeeHouseParams,
-		DefaultApiaryApiaryParams,
-		DefaultApiaryAlvearyParams,
+		DefaultApiaryTypes,
 	)
 }
 
@@ -236,22 +206,24 @@ func validateCoins(i interface{}) error {
 	return nil
 }
 
-func validateApiaryParams(i interface{}) error {
-	v, ok := i.(ApiaryParams)
+func validateApiaryTypes(i interface{}) error {
+	v, ok := i.([]ApiaryParams)
 	if !ok {
 		return fmt.Errorf("invalid parameter type: %T", i)
 	}
 
-	if !v.Price.IsValid() {
-		return fmt.Errorf("invalid coins parameter in ApiaryParams: %v", v)
-	}
-
-	if v.MaxCountBees <= 0 {
-		return fmt.Errorf("invalid MaxCountBees parameter in ApiaryParams: %v", v)
-	}
-
-	if v.MaxCountHoney <= 0 {
-		return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
+	for _, params := range v {
+		if !params.Price.IsValid() {
+			return fmt.Errorf("invalid coins parameter in ApiaryParams: %v", v)
+		}
+	
+		if params.MaxCountBees <= 0 {
+			return fmt.Errorf("invalid MaxCountBees parameter in ApiaryParams: %v", v)
+		}
+	
+		if params.MaxCountHoney <= 0 {
+			return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
+		}
 	}
 
 	return nil

@@ -4,10 +4,19 @@ import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface ApiaryParams {
+    apiaryType: ApiaryParams_ApiaryTypes;
     price: Coin[];
     maxCountBees: number;
     maxCountHoney: number;
 }
+export declare enum ApiaryParams_ApiaryTypes {
+    BEE_HOUSE = 0,
+    APIARY = 1,
+    ALVEARY = 2,
+    UNRECOGNIZED = -1
+}
+export declare function apiaryParams_ApiaryTypesFromJSON(object: any): ApiaryParams_ApiaryTypes;
+export declare function apiaryParams_ApiaryTypesToJSON(object: ApiaryParams_ApiaryTypes): string;
 export interface CycleBeesHistory {
     block: number;
     bees: number[];
@@ -15,21 +24,12 @@ export interface CycleBeesHistory {
 export interface Apiaries {
     id: number;
     bearOwner: BearOwner | undefined;
-    apiaryType: Apiaries_ApiaryTypes;
     position: ItemPosition | undefined;
     countBees: number;
     params: ApiaryParams | undefined;
     cycleStartBlock: number;
     cycleBeesHistory: CycleBeesHistory[];
 }
-export declare enum Apiaries_ApiaryTypes {
-    BEE_HOUSE = 0,
-    APIARY = 1,
-    ALVEARY = 2,
-    UNRECOGNIZED = -1
-}
-export declare function apiaries_ApiaryTypesFromJSON(object: any): Apiaries_ApiaryTypes;
-export declare function apiaries_ApiaryTypesToJSON(object: Apiaries_ApiaryTypes): string;
 export declare const ApiaryParams: {
     encode(message: ApiaryParams, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): ApiaryParams;

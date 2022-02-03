@@ -62,21 +62,23 @@ genesis:
         price_decoration_fountain: 
           - denom: "honey"
             amount: "1000"
-        apiary_bee_house_params:
-          max_count_bees: 5
-          max_count_honey: 5
-          price:
+        
+        apiary_types:
+          - apiary_type: "BEE_HOUSE"
+            max_count_bees: 5
+            max_count_honey: 5
+            price:
             - denom: "honey"
               amount: "500"
-        apiary_apiary_params:
-          max_count_bees: 8
-          max_count_honey: 15
-          price:
+          - apiary_type: "APIARY"
+            max_count_bees: 8
+            max_count_honey: 15
+            price:
             - denom: "honey"
               amount: "900"
-        apiary_alveary_params:
-          max_count_bees: 12
-          max_count_honey: 25
-          price:
+          - apiary_type: "ALVEARY"
+            max_count_bees: 12
+            max_count_honey: 25
+            price:
             - denom: "honey"
-              amount: "1500"
+              amount: "1500"   

@@ -8,12 +8,12 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-export var ApiariesApiaryTypes;
-(function (ApiariesApiaryTypes) {
-    ApiariesApiaryTypes["BEE_HOUSE"] = "BEE_HOUSE";
-    ApiariesApiaryTypes["APIARY"] = "APIARY";
-    ApiariesApiaryTypes["ALVEARY"] = "ALVEARY";
-})(ApiariesApiaryTypes || (ApiariesApiaryTypes = {}));
+export var ApiaryParamsApiaryTypes;
+(function (ApiaryParamsApiaryTypes) {
+    ApiaryParamsApiaryTypes["BEE_HOUSE"] = "BEE_HOUSE";
+    ApiaryParamsApiaryTypes["APIARY"] = "APIARY";
+    ApiaryParamsApiaryTypes["ALVEARY"] = "ALVEARY";
+})(ApiaryParamsApiaryTypes || (ApiaryParamsApiaryTypes = {}));
 export var DecorationsDecorationTypes;
 (function (DecorationsDecorationTypes) {
     DecorationsDecorationTypes["FLOWERS"] = "FLOWERS";

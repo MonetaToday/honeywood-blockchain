@@ -8,10 +8,16 @@ import "bears/fields.proto";
 import "bears/bears.proto";
 
 message ApiaryParams {
-  repeated cosmos.base.v1beta1.Coin price = 1
+  enum ApiaryTypes {
+    BEE_HOUSE = 0;
+    APIARY = 1;
+    ALVEARY = 2;
+  }
+  ApiaryTypes apiary_type = 1 [(gogoproto.moretags) = "yaml:\"apiary_type\""];
+  repeated cosmos.base.v1beta1.Coin price = 2
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price\""];
-  uint64 max_count_bees = 2 [(gogoproto.moretags) = "yaml:\"max_count_bees\""];
-  uint64 max_count_honey = 3 [(gogoproto.moretags) = "yaml:\"max_count_honey\""];
+  uint64 max_count_bees = 3 [(gogoproto.moretags) = "yaml:\"max_count_bees\""];
+  uint64 max_count_honey = 4 [(gogoproto.moretags) = "yaml:\"max_count_honey\""];
 }
 
 message CycleBeesHistory {
@@ -22,15 +28,9 @@ message CycleBeesHistory {
 message Apiaries {
   uint64 id = 1;
   BearOwner bearOwner = 2; 
-  enum ApiaryTypes {
-    BEE_HOUSE = 0;
-    APIARY = 1;
-    ALVEARY = 2;
-  }
-  ApiaryTypes apiaryType = 3;
-  ItemPosition position = 4 [(gogoproto.nullable) = false];
-  uint64 countBees = 5;
-  ApiaryParams params = 6 [(gogoproto.nullable) = false];
-  uint64 cycleStartBlock = 7;
-  repeated CycleBeesHistory cycleBeesHistory = 8 [(gogoproto.nullable) = false];
+  ItemPosition position = 3 [(gogoproto.nullable) = false];
+  uint64 countBees = 4;
+  ApiaryParams params = 5 [(gogoproto.nullable) = false];
+  uint64 cycleStartBlock = 6;
+  repeated CycleBeesHistory cycleBeesHistory = 7 [(gogoproto.nullable) = false];
 }

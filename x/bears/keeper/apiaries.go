@@ -106,6 +106,19 @@ func GetApiariesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
+func (k Keeper) GetApiaryParams(ctx sdk.Context, apiaryType types.ApiaryParams_ApiaryTypes) (*types.ApiaryParams, bool) {
+	apiaryTypes := k.ApiaryTypes(ctx)
+	for _, params := range apiaryTypes {
+		if params.ApiaryType == apiaryType {
+			return &params, true
+		}
+	}
+
+	return nil, false
+}
+
+
+
 // Create apiary on field for specific bear
 func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) (*types.Apiaries, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
@@ -132,14 +145,12 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 		return nil, errEmptyTile
 	}
 
-	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	apiaryParams := k.ApiaryBeeHouseParams(ctx)
-	switch apiaryType {
-	case types.Apiaries_APIARY.String():
-		apiaryParams = k.ApiaryApiaryParams(ctx)
-	case types.Apiaries_ALVEARY.String():
-		apiaryParams = k.ApiaryAlvearyParams(ctx)
+	apiaryParams, _ := k.GetApiaryParams(ctx, types.ApiaryParams_ApiaryTypes(types.ApiaryParams_ApiaryTypes_value[apiaryType]))
+	if apiaryParams == nil {
+		return nil, types.ErrApiaryTypeIsNotDefined
 	}
+
+	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, apiaryParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
@@ -157,9 +168,9 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		ApiaryType:       types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
+		// ApiaryType:       types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
 		CountBees:        0,
-		Params: apiaryParams,
+		Params: *apiaryParams,
 		CycleStartBlock:  0,
 		CycleBeesHistory: []types.CycleBeesHistory{},
 	}

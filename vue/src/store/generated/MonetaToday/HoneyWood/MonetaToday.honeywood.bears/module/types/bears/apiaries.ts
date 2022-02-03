@@ -8,9 +8,52 @@ import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface ApiaryParams {
+  apiaryType: ApiaryParams_ApiaryTypes;
   price: Coin[];
   maxCountBees: number;
   maxCountHoney: number;
+}
+
+export enum ApiaryParams_ApiaryTypes {
+  BEE_HOUSE = 0,
+  APIARY = 1,
+  ALVEARY = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function apiaryParams_ApiaryTypesFromJSON(
+  object: any
+): ApiaryParams_ApiaryTypes {
+  switch (object) {
+    case 0:
+    case "BEE_HOUSE":
+      return ApiaryParams_ApiaryTypes.BEE_HOUSE;
+    case 1:
+    case "APIARY":
+      return ApiaryParams_ApiaryTypes.APIARY;
+    case 2:
+    case "ALVEARY":
+      return ApiaryParams_ApiaryTypes.ALVEARY;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ApiaryParams_ApiaryTypes.UNRECOGNIZED;
+  }
+}
+
+export function apiaryParams_ApiaryTypesToJSON(
+  object: ApiaryParams_ApiaryTypes
+): string {
+  switch (object) {
+    case ApiaryParams_ApiaryTypes.BEE_HOUSE:
+      return "BEE_HOUSE";
+    case ApiaryParams_ApiaryTypes.APIARY:
+      return "APIARY";
+    case ApiaryParams_ApiaryTypes.ALVEARY:
+      return "ALVEARY";
+    default:
+      return "UNKNOWN";
+  }
 }
 
 export interface CycleBeesHistory {
@@ -21,7 +64,6 @@ export interface CycleBeesHistory {
 export interface Apiaries {
   id: number;
   bearOwner: BearOwner | undefined;
-  apiaryType: Apiaries_ApiaryTypes;
   position: ItemPosition | undefined;
   countBees: number;
   params: ApiaryParams | undefined;
@@ -29,60 +71,25 @@ export interface Apiaries {
   cycleBeesHistory: CycleBeesHistory[];
 }
 
-export enum Apiaries_ApiaryTypes {
-  BEE_HOUSE = 0,
-  APIARY = 1,
-  ALVEARY = 2,
-  UNRECOGNIZED = -1,
-}
-
-export function apiaries_ApiaryTypesFromJSON(
-  object: any
-): Apiaries_ApiaryTypes {
-  switch (object) {
-    case 0:
-    case "BEE_HOUSE":
-      return Apiaries_ApiaryTypes.BEE_HOUSE;
-    case 1:
-    case "APIARY":
-      return Apiaries_ApiaryTypes.APIARY;
-    case 2:
-    case "ALVEARY":
-      return Apiaries_ApiaryTypes.ALVEARY;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Apiaries_ApiaryTypes.UNRECOGNIZED;
-  }
-}
-
-export function apiaries_ApiaryTypesToJSON(
-  object: Apiaries_ApiaryTypes
-): string {
-  switch (object) {
-    case Apiaries_ApiaryTypes.BEE_HOUSE:
-      return "BEE_HOUSE";
-    case Apiaries_ApiaryTypes.APIARY:
-      return "APIARY";
-    case Apiaries_ApiaryTypes.ALVEARY:
-      return "ALVEARY";
-    default:
-      return "UNKNOWN";
-  }
-}
-
-const baseApiaryParams: object = { maxCountBees: 0, maxCountHoney: 0 };
+const baseApiaryParams: object = {
+  apiaryType: 0,
+  maxCountBees: 0,
+  maxCountHoney: 0,
+};
 
 export const ApiaryParams = {
   encode(message: ApiaryParams, writer: Writer = Writer.create()): Writer {
+    if (message.apiaryType !== 0) {
+      writer.uint32(8).int32(message.apiaryType);
+    }
     for (const v of message.price) {
-      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     if (message.maxCountBees !== 0) {
-      writer.uint32(16).uint64(message.maxCountBees);
+      writer.uint32(24).uint64(message.maxCountBees);
     }
     if (message.maxCountHoney !== 0) {
-      writer.uint32(24).uint64(message.maxCountHoney);
+      writer.uint32(32).uint64(message.maxCountHoney);
     }
     return writer;
   },
@@ -96,12 +103,15 @@ export const ApiaryParams = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.price.push(Coin.decode(reader, reader.uint32()));
+          message.apiaryType = reader.int32() as any;
           break;
         case 2:
-          message.maxCountBees = longToNumber(reader.uint64() as Long);
+          message.price.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
+          message.maxCountBees = longToNumber(reader.uint64() as Long);
+          break;
+        case 4:
           message.maxCountHoney = longToNumber(reader.uint64() as Long);
           break;
         default:
@@ -115,6 +125,11 @@ export const ApiaryParams = {
   fromJSON(object: any): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
+    if (object.apiaryType !== undefined && object.apiaryType !== null) {
+      message.apiaryType = apiaryParams_ApiaryTypesFromJSON(object.apiaryType);
+    } else {
+      message.apiaryType = 0;
+    }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromJSON(e));
@@ -135,6 +150,8 @@ export const ApiaryParams = {
 
   toJSON(message: ApiaryParams): unknown {
     const obj: any = {};
+    message.apiaryType !== undefined &&
+      (obj.apiaryType = apiaryParams_ApiaryTypesToJSON(message.apiaryType));
     if (message.price) {
       obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
@@ -150,6 +167,11 @@ export const ApiaryParams = {
   fromPartial(object: DeepPartial<ApiaryParams>): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
+    if (object.apiaryType !== undefined && object.apiaryType !== null) {
+      message.apiaryType = object.apiaryType;
+    } else {
+      message.apiaryType = 0;
+    }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromPartial(e));
@@ -257,12 +279,7 @@ export const CycleBeesHistory = {
   },
 };
 
-const baseApiaries: object = {
-  id: 0,
-  apiaryType: 0,
-  countBees: 0,
-  cycleStartBlock: 0,
-};
+const baseApiaries: object = { id: 0, countBees: 0, cycleStartBlock: 0 };
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
@@ -272,23 +289,20 @@ export const Apiaries = {
     if (message.bearOwner !== undefined) {
       BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
     }
-    if (message.apiaryType !== 0) {
-      writer.uint32(24).int32(message.apiaryType);
-    }
     if (message.position !== undefined) {
-      ItemPosition.encode(message.position, writer.uint32(34).fork()).ldelim();
+      ItemPosition.encode(message.position, writer.uint32(26).fork()).ldelim();
     }
     if (message.countBees !== 0) {
-      writer.uint32(40).uint64(message.countBees);
+      writer.uint32(32).uint64(message.countBees);
     }
     if (message.params !== undefined) {
-      ApiaryParams.encode(message.params, writer.uint32(50).fork()).ldelim();
+      ApiaryParams.encode(message.params, writer.uint32(42).fork()).ldelim();
     }
     if (message.cycleStartBlock !== 0) {
-      writer.uint32(56).uint64(message.cycleStartBlock);
+      writer.uint32(48).uint64(message.cycleStartBlock);
     }
     for (const v of message.cycleBeesHistory) {
-      CycleBeesHistory.encode(v!, writer.uint32(66).fork()).ldelim();
+      CycleBeesHistory.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -308,21 +322,18 @@ export const Apiaries = {
           message.bearOwner = BearOwner.decode(reader, reader.uint32());
           break;
         case 3:
-          message.apiaryType = reader.int32() as any;
-          break;
-        case 4:
           message.position = ItemPosition.decode(reader, reader.uint32());
           break;
-        case 5:
+        case 4:
           message.countBees = longToNumber(reader.uint64() as Long);
           break;
-        case 6:
+        case 5:
           message.params = ApiaryParams.decode(reader, reader.uint32());
           break;
-        case 7:
+        case 6:
           message.cycleStartBlock = longToNumber(reader.uint64() as Long);
           break;
-        case 8:
+        case 7:
           message.cycleBeesHistory.push(
             CycleBeesHistory.decode(reader, reader.uint32())
           );
@@ -347,11 +358,6 @@ export const Apiaries = {
       message.bearOwner = BearOwner.fromJSON(object.bearOwner);
     } else {
       message.bearOwner = undefined;
-    }
-    if (object.apiaryType !== undefined && object.apiaryType !== null) {
-      message.apiaryType = apiaries_ApiaryTypesFromJSON(object.apiaryType);
-    } else {
-      message.apiaryType = 0;
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = ItemPosition.fromJSON(object.position);
@@ -394,8 +400,6 @@ export const Apiaries = {
       (obj.bearOwner = message.bearOwner
         ? BearOwner.toJSON(message.bearOwner)
         : undefined);
-    message.apiaryType !== undefined &&
-      (obj.apiaryType = apiaries_ApiaryTypesToJSON(message.apiaryType));
     message.position !== undefined &&
       (obj.position = message.position
         ? ItemPosition.toJSON(message.position)
@@ -429,11 +433,6 @@ export const Apiaries = {
       message.bearOwner = BearOwner.fromPartial(object.bearOwner);
     } else {
       message.bearOwner = undefined;
-    }
-    if (object.apiaryType !== undefined && object.apiaryType !== null) {
-      message.apiaryType = object.apiaryType;
-    } else {
-      message.apiaryType = 0;
     }
     if (object.position !== undefined && object.position !== null) {
       message.position = ItemPosition.fromPartial(object.position);

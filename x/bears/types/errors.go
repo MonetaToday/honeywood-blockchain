@@ -24,5 +24,6 @@ var (
 	ErrDecorationIsNotExisted   = sdkerrors.Register(ModuleName, 15, "Decoration is not existed")
 	ErrDecorationHasPosition    = sdkerrors.Register(ModuleName, 16, "Decoration has already had a position")
 	ErrDecorationHasNotPosition = sdkerrors.Register(ModuleName, 17, "Decoration haven't had a position yet")
-	ErrApiaryIsNotExisted       = sdkerrors.Register(ModuleName, 18, "Apiary is not existed")
+	ErrApiaryTypeIsNotDefined   = sdkerrors.Register(ModuleName, 18, "Apiary type is not defined")
+	ErrApiaryIsNotExisted       = sdkerrors.Register(ModuleName, 19, "Apiary is not existed")
 )

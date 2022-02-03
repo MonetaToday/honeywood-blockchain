@@ -14,9 +14,7 @@ export interface Params {
     priceDecorationLamp: Coin[];
     priceDecorationGreenBee: Coin[];
     priceDecorationFountain: Coin[];
-    apiaryBeeHouseParams: ApiaryParams | undefined;
-    apiaryApiaryParams: ApiaryParams | undefined;
-    apiaryAlvearyParams: ApiaryParams | undefined;
+    apiaryTypes: ApiaryParams[];
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;
