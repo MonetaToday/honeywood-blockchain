@@ -157,11 +157,10 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		ApiaryType: types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
-		CountBees: 0,
-		MaxCountBees: apiaryParams.MaxCountBees,
-		MaxCountHoney: apiaryParams.MaxCountHoney,
-		CycleStartBlock: 0,
+		ApiaryType:       types.Apiaries_ApiaryTypes(types.Apiaries_ApiaryTypes_value[apiaryType]),
+		CountBees:        0,
+		Params: apiaryParams,
+		CycleStartBlock:  0,
 		CycleBeesHistory: []types.CycleBeesHistory{},
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)

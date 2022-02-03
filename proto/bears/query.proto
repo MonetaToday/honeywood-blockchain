@@ -12,6 +12,7 @@ import "bears/fields.proto";
 import "bears/trees.proto";
 import "bears/decorations.proto";
 import "bears/apiaries.proto";
+import "bears/bees.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -90,6 +91,16 @@ service Query {
 	// Queries a list of Apiaries items.
 	rpc ApiariesAll(QueryAllApiariesRequest) returns (QueryAllApiariesResponse) {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/apiaries";
+	}
+
+// Queries a Bees by id.
+	rpc Bees(QueryGetBeesRequest) returns (QueryGetBeesResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/bees/{id}";
+	}
+
+	// Queries a list of Bees items.
+	rpc BeesAll(QueryAllBeesRequest) returns (QueryAllBeesResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/bees";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -222,6 +233,23 @@ message QueryAllApiariesRequest {
 
 message QueryAllApiariesResponse {
 	repeated Apiaries Apiaries = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetBeesRequest {
+	uint64 id = 1;
+}
+
+message QueryGetBeesResponse {
+	Bees Bees = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllBeesRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBeesResponse {
+	repeated Bees Bees = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

@@ -7,6 +7,7 @@ import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** GenesisState defines the bears module's genesis state. */
 export interface GenesisState {
@@ -22,8 +23,10 @@ export interface GenesisState {
     decorationsList: Decorations[];
     decorationsCount: number;
     apiariesList: Apiaries[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     apiariesCount: number;
+    beesList: Bees[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    beesCount: number;
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;

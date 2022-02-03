@@ -13,6 +13,7 @@ import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -141,6 +142,23 @@ export interface QueryAllApiariesRequest {
 
 export interface QueryAllApiariesResponse {
   Apiaries: Apiaries[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetBeesRequest {
+  id: number;
+}
+
+export interface QueryGetBeesResponse {
+  Bees: Bees | undefined;
+}
+
+export interface QueryAllBeesRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllBeesResponse {
+  Bees: Bees[];
   pagination: PageResponse | undefined;
 }
 
@@ -2315,6 +2333,272 @@ export const QueryAllApiariesResponse = {
   },
 };
 
+const baseQueryGetBeesRequest: object = { id: 0 };
+
+export const QueryGetBeesRequest = {
+  encode(
+    message: QueryGetBeesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetBeesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetBeesRequest } as QueryGetBeesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetBeesRequest {
+    const message = { ...baseQueryGetBeesRequest } as QueryGetBeesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetBeesRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryGetBeesRequest>): QueryGetBeesRequest {
+    const message = { ...baseQueryGetBeesRequest } as QueryGetBeesRequest;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryGetBeesResponse: object = {};
+
+export const QueryGetBeesResponse = {
+  encode(
+    message: QueryGetBeesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.Bees !== undefined) {
+      Bees.encode(message.Bees, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetBeesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetBeesResponse } as QueryGetBeesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Bees = Bees.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetBeesResponse {
+    const message = { ...baseQueryGetBeesResponse } as QueryGetBeesResponse;
+    if (object.Bees !== undefined && object.Bees !== null) {
+      message.Bees = Bees.fromJSON(object.Bees);
+    } else {
+      message.Bees = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetBeesResponse): unknown {
+    const obj: any = {};
+    message.Bees !== undefined &&
+      (obj.Bees = message.Bees ? Bees.toJSON(message.Bees) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryGetBeesResponse>): QueryGetBeesResponse {
+    const message = { ...baseQueryGetBeesResponse } as QueryGetBeesResponse;
+    if (object.Bees !== undefined && object.Bees !== null) {
+      message.Bees = Bees.fromPartial(object.Bees);
+    } else {
+      message.Bees = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllBeesRequest: object = {};
+
+export const QueryAllBeesRequest = {
+  encode(
+    message: QueryAllBeesRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllBeesRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllBeesRequest } as QueryAllBeesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllBeesRequest {
+    const message = { ...baseQueryAllBeesRequest } as QueryAllBeesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllBeesRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryAllBeesRequest>): QueryAllBeesRequest {
+    const message = { ...baseQueryAllBeesRequest } as QueryAllBeesRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllBeesResponse: object = {};
+
+export const QueryAllBeesResponse = {
+  encode(
+    message: QueryAllBeesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.Bees) {
+      Bees.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllBeesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllBeesResponse } as QueryAllBeesResponse;
+    message.Bees = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Bees.push(Bees.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllBeesResponse {
+    const message = { ...baseQueryAllBeesResponse } as QueryAllBeesResponse;
+    message.Bees = [];
+    if (object.Bees !== undefined && object.Bees !== null) {
+      for (const e of object.Bees) {
+        message.Bees.push(Bees.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllBeesResponse): unknown {
+    const obj: any = {};
+    if (message.Bees) {
+      obj.Bees = message.Bees.map((e) => (e ? Bees.toJSON(e) : undefined));
+    } else {
+      obj.Bees = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<QueryAllBeesResponse>): QueryAllBeesResponse {
+    const message = { ...baseQueryAllBeesResponse } as QueryAllBeesResponse;
+    message.Bees = [];
+    if (object.Bees !== undefined && object.Bees !== null) {
+      for (const e of object.Bees) {
+        message.Bees.push(Bees.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2361,6 +2645,10 @@ export interface Query {
   ApiariesAll(
     request: QueryAllApiariesRequest
   ): Promise<QueryAllApiariesResponse>;
+  /** Queries a Bees by id. */
+  Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
+  /** Queries a list of Bees items. */
+  BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2559,6 +2847,30 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllApiariesResponse.decode(new Reader(data))
+    );
+  }
+
+  Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse> {
+    const data = QueryGetBeesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "Bees",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetBeesResponse.decode(new Reader(data))
+    );
+  }
+
+  BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse> {
+    const data = QueryAllBeesRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "BeesAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllBeesResponse.decode(new Reader(data))
     );
   }
 }

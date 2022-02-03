@@ -1,11 +1,7 @@
-import { Writer, Reader } from "protobufjs/minimal";
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { ApiaryParams } from "../bears/apiaries";
+import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
-export interface ApiaryParams {
-    price: Coin[];
-    maxCountBees: number;
-    maxCountHoney: number;
-}
 /** Params defines the parameters for the module. */
 export interface Params {
     burnRate: string;
@@ -22,13 +18,6 @@ export interface Params {
     apiaryApiaryParams: ApiaryParams | undefined;
     apiaryAlvearyParams: ApiaryParams | undefined;
 }
-export declare const ApiaryParams: {
-    encode(message: ApiaryParams, writer?: Writer): Writer;
-    decode(input: Reader | Uint8Array, length?: number): ApiaryParams;
-    fromJSON(object: any): ApiaryParams;
-    toJSON(message: ApiaryParams): unknown;
-    fromPartial(object: DeepPartial<ApiaryParams>): ApiaryParams;
-};
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Params;

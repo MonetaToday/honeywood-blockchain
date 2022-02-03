@@ -10,6 +10,7 @@ import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseQueryParamsRequest = {};
 export const QueryParamsRequest = {
@@ -1851,6 +1852,242 @@ export const QueryAllApiariesResponse = {
         return message;
     },
 };
+const baseQueryGetBeesRequest = { id: 0 };
+export const QueryGetBeesRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetBeesRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetBeesRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetBeesRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+};
+const baseQueryGetBeesResponse = {};
+export const QueryGetBeesResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Bees !== undefined) {
+            Bees.encode(message.Bees, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetBeesResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Bees = Bees.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetBeesResponse };
+        if (object.Bees !== undefined && object.Bees !== null) {
+            message.Bees = Bees.fromJSON(object.Bees);
+        }
+        else {
+            message.Bees = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Bees !== undefined &&
+            (obj.Bees = message.Bees ? Bees.toJSON(message.Bees) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetBeesResponse };
+        if (object.Bees !== undefined && object.Bees !== null) {
+            message.Bees = Bees.fromPartial(object.Bees);
+        }
+        else {
+            message.Bees = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllBeesRequest = {};
+export const QueryAllBeesRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllBeesRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllBeesRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllBeesRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllBeesResponse = {};
+export const QueryAllBeesResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Bees) {
+            Bees.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllBeesResponse };
+        message.Bees = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Bees.push(Bees.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllBeesResponse };
+        message.Bees = [];
+        if (object.Bees !== undefined && object.Bees !== null) {
+            for (const e of object.Bees) {
+                message.Bees.push(Bees.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Bees) {
+            obj.Bees = message.Bees.map((e) => (e ? Bees.toJSON(e) : undefined));
+        }
+        else {
+            obj.Bees = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllBeesResponse };
+        message.Bees = [];
+        if (object.Bees !== undefined && object.Bees !== null) {
+            for (const e of object.Bees) {
+                message.Bees.push(Bees.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1929,6 +2166,16 @@ export class QueryClientImpl {
         const data = QueryAllApiariesRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ApiariesAll", data);
         return promise.then((data) => QueryAllApiariesResponse.decode(new Reader(data)));
+    }
+    Bees(request) {
+        const data = QueryGetBeesRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "Bees", data);
+        return promise.then((data) => QueryGetBeesResponse.decode(new Reader(data)));
+    }
+    BeesAll(request) {
+        const data = QueryAllBeesRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "BeesAll", data);
+        return promise.then((data) => QueryAllBeesResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
@@ -40,6 +41,103 @@ export function apiaries_ApiaryTypesToJSON(object) {
             return "UNKNOWN";
     }
 }
+const baseApiaryParams = { maxCountBees: 0, maxCountHoney: 0 };
+export const ApiaryParams = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.price) {
+            Coin.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.maxCountBees !== 0) {
+            writer.uint32(16).uint64(message.maxCountBees);
+        }
+        if (message.maxCountHoney !== 0) {
+            writer.uint32(24).uint64(message.maxCountHoney);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.price.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.maxCountBees = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.maxCountHoney = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromJSON(e));
+            }
+        }
+        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+            message.maxCountBees = Number(object.maxCountBees);
+        }
+        else {
+            message.maxCountBees = 0;
+        }
+        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+            message.maxCountHoney = Number(object.maxCountHoney);
+        }
+        else {
+            message.maxCountHoney = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.price) {
+            obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
+        }
+        else {
+            obj.price = [];
+        }
+        message.maxCountBees !== undefined &&
+            (obj.maxCountBees = message.maxCountBees);
+        message.maxCountHoney !== undefined &&
+            (obj.maxCountHoney = message.maxCountHoney);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseApiaryParams };
+        message.price = [];
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromPartial(e));
+            }
+        }
+        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
+            message.maxCountBees = object.maxCountBees;
+        }
+        else {
+            message.maxCountBees = 0;
+        }
+        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
+            message.maxCountHoney = object.maxCountHoney;
+        }
+        else {
+            message.maxCountHoney = 0;
+        }
+        return message;
+    },
+};
 const baseCycleBeesHistory = { block: 0, bees: 0 };
 export const CycleBeesHistory = {
     encode(message, writer = Writer.create()) {
@@ -130,8 +228,6 @@ const baseApiaries = {
     id: 0,
     apiaryType: 0,
     countBees: 0,
-    maxCountBees: 0,
-    maxCountHoney: 0,
     cycleStartBlock: 0,
 };
 export const Apiaries = {
@@ -151,17 +247,14 @@ export const Apiaries = {
         if (message.countBees !== 0) {
             writer.uint32(40).uint64(message.countBees);
         }
-        if (message.maxCountBees !== 0) {
-            writer.uint32(48).uint64(message.maxCountBees);
-        }
-        if (message.maxCountHoney !== 0) {
-            writer.uint32(56).uint64(message.maxCountHoney);
+        if (message.params !== undefined) {
+            ApiaryParams.encode(message.params, writer.uint32(50).fork()).ldelim();
         }
         if (message.cycleStartBlock !== 0) {
-            writer.uint32(64).uint64(message.cycleStartBlock);
+            writer.uint32(56).uint64(message.cycleStartBlock);
         }
         for (const v of message.cycleBeesHistory) {
-            CycleBeesHistory.encode(v, writer.uint32(82).fork()).ldelim();
+            CycleBeesHistory.encode(v, writer.uint32(66).fork()).ldelim();
         }
         return writer;
     },
@@ -189,15 +282,12 @@ export const Apiaries = {
                     message.countBees = longToNumber(reader.uint64());
                     break;
                 case 6:
-                    message.maxCountBees = longToNumber(reader.uint64());
+                    message.params = ApiaryParams.decode(reader, reader.uint32());
                     break;
                 case 7:
-                    message.maxCountHoney = longToNumber(reader.uint64());
-                    break;
-                case 8:
                     message.cycleStartBlock = longToNumber(reader.uint64());
                     break;
-                case 10:
+                case 8:
                     message.cycleBeesHistory.push(CycleBeesHistory.decode(reader, reader.uint32()));
                     break;
                 default:
@@ -240,17 +330,11 @@ export const Apiaries = {
         else {
             message.countBees = 0;
         }
-        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
-            message.maxCountBees = Number(object.maxCountBees);
+        if (object.params !== undefined && object.params !== null) {
+            message.params = ApiaryParams.fromJSON(object.params);
         }
         else {
-            message.maxCountBees = 0;
-        }
-        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
-            message.maxCountHoney = Number(object.maxCountHoney);
-        }
-        else {
-            message.maxCountHoney = 0;
+            message.params = undefined;
         }
         if (object.cycleStartBlock !== undefined &&
             object.cycleStartBlock !== null) {
@@ -281,10 +365,10 @@ export const Apiaries = {
                 ? ItemPosition.toJSON(message.position)
                 : undefined);
         message.countBees !== undefined && (obj.countBees = message.countBees);
-        message.maxCountBees !== undefined &&
-            (obj.maxCountBees = message.maxCountBees);
-        message.maxCountHoney !== undefined &&
-            (obj.maxCountHoney = message.maxCountHoney);
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? ApiaryParams.toJSON(message.params)
+                : undefined);
         message.cycleStartBlock !== undefined &&
             (obj.cycleStartBlock = message.cycleStartBlock);
         if (message.cycleBeesHistory) {
@@ -328,17 +412,11 @@ export const Apiaries = {
         else {
             message.countBees = 0;
         }
-        if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
-            message.maxCountBees = object.maxCountBees;
+        if (object.params !== undefined && object.params !== null) {
+            message.params = ApiaryParams.fromPartial(object.params);
         }
         else {
-            message.maxCountBees = 0;
-        }
-        if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
-            message.maxCountHoney = object.maxCountHoney;
-        }
-        else {
-            message.maxCountHoney = 0;
+            message.params = undefined;
         }
         if (object.cycleStartBlock !== undefined &&
             object.cycleStartBlock !== null) {

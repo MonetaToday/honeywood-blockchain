@@ -60,16 +60,16 @@ export interface BearsApiaries {
 
   /** @format uint64 */
   countBees?: string;
-
-  /** @format uint64 */
-  maxCountBees?: string;
-
-  /** @format uint64 */
-  maxCountHoney?: string;
+  params?: BearsApiaryParams;
 
   /** @format uint64 */
   cycleStartBlock?: string;
   cycleBeesHistory?: BearsCycleBeesHistory[];
+}
+
+export interface BearsApiaryHouse {
+  /** @format uint64 */
+  id?: string;
 }
 
 export interface BearsApiaryParams {
@@ -104,6 +104,27 @@ export interface BearsBears {
   bees?: string[];
   trees?: string[];
   decorations?: string[];
+}
+
+export interface BearsBeeParams {
+  price?: V1Beta1Coin[];
+
+  /** @format uint64 */
+  countHoneyPerBlock?: string;
+
+  /** @format uint64 */
+  apiarySize?: string;
+
+  /** @format uint64 */
+  oxygenSense?: string;
+}
+
+export interface BearsBees {
+  /** @format uint64 */
+  id?: string;
+  bearOwner?: BearsBearOwner;
+  apiaryHouse?: BearsApiaryHouse;
+  params?: BearsBeeParams;
 }
 
 export interface BearsCycleBeesHistory {
@@ -269,6 +290,21 @@ export interface BearsQueryAllBearsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface BearsQueryAllBeesResponse {
+  Bees?: BearsBees[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface BearsQueryAllDecorationsResponse {
   Decorations?: BearsDecorations[];
 
@@ -328,6 +364,10 @@ export interface BearsQueryGetBearNamesResponse {
 
 export interface BearsQueryGetBearsResponse {
   Bears?: BearsBears;
+}
+
+export interface BearsQueryGetBeesResponse {
+  Bees?: BearsBees;
 }
 
 export interface BearsQueryGetDecorationsResponse {
@@ -806,6 +846,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryBears = (id: string, params: RequestParams = {}) =>
     this.request<BearsQueryGetBearsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/bears/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryBeesAll
+   * @summary Queries a list of Bees items.
+   * @request GET:/MonetaToday/honeywood/bears/bees
+   */
+  queryBeesAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BearsQueryAllBeesResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/bees`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryBees
+   * @summary Queries a Bees by id.
+   * @request GET:/MonetaToday/honeywood/bears/bees/{id}
+   */
+  queryBees = (id: string, params: RequestParams = {}) =>
+    this.request<BearsQueryGetBeesResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/bees/${id}`,
       method: "GET",
       format: "json",
       ...params,

@@ -1,7 +1,13 @@
 import { Writer, Reader } from "protobufjs/minimal";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
+export interface ApiaryParams {
+    price: Coin[];
+    maxCountBees: number;
+    maxCountHoney: number;
+}
 export interface CycleBeesHistory {
     block: number;
     bees: number[];
@@ -12,8 +18,7 @@ export interface Apiaries {
     apiaryType: Apiaries_ApiaryTypes;
     position: ItemPosition | undefined;
     countBees: number;
-    maxCountBees: number;
-    maxCountHoney: number;
+    params: ApiaryParams | undefined;
     cycleStartBlock: number;
     cycleBeesHistory: CycleBeesHistory[];
 }
@@ -25,6 +30,13 @@ export declare enum Apiaries_ApiaryTypes {
 }
 export declare function apiaries_ApiaryTypesFromJSON(object: any): Apiaries_ApiaryTypes;
 export declare function apiaries_ApiaryTypesToJSON(object: Apiaries_ApiaryTypes): string;
+export declare const ApiaryParams: {
+    encode(message: ApiaryParams, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): ApiaryParams;
+    fromJSON(object: any): ApiaryParams;
+    toJSON(message: ApiaryParams): unknown;
+    fromPartial(object: DeepPartial<ApiaryParams>): ApiaryParams;
+};
 export declare const CycleBeesHistory: {
     encode(message: CycleBeesHistory, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): CycleBeesHistory;

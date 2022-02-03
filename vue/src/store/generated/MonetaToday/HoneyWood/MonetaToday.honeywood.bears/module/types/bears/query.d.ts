@@ -8,6 +8,7 @@ import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -106,6 +107,19 @@ export interface QueryAllApiariesRequest {
 }
 export interface QueryAllApiariesResponse {
     Apiaries: Apiaries[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetBeesRequest {
+    id: number;
+}
+export interface QueryGetBeesResponse {
+    Bees: Bees | undefined;
+}
+export interface QueryAllBeesRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllBeesResponse {
+    Bees: Bees[];
     pagination: PageResponse | undefined;
 }
 export declare const QueryParamsRequest: {
@@ -318,6 +332,34 @@ export declare const QueryAllApiariesResponse: {
     toJSON(message: QueryAllApiariesResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllApiariesResponse>): QueryAllApiariesResponse;
 };
+export declare const QueryGetBeesRequest: {
+    encode(message: QueryGetBeesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetBeesRequest;
+    fromJSON(object: any): QueryGetBeesRequest;
+    toJSON(message: QueryGetBeesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetBeesRequest>): QueryGetBeesRequest;
+};
+export declare const QueryGetBeesResponse: {
+    encode(message: QueryGetBeesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetBeesResponse;
+    fromJSON(object: any): QueryGetBeesResponse;
+    toJSON(message: QueryGetBeesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetBeesResponse>): QueryGetBeesResponse;
+};
+export declare const QueryAllBeesRequest: {
+    encode(message: QueryAllBeesRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllBeesRequest;
+    fromJSON(object: any): QueryAllBeesRequest;
+    toJSON(message: QueryAllBeesRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllBeesRequest>): QueryAllBeesRequest;
+};
+export declare const QueryAllBeesResponse: {
+    encode(message: QueryAllBeesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllBeesResponse;
+    fromJSON(object: any): QueryAllBeesResponse;
+    toJSON(message: QueryAllBeesResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllBeesResponse>): QueryAllBeesResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -350,6 +392,10 @@ export interface Query {
     Apiaries(request: QueryGetApiariesRequest): Promise<QueryGetApiariesResponse>;
     /** Queries a list of Apiaries items. */
     ApiariesAll(request: QueryAllApiariesRequest): Promise<QueryAllApiariesResponse>;
+    /** Queries a Bees by id. */
+    Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
+    /** Queries a list of Bees items. */
+    BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -369,6 +415,8 @@ export declare class QueryClientImpl implements Query {
     DecorationsAll(request: QueryAllDecorationsRequest): Promise<QueryAllDecorationsResponse>;
     Apiaries(request: QueryGetApiariesRequest): Promise<QueryGetApiariesResponse>;
     ApiariesAll(request: QueryAllApiariesRequest): Promise<QueryAllApiariesResponse>;
+    Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
+    BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

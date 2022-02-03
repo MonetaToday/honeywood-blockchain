@@ -9,6 +9,7 @@ import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseGenesisState = {
     bearsCount: 0,
@@ -16,6 +17,7 @@ const baseGenesisState = {
     treesCount: 0,
     decorationsCount: 0,
     apiariesCount: 0,
+    beesCount: 0,
 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
@@ -58,6 +60,12 @@ export const GenesisState = {
         if (message.apiariesCount !== 0) {
             writer.uint32(104).uint64(message.apiariesCount);
         }
+        for (const v of message.beesList) {
+            Bees.encode(v, writer.uint32(114).fork()).ldelim();
+        }
+        if (message.beesCount !== 0) {
+            writer.uint32(120).uint64(message.beesCount);
+        }
         return writer;
     },
     decode(input, length) {
@@ -71,6 +79,7 @@ export const GenesisState = {
         message.treesList = [];
         message.decorationsList = [];
         message.apiariesList = [];
+        message.beesList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -113,6 +122,12 @@ export const GenesisState = {
                 case 13:
                     message.apiariesCount = longToNumber(reader.uint64());
                     break;
+                case 14:
+                    message.beesList.push(Bees.decode(reader, reader.uint32()));
+                    break;
+                case 15:
+                    message.beesCount = longToNumber(reader.uint64());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -129,6 +144,7 @@ export const GenesisState = {
         message.treesList = [];
         message.decorationsList = [];
         message.apiariesList = [];
+        message.beesList = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromJSON(object.params);
         }
@@ -203,6 +219,17 @@ export const GenesisState = {
         else {
             message.apiariesCount = 0;
         }
+        if (object.beesList !== undefined && object.beesList !== null) {
+            for (const e of object.beesList) {
+                message.beesList.push(Bees.fromJSON(e));
+            }
+        }
+        if (object.beesCount !== undefined && object.beesCount !== null) {
+            message.beesCount = Number(object.beesCount);
+        }
+        else {
+            message.beesCount = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -259,6 +286,13 @@ export const GenesisState = {
         }
         message.apiariesCount !== undefined &&
             (obj.apiariesCount = message.apiariesCount);
+        if (message.beesList) {
+            obj.beesList = message.beesList.map((e) => e ? Bees.toJSON(e) : undefined);
+        }
+        else {
+            obj.beesList = [];
+        }
+        message.beesCount !== undefined && (obj.beesCount = message.beesCount);
         return obj;
     },
     fromPartial(object) {
@@ -270,6 +304,7 @@ export const GenesisState = {
         message.treesList = [];
         message.decorationsList = [];
         message.apiariesList = [];
+        message.beesList = [];
         if (object.params !== undefined && object.params !== null) {
             message.params = Params.fromPartial(object.params);
         }
@@ -343,6 +378,17 @@ export const GenesisState = {
         }
         else {
             message.apiariesCount = 0;
+        }
+        if (object.beesList !== undefined && object.beesList !== null) {
+            for (const e of object.beesList) {
+                message.beesList.push(Bees.fromPartial(e));
+            }
+        }
+        if (object.beesCount !== undefined && object.beesCount !== null) {
+            message.beesCount = object.beesCount;
+        }
+        else {
+            message.beesCount = 0;
         }
         return message;
     },

@@ -41,18 +41,18 @@ var (
 	KeyPriceDecorationFountain               = []byte("PriceDecorationFountain")
 	DefaultPriceDecorationFountain sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1000)))
 
-	KeyApiaryBeeHouseParams               = []byte("ApiaryBeeHouseParams")
-	DefaultApiaryBeeHouseParams 					= ApiaryParams{
+	KeyApiaryBeeHouseParams     = []byte("ApiaryBeeHouseParams")
+	DefaultApiaryBeeHouseParams = ApiaryParams{
 		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(500))),
 	}
 
-	KeyApiaryApiaryParams               = []byte("ApiaryApiaryParams")
-	DefaultApiaryApiaryParams					  = ApiaryParams{
+	KeyApiaryApiaryParams     = []byte("ApiaryApiaryParams")
+	DefaultApiaryApiaryParams = ApiaryParams{
 		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(900))),
 	}
 
-	KeyApiaryAlvearyParams               = []byte("ApiaryAlvearyParams")
-	DefaultApiaryAlvearyParams					 = ApiaryParams{
+	KeyApiaryAlvearyParams     = []byte("ApiaryAlvearyParams")
+	DefaultApiaryAlvearyParams = ApiaryParams{
 		Price: sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(1500))),
 	}
 )
