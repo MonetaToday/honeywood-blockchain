@@ -25,7 +25,7 @@ message Apiaries {
   BearOwner bearOwner = 2; 
   ItemPosition position = 3 [(gogoproto.nullable) = false];
   uint64 countBees = 4;
-  ApiaryParams params = 5 [(gogoproto.nullable) = false];
+  ApiaryParams params = 5;
   uint64 cycleStartBlock = 6;
   repeated CycleBeesHistory cycleBeesHistory = 7 [(gogoproto.nullable) = false];
 }

@@ -141,8 +141,8 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 	}
 
 	newDecoration := types.Decorations{
-		BearOwner:      &types.BearOwner{Id: bearId},
-		Params: decorationParams,
+		BearOwner: &types.BearOwner{Id: bearId},
+		Params:    decorationParams,
 	}
 	newDecorationId := k.AppendDecorations(ctx, newDecoration)
 

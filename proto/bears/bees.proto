@@ -25,5 +25,5 @@ message Bees {
   uint64 id = 1;
   BearOwner bearOwner = 2;
   ApiaryHouse apiaryHouse = 3;
-  BeeParams params = 4 [(gogoproto.nullable) = false];
+  BeeParams params = 4;
 }

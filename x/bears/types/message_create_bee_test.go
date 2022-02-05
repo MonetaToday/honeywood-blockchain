@@ -1,0 +1,40 @@
+package types
+
+import (
+	"testing"
+
+	"github.com/MonetaToday/HoneyWood/testutil/sample"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/stretchr/testify/require"
+)
+
+func TestMsgCreateBee_ValidateBasic(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  MsgCreateBee
+		err  error
+	}{
+		{
+			name: "invalid address",
+			msg: MsgCreateBee{
+				Creator: "invalid_address",
+			},
+			err: sdkerrors.ErrInvalidAddress,
+		}, {
+			name: "valid address",
+			msg: MsgCreateBee{
+				Creator: sample.AccAddress(),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := tt.msg.ValidateBasic()
+			if tt.err != nil {
+				require.ErrorIs(t, err, tt.err)
+				return
+			}
+			require.NoError(t, err)
+		})
+	}
+}

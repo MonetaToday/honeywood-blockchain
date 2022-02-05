@@ -6,6 +6,7 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // GetBeesCount get the total number of bees
@@ -114,4 +115,43 @@ func (k Keeper) GetBeeParams(ctx sdk.Context, beeType string) (*types.BeeParams,
 	}
 
 	return nil, false
+}
+
+// create bee for specific bear
+func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeType string) (*types.Bees, error) {
+	hasRights := k.HasRightsToBear(ctx, creator, bearId)
+	if !hasRights {
+		return nil, types.ErrAddressHasNoRights
+	}
+
+	beeParams, _ := k.GetBeeParams(ctx, beeType)
+	if beeParams == nil {
+		return nil, types.ErrBeeTypeIsNotDefined
+	}
+
+	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, beeParams.Price)
+	if err != nil {
+		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+	}
+
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, beeParams.Price)
+	if errBurn != nil {
+		return nil, errBurn
+	}
+
+	newBee := types.Bees{
+		BearOwner: &types.BearOwner{Id: bearId},
+		Params:    beeParams,
+	}
+	newBeeId := k.AppendBees(ctx, newBee)
+
+	bear, bearFound := k.GetBears(ctx, bearId)
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
+	}
+	bear.Bees = append(bear.Bees, newBeeId)
+	k.SetBears(ctx, bear)
+
+	return &newBee, nil
 }

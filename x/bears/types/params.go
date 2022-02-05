@@ -44,13 +44,13 @@ func NewParams(
 	beeTypes []BeeParams,
 ) Params {
 	return Params{
-		BurnRate:                burnRate,
-		PriceSetName:            priceSetName,
-		PriceTile:               priceTile,
-		TreeTypes:  			 			 treeTypes,
-		DecorationTypes:  			 decorationTypes,
-		ApiaryTypes:    				 apiaryTypes,
-		BeeTypes:    				 		 beeTypes,
+		BurnRate:        burnRate,
+		PriceSetName:    priceSetName,
+		PriceTile:       priceTile,
+		TreeTypes:       treeTypes,
+		DecorationTypes: decorationTypes,
+		ApiaryTypes:     apiaryTypes,
+		BeeTypes:        beeTypes,
 	}
 }
 
@@ -202,11 +202,11 @@ func validateApiaryTypes(i interface{}) error {
 		if !params.Price.IsValid() {
 			return fmt.Errorf("invalid coins parameter in ApiaryParams: %v", v)
 		}
-	
+
 		if params.MaxCountBees <= 0 {
 			return fmt.Errorf("invalid MaxCountBees parameter in ApiaryParams: %v", v)
 		}
-	
+
 		if params.MaxCountHoney <= 0 {
 			return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
 		}

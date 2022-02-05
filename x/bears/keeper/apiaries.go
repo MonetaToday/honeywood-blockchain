@@ -167,7 +167,7 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			ColumnId: columnId,
 		},
 		CountBees:        0,
-		Params: *apiaryParams,
+		Params:           apiaryParams,
 		CycleStartBlock:  0,
 		CycleBeesHistory: []types.CycleBeesHistory{},
 	}

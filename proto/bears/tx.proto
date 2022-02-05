@@ -4,6 +4,7 @@ package MonetaToday.honeywood.bears;
 import "bears/trees.proto";
 import "bears/decorations.proto";
 import "bears/apiaries.proto";
+import "bears/bees.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -23,6 +24,8 @@ service Msg {
   rpc UnsetDecorationPosition(MsgUnsetDecorationPosition) returns (MsgUnsetDecorationPositionResponse);
   rpc InitGameAndCreateApiary(MsgInitGameAndCreateApiary) returns (MsgInitGameAndCreateApiaryResponse);
   rpc CreateApiary(MsgCreateApiary) returns (MsgCreateApiaryResponse);
+  rpc InitGameAndCreateBee(MsgInitGameAndCreateBee) returns (MsgInitGameAndCreateBeeResponse);
+  rpc CreateBee(MsgCreateBee) returns (MsgCreateBeeResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -152,6 +155,25 @@ message MsgCreateApiary {
 
 message MsgCreateApiaryResponse {
   Apiaries apiary = 1;
+}
+
+message MsgInitGameAndCreateBee {
+  string creator = 1;
+  string beeType = 2;
+}
+
+message MsgInitGameAndCreateBeeResponse {
+  Bees bee = 1;
+}
+
+message MsgCreateBee {
+  string creator = 1;
+  uint64 bearId = 2;
+  string beeType = 3;
+}
+
+message MsgCreateBeeResponse {
+  Bees bee = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message
