@@ -47,9 +47,5 @@ func (msg *MsgCreateTree) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	if _, ok := Trees_TreeTypes_value[msg.TreeType]; !ok {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Tree type must be in enum")
-	}
-
 	return nil
 }

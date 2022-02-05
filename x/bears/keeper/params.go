@@ -11,8 +11,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.BurnRate(ctx),
 		k.PriceSetName(ctx),
 		k.PriceTile(ctx),
-		k.PriceTree(ctx),
-		k.RewardTree(ctx),
+		k.TreeTypes(ctx),
 		k.DecorationTypes(ctx),
 		k.ApiaryTypes(ctx),
 		k.BeeTypes(ctx),
@@ -42,18 +41,11 @@ func (k Keeper) PriceTile(ctx sdk.Context) (res sdk.Coins) {
 	return
 }
 
-// PriceTree returns the PriceTree param
-func (k Keeper) PriceTree(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceTree, &res)
+// TreeTypes returns the TreeTypes param
+func (k Keeper) TreeTypes(ctx sdk.Context) (res []types.TreeParams) {
+	k.paramstore.Get(ctx, types.KeyTreeTypes, &res)
 	return
 }
-
-// RewardTree returns the RewardTree param
-func (k Keeper) RewardTree(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyRewardTree, &res)
-	return
-}
-
 // DecorationTypes returns the DecorationTypes param
 func (k Keeper) DecorationTypes(ctx sdk.Context) (res []types.DecorationParams) {
 	k.paramstore.Get(ctx, types.KeyDecorationTypes, &res)

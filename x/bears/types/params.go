@@ -20,11 +20,8 @@ var (
 	KeyPriceTile               = []byte("PriceTile")
 	DefaultPriceTile sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 
-	KeyPriceTree               = []byte("PriceTree")
-	DefaultPriceTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
-
-	KeyRewardTree               = []byte("RewardTree")
-	DefaultRewardTree sdk.Coins = sdk.NewCoins(sdk.NewCoin("cone", sdk.NewInt(100)))
+	KeyTreeTypes     = []byte("TreeTypes")
+	DefaultTreeTypes = []TreeParams{}
 
 	KeyDecorationTypes     = []byte("DecorationTypes")
 	DefaultDecorationTypes = []DecorationParams{}
@@ -41,8 +38,7 @@ func NewParams(
 	burnRate sdk.Dec,
 	priceSetName sdk.Coins,
 	priceTile sdk.Coins,
-	priceTree sdk.Coins,
-	rewardTree sdk.Coins,
+	treeTypes []TreeParams,
 	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
 	beeTypes []BeeParams,
@@ -51,8 +47,7 @@ func NewParams(
 		BurnRate:                burnRate,
 		PriceSetName:            priceSetName,
 		PriceTile:               priceTile,
-		PriceTree:               priceTree,
-		RewardTree:              rewardTree,
+		TreeTypes:  			 			 treeTypes,
 		DecorationTypes:  			 decorationTypes,
 		ApiaryTypes:    				 apiaryTypes,
 		BeeTypes:    				 		 beeTypes,
@@ -65,8 +60,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceTree, &p.PriceTree, validateCoins),
-		paramtypes.NewParamSetPair(KeyRewardTree, &p.RewardTree, validateCoins),
+		paramtypes.NewParamSetPair(KeyTreeTypes, &p.TreeTypes, validateTreeTypes),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, &p.BeeTypes, validateBeeTypes),
@@ -87,11 +81,7 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validateCoins(p.PriceTree); err != nil {
-		return err
-	}
-
-	if err := validateCoins(p.RewardTree); err != nil {
+	if err := validateTreeTypes(p.TreeTypes); err != nil {
 		return err
 	}
 
@@ -116,8 +106,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceTree, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyRewardTree, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyTreeTypes, []TreeParams{}, validateTreeTypes),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, []BeeParams{}, validateBeeTypes),
@@ -130,8 +119,7 @@ func DefaultParams() Params {
 		DefaultBurnRate,
 		DefaultPriceSetName,
 		DefaultPriceTile,
-		DefaultPriceTree,
-		DefaultRewardTree,
+		DefaultTreeTypes,
 		DefaultDecorationTypes,
 		DefaultApiaryTypes,
 		DefaultBeeTypes,
@@ -170,6 +158,25 @@ func validateCoins(i interface{}) error {
 	return nil
 }
 
+func validateTreeTypes(i interface{}) error {
+	v, ok := i.([]TreeParams)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	for _, params := range v {
+		if !params.Price.IsValid() {
+			return fmt.Errorf("invalid coins parameter in TreeParams: %v", v)
+		}
+
+		if !params.Reward.IsValid() {
+			return fmt.Errorf("invalid coins parameter in TreeParams: %v", v)
+		}
+	}
+
+	return nil
+}
+
 func validateDecorationTypes(i interface{}) error {
 	v, ok := i.([]DecorationParams)
 	if !ok {
@@ -184,7 +191,6 @@ func validateDecorationTypes(i interface{}) error {
 
 	return nil
 }
-
 
 func validateApiaryTypes(i interface{}) error {
 	v, ok := i.([]ApiaryParams)

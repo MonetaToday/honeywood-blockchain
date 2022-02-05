@@ -51,6 +51,36 @@ genesis:
           - denom: "cone"
             amount: "100"
 
+        tree_types:
+          - tree_type: OAK
+            price:
+              - denom: "honey"
+                amount: "1500"
+            reward:
+              - denom: "cone"
+                amount: "150"
+          - tree_type: SPRUCE
+            price:
+              - denom: "honey"
+                amount: "1500"
+            reward:
+              - denom: "cone"
+                amount: "150"
+          - tree_type: APPLE_TREE
+            price:
+              - denom: "honey"
+                amount: "1500"
+            reward:
+              - denom: "cone"
+                amount: "150"
+          - tree_type: WILLOW
+            price:
+              - denom: "honey"
+                amount: "1500"
+            reward:
+              - denom: "cone"
+                amount: "150"
+
         decoration_types:
           - decoration_type: "FLOWERS"
             price:

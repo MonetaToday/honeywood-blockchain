@@ -106,6 +106,17 @@ func GetTreesIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
+func (k Keeper) GetTreeParams(ctx sdk.Context, treeType string) (*types.TreeParams, bool) {
+	treeTypes := k.TreeTypes(ctx)
+	for _, params := range treeTypes {
+		if params.TreeType == treeType {
+			return &params, true
+		}
+	}
+
+	return nil, false
+}
+
 // Create tree on field for specific bear
 func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, treeType string) (*types.Trees, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
@@ -132,14 +143,18 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		return nil, errEmptyTile
 	}
 
+	treeParams, _ := k.GetTreeParams(ctx, treeType)
+	if treeParams == nil {
+		return nil, types.ErrTreeTypeIsNotDefined
+	}
+
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	priceTree := k.PriceTree(ctx)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceTree)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, treeParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceTree)
+	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, treeParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}
@@ -151,7 +166,7 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		TreeType: types.Trees_TreeTypes(types.Trees_TreeTypes_value[treeType]),
+		Params: treeParams,
 	}
 	newTreeId := k.AppendTrees(ctx, newTree)
 
@@ -168,9 +183,8 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	bear.Trees = append(bear.Trees, newTreeId)
 	k.SetBears(ctx, bear)
 
-	rewardTree := k.RewardTree(ctx)
-	k.bankKeeper.MintCoins(ctx, types.ModuleName, rewardTree)
-	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, creatorAcc, rewardTree)
+	k.bankKeeper.MintCoins(ctx, types.ModuleName, treeParams.Reward)
+	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, creatorAcc, treeParams.Reward)
 	if errSendFromModuleToAccount != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}

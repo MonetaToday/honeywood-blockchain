@@ -3,18 +3,21 @@ package MonetaToday.honeywood.bears;
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
 import "bears/fields.proto";
 import "bears/bears.proto";
 
+message TreeParams {
+  string tree_type = 1 [(gogoproto.moretags) = "yaml:\"tree_type\""];
+  repeated cosmos.base.v1beta1.Coin price = 2
+    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price\""];
+  repeated cosmos.base.v1beta1.Coin reward = 3
+    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"reward\""];
+}
+
 message Trees {
   uint64 id = 1;
-  enum TreeTypes {
-    OAK = 0;
-    SPRUCE = 1;
-    APPLETREE = 2;
-    WILLOW = 3;
-  }
-  TreeTypes treeType = 2;
+  TreeParams params = 2;
   BearOwner bearOwner = 3;
   ItemPosition position = 4 [(gogoproto.nullable) = false];
 }
