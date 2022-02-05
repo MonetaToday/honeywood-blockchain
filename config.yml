@@ -125,16 +125,16 @@ genesis:
 
         bee_types:
           - bee_type: "BEE_1"
-            honey_per_block: "0.01"
+            honey_per_block: "0.00076389"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
-              amount: "500"
+              amount: "1100"
           - bee_type: "BEE_2"
-            honey_per_block: "0.01"
+            honey_per_block: "0.00086111"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
-              amount: "500"
+              amount: "1200"
