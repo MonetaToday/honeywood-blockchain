@@ -152,6 +152,28 @@ func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, be
 	return apiary
 }
 
+// GetApiaryWithRemovedBee
+func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) types.Apiaries {
+	lastInfoIndex := len(apiary.CycleHistory) - 1
+	newBees := []uint64{}
+	if lastInfoIndex >= 0 {
+		for index, id := range apiary.CycleHistory[lastInfoIndex].Bees {
+			if id == bee.Id {
+				newBees = append(apiary.CycleHistory[lastInfoIndex].Bees[:index], apiary.CycleHistory[lastInfoIndex].Bees[index+1:]...)
+			}
+		}
+	} else {
+		newBees = []uint64{}
+	}
+	apiary.CycleHistory = append(apiary.CycleHistory, types.CycleHistory{
+		Height: uint64(ctx.BlockHeight()),
+		Bees: newBees,
+	})
+	apiary.SpaceOccupied = apiary.SpaceOccupied - bee.Params.BodySize
+
+	return apiary
+}
+
 // create bee for specific bear
 func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeType string) (*types.Bees, error) {
 	hasRights := k.HasRightsToBear(ctx, creator, bearId)
@@ -221,6 +243,16 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 	isBeeInApiaryHouse := k.IsBeeInApiaryHouse(ctx, apiary, bee)
 	if isBeeInApiaryHouse {
 		return types.ErrBeeIsInApiaryHouse
+	}
+
+	if (bee.ApiaryHouse != nil && bee.ApiaryHouse.Id != apiary.Id) {
+		previousApiary, previousApiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)
+		if !previousApiaryFound {
+			return types.ErrApiaryIsNotExisted
+		}
+
+		previousApiary = k.GetApiaryWithRemovedBee(ctx, previousApiary, bee)
+		k.SetApiaries(ctx, previousApiary)
 	}
 
 	bee.ApiaryHouse = &types.ApiaryHouse{
