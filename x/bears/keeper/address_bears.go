@@ -61,4 +61,3 @@ func (k Keeper) GetAllAddressBears(ctx sdk.Context) (list []types.AddressBears) 
 
 	return
 }
-

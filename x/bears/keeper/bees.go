@@ -145,7 +145,7 @@ func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, be
 	}
 	apiary.CycleHistory = append(apiary.CycleHistory, types.CycleHistory{
 		Height: uint64(ctx.BlockHeight()),
-		Bees: newBees,
+		Bees:   newBees,
 	})
 	apiary.SpaceOccupied = apiary.SpaceOccupied + bee.Params.BodySize
 
@@ -167,7 +167,7 @@ func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, 
 	}
 	apiary.CycleHistory = append(apiary.CycleHistory, types.CycleHistory{
 		Height: uint64(ctx.BlockHeight()),
-		Bees: newBees,
+		Bees:   newBees,
 	})
 	apiary.SpaceOccupied = apiary.SpaceOccupied - bee.Params.BodySize
 
@@ -245,7 +245,7 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 		return types.ErrBeeIsInApiaryHouse
 	}
 
-	if (bee.ApiaryHouse != nil && bee.ApiaryHouse.Id != apiary.Id) {
+	if bee.ApiaryHouse != nil && bee.ApiaryHouse.Id != apiary.Id {
 		previousApiary, previousApiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)
 		if !previousApiaryFound {
 			return types.ErrApiaryIsNotExisted
@@ -262,6 +262,36 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 
 	apiary = k.GetApiaryWithAddedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
+
+	return nil
+}
+
+// Unset apiary house for a bee
+func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64) error {
+	bee, beeFound := k.GetBees(ctx, beeId)
+	if !beeFound {
+		return types.ErrBeeIsNotExisted
+	}
+	if bee.BearOwner == nil {
+		return types.ErrAddressHasNoRights
+	}
+	if bee.ApiaryHouse == nil {
+		return types.ErrBeeIsNotInApiaryHouse
+	}
+	hasRights := k.HasRightsToBear(ctx, creator, bee.BearOwner.Id)
+	if !hasRights {
+		return types.ErrAddressHasNoRights
+	}
+
+	apiary, apiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)
+	if !apiaryFound {
+		return types.ErrApiaryIsNotExisted
+	}
+	apiary = k.GetApiaryWithRemovedBee(ctx, apiary, bee)
+	k.SetApiaries(ctx, apiary)
+
+	bee.ApiaryHouse = nil
+	k.SetBees(ctx, bee)
 
 	return nil
 }

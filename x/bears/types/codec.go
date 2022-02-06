@@ -24,6 +24,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgInitGameAndCreateBee{}, "bears/InitGameAndCreateBee", nil)
 	cdc.RegisterConcrete(&MsgCreateBee{}, "bears/CreateBee", nil)
 	cdc.RegisterConcrete(&MsgSetApiaryHouseForBee{}, "bears/SetApiaryHouseForBee", nil)
+	cdc.RegisterConcrete(&MsgUnsetApiaryHouseForBee{}, "bears/UnsetApiaryHouseForBee", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -75,6 +76,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgSetApiaryHouseForBee{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUnsetApiaryHouseForBee{},
 	)
 	// this line is used by starport scaffolding # 3
 

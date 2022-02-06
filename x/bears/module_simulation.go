@@ -88,6 +88,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSetApiaryHouseForBee int = 100
 
+	opWeightMsgUnsetApiaryHouseForBee = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUnsetApiaryHouseForBee int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -311,6 +315,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSetApiaryHouseForBee,
 		bearssimulation.SimulateMsgSetApiaryHouseForBee(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUnsetApiaryHouseForBee int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUnsetApiaryHouseForBee, &weightMsgUnsetApiaryHouseForBee, nil,
+		func(_ *rand.Rand) {
+			weightMsgUnsetApiaryHouseForBee = defaultWeightMsgUnsetApiaryHouseForBee
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUnsetApiaryHouseForBee,
+		bearssimulation.SimulateMsgUnsetApiaryHouseForBee(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
