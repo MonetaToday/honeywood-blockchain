@@ -26,10 +26,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type ApiaryParams struct {
-	ApiaryType    string                                   `protobuf:"bytes,1,opt,name=apiary_type,json=apiaryType,proto3" json:"apiary_type,omitempty" yaml:"apiary_type"`
-	Price         github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=price,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"price" yaml:"price"`
-	MaxCountBees  uint64                                   `protobuf:"varint,3,opt,name=max_count_bees,json=maxCountBees,proto3" json:"max_count_bees,omitempty" yaml:"max_count_bees"`
-	MaxCountHoney uint64                                   `protobuf:"varint,4,opt,name=max_count_honey,json=maxCountHoney,proto3" json:"max_count_honey,omitempty" yaml:"max_count_honey"`
+	ApiaryType     string                                   `protobuf:"bytes,1,opt,name=apiary_type,json=apiaryType,proto3" json:"apiary_type,omitempty" yaml:"apiary_type"`
+	Price          github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=price,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"price" yaml:"price"`
+	SpaceAvailable uint64                                   `protobuf:"varint,3,opt,name=space_available,json=spaceAvailable,proto3" json:"space_available,omitempty" yaml:"space_available"`
+	MaxHoney       uint64                                   `protobuf:"varint,4,opt,name=max_honey,json=maxHoney,proto3" json:"max_honey,omitempty" yaml:"max_honey"`
 }
 
 func (m *ApiaryParams) Reset()         { *m = ApiaryParams{} }
@@ -79,37 +79,37 @@ func (m *ApiaryParams) GetPrice() github_com_cosmos_cosmos_sdk_types.Coins {
 	return nil
 }
 
-func (m *ApiaryParams) GetMaxCountBees() uint64 {
+func (m *ApiaryParams) GetSpaceAvailable() uint64 {
 	if m != nil {
-		return m.MaxCountBees
+		return m.SpaceAvailable
 	}
 	return 0
 }
 
-func (m *ApiaryParams) GetMaxCountHoney() uint64 {
+func (m *ApiaryParams) GetMaxHoney() uint64 {
 	if m != nil {
-		return m.MaxCountHoney
+		return m.MaxHoney
 	}
 	return 0
 }
 
-type CycleBeesHistory struct {
-	Block uint64   `protobuf:"varint,1,opt,name=block,proto3" json:"block,omitempty"`
-	Bees  []uint64 `protobuf:"varint,2,rep,packed,name=bees,proto3" json:"bees,omitempty"`
+type CycleHistory struct {
+	Height uint64   `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"`
+	Bees   []uint64 `protobuf:"varint,2,rep,packed,name=bees,proto3" json:"bees,omitempty"`
 }
 
-func (m *CycleBeesHistory) Reset()         { *m = CycleBeesHistory{} }
-func (m *CycleBeesHistory) String() string { return proto.CompactTextString(m) }
-func (*CycleBeesHistory) ProtoMessage()    {}
-func (*CycleBeesHistory) Descriptor() ([]byte, []int) {
+func (m *CycleHistory) Reset()         { *m = CycleHistory{} }
+func (m *CycleHistory) String() string { return proto.CompactTextString(m) }
+func (*CycleHistory) ProtoMessage()    {}
+func (*CycleHistory) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e18fa6f115c398f1, []int{1}
 }
-func (m *CycleBeesHistory) XXX_Unmarshal(b []byte) error {
+func (m *CycleHistory) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *CycleBeesHistory) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *CycleHistory) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_CycleBeesHistory.Marshal(b, m, deterministic)
+		return xxx_messageInfo_CycleHistory.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -119,26 +119,26 @@ func (m *CycleBeesHistory) XXX_Marshal(b []byte, deterministic bool) ([]byte, er
 		return b[:n], nil
 	}
 }
-func (m *CycleBeesHistory) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CycleBeesHistory.Merge(m, src)
+func (m *CycleHistory) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CycleHistory.Merge(m, src)
 }
-func (m *CycleBeesHistory) XXX_Size() int {
+func (m *CycleHistory) XXX_Size() int {
 	return m.Size()
 }
-func (m *CycleBeesHistory) XXX_DiscardUnknown() {
-	xxx_messageInfo_CycleBeesHistory.DiscardUnknown(m)
+func (m *CycleHistory) XXX_DiscardUnknown() {
+	xxx_messageInfo_CycleHistory.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CycleBeesHistory proto.InternalMessageInfo
+var xxx_messageInfo_CycleHistory proto.InternalMessageInfo
 
-func (m *CycleBeesHistory) GetBlock() uint64 {
+func (m *CycleHistory) GetHeight() uint64 {
 	if m != nil {
-		return m.Block
+		return m.Height
 	}
 	return 0
 }
 
-func (m *CycleBeesHistory) GetBees() []uint64 {
+func (m *CycleHistory) GetBees() []uint64 {
 	if m != nil {
 		return m.Bees
 	}
@@ -146,13 +146,13 @@ func (m *CycleBeesHistory) GetBees() []uint64 {
 }
 
 type Apiaries struct {
-	Id               uint64             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	BearOwner        *BearOwner         `protobuf:"bytes,2,opt,name=bearOwner,proto3" json:"bearOwner,omitempty"`
-	Position         ItemPosition       `protobuf:"bytes,3,opt,name=position,proto3" json:"position"`
-	CountBees        uint64             `protobuf:"varint,4,opt,name=countBees,proto3" json:"countBees,omitempty"`
-	Params           *ApiaryParams      `protobuf:"bytes,5,opt,name=params,proto3" json:"params,omitempty"`
-	CycleStartBlock  uint64             `protobuf:"varint,6,opt,name=cycleStartBlock,proto3" json:"cycleStartBlock,omitempty"`
-	CycleBeesHistory []CycleBeesHistory `protobuf:"bytes,7,rep,name=cycleBeesHistory,proto3" json:"cycleBeesHistory"`
+	Id               uint64         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	BearOwner        *BearOwner     `protobuf:"bytes,2,opt,name=bearOwner,proto3" json:"bearOwner,omitempty"`
+	Position         ItemPosition   `protobuf:"bytes,3,opt,name=position,proto3" json:"position"`
+	Params           *ApiaryParams  `protobuf:"bytes,4,opt,name=params,proto3" json:"params,omitempty"`
+	CycleStartHeight uint64         `protobuf:"varint,5,opt,name=cycleStartHeight,proto3" json:"cycleStartHeight,omitempty"`
+	CycleHistory     []CycleHistory `protobuf:"bytes,6,rep,name=cycleHistory,proto3" json:"cycleHistory"`
+	SpaceOccupied    uint64         `protobuf:"varint,7,opt,name=spaceOccupied,proto3" json:"spaceOccupied,omitempty"`
 }
 
 func (m *Apiaries) Reset()         { *m = Apiaries{} }
@@ -209,13 +209,6 @@ func (m *Apiaries) GetPosition() ItemPosition {
 	return ItemPosition{}
 }
 
-func (m *Apiaries) GetCountBees() uint64 {
-	if m != nil {
-		return m.CountBees
-	}
-	return 0
-}
-
 func (m *Apiaries) GetParams() *ApiaryParams {
 	if m != nil {
 		return m.Params
@@ -223,66 +216,73 @@ func (m *Apiaries) GetParams() *ApiaryParams {
 	return nil
 }
 
-func (m *Apiaries) GetCycleStartBlock() uint64 {
+func (m *Apiaries) GetCycleStartHeight() uint64 {
 	if m != nil {
-		return m.CycleStartBlock
+		return m.CycleStartHeight
 	}
 	return 0
 }
 
-func (m *Apiaries) GetCycleBeesHistory() []CycleBeesHistory {
+func (m *Apiaries) GetCycleHistory() []CycleHistory {
 	if m != nil {
-		return m.CycleBeesHistory
+		return m.CycleHistory
 	}
 	return nil
 }
 
+func (m *Apiaries) GetSpaceOccupied() uint64 {
+	if m != nil {
+		return m.SpaceOccupied
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*ApiaryParams)(nil), "MonetaToday.honeywood.bears.ApiaryParams")
-	proto.RegisterType((*CycleBeesHistory)(nil), "MonetaToday.honeywood.bears.CycleBeesHistory")
+	proto.RegisterType((*CycleHistory)(nil), "MonetaToday.honeywood.bears.CycleHistory")
 	proto.RegisterType((*Apiaries)(nil), "MonetaToday.honeywood.bears.Apiaries")
 }
 
 func init() { proto.RegisterFile("bears/apiaries.proto", fileDescriptor_e18fa6f115c398f1) }
 
 var fileDescriptor_e18fa6f115c398f1 = []byte{
-	// 570 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0x41, 0x6f, 0xd3, 0x3c,
-	0x18, 0x6e, 0xba, 0xac, 0xdf, 0xea, 0xf6, 0xdb, 0x86, 0x55, 0xa6, 0xac, 0xa0, 0xa4, 0xca, 0x01,
-	0x85, 0xc3, 0x1c, 0xad, 0x1c, 0x90, 0x10, 0x12, 0x34, 0xe5, 0x50, 0x84, 0x10, 0x53, 0x98, 0x84,
-	0xc4, 0xa5, 0x72, 0x12, 0xd3, 0x59, 0x6b, 0xe2, 0x10, 0x7b, 0xac, 0xf9, 0x17, 0x5c, 0xf9, 0x0b,
-	0xfc, 0x09, 0xae, 0x3b, 0xee, 0xc8, 0xa9, 0xa0, 0xf6, 0x1f, 0xf4, 0x17, 0xa0, 0xd8, 0x29, 0x2d,
-	0x45, 0xaa, 0xb8, 0x24, 0x7e, 0x5f, 0xbf, 0xef, 0xf3, 0xbc, 0x7e, 0xfc, 0x18, 0xb4, 0x02, 0x82,
-	0x33, 0xee, 0xe2, 0x94, 0xe2, 0x8c, 0x12, 0x8e, 0xd2, 0x8c, 0x09, 0x06, 0xef, 0xbd, 0x66, 0x09,
-	0x11, 0xf8, 0x9c, 0x45, 0x38, 0x47, 0x17, 0x2c, 0x21, 0xf9, 0x35, 0x63, 0x11, 0x92, 0xb5, 0x6d,
-	0x33, 0x64, 0x3c, 0x66, 0xdc, 0x0d, 0x30, 0x27, 0xee, 0xa7, 0xd3, 0x80, 0x08, 0x7c, 0xea, 0x86,
-	0x8c, 0x26, 0xaa, 0xb9, 0xdd, 0x1a, 0xb1, 0x11, 0x93, 0x4b, 0xb7, 0x58, 0x95, 0x59, 0xa8, 0x88,
-	0x3e, 0x50, 0x32, 0x8e, 0x4a, 0x9a, 0xf6, 0x1d, 0x95, 0x93, 0x5f, 0x95, 0xb2, 0xbf, 0x55, 0x41,
-	0xb3, 0x57, 0x0c, 0x93, 0x9f, 0xe1, 0x0c, 0xc7, 0x1c, 0x3e, 0x06, 0x0d, 0x39, 0x5c, 0x3e, 0x14,
-	0x79, 0x4a, 0x0c, 0xad, 0xa3, 0x39, 0x75, 0xef, 0x68, 0x31, 0xb5, 0x60, 0x8e, 0xe3, 0xf1, 0x13,
-	0x7b, 0x6d, 0xd3, 0xf6, 0x81, 0x8a, 0xce, 0xf3, 0x94, 0xc0, 0x8f, 0x60, 0x37, 0xcd, 0x68, 0x48,
-	0x8c, 0x6a, 0x67, 0xc7, 0x69, 0x74, 0x8f, 0x91, 0x1a, 0x1b, 0x15, 0x63, 0xa3, 0x72, 0x6c, 0xd4,
-	0x67, 0x34, 0xf1, 0x9e, 0xdf, 0x4c, 0xad, 0xca, 0x62, 0x6a, 0x35, 0x15, 0xa2, 0xec, 0xb2, 0xbf,
-	0xfe, 0xb0, 0x9c, 0x11, 0x15, 0x17, 0x57, 0x01, 0x0a, 0x59, 0xec, 0x96, 0x67, 0x56, 0xbf, 0x13,
-	0x1e, 0x5d, 0xba, 0x05, 0x23, 0x97, 0x00, 0xdc, 0x57, 0x4c, 0xf0, 0x19, 0xd8, 0x8f, 0xf1, 0x64,
-	0x18, 0xb2, 0xab, 0x44, 0x0c, 0x03, 0x42, 0xb8, 0xb1, 0xd3, 0xd1, 0x1c, 0xdd, 0x3b, 0x5e, 0x4c,
-	0xad, 0xbb, 0x0a, 0xfc, 0xcf, 0x7d, 0xdb, 0x6f, 0xc6, 0x78, 0xd2, 0x2f, 0x62, 0x8f, 0x10, 0x0e,
-	0x3d, 0x70, 0xb0, 0x2a, 0x90, 0xba, 0x1b, 0xba, 0x44, 0x68, 0x2f, 0xa6, 0xd6, 0xd1, 0x26, 0x82,
-	0x2c, 0xb0, 0xfd, 0xff, 0x97, 0x10, 0x03, 0x19, 0x3f, 0x05, 0x87, 0xfd, 0x3c, 0x1c, 0x93, 0x02,
-	0x70, 0x40, 0xb9, 0x60, 0x59, 0x0e, 0x5b, 0x60, 0x37, 0x18, 0xb3, 0xf0, 0x52, 0xca, 0xa7, 0xfb,
-	0x2a, 0x80, 0x10, 0xe8, 0x72, 0xc8, 0x42, 0x20, 0xdd, 0x97, 0x6b, 0xfb, 0xcb, 0x0e, 0xd8, 0xeb,
-	0x95, 0x66, 0x80, 0xfb, 0xa0, 0x4a, 0xa3, 0xb2, 0xa7, 0x4a, 0x23, 0xf8, 0x02, 0xd4, 0x8b, 0xbb,
-	0x7a, 0x73, 0x9d, 0x90, 0xcc, 0xa8, 0x76, 0x34, 0xa7, 0xd1, 0x7d, 0x80, 0xb6, 0x58, 0x05, 0x79,
-	0xcb, 0x6a, 0x7f, 0xd5, 0x08, 0x5f, 0x81, 0xbd, 0x94, 0x71, 0x2a, 0x28, 0x4b, 0xa4, 0x3e, 0x8d,
-	0xee, 0xc3, 0xad, 0x20, 0x2f, 0x05, 0x89, 0xcf, 0xca, 0x06, 0x4f, 0x2f, 0xee, 0xca, 0xff, 0x0d,
-	0x00, 0xef, 0x83, 0x7a, 0xb8, 0x94, 0x4f, 0x69, 0xe5, 0xaf, 0x12, 0xb0, 0x07, 0x6a, 0xa9, 0xb4,
-	0x91, 0xb1, 0xfb, 0x0f, 0x44, 0xeb, 0xbe, 0xf3, 0xcb, 0x46, 0xe8, 0x80, 0x83, 0xb0, 0x90, 0xf3,
-	0xad, 0xc0, 0x99, 0xf0, 0xa4, 0x88, 0x35, 0x49, 0xb3, 0x99, 0x86, 0x43, 0x70, 0x18, 0x6e, 0x08,
-	0x6f, 0xfc, 0x27, 0xbd, 0x77, 0xb2, 0x95, 0x76, 0xf3, 0xb6, 0xca, 0x33, 0xfe, 0x05, 0xe6, 0x0d,
-	0x6e, 0x66, 0xa6, 0x76, 0x3b, 0x33, 0xb5, 0x9f, 0x33, 0x53, 0xfb, 0x3c, 0x37, 0x2b, 0xb7, 0x73,
-	0xb3, 0xf2, 0x7d, 0x6e, 0x56, 0xde, 0xa3, 0x35, 0xa7, 0xae, 0x51, 0xb9, 0xd2, 0x11, 0xef, 0x18,
-	0x8b, 0xdc, 0x89, 0x7a, 0x65, 0xca, 0xb5, 0x41, 0x4d, 0x3e, 0xb6, 0x47, 0xbf, 0x02, 0x00, 0x00,
-	0xff, 0xff, 0xda, 0x59, 0xe2, 0xcf, 0xfe, 0x03, 0x00, 0x00,
+	// 572 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x53, 0xc1, 0x6e, 0xd3, 0x4c,
+	0x10, 0x8e, 0x53, 0x37, 0x7f, 0xb2, 0xc9, 0x5f, 0xca, 0x2a, 0x8a, 0x4c, 0x90, 0xec, 0xc8, 0x42,
+	0x28, 0x20, 0x61, 0x2b, 0xe1, 0x80, 0xd4, 0x13, 0x71, 0x38, 0x04, 0x21, 0xd4, 0xca, 0xad, 0x84,
+	0xc4, 0x25, 0x5a, 0xdb, 0x4b, 0xb2, 0x22, 0xf6, 0x1a, 0xaf, 0xdb, 0xc6, 0x6f, 0xc1, 0x8d, 0x77,
+	0xe0, 0xc8, 0x53, 0xf4, 0xd8, 0x23, 0xa7, 0x80, 0x92, 0x37, 0xc8, 0x13, 0x20, 0xcf, 0xba, 0xc5,
+	0x05, 0x29, 0x5c, 0xec, 0xd9, 0xd9, 0xfd, 0x66, 0xbe, 0xfd, 0xe6, 0x5b, 0xd4, 0xf6, 0x28, 0x49,
+	0x84, 0x4d, 0x62, 0x46, 0x12, 0x46, 0x85, 0x15, 0x27, 0x3c, 0xe5, 0xf8, 0xe1, 0x5b, 0x1e, 0xd1,
+	0x94, 0x9c, 0xf1, 0x80, 0x64, 0xd6, 0x9c, 0x47, 0x34, 0xbb, 0xe4, 0x3c, 0xb0, 0xe0, 0x6c, 0x57,
+	0xf7, 0xb9, 0x08, 0xb9, 0xb0, 0x3d, 0x22, 0xa8, 0x7d, 0x31, 0xf0, 0x68, 0x4a, 0x06, 0xb6, 0xcf,
+	0x59, 0x24, 0xc1, 0xdd, 0xf6, 0x8c, 0xcf, 0x38, 0x84, 0x76, 0x1e, 0x15, 0x59, 0x2c, 0x1b, 0x7d,
+	0x60, 0x74, 0x11, 0x14, 0x6d, 0xba, 0xf7, 0x65, 0x0e, 0xbe, 0x32, 0x65, 0x7e, 0xab, 0xa2, 0xd6,
+	0x28, 0x27, 0x93, 0x9d, 0x90, 0x84, 0x84, 0x02, 0xbf, 0x40, 0x4d, 0x20, 0x97, 0x4d, 0xd3, 0x2c,
+	0xa6, 0x9a, 0xd2, 0x53, 0xfa, 0x0d, 0xa7, 0xb3, 0x5d, 0x19, 0x38, 0x23, 0xe1, 0xe2, 0xc8, 0x2c,
+	0x6d, 0x9a, 0x2e, 0x92, 0xab, 0xb3, 0x2c, 0xa6, 0xf8, 0x13, 0xda, 0x8f, 0x13, 0xe6, 0x53, 0xad,
+	0xda, 0xdb, 0xeb, 0x37, 0x87, 0x0f, 0x2c, 0x49, 0xdb, 0xca, 0x69, 0x5b, 0x05, 0x6d, 0x6b, 0xcc,
+	0x59, 0xe4, 0xbc, 0xbc, 0x5a, 0x19, 0x95, 0xed, 0xca, 0x68, 0xc9, 0x8a, 0x80, 0x32, 0xbf, 0xfe,
+	0x30, 0xfa, 0x33, 0x96, 0xce, 0xcf, 0x3d, 0xcb, 0xe7, 0xa1, 0x5d, 0xdc, 0x59, 0xfe, 0x9e, 0x89,
+	0xe0, 0xa3, 0x9d, 0x77, 0x14, 0x50, 0x40, 0xb8, 0xb2, 0x13, 0x1e, 0xa3, 0x7b, 0x22, 0x26, 0x3e,
+	0x9d, 0x92, 0x0b, 0xc2, 0x16, 0xc4, 0x5b, 0x50, 0x6d, 0xaf, 0xa7, 0xf4, 0x55, 0xa7, 0xbb, 0x5d,
+	0x19, 0x1d, 0x59, 0xfd, 0x8f, 0x03, 0xa6, 0x7b, 0x00, 0x99, 0xd1, 0x4d, 0x02, 0x0f, 0x50, 0x23,
+	0x24, 0xcb, 0x29, 0xa8, 0xae, 0xa9, 0x00, 0x6f, 0x6f, 0x57, 0xc6, 0xa1, 0x84, 0xdf, 0x6e, 0x99,
+	0x6e, 0x3d, 0x24, 0xcb, 0x09, 0x84, 0x47, 0xa8, 0x35, 0xce, 0xfc, 0x05, 0x9d, 0x30, 0x91, 0xf2,
+	0x24, 0xc3, 0x1d, 0x54, 0x9b, 0x53, 0x36, 0x9b, 0xa7, 0x20, 0x97, 0xea, 0x16, 0x2b, 0x8c, 0x91,
+	0xea, 0x51, 0x2a, 0x40, 0x11, 0xd5, 0x85, 0xd8, 0xfc, 0xb2, 0x87, 0xea, 0xa3, 0x62, 0xfa, 0xf8,
+	0x00, 0x55, 0x59, 0x50, 0x80, 0xaa, 0x2c, 0xc0, 0xaf, 0x50, 0x23, 0x1f, 0xce, 0xf1, 0x65, 0x44,
+	0x13, 0xad, 0xda, 0x53, 0xfa, 0xcd, 0xe1, 0x63, 0x6b, 0x87, 0x37, 0x2c, 0xe7, 0xe6, 0xb4, 0xfb,
+	0x1b, 0x88, 0xdf, 0xa0, 0x7a, 0xcc, 0x05, 0x4b, 0x19, 0x8f, 0x40, 0x8f, 0xe6, 0xf0, 0xc9, 0xce,
+	0x22, 0xaf, 0x53, 0x1a, 0x9e, 0x14, 0x00, 0x47, 0xcd, 0x87, 0xe3, 0xde, 0x16, 0xc0, 0x23, 0x54,
+	0x8b, 0xc1, 0x19, 0xa0, 0xcd, 0xbf, 0x4a, 0x95, 0xad, 0xe4, 0x16, 0x40, 0xfc, 0x14, 0x1d, 0xfa,
+	0xb9, 0x5c, 0xa7, 0x29, 0x49, 0xd2, 0x89, 0x14, 0x6a, 0x1f, 0xee, 0xfc, 0x57, 0x1e, 0x9f, 0xa2,
+	0x96, 0x5f, 0x92, 0x56, 0xab, 0x81, 0x99, 0x76, 0x37, 0x2d, 0xcf, 0xa2, 0xe0, 0x7f, 0xa7, 0x08,
+	0x7e, 0x84, 0xfe, 0x87, 0xa1, 0x1f, 0xfb, 0xfe, 0x79, 0xcc, 0x68, 0xa0, 0xfd, 0x07, 0xdd, 0xef,
+	0x26, 0x9d, 0xc9, 0xd5, 0x5a, 0x57, 0xae, 0xd7, 0xba, 0xf2, 0x73, 0xad, 0x2b, 0x9f, 0x37, 0x7a,
+	0xe5, 0x7a, 0xa3, 0x57, 0xbe, 0x6f, 0xf4, 0xca, 0x7b, 0xab, 0x64, 0xcc, 0x12, 0x11, 0x1b, 0xdc,
+	0xf0, 0x8e, 0xf3, 0xc0, 0x5e, 0xca, 0x47, 0x25, 0x4d, 0xea, 0xd5, 0xe0, 0x6d, 0x3d, 0xff, 0x15,
+	0x00, 0x00, 0xff, 0xff, 0xe8, 0xe4, 0xb0, 0x04, 0xed, 0x03, 0x00, 0x00,
 }
 
 func (m *ApiaryParams) Marshal() (dAtA []byte, err error) {
@@ -305,13 +305,13 @@ func (m *ApiaryParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.MaxCountHoney != 0 {
-		i = encodeVarintApiaries(dAtA, i, uint64(m.MaxCountHoney))
+	if m.MaxHoney != 0 {
+		i = encodeVarintApiaries(dAtA, i, uint64(m.MaxHoney))
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.MaxCountBees != 0 {
-		i = encodeVarintApiaries(dAtA, i, uint64(m.MaxCountBees))
+	if m.SpaceAvailable != 0 {
+		i = encodeVarintApiaries(dAtA, i, uint64(m.SpaceAvailable))
 		i--
 		dAtA[i] = 0x18
 	}
@@ -339,7 +339,7 @@ func (m *ApiaryParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *CycleBeesHistory) Marshal() (dAtA []byte, err error) {
+func (m *CycleHistory) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -349,12 +349,12 @@ func (m *CycleBeesHistory) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *CycleBeesHistory) MarshalTo(dAtA []byte) (int, error) {
+func (m *CycleHistory) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *CycleBeesHistory) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *CycleHistory) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -377,8 +377,8 @@ func (m *CycleBeesHistory) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x12
 	}
-	if m.Block != 0 {
-		i = encodeVarintApiaries(dAtA, i, uint64(m.Block))
+	if m.Height != 0 {
+		i = encodeVarintApiaries(dAtA, i, uint64(m.Height))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -405,10 +405,15 @@ func (m *Apiaries) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.CycleBeesHistory) > 0 {
-		for iNdEx := len(m.CycleBeesHistory) - 1; iNdEx >= 0; iNdEx-- {
+	if m.SpaceOccupied != 0 {
+		i = encodeVarintApiaries(dAtA, i, uint64(m.SpaceOccupied))
+		i--
+		dAtA[i] = 0x38
+	}
+	if len(m.CycleHistory) > 0 {
+		for iNdEx := len(m.CycleHistory) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.CycleBeesHistory[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.CycleHistory[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -416,13 +421,13 @@ func (m *Apiaries) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 				i = encodeVarintApiaries(dAtA, i, uint64(size))
 			}
 			i--
-			dAtA[i] = 0x3a
+			dAtA[i] = 0x32
 		}
 	}
-	if m.CycleStartBlock != 0 {
-		i = encodeVarintApiaries(dAtA, i, uint64(m.CycleStartBlock))
+	if m.CycleStartHeight != 0 {
+		i = encodeVarintApiaries(dAtA, i, uint64(m.CycleStartHeight))
 		i--
-		dAtA[i] = 0x30
+		dAtA[i] = 0x28
 	}
 	if m.Params != nil {
 		{
@@ -434,12 +439,7 @@ func (m *Apiaries) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i = encodeVarintApiaries(dAtA, i, uint64(size))
 		}
 		i--
-		dAtA[i] = 0x2a
-	}
-	if m.CountBees != 0 {
-		i = encodeVarintApiaries(dAtA, i, uint64(m.CountBees))
-		i--
-		dAtA[i] = 0x20
+		dAtA[i] = 0x22
 	}
 	{
 		size, err := m.Position.MarshalToSizedBuffer(dAtA[:i])
@@ -498,23 +498,23 @@ func (m *ApiaryParams) Size() (n int) {
 			n += 1 + l + sovApiaries(uint64(l))
 		}
 	}
-	if m.MaxCountBees != 0 {
-		n += 1 + sovApiaries(uint64(m.MaxCountBees))
+	if m.SpaceAvailable != 0 {
+		n += 1 + sovApiaries(uint64(m.SpaceAvailable))
 	}
-	if m.MaxCountHoney != 0 {
-		n += 1 + sovApiaries(uint64(m.MaxCountHoney))
+	if m.MaxHoney != 0 {
+		n += 1 + sovApiaries(uint64(m.MaxHoney))
 	}
 	return n
 }
 
-func (m *CycleBeesHistory) Size() (n int) {
+func (m *CycleHistory) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.Block != 0 {
-		n += 1 + sovApiaries(uint64(m.Block))
+	if m.Height != 0 {
+		n += 1 + sovApiaries(uint64(m.Height))
 	}
 	if len(m.Bees) > 0 {
 		l = 0
@@ -541,21 +541,21 @@ func (m *Apiaries) Size() (n int) {
 	}
 	l = m.Position.Size()
 	n += 1 + l + sovApiaries(uint64(l))
-	if m.CountBees != 0 {
-		n += 1 + sovApiaries(uint64(m.CountBees))
-	}
 	if m.Params != nil {
 		l = m.Params.Size()
 		n += 1 + l + sovApiaries(uint64(l))
 	}
-	if m.CycleStartBlock != 0 {
-		n += 1 + sovApiaries(uint64(m.CycleStartBlock))
+	if m.CycleStartHeight != 0 {
+		n += 1 + sovApiaries(uint64(m.CycleStartHeight))
 	}
-	if len(m.CycleBeesHistory) > 0 {
-		for _, e := range m.CycleBeesHistory {
+	if len(m.CycleHistory) > 0 {
+		for _, e := range m.CycleHistory {
 			l = e.Size()
 			n += 1 + l + sovApiaries(uint64(l))
 		}
+	}
+	if m.SpaceOccupied != 0 {
+		n += 1 + sovApiaries(uint64(m.SpaceOccupied))
 	}
 	return n
 }
@@ -663,9 +663,9 @@ func (m *ApiaryParams) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MaxCountBees", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SpaceAvailable", wireType)
 			}
-			m.MaxCountBees = 0
+			m.SpaceAvailable = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowApiaries
@@ -675,16 +675,16 @@ func (m *ApiaryParams) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.MaxCountBees |= uint64(b&0x7F) << shift
+				m.SpaceAvailable |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 4:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MaxCountHoney", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxHoney", wireType)
 			}
-			m.MaxCountHoney = 0
+			m.MaxHoney = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowApiaries
@@ -694,7 +694,7 @@ func (m *ApiaryParams) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.MaxCountHoney |= uint64(b&0x7F) << shift
+				m.MaxHoney |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -720,7 +720,7 @@ func (m *ApiaryParams) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *CycleBeesHistory) Unmarshal(dAtA []byte) error {
+func (m *CycleHistory) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -743,17 +743,17 @@ func (m *CycleBeesHistory) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: CycleBeesHistory: wiretype end group for non-group")
+			return fmt.Errorf("proto: CycleHistory: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: CycleBeesHistory: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: CycleHistory: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Block", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Height", wireType)
 			}
-			m.Block = 0
+			m.Height = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowApiaries
@@ -763,7 +763,7 @@ func (m *CycleBeesHistory) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Block |= uint64(b&0x7F) << shift
+				m.Height |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -983,25 +983,6 @@ func (m *Apiaries) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 4:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CountBees", wireType)
-			}
-			m.CountBees = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowApiaries
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.CountBees |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
 			}
@@ -1037,11 +1018,11 @@ func (m *Apiaries) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 6:
+		case 5:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CycleStartBlock", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CycleStartHeight", wireType)
 			}
-			m.CycleStartBlock = 0
+			m.CycleStartHeight = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowApiaries
@@ -1051,14 +1032,14 @@ func (m *Apiaries) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.CycleStartBlock |= uint64(b&0x7F) << shift
+				m.CycleStartHeight |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 7:
+		case 6:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CycleBeesHistory", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CycleHistory", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1085,11 +1066,30 @@ func (m *Apiaries) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.CycleBeesHistory = append(m.CycleBeesHistory, CycleBeesHistory{})
-			if err := m.CycleBeesHistory[len(m.CycleBeesHistory)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.CycleHistory = append(m.CycleHistory, CycleHistory{})
+			if err := m.CycleHistory[len(m.CycleHistory)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SpaceOccupied", wireType)
+			}
+			m.SpaceOccupied = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowApiaries
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SpaceOccupied |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipApiaries(dAtA[iNdEx:])

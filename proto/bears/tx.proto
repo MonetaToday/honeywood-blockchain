@@ -26,6 +26,7 @@ service Msg {
   rpc CreateApiary(MsgCreateApiary) returns (MsgCreateApiaryResponse);
   rpc InitGameAndCreateBee(MsgInitGameAndCreateBee) returns (MsgInitGameAndCreateBeeResponse);
   rpc CreateBee(MsgCreateBee) returns (MsgCreateBeeResponse);
+  rpc SetApiaryHouseForBee(MsgSetApiaryHouseForBee) returns (MsgSetApiaryHouseForBeeResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -174,6 +175,15 @@ message MsgCreateBee {
 
 message MsgCreateBeeResponse {
   Bees bee = 1;
+}
+
+message MsgSetApiaryHouseForBee {
+  string creator = 1;
+  uint64 beeId = 2;
+  uint64 apiaryId = 3;
+}
+
+message MsgSetApiaryHouseForBeeResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

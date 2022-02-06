@@ -117,6 +117,41 @@ func (k Keeper) GetBeeParams(ctx sdk.Context, beeType string) (*types.BeeParams,
 	return nil, false
 }
 
+// Check if bee is in apiary
+func (k Keeper) IsBeeInApiaryHouse(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) bool {
+	lastInfoIndex := len(apiary.CycleHistory) - 1
+
+	if lastInfoIndex == -1 {
+		return false
+	}
+
+	for _, id := range apiary.CycleHistory[lastInfoIndex].Bees {
+		if id == bee.Id {
+			return true
+		}
+	}
+
+	return false
+}
+
+// GetApiaryWithAddedBee
+func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) types.Apiaries {
+	lastInfoIndex := len(apiary.CycleHistory) - 1
+	newBees := []uint64{}
+	if lastInfoIndex >= 0 {
+		newBees = append(apiary.CycleHistory[lastInfoIndex].Bees, bee.Id)
+	} else {
+		newBees = []uint64{bee.Id}
+	}
+	apiary.CycleHistory = append(apiary.CycleHistory, types.CycleHistory{
+		Height: uint64(ctx.BlockHeight()),
+		Bees: newBees,
+	})
+	apiary.SpaceOccupied = apiary.SpaceOccupied + bee.Params.BodySize
+
+	return apiary
+}
+
 // create bee for specific bear
 func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeType string) (*types.Bees, error) {
 	hasRights := k.HasRightsToBear(ctx, creator, bearId)
@@ -152,6 +187,49 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeTyp
 	}
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)
+	//TODO update oxygen
 
 	return &newBee, nil
+}
+
+// set apiary house for a bee
+func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64, apiaryId uint64) error {
+	bee, beeFound := k.GetBees(ctx, beeId)
+	if !beeFound {
+		return types.ErrBeeIsNotExisted
+	}
+	if bee.BearOwner == nil {
+		return types.ErrAddressHasNoRights
+	}
+	hasRights := k.HasRightsToBear(ctx, creator, bee.BearOwner.Id)
+	if !hasRights {
+		return types.ErrAddressHasNoRights
+	}
+
+	apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
+	if !apiaryFound {
+		return types.ErrApiaryIsNotExisted
+	}
+	hasRightsApiary := k.HasRightsToApiary(ctx, creator, apiary)
+	if !hasRightsApiary {
+		return types.ErrAddressHasNoRights
+	}
+	hasEnoughSpace := k.HasEnoughSpaceInApiary(ctx, apiary, bee)
+	if !hasEnoughSpace {
+		return types.ErrApiaryHasNotEnoughSpace
+	}
+	isBeeInApiaryHouse := k.IsBeeInApiaryHouse(ctx, apiary, bee)
+	if isBeeInApiaryHouse {
+		return types.ErrBeeIsInApiaryHouse
+	}
+
+	bee.ApiaryHouse = &types.ApiaryHouse{
+		Id: apiary.Id,
+	}
+	k.SetBees(ctx, bee)
+
+	apiary = k.GetApiaryWithAddedBee(ctx, apiary, bee)
+	k.SetApiaries(ctx, apiary)
+
+	return nil
 }

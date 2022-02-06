@@ -166,10 +166,10 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		CountBees:        0,
 		Params:           apiaryParams,
-		CycleStartBlock:  0,
-		CycleBeesHistory: []types.CycleBeesHistory{},
+		CycleStartHeight:  0,
+		CycleHistory: []types.CycleHistory{},
+		SpaceOccupied: 0,
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
 
@@ -188,3 +188,14 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 
 	return &newApiary, nil
 }
+
+// Check if space is enough
+func (k Keeper) HasEnoughSpaceInApiary(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) bool {
+	spaceAvailable := int64(apiary.Params.SpaceAvailable)
+	if spaceAvailable - int64(apiary.SpaceOccupied) - int64(bee.Params.BodySize) >= 0 {
+		return true
+	}
+
+	return false
+}
+

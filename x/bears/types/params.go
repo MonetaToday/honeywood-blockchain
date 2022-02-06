@@ -203,11 +203,11 @@ func validateApiaryTypes(i interface{}) error {
 			return fmt.Errorf("invalid coins parameter in ApiaryParams: %v", v)
 		}
 
-		if params.MaxCountBees <= 0 {
+		if params.SpaceAvailable <= 0 {
 			return fmt.Errorf("invalid MaxCountBees parameter in ApiaryParams: %v", v)
 		}
 
-		if params.MaxCountHoney <= 0 {
+		if params.MaxHoney <= 0 {
 			return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
 		}
 	}
