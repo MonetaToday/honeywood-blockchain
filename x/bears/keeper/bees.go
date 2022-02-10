@@ -135,7 +135,7 @@ func (k Keeper) IsBeeInApiaryHouse(ctx sdk.Context, apiary types.Apiaries, bee t
 }
 
 // GetApiaryWithAddedBee
-func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) types.Apiaries {
+func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) (types.Apiaries, uint64) {
 	lastInfoIndex := len(apiary.CycleHistory) - 1
 	newBees := []uint64{}
 	if lastInfoIndex >= 0 {
@@ -149,11 +149,11 @@ func (k Keeper) GetApiaryWithAddedBee(ctx sdk.Context, apiary types.Apiaries, be
 	})
 	apiary.SpaceOccupied = apiary.SpaceOccupied + bee.Params.BodySize
 
-	return apiary
+	return apiary, uint64(len(newBees))
 }
 
 // GetApiaryWithRemovedBee
-func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) types.Apiaries {
+func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, bee types.Bees) (types.Apiaries, uint64) {
 	lastInfoIndex := len(apiary.CycleHistory) - 1
 	newBees := []uint64{}
 	if lastInfoIndex >= 0 {
@@ -171,7 +171,7 @@ func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, 
 	})
 	apiary.SpaceOccupied = apiary.SpaceOccupied - bee.Params.BodySize
 
-	return apiary
+	return apiary, uint64(len(newBees))
 }
 
 // create bee for specific bear
@@ -252,7 +252,7 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 			return types.ErrApiaryIsNotExisted
 		}
 
-		previousApiary = k.GetApiaryWithRemovedBee(ctx, previousApiary, bee)
+		previousApiary, _ = k.GetApiaryWithRemovedBee(ctx, previousApiary, bee)
 		k.SetApiaries(ctx, previousApiary)
 	}
 
@@ -261,7 +261,7 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 	}
 	k.SetBees(ctx, bee)
 
-	apiary = k.GetApiaryWithAddedBee(ctx, apiary, bee)
+	apiary, _ = k.GetApiaryWithAddedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
 
 	return nil
@@ -288,7 +288,7 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 	if !apiaryFound {
 		return types.ErrApiaryIsNotExisted
 	}
-	apiary = k.GetApiaryWithRemovedBee(ctx, apiary, bee)
+	apiary, _ = k.GetApiaryWithRemovedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
 
 	bee.ApiaryHouse = nil
