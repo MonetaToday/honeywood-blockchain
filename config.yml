@@ -124,17 +124,23 @@ genesis:
               amount: "1500"
 
         bee_types:
-          - bee_type: "BEE_1"
-            honey_per_block: "0.00076389"
+          - bee_type: "SMALL_BEE"
+            honey_per_hour: "0.0001"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
               amount: "1100"
           - bee_type: "BEE_2"
-            honey_per_block: "0.00086111"
+            honey_per_hour: "0.0002"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
               amount: "1200"
+
+              Small Bee	Bee	Lucky Bee	Honey Bee	Skilled Bee	Curious Bee	Honey Explorer	Honey Hunter	Wonder Bee	Diamond Sting
+              1100	1200	1280	1370	1500	1650	1780	1800	2100	2350
+1	1	1	1	1	1	1	1	1	1
+0.55	0.62	0.64	0.66	0.71	0.75	0.8	0.84	0.85	0.9
+1	1	1	1	1	1	1	1	1	1

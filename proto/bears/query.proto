@@ -103,6 +103,11 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/bees";
 	}
 
+// Queries a list of CalculateHoneyInApiary items.
+	rpc CalculateHoneyInApiary(QueryCalculateHoneyInApiaryRequest) returns (QueryCalculateHoneyInApiaryResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/calculate_honey_in_apiary/{apiaryId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -251,6 +256,15 @@ message QueryAllBeesRequest {
 message QueryAllBeesResponse {
 	repeated Bees Bees = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryCalculateHoneyInApiaryRequest {
+  uint64 apiaryId = 1;
+}
+
+message QueryCalculateHoneyInApiaryResponse {
+  string countHoney = 5
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
 // this line is used by starport scaffolding # 3

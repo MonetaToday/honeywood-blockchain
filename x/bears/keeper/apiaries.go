@@ -166,9 +166,9 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		Params:           apiaryParams,
-		CycleHistory:     []types.CycleHistory{},
-		SpaceOccupied:    0,
+		Params:        apiaryParams,
+		CycleHistory:  []types.CycleHistory{},
+		SpaceOccupied: 0,
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
 
@@ -196,4 +196,56 @@ func (k Keeper) HasEnoughSpaceInApiary(ctx sdk.Context, apiary types.Apiaries, b
 	}
 
 	return false
+}
+
+// Calculate honey in apiary
+func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) sdk.Dec {
+	bees := make(map[uint64]types.Bees)
+	honeyInApiary := sdk.ZeroDec()
+	maxHoney := sdk.NewDec(int64(apiary.Params.MaxHoney))
+
+	previousStepHeight := uint64(0)
+	previousStepHoneyPerBlock := sdk.ZeroDec()
+	for stepIndex, step := range apiary.CycleHistory {
+		stepHoneyPerBlock := sdk.ZeroDec()
+		// TODO
+		oxygenIndex, _ := sdk.NewDecFromStr("0.5")
+		// Loading all bees and calculate step honeyPerBlock.
+		for _, beeId := range step.Bees {
+			if _, found := bees[beeId]; !found {
+				bees[beeId], _ = k.GetBees(ctx, beeId)
+			}
+
+			// Hpb + Hpb*(O-1)*d
+			beeHoneyPerBlock := bees[beeId].Params.HoneyPerHour.Add(
+				bees[beeId].Params.HoneyPerHour.Mul(
+					oxygenIndex.Sub(sdk.OneDec()),
+				).Mul(bees[beeId].Params.OxygenDependency),
+			)
+			// It can not eat honey
+			if beeHoneyPerBlock.LT(sdk.ZeroDec()) {
+				beeHoneyPerBlock = sdk.ZeroDec()
+			}
+
+			stepHoneyPerBlock = stepHoneyPerBlock.Add(beeHoneyPerBlock)
+		}
+
+		if stepIndex > 0 {
+			countBlocks := int64(step.Height - previousStepHeight)
+			honeyInApiary = honeyInApiary.Add(previousStepHoneyPerBlock.MulInt64(countBlocks))
+		}
+		if stepIndex == len(apiary.CycleHistory) - 1 {
+			countBlocks := int64(ctx.BlockHeight()) - int64(step.Height)
+			honeyInApiary = honeyInApiary.Add(stepHoneyPerBlock.MulInt64(countBlocks))
+		}
+
+		if honeyInApiary.GTE(maxHoney) {
+			return maxHoney
+		}
+
+		previousStepHoneyPerBlock = stepHoneyPerBlock
+		previousStepHeight = step.Height
+	}
+
+	return honeyInApiary
 }

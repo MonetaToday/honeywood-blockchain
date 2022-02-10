@@ -160,6 +160,8 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	}
 	k.SetAddressBears(ctx, addressBears)
 
+	//TODO update oxygen
+
 	return &newBear, &newField, nil
 }
 

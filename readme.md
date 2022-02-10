@@ -50,3 +50,9 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 - [Starport docs](https://docs.starport.com)
 - [Cosmos SDK docs](https://docs.cosmos.network)
 - [Developer Chat](https://discord.gg/H6wGTY8sxw)
+
+
+~/go/bin/HoneyWoodd tx bears init-game-and-create-bee BEE_1 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd query bears get-honey-in-apiary 0 
