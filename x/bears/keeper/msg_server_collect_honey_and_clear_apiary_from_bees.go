@@ -25,10 +25,12 @@ func (k msgServer) CollectHoneyAndClearApiaryFromBees(goCtx context.Context, msg
 		return nil, errClearFromBees
 	}
 
-	_, errCollectHoney := k.Keeper._CollectHoneyFromApiary(ctx, msg.Creator, &apiary)
+	countHoney, errCollectHoney := k.Keeper._CollectHoneyFromApiary(ctx, msg.Creator, &apiary)
 	if errCollectHoney != nil {
 		return nil, errCollectHoney
 	}
 
-	return &types.MsgCollectHoneyAndClearApiaryFromBeesResponse{}, nil
+	return &types.MsgCollectHoneyAndClearApiaryFromBeesResponse{
+		CountHoney: countHoney,
+	}, nil
 }

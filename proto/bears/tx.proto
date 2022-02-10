@@ -206,7 +206,7 @@ message MsgCollectHoneyFromApiary {
 }
 
 message MsgCollectHoneyFromApiaryResponse {
-  cosmos.base.v1beta1.Coin CountHoney = 1;
+  cosmos.base.v1beta1.Coin countHoney = 1;
 }
 
 message MsgCollectHoneyAndClearApiaryFromBees {
@@ -215,6 +215,7 @@ message MsgCollectHoneyAndClearApiaryFromBees {
 }
 
 message MsgCollectHoneyAndClearApiaryFromBeesResponse {
+  cosmos.base.v1beta1.Coin countHoney = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message
