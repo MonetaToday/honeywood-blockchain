@@ -58,8 +58,8 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 ~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 1honey --yes 
-
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes
+ 
 ~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0
 ~/go/bin/HoneyWoodd tx bears unset-apiary-house-for-bee 0 --from bob --fees 1honey --yes 
 ~/go/bin/HoneyWoodd query bears list-apiaries
