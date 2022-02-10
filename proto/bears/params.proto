@@ -41,4 +41,6 @@ message Params {
 
   repeated BeeParams bee_types = 10
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"bee_types\""];
+
+  string honey_denom = 11 [(gogoproto.moretags) = "yaml:\"honey_denom\""];
 }

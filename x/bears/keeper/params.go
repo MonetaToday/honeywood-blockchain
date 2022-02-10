@@ -16,6 +16,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.DecorationTypes(ctx),
 		k.ApiaryTypes(ctx),
 		k.BeeTypes(ctx),
+		k.HoneyDenom(ctx),
 	)
 }
 
@@ -69,5 +70,11 @@ func (k Keeper) ApiaryTypes(ctx sdk.Context) (res []types.ApiaryParams) {
 // BeeTypes returns the BeeTypes param
 func (k Keeper) BeeTypes(ctx sdk.Context) (res []types.BeeParams) {
 	k.paramstore.Get(ctx, types.KeyBeeTypes, &res)
+	return
+}
+
+// HoneyDenom returns the HoneyDenom param
+func (k Keeper) HoneyDenom(ctx sdk.Context) (res string) {
+	k.paramstore.Get(ctx, types.KeyHoneyDenom, &res)
 	return
 }

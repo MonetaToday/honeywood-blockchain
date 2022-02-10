@@ -266,8 +266,8 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 
 // Collect honey from apiary
 func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary *types.Apiaries) (*sdk.Coin, error) {
-	// TODO honey
-	honeyInApiary, restHoneyInApiary := sdk.NewDecCoinFromDec("honey", k._CalculateHoneyInApiary(ctx, *apiary)).TruncateDecimal()
+	honeyDenom := k.HoneyDenom(ctx)
+	honeyInApiary, restHoneyInApiary := sdk.NewDecCoinFromDec(honeyDenom, k._CalculateHoneyInApiary(ctx, *apiary)).TruncateDecimal()
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
 	k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(honeyInApiary))

@@ -37,6 +37,7 @@ genesis:
         voting_period: "172800s"
     bears:
       params:
+        honey_denom: "honey"
         blocks_per_hour: "3600"
         burn_rate: "0.5"
         price_set_name: 

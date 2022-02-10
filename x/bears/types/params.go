@@ -34,6 +34,9 @@ var (
 
 	KeyBeeTypes     = []byte("BeeTypes")
 	DefaultBeeTypes = []BeeParams{}
+
+	KeyHoneyDenom     = []byte("HoneyDenom")
+	DefaultHoneyDenom = "honey"
 )
 
 // NewParams creates a new Params instance
@@ -46,6 +49,7 @@ func NewParams(
 	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
 	beeTypes []BeeParams,
+	honeyDenom string,
 ) Params {
 	return Params{
 		BlocksPerHour:   blocksPerHour,
@@ -56,6 +60,7 @@ func NewParams(
 		DecorationTypes: decorationTypes,
 		ApiaryTypes:     apiaryTypes,
 		BeeTypes:        beeTypes,
+		HoneyDenom:			 honeyDenom,
 	}
 }
 
@@ -70,6 +75,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, &p.BeeTypes, validateBeeTypes),
+		paramtypes.NewParamSetPair(KeyHoneyDenom, &p.HoneyDenom, validateHoneyDenom),
 	}
 }
 
@@ -107,6 +113,10 @@ func (p Params) Validate() error {
 		return err
 	}
 
+	if err := validateHoneyDenom(p.HoneyDenom); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -121,6 +131,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, []BeeParams{}, validateBeeTypes),
+		paramtypes.NewParamSetPair(KeyHoneyDenom, DefaultHoneyDenom, validateHoneyDenom),
 	)
 }
 
@@ -135,6 +146,7 @@ func DefaultParams() Params {
 		DefaultDecorationTypes,
 		DefaultApiaryTypes,
 		DefaultBeeTypes,
+		DefaultHoneyDenom,
 	)
 }
 
@@ -257,4 +269,13 @@ func validateBeeTypes(i interface{}) error {
 	}
 
 	return nil
+}
+
+func validateHoneyDenom(i interface{}) error {
+	v, ok := i.(string)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	return sdk.ValidateDenom(v)
 }
