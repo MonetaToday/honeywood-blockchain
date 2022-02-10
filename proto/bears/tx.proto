@@ -162,6 +162,7 @@ message MsgCreateApiaryResponse {
 message MsgInitGameAndCreateBee {
   string creator = 1;
   string beeType = 2;
+  string beeName = 3;
 }
 
 message MsgInitGameAndCreateBeeResponse {
@@ -172,6 +173,7 @@ message MsgCreateBee {
   string creator = 1;
   uint64 bearId = 2;
   string beeType = 3;
+  string beeName = 4;
 }
 
 message MsgCreateBeeResponse {

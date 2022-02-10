@@ -175,7 +175,7 @@ func (k Keeper) GetApiaryWithRemovedBee(ctx sdk.Context, apiary types.Apiaries, 
 }
 
 // create bee for specific bear
-func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeType string) (*types.Bees, error) {
+func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeType string, beeName string) (*types.Bees, error) {
 	hasRights := k.HasRightsToBear(ctx, creator, bearId)
 	if !hasRights {
 		return nil, types.ErrAddressHasNoRights
@@ -198,6 +198,7 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeTyp
 	}
 
 	newBee := types.Bees{
+		Name: beeName,
 		BearOwner: &types.BearOwner{Id: bearId},
 		Params:    beeParams,
 	}

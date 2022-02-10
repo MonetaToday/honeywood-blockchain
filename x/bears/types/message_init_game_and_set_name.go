@@ -10,7 +10,7 @@ const TypeMsgInitGameAndSetName = "init_game_and_set_name"
 
 var _ sdk.Msg = &MsgInitGameAndSetName{}
 
-func ValidateBearNameInput(name string) error {
+func ValidateNameInput(name string) error {
 	if len(name) > MaxNameLength {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "Name must not be greater than %d", MaxNameLength)
 	}
@@ -69,5 +69,5 @@ func (msg *MsgInitGameAndSetName) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	return ValidateBearNameInput(msg.Name)
+	return ValidateNameInput(msg.Name)
 }

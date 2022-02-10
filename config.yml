@@ -37,6 +37,7 @@ genesis:
         voting_period: "172800s"
     bears:
       params:
+        blocks_per_hour: "3600"
         burn_rate: "0.5"
         price_set_name: 
           - denom: "honey"
@@ -125,22 +126,72 @@ genesis:
 
         bee_types:
           - bee_type: "SMALL_BEE"
-            honey_per_hour: "0.0001"
+            honey_per_hour: "0.55"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
               amount: "1100"
-          - bee_type: "BEE_2"
-            honey_per_hour: "0.0002"
+          - bee_type: "BEE"
+            honey_per_hour: "0.62"
             body_size: 1
             oxygen_dependency: "1"
             price:
             - denom: "honey"
               amount: "1200"
-
-              Small Bee	Bee	Lucky Bee	Honey Bee	Skilled Bee	Curious Bee	Honey Explorer	Honey Hunter	Wonder Bee	Diamond Sting
-              1100	1200	1280	1370	1500	1650	1780	1800	2100	2350
-1	1	1	1	1	1	1	1	1	1
-0.55	0.62	0.64	0.66	0.71	0.75	0.8	0.84	0.85	0.9
-1	1	1	1	1	1	1	1	1	1
+          - bee_type: "LUCKY_BEE"
+            honey_per_hour: "0.64"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1280"
+          - bee_type: "HONEY_BEE"
+            honey_per_hour: "0.66"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1370"
+          - bee_type: "SKILLED_BEE"
+            honey_per_hour: "0.71"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1500"
+          - bee_type: "CURIOUS_BEE"
+            honey_per_hour: "0.75"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1650"
+          - bee_type: "HONEY_EXPLORER"
+            honey_per_hour: "0.8"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1780"
+          - bee_type: "HONEY_HUNTER"
+            honey_per_hour: "0.84"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "1800"
+          - bee_type: "WONDER_BEE"
+            honey_per_hour: "0.85"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "2100"
+          - bee_type: "DIAMOND_STING"
+            honey_per_hour: "0.9"
+            body_size: 1
+            oxygen_dependency: "1"
+            price:
+            - denom: "honey"
+              amount: "2350"

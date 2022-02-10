@@ -203,22 +203,25 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 	bees := make(map[uint64]types.Bees)
 	honeyInApiary := sdk.ZeroDec()
 	maxHoney := sdk.NewDec(int64(apiary.Params.MaxHoney))
+	blocksPerHour := int64(k.BlocksPerHour(ctx))
 
 	previousStepHeight := uint64(0)
 	previousStepHoneyPerBlock := sdk.ZeroDec()
 	for stepIndex, step := range apiary.CycleHistory {
 		stepHoneyPerBlock := sdk.ZeroDec()
 		// TODO
-		oxygenIndex, _ := sdk.NewDecFromStr("0.5")
+		oxygenIndex, _ := sdk.NewDecFromStr("1")
 		// Loading all bees and calculate step honeyPerBlock.
 		for _, beeId := range step.Bees {
 			if _, found := bees[beeId]; !found {
 				bees[beeId], _ = k.GetBees(ctx, beeId)
 			}
 
+			beeHoneyPerBlock := bees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
+
 			// Hpb + Hpb*(O-1)*d
-			beeHoneyPerBlock := bees[beeId].Params.HoneyPerHour.Add(
-				bees[beeId].Params.HoneyPerHour.Mul(
+			beeHoneyPerBlock = beeHoneyPerBlock.Add(
+				beeHoneyPerBlock.Mul(
 					oxygenIndex.Sub(sdk.OneDec()),
 				).Mul(bees[beeId].Params.OxygenDependency),
 			)

@@ -8,6 +8,7 @@ import (
 // GetParams get all parameters as types.Params
 func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 	return types.NewParams(
+		k.BlocksPerHour(ctx),
 		k.BurnRate(ctx),
 		k.PriceSetName(ctx),
 		k.PriceTile(ctx),
@@ -26,6 +27,12 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 // BurnRate returns the BurnRate param
 func (k Keeper) BurnRate(ctx sdk.Context) (res sdk.Dec) {
 	k.paramstore.Get(ctx, types.KeyBurnRate, &res)
+	return
+}
+
+// BlocksPerHour returns the BlocksPerHour param
+func (k Keeper) BlocksPerHour(ctx sdk.Context) (res uint64) {
+	k.paramstore.Get(ctx, types.KeyBlocksPerHour, &res)
 	return
 }
 

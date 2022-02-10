@@ -14,29 +14,31 @@ import "bears/trees.proto";
 message Params {
   option (gogoproto.goproto_stringer) = false;
   
-  string burn_rate = 1 
+  uint64 blocks_per_hour = 1 [(gogoproto.moretags) = "yaml:\"blocks_per_hour\""];
+
+  string burn_rate = 2
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"burn_rate\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 
-  repeated cosmos.base.v1beta1.Coin price_set_name = 2
+  repeated cosmos.base.v1beta1.Coin price_set_name = 3
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_set_name\""];
-  repeated cosmos.base.v1beta1.Coin price_tile = 3
+  repeated cosmos.base.v1beta1.Coin price_tile = 4
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tile\""];
 
 
-  repeated cosmos.base.v1beta1.Coin price_tree = 4
+  repeated cosmos.base.v1beta1.Coin price_tree = 5
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tree\""];
-  repeated cosmos.base.v1beta1.Coin reward_tree = 5
+  repeated cosmos.base.v1beta1.Coin reward_tree = 6
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"reward_tree\""];  
 
-  repeated TreeParams tree_types = 6
+  repeated TreeParams tree_types = 7
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"tree_types\""];
 
-  repeated DecorationParams decoration_types = 7
+  repeated DecorationParams decoration_types = 8
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"decoration_types\""];
 
-  repeated ApiaryParams apiary_types = 8
+  repeated ApiaryParams apiary_types = 9
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_types\""];
 
-  repeated BeeParams bee_types = 9
+  repeated BeeParams bee_types = 10
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"bee_types\""];
 }

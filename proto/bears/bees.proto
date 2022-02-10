@@ -23,7 +23,8 @@ message ApiaryHouse {
 
 message Bees {
   uint64 id = 1;
-  BearOwner bearOwner = 2;
-  ApiaryHouse apiaryHouse = 3;
-  BeeParams params = 4;
+  string name = 2;
+  BearOwner bearOwner = 3;
+  ApiaryHouse apiaryHouse = 4;
+  BeeParams params = 5;
 }

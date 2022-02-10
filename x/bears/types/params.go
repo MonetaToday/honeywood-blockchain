@@ -10,6 +10,9 @@ import (
 var _ paramtypes.ParamSet = (*Params)(nil)
 
 var (
+	KeyBlocksPerHour        = []byte("BlocksPerHour")
+	DefaultBlocksPerHour = uint64(1)
+
 	KeyBurnRate        = []byte("BurnRate")
 	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
 
@@ -35,6 +38,7 @@ var (
 
 // NewParams creates a new Params instance
 func NewParams(
+	blocksPerHour uint64,
 	burnRate sdk.Dec,
 	priceSetName sdk.Coins,
 	priceTile sdk.Coins,
@@ -44,6 +48,7 @@ func NewParams(
 	beeTypes []BeeParams,
 ) Params {
 	return Params{
+		BlocksPerHour: 	 blocksPerHour,
 		BurnRate:        burnRate,
 		PriceSetName:    priceSetName,
 		PriceTile:       priceTile,
@@ -57,6 +62,7 @@ func NewParams(
 // ParamSetPairs get the params.ParamSet
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
+		paramtypes.NewParamSetPair(KeyBlocksPerHour, &p.BlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validateCoins),
@@ -69,6 +75,10 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 
 // Validate validates the set of params
 func (p Params) Validate() error {
+	if err := validateBlocksPerHour(p.BlocksPerHour); err != nil {
+		return err
+	}
+
 	if err := validateBurnRate(p.BurnRate); err != nil {
 		return err
 	}
@@ -103,6 +113,7 @@ func (p Params) Validate() error {
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
+		paramtypes.NewParamSetPair(KeyBlocksPerHour, DefaultBlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coins{}, validateCoins),
 		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coins{}, validateCoins),
@@ -116,6 +127,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
 	return NewParams(
+		DefaultBlocksPerHour,
 		DefaultBurnRate,
 		DefaultPriceSetName,
 		DefaultPriceTile,
@@ -130,6 +142,19 @@ func DefaultParams() Params {
 func (p Params) String() string {
 	out, _ := yaml.Marshal(p)
 	return string(out)
+}
+
+func validateBlocksPerHour(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v <= 0 {
+		return fmt.Errorf("invalid BlocksPerHour: %s", v)
+	}
+
+	return nil
 }
 
 func validateBurnRate(i interface{}) error {

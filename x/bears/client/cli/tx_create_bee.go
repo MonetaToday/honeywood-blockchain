@@ -15,15 +15,16 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateBee() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-bee [bear-id] [bee-type]",
+		Use:   "create-bee [bear-id] [bee-type] [bee-name]",
 		Short: "Create a bee",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argBearId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
 			argBeeType := args[1]
+			argBeeName := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -34,6 +35,7 @@ func CmdCreateBee() *cobra.Command {
 				clientCtx.GetFromAddress().String(),
 				argBearId,
 				argBeeType,
+				argBeeName,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

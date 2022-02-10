@@ -44,5 +44,5 @@ func (msg *MsgSetName) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	return ValidateBearNameInput(msg.Name)
+	return ValidateNameInput(msg.Name)
 }

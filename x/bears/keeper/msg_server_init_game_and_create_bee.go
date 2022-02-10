@@ -15,7 +15,7 @@ func (k msgServer) InitGameAndCreateBee(goCtx context.Context, msg *types.MsgIni
 		return nil, initGameErr
 	}
 
-	bee, createBeeErr := k.Keeper.CreateBee(ctx, msg.Creator, newBear.Id, msg.BeeType)
+	bee, createBeeErr := k.Keeper.CreateBee(ctx, msg.Creator, newBear.Id, msg.BeeType, msg.BeeName)
 	if createBeeErr != nil {
 		return nil, createBeeErr
 	}

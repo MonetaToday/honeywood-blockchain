@@ -10,7 +10,7 @@ import (
 func (k msgServer) CreateBee(goCtx context.Context, msg *types.MsgCreateBee) (*types.MsgCreateBeeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	bee, createBeeErr := k.Keeper.CreateBee(ctx, msg.Creator, msg.BearId, msg.BeeType)
+	bee, createBeeErr := k.Keeper.CreateBee(ctx, msg.Creator, msg.BearId, msg.BeeType, msg.BeeName)
 	if createBeeErr != nil {
 		return nil, createBeeErr
 	}

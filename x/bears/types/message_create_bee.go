@@ -9,11 +9,12 @@ const TypeMsgCreateBee = "create_bee"
 
 var _ sdk.Msg = &MsgCreateBee{}
 
-func NewMsgCreateBee(creator string, bearId uint64, beeType string) *MsgCreateBee {
+func NewMsgCreateBee(creator string, bearId uint64, beeType string, beeName string) *MsgCreateBee {
 	return &MsgCreateBee{
 		Creator: creator,
 		BearId:  bearId,
 		BeeType: beeType,
+		BeeName: beeName,
 	}
 }
 
@@ -43,5 +44,6 @@ func (msg *MsgCreateBee) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-	return nil
+
+	return ValidateNameInput(msg.BeeName)
 }
