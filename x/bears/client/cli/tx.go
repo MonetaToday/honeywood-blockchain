@@ -47,6 +47,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateBee())
 	cmd.AddCommand(CmdSetApiaryHouseForBee())
 	cmd.AddCommand(CmdUnsetApiaryHouseForBee())
+	cmd.AddCommand(CmdCollectHoneyFromApiary())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

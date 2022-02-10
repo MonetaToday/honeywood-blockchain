@@ -5,6 +5,7 @@ import "bears/trees.proto";
 import "bears/decorations.proto";
 import "bears/apiaries.proto";
 import "bears/bees.proto";
+import "cosmos/base/v1beta1/coin.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -28,6 +29,7 @@ service Msg {
   rpc CreateBee(MsgCreateBee) returns (MsgCreateBeeResponse);
   rpc SetApiaryHouseForBee(MsgSetApiaryHouseForBee) returns (MsgSetApiaryHouseForBeeResponse);
   rpc UnsetApiaryHouseForBee(MsgUnsetApiaryHouseForBee) returns (MsgUnsetApiaryHouseForBeeResponse);
+  rpc CollectHoneyFromApiary(MsgCollectHoneyFromApiary) returns (MsgCollectHoneyFromApiaryResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -195,6 +197,15 @@ message MsgUnsetApiaryHouseForBee {
 }
 
 message MsgUnsetApiaryHouseForBeeResponse {
+}
+
+message MsgCollectHoneyFromApiary {
+  string creator = 1;
+  uint64 apiaryId = 2;
+}
+
+message MsgCollectHoneyFromApiaryResponse {
+  cosmos.base.v1beta1.Coin CountHoney = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -20,7 +20,7 @@ func (k Keeper) CalculateHoneyInApiary(goCtx context.Context, req *types.QueryCa
 	if !apiaryFound {
 		return nil, types.ErrApiaryIsNotExisted
 	}
-	
+
 	return &types.QueryCalculateHoneyInApiaryResponse{
 		CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
 	}, nil

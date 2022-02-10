@@ -53,6 +53,18 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 
 
 ~/go/bin/HoneyWoodd tx bears init-game-and-create-bee BEE BEE --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
-~/go/bin/HoneyWoodd query bears get-honey-in-apiary 0 
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0
+~/go/bin/HoneyWoodd tx bears unset-apiary-house-for-bee 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd query bears list-apiaries
+
+~/go/bin/HoneyWoodd tx bears collect-honey-from-apiary 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd query bears list-apiaries
+~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0 
+~/go/bin/HoneyWoodd query bank balances bears1jha5494q2lh3htkanddczkuuv7gtm80edrxc36
+
+

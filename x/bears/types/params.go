@@ -10,7 +10,7 @@ import (
 var _ paramtypes.ParamSet = (*Params)(nil)
 
 var (
-	KeyBlocksPerHour        = []byte("BlocksPerHour")
+	KeyBlocksPerHour     = []byte("BlocksPerHour")
 	DefaultBlocksPerHour = uint64(1)
 
 	KeyBurnRate        = []byte("BurnRate")
@@ -48,7 +48,7 @@ func NewParams(
 	beeTypes []BeeParams,
 ) Params {
 	return Params{
-		BlocksPerHour: 	 blocksPerHour,
+		BlocksPerHour:   blocksPerHour,
 		BurnRate:        burnRate,
 		PriceSetName:    priceSetName,
 		PriceTile:       priceTile,
@@ -232,7 +232,7 @@ func validateApiaryTypes(i interface{}) error {
 			return fmt.Errorf("invalid MaxCountBees parameter in ApiaryParams: %v", v)
 		}
 
-		if params.MaxHoney <= 0 {
+		if params.MaxHoney.LTE(sdk.ZeroDec()) {
 			return fmt.Errorf("invalid MaxCountHoney parameter in ApiaryParams: %v", v)
 		}
 	}

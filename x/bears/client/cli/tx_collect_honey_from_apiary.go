@@ -6,19 +6,20 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
 
-func CmdCalculateHoneyInApiary() *cobra.Command {
+func CmdCollectHoneyFromApiary() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "calculate-honey-in-apiary [apiary-id]",
-		Short: "Get how much honey in apiary",
+		Use:   "collect-honey-from-apiary [apiary-id]",
+		Short: "Collect honey from apiary",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			reqApiaryId, err := cast.ToUint64E(args[0])
+			argApiaryId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
@@ -28,23 +29,18 @@ func CmdCalculateHoneyInApiary() *cobra.Command {
 				return err
 			}
 
-			queryClient := types.NewQueryClient(clientCtx)
-
-			params := &types.QueryCalculateHoneyInApiaryRequest{
-
-				ApiaryId: reqApiaryId,
-			}
-
-			res, err := queryClient.CalculateHoneyInApiary(cmd.Context(), params)
-			if err != nil {
+			msg := types.NewMsgCollectHoneyFromApiary(
+				clientCtx.GetFromAddress().String(),
+				argApiaryId,
+			)
+			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
-
-			return clientCtx.PrintProto(res)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
 
-	flags.AddQueryFlagsToCmd(cmd)
+	flags.AddTxFlagsToCmd(cmd)
 
 	return cmd
 }

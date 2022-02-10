@@ -107,19 +107,19 @@ genesis:
         apiary_types:
           - apiary_type: "BEE_HOUSE"
             space_available: 5
-            max_honey: 5
+            max_honey: "5"
             price:
             - denom: "honey"
               amount: "500"
           - apiary_type: "APIARY"
             space_available: 8
-            max_honey: 15
+            max_honey: "15"
             price:
             - denom: "honey"
               amount: "900"
           - apiary_type: "ALVEARY"
             space_available: 12
-            max_honey: 25
+            max_honey: "25"
             price:
             - denom: "honey"
               amount: "1500"
@@ -133,7 +133,7 @@ genesis:
             - denom: "honey"
               amount: "1100"
           - bee_type: "BEE"
-            honey_per_hour: "0.62"
+            honey_per_hour: "100"
             body_size: 1
             oxygen_dependency: "1"
             price:
