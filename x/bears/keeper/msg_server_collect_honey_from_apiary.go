@@ -20,7 +20,7 @@ func (k msgServer) CollectHoneyFromApiary(goCtx context.Context, msg *types.MsgC
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	countHoney, err := k.Keeper._CollectHoneyFromApiary(ctx, msg.Creator, apiary)
+	countHoney, err := k.Keeper.CollectHoneyFromApiary(ctx, msg.Creator, apiary)
 	if err != nil {
 		return nil, err
 	}

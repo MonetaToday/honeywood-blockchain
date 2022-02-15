@@ -265,7 +265,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 }
 
 // Collect honey from apiary
-func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary types.Apiaries) (*sdk.Coin, error) {
+func (k Keeper) CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary types.Apiaries) (*sdk.Coin, error) {
 	honeyDenom := k.HoneyDenom(ctx)
 	honeyInApiary, restHoneyInApiary := sdk.NewDecCoinFromDec(honeyDenom, k._CalculateHoneyInApiary(ctx, apiary)).TruncateDecimal()
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
@@ -293,7 +293,7 @@ func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary 
 }
 
 // Collect honey and Clear apiary from bees
-func (k Keeper) _ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) error {
+func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) error {
 	bees := k.GetAllCurrentBeesFromApiary(ctx, apiary)
 	if len(bees) == 0 {
 		return types.ErrApiaryHasNoBees

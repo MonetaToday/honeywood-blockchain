@@ -20,7 +20,7 @@ func (k msgServer) ClearApiaryFromBees(goCtx context.Context, msg *types.MsgClea
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	errClearFromBees := k.Keeper._ClearApiaryFromBees(ctx, msg.Creator, apiary)
+	errClearFromBees := k.Keeper.ClearApiaryFromBees(ctx, msg.Creator, apiary)
 	if errClearFromBees != nil {
 		return nil, errClearFromBees
 	}
