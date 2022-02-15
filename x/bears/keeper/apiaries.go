@@ -265,9 +265,9 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 }
 
 // Collect honey from apiary
-func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary *types.Apiaries) (*sdk.Coin, error) {
+func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary types.Apiaries) (*sdk.Coin, error) {
 	honeyDenom := k.HoneyDenom(ctx)
-	honeyInApiary, restHoneyInApiary := sdk.NewDecCoinFromDec(honeyDenom, k._CalculateHoneyInApiary(ctx, *apiary)).TruncateDecimal()
+	honeyInApiary, restHoneyInApiary := sdk.NewDecCoinFromDec(honeyDenom, k._CalculateHoneyInApiary(ctx, apiary)).TruncateDecimal()
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
 	k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(honeyInApiary))
@@ -287,14 +287,18 @@ func (k Keeper) _CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary 
 		apiary.CycleHistory = []types.CycleHistory{lastBeesSet}
 	}
 
-	k.SetApiaries(ctx, *apiary)
+	k.SetApiaries(ctx, apiary)
 
 	return &honeyInApiary, nil
 }
 
 // Collect honey and Clear apiary from bees
-func (k Keeper) _ClearApiaryFromBees(ctx sdk.Context, creator string, apiary *types.Apiaries) error {
-	bees := k.GetAllCurrentBeesFromApiary(ctx, *apiary)
+func (k Keeper) _ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) error {
+	bees := k.GetAllCurrentBeesFromApiary(ctx, apiary)
+	if len(bees) == 0 {
+		return types.ErrApiaryHasNoBees
+	}
+
 	for _, beeId := range bees {
 		bee, _ := k.GetBees(ctx, beeId)
 		bee.ApiaryHouse = nil
@@ -305,6 +309,8 @@ func (k Keeper) _ClearApiaryFromBees(ctx sdk.Context, creator string, apiary *ty
 		Height: uint64(ctx.BlockHeight()),
 		Bees:   []uint64{},
 	})
+
+	k.SetApiaries(ctx, apiary)
 
 	return nil
 }

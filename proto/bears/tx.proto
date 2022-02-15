@@ -30,7 +30,7 @@ service Msg {
   rpc SetApiaryHouseForBee(MsgSetApiaryHouseForBee) returns (MsgSetApiaryHouseForBeeResponse);
   rpc UnsetApiaryHouseForBee(MsgUnsetApiaryHouseForBee) returns (MsgUnsetApiaryHouseForBeeResponse);
   rpc CollectHoneyFromApiary(MsgCollectHoneyFromApiary) returns (MsgCollectHoneyFromApiaryResponse);
-  rpc CollectHoneyAndClearApiaryFromBees(MsgCollectHoneyAndClearApiaryFromBees) returns (MsgCollectHoneyAndClearApiaryFromBeesResponse);
+  rpc ClearApiaryFromBees(MsgClearApiaryFromBees) returns (MsgClearApiaryFromBeesResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -209,13 +209,12 @@ message MsgCollectHoneyFromApiaryResponse {
   cosmos.base.v1beta1.Coin countHoney = 1;
 }
 
-message MsgCollectHoneyAndClearApiaryFromBees {
+message MsgClearApiaryFromBees {
   string creator = 1;
   uint64 apiaryId = 2;
 }
 
-message MsgCollectHoneyAndClearApiaryFromBeesResponse {
-  cosmos.base.v1beta1.Coin countHoney = 1;
+message MsgClearApiaryFromBeesResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

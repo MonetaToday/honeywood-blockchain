@@ -10,7 +10,7 @@ import (
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
 
-func SimulateMsgCollectHoneyAndClearApiaryFromBees(
+func SimulateMsgClearApiaryFromBees(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -18,12 +18,12 @@ func SimulateMsgCollectHoneyAndClearApiaryFromBees(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgCollectHoneyAndClearApiaryFromBees{
+		msg := &types.MsgClearApiaryFromBees{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the CollectHoneyAndClearApiaryFromBees simulation
+		// TODO: Handling the ClearApiaryFromBees simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "CollectHoneyAndClearApiaryFromBees simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "ClearApiaryFromBees simulation not implemented"), nil, nil
 	}
 }

@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgCollectHoneyAndClearApiaryFromBees_ValidateBasic(t *testing.T) {
+func TestMsgClearApiaryFromBees_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgCollectHoneyAndClearApiaryFromBees
+		msg  MsgClearApiaryFromBees
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgCollectHoneyAndClearApiaryFromBees{
+			msg: MsgClearApiaryFromBees{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgCollectHoneyAndClearApiaryFromBees{
+			msg: MsgClearApiaryFromBees{
 				Creator: sample.AccAddress(),
 			},
 		},

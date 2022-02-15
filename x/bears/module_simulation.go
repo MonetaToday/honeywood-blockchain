@@ -96,9 +96,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgCollectHoneyFromApiary int = 100
 
-	opWeightMsgCollectHoneyAndClearApiaryFromBees = "op_weight_msg_create_chain"
+	opWeightMsgClearApiaryFromBees = "op_weight_msg_create_chain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgCollectHoneyAndClearApiaryFromBees int = 100
+	defaultWeightMsgClearApiaryFromBees int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -347,15 +347,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		bearssimulation.SimulateMsgCollectHoneyFromApiary(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgCollectHoneyAndClearApiaryFromBees int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCollectHoneyAndClearApiaryFromBees, &weightMsgCollectHoneyAndClearApiaryFromBees, nil,
+	var weightMsgClearApiaryFromBees int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgClearApiaryFromBees, &weightMsgClearApiaryFromBees, nil,
 		func(_ *rand.Rand) {
-			weightMsgCollectHoneyAndClearApiaryFromBees = defaultWeightMsgCollectHoneyAndClearApiaryFromBees
+			weightMsgClearApiaryFromBees = defaultWeightMsgClearApiaryFromBees
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCollectHoneyAndClearApiaryFromBees,
-		bearssimulation.SimulateMsgCollectHoneyAndClearApiaryFromBees(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgClearApiaryFromBees,
+		bearssimulation.SimulateMsgClearApiaryFromBees(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

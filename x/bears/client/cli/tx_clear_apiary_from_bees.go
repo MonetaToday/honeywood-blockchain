@@ -13,9 +13,9 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCollectHoneyAndClearApiaryFromBees() *cobra.Command {
+func CmdClearApiaryFromBees() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "collect-honey-and-clear-apiary-from-bees [apiary-id]",
+		Use:   "clear-apiary-from-bees [apiary-id]",
 		Short: "Clear apiary from bees",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -29,7 +29,7 @@ func CmdCollectHoneyAndClearApiaryFromBees() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCollectHoneyAndClearApiaryFromBees(
+			msg := types.NewMsgClearApiaryFromBees(
 				clientCtx.GetFromAddress().String(),
 				argApiaryId,
 			)

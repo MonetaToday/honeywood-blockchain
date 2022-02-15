@@ -71,8 +71,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgCollectHoneyFromApiary:
 			res, err := msgServer.CollectHoneyFromApiary(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgCollectHoneyAndClearApiaryFromBees:
-			res, err := msgServer.CollectHoneyAndClearApiaryFromBees(sdk.WrapSDKContext(ctx), msg)
+		case *types.MsgClearApiaryFromBees:
+			res, err := msgServer.ClearApiaryFromBees(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 			// this line is used by starport scaffolding # 1
 		default:

@@ -70,5 +70,5 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 ~/go/bin/HoneyWoodd query bank balances bears1jha5494q2lh3htkanddczkuuv7gtm80edrxc36
 
 
-~/go/bin/HoneyWoodd tx bears collect-honey-and-clear-apiary-from-bees 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd query bears list-apiaries

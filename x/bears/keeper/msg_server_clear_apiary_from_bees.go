@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) CollectHoneyFromApiary(goCtx context.Context, msg *types.MsgCollectHoneyFromApiary) (*types.MsgCollectHoneyFromApiaryResponse, error) {
+func (k msgServer) ClearApiaryFromBees(goCtx context.Context, msg *types.MsgClearApiaryFromBees) (*types.MsgClearApiaryFromBeesResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	apiary, apiaryFound := k.Keeper.GetApiaries(ctx, msg.ApiaryId)
@@ -20,12 +20,10 @@ func (k msgServer) CollectHoneyFromApiary(goCtx context.Context, msg *types.MsgC
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	countHoney, err := k.Keeper._CollectHoneyFromApiary(ctx, msg.Creator, apiary)
-	if err != nil {
-		return nil, err
+	errClearFromBees := k.Keeper._ClearApiaryFromBees(ctx, msg.Creator, apiary)
+	if errClearFromBees != nil {
+		return nil, errClearFromBees
 	}
 
-	return &types.MsgCollectHoneyFromApiaryResponse{
-		CountHoney: countHoney,
-	}, nil
+	return &types.MsgClearApiaryFromBeesResponse{}, nil
 }
