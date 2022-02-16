@@ -212,53 +212,73 @@ func (k Keeper) GetAllCurrentBeesFromApiary(ctx sdk.Context, apiary types.Apiari
 
 // Calculate honey in apiary
 func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) sdk.Dec {
-	bees := make(map[uint64]types.Bees)
+	lastHeight := uint64(ctx.BlockHeight())
+	airInfo, _ := k.GetAirInfo(ctx)
+
+	loadedBees := make(map[uint64]types.Bees)
 	honeyInApiary := apiary.HoneyFromPast
 	blocksPerHour := int64(k.BlocksPerHour(ctx))
 
-	previousStepHeight := uint64(0)
-	previousStepHoneyPerBlock := sdk.ZeroDec()
-	for stepIndex, step := range apiary.CycleHistory {
-		stepHoneyPerBlock := sdk.ZeroDec()
-		// TODO
-		oxygenIndex, _ := sdk.NewDecFromStr("1")
-		// Loading all bees and calculate step honeyPerBlock.
-		for _, beeId := range step.Bees {
-			if _, found := bees[beeId]; !found {
-				bees[beeId], _ = k.GetBees(ctx, beeId)
+	calculateHoneyPower := func(apiaryCycleHistory types.CycleHistory, airCycleHistory types.AirHistory) sdk.Dec {
+		honeyPower := sdk.ZeroDec()
+		for _, beeId := range apiaryCycleHistory.Bees {
+			if _, found := loadedBees[beeId]; !found {
+				loadedBees[beeId], _ = k.GetBees(ctx, beeId)
 			}
+	
+			beeHoneySpeed := loadedBees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
 
-			beeHoneyPerBlock := bees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
-
-			// Hpb + Hpb*(O-1)*d
-			beeHoneyPerBlock = beeHoneyPerBlock.Add(
-				beeHoneyPerBlock.Mul(
-					oxygenIndex.Sub(sdk.OneDec()),
-				).Mul(bees[beeId].Params.OxygenDependency),
+			beeHoneyPower := airCycleHistory.Quality.Mul(
+				beeHoneySpeed.Mul(
+					sdk.OneDec().Add(
+						airCycleHistory.Count.Sub(
+							sdk.OneDec(),
+						).Mul(
+							loadedBees[beeId].Params.AirDependency,
+						),
+					),
+				),
 			)
-			// It can not eat honey
-			if beeHoneyPerBlock.LT(sdk.ZeroDec()) {
-				beeHoneyPerBlock = sdk.ZeroDec()
-			}
 
-			stepHoneyPerBlock = stepHoneyPerBlock.Add(beeHoneyPerBlock)
+			honeyPower = honeyPower.Add(beeHoneyPower)
+		}
+		return honeyPower
+	}
+
+	lastAirHistoryIndex := len(airInfo.History) - 1
+	lastApiaryHistoryIndex := len(apiary.CycleHistory) - 1
+
+	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastAirHistoryIndex >= 0 && lastApiaryHistoryIndex >= 0  {
+		lastAirHistoryHeight := airInfo.History[lastAirHistoryIndex].Height
+		lastApiaryHistoryHeight := apiary.CycleHistory[lastApiaryHistoryIndex].Height
+
+		lastHoneyPower := calculateHoneyPower(
+			apiary.CycleHistory[lastApiaryHistoryIndex], 
+			airInfo.History[lastAirHistoryIndex],
+		)
+
+		countBlocks := uint64(0)
+		if lastAirHistoryHeight >= lastApiaryHistoryHeight {
+			countBlocks = lastHeight - lastAirHistoryHeight
+
+			lastHeight = lastAirHistoryHeight
+			lastAirHistoryIndex -= 1
+		} else {
+			countBlocks = lastHeight - lastApiaryHistoryHeight
+
+			lastHeight = lastApiaryHistoryHeight
+			lastApiaryHistoryIndex -= 1
 		}
 
-		if stepIndex > 0 {
-			countBlocks := int64(step.Height - previousStepHeight)
-			honeyInApiary = honeyInApiary.Add(previousStepHoneyPerBlock.MulInt64(countBlocks))
-		}
-		if stepIndex == len(apiary.CycleHistory)-1 {
-			countBlocks := int64(ctx.BlockHeight()) - int64(step.Height)
-			honeyInApiary = honeyInApiary.Add(stepHoneyPerBlock.MulInt64(countBlocks))
-		}
+		honeyInApiary = honeyInApiary.Add(
+			lastHoneyPower.MulInt64(
+				int64(countBlocks),
+			),
+		)
+	}
 
-		if honeyInApiary.GTE(apiary.Params.MaxHoney) {
-			return apiary.Params.MaxHoney
-		}
-
-		previousStepHoneyPerBlock = stepHoneyPerBlock
-		previousStepHeight = step.Height
+	if honeyInApiary.GTE(apiary.Params.MaxHoney) {
+		return apiary.Params.MaxHoney
 	}
 
 	return honeyInApiary

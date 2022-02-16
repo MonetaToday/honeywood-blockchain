@@ -153,6 +153,9 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				BeesCount: 2,
+				AirInfo: &types.AirInfo{
+					History: 65,
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,

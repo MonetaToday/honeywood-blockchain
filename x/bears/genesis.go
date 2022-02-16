@@ -59,6 +59,8 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set bees count
 	k.SetBeesCount(ctx, genState.BeesCount)
+	// Set air info
+	k.SetAirInfo(ctx, genState.AirInfo)
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -82,6 +84,11 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.ApiariesCount = k.GetApiariesCount(ctx)
 	genesis.BeesList = k.GetAllBees(ctx)
 	genesis.BeesCount = k.GetBeesCount(ctx)
+	// Get all airInfo
+	airInfo, found := k.GetAirInfo(ctx)
+	if found {
+		genesis.AirInfo = airInfo
+	}
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

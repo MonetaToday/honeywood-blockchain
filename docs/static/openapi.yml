@@ -13488,7 +13488,7 @@ paths:
                         bodySize:
                           type: string
                           format: uint64
-                        oxygenSense:
+                        airSense:
                           type: string
               pagination:
                 type: object
@@ -13650,7 +13650,7 @@ paths:
                       bodySize:
                         type: string
                         format: uint64
-                      oxygenSense:
+                      airSense:
                         type: string
         default:
           description: An unexpected error response.
@@ -14332,7 +14332,7 @@ paths:
                         bodySize:
                           type: string
                           format: uint64
-                        oxygenSense:
+                        airSense:
                           type: string
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
@@ -22108,7 +22108,7 @@ definitions:
       bodySize:
         type: string
         format: uint64
-      oxygenSense:
+      airSense:
         type: string
   MonetaToday.honeywood.bears.Bees:
     type: object
@@ -22155,7 +22155,7 @@ definitions:
           bodySize:
             type: string
             format: uint64
-          oxygenSense:
+          airSense:
             type: string
   MonetaToday.honeywood.bears.CycleBeesHistory:
     type: object
@@ -22796,7 +22796,7 @@ definitions:
             bodySize:
               type: string
               format: uint64
-            oxygenSense:
+            airSense:
               type: string
     description: Params defines the parameters for the module.
   MonetaToday.honeywood.bears.QueryAllAddressBearsResponse:
@@ -23093,7 +23093,7 @@ definitions:
                 bodySize:
                   type: string
                   format: uint64
-                oxygenSense:
+                airSense:
                   type: string
       pagination:
         type: object
@@ -23515,7 +23515,7 @@ definitions:
               bodySize:
                 type: string
                 format: uint64
-              oxygenSense:
+              airSense:
                 type: string
   MonetaToday.honeywood.bears.QueryGetDecorationsResponse:
     type: object
@@ -23807,7 +23807,7 @@ definitions:
                 bodySize:
                   type: string
                   format: uint64
-                oxygenSense:
+                airSense:
                   type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   MonetaToday.honeywood.bears.Tiles:

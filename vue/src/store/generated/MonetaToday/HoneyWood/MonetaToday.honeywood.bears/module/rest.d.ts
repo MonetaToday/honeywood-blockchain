@@ -71,7 +71,7 @@ export interface BearsBeeParams {
     honeyPerBlock?: string;
     /** @format uint64 */
     bodySize?: string;
-    oxygenSense?: string;
+    airSense?: string;
 }
 export interface BearsBees {
     /** @format uint64 */

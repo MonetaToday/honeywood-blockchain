@@ -13,8 +13,8 @@ message BeeParams {
   string honey_per_hour = 3
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"honey_per_hour\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
   uint64 body_size = 4 [(gogoproto.moretags) = "yaml:\"size\""];
-  string oxygen_dependency = 5
-    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"oxygen_dependency\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string air_dependency = 5
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"air_dependency\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
 message ApiaryHouse {

@@ -145,6 +145,9 @@ func TestGenesis(t *testing.T) {
 			},
 		},
 		BeesCount: 2,
+		AirInfo: &types.AirInfo{
+			History: 56,
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -170,5 +173,6 @@ func TestGenesis(t *testing.T) {
 	require.Equal(t, genesisState.ApiariesCount, got.ApiariesCount)
 	require.ElementsMatch(t, genesisState.BeesList, got.BeesList)
 	require.Equal(t, genesisState.BeesCount, got.BeesCount)
+	require.Equal(t, genesisState.AirInfo, got.AirInfo)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

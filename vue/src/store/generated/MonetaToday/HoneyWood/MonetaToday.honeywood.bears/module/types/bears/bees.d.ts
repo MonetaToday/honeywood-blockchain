@@ -7,7 +7,7 @@ export interface BeeParams {
     price: Coin[];
     honeyPerBlock: string;
     bodySize: number;
-    oxygenSense: string;
+    airSense: string;
 }
 export interface ApiaryHouse {
     id: number;

@@ -18,6 +18,7 @@ func DefaultGenesis() *GenesisState {
 		DecorationsList:  []Decorations{},
 		ApiariesList:     []Apiaries{},
 		BeesList:         []Bees{},
+		AirInfo:       AirInfo{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}

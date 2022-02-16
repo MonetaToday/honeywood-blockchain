@@ -8,7 +8,7 @@ const baseBeeParams = {
     beeType: "",
     honeyPerBlock: "",
     bodySize: 0,
-    oxygenSense: "",
+    airSense: "",
 };
 export const BeeParams = {
     encode(message, writer = Writer.create()) {
@@ -24,8 +24,8 @@ export const BeeParams = {
         if (message.bodySize !== 0) {
             writer.uint32(32).uint64(message.bodySize);
         }
-        if (message.oxygenSense !== "") {
-            writer.uint32(42).string(message.oxygenSense);
+        if (message.airSense !== "") {
+            writer.uint32(42).string(message.airSense);
         }
         return writer;
     },
@@ -50,7 +50,7 @@ export const BeeParams = {
                     message.bodySize = longToNumber(reader.uint64());
                     break;
                 case 5:
-                    message.oxygenSense = reader.string();
+                    message.airSense = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -85,11 +85,11 @@ export const BeeParams = {
         else {
             message.bodySize = 0;
         }
-        if (object.oxygenSense !== undefined && object.oxygenSense !== null) {
-            message.oxygenSense = String(object.oxygenSense);
+        if (object.airSense !== undefined && object.airSense !== null) {
+            message.airSense = String(object.airSense);
         }
         else {
-            message.oxygenSense = "";
+            message.airSense = "";
         }
         return message;
     },
@@ -105,8 +105,8 @@ export const BeeParams = {
         message.honeyPerBlock !== undefined &&
             (obj.honeyPerBlock = message.honeyPerBlock);
         message.bodySize !== undefined && (obj.bodySize = message.bodySize);
-        message.oxygenSense !== undefined &&
-            (obj.oxygenSense = message.oxygenSense);
+        message.airSense !== undefined &&
+            (obj.airSense = message.airSense);
         return obj;
     },
     fromPartial(object) {
@@ -135,11 +135,11 @@ export const BeeParams = {
         else {
             message.bodySize = 0;
         }
-        if (object.oxygenSense !== undefined && object.oxygenSense !== null) {
-            message.oxygenSense = object.oxygenSense;
+        if (object.airSense !== undefined && object.airSense !== null) {
+            message.airSense = object.airSense;
         }
         else {
-            message.oxygenSense = "";
+            message.airSense = "";
         }
         return message;
     },

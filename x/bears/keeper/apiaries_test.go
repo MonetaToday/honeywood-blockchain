@@ -57,3 +57,13 @@ func TestApiariesCount(t *testing.T) {
 	count := uint64(len(items))
 	require.Equal(t, count, keeper.GetApiariesCount(ctx))
 }
+
+func TestCalculateHoneyInApiary(t *testing.T) {
+	keeper, ctx := keepertest.BearsKeeper(t)
+
+	items := createNBees(keeper, ctx, 1)
+
+	items := createNApiaries(keeper, ctx, 10)
+	count := uint64(len(items))
+	require.Equal(t, count, keeper.GetApiariesCount(ctx))
+}

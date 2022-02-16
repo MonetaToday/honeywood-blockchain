@@ -99,7 +99,7 @@ export interface BearsBeeParams {
 
   /** @format uint64 */
   bodySize?: string;
-  oxygenSense?: string;
+  airSense?: string;
 }
 
 export interface BearsBees {

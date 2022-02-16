@@ -11,6 +11,7 @@ import "bears/trees.proto";
 import "bears/decorations.proto";
 import "bears/apiaries.proto";
 import "bears/bees.proto";
+import "bears/air_info.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
@@ -32,5 +33,6 @@ message GenesisState {
   uint64 apiariesCount = 13;
   repeated Bees beesList = 14 [(gogoproto.nullable) = false];
   uint64 beesCount = 15;
+  AirInfo airInfo = 16 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

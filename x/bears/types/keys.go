@@ -50,3 +50,7 @@ const (
 	BeesKey      = "Bees-value-"
 	BeesCountKey = "Bees-count-"
 )
+
+const (
+	AirInfoKey = "AirInfo-value-"
+)

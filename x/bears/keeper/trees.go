@@ -188,7 +188,7 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	if errSendFromModuleToAccount != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}
-	// TODO: update oxygen
+	// TODO: update air
 
 	return &newTree, nil
 }

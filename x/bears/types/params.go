@@ -60,7 +60,7 @@ func NewParams(
 		DecorationTypes: decorationTypes,
 		ApiaryTypes:     apiaryTypes,
 		BeeTypes:        beeTypes,
-		HoneyDenom:			 honeyDenom,
+		HoneyDenom:      honeyDenom,
 	}
 }
 

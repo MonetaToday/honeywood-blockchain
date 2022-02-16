@@ -210,7 +210,7 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeTyp
 	}
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)
-	//TODO update oxygen
+	//TODO update air
 
 	return &newBee, nil
 }
