@@ -5,10 +5,12 @@ import (
 
 	keepertest "github.com/MonetaToday/HoneyWood/testutil/keeper"
 	"github.com/MonetaToday/HoneyWood/testutil/nullify"
+	"github.com/MonetaToday/HoneyWood/testutil/sample"
 	"github.com/MonetaToday/HoneyWood/x/bears/keeper"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 )
 
 func createNApiaries(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Apiaries {
@@ -61,9 +63,11 @@ func TestApiariesCount(t *testing.T) {
 func TestCalculateHoneyInApiary(t *testing.T) {
 	keeper, ctx := keepertest.BearsKeeper(t)
 
-	items := createNBees(keeper, ctx, 1)
+	address := sample.AccAddress()
+	bear := initGameForAddress(keeper, ctx, address)
 
-	items := createNApiaries(keeper, ctx, 10)
-	count := uint64(len(items))
-	require.Equal(t, count, keeper.GetApiariesCount(ctx))
+
+	// items := createNApiaries(keeper, ctx, 10)
+	// count := uint64(len(items))
+	// require.Equal(t, count, keeper.GetApiariesCount(ctx))
 }

@@ -5,16 +5,23 @@ import (
 
 	keepertest "github.com/MonetaToday/HoneyWood/testutil/keeper"
 	"github.com/MonetaToday/HoneyWood/testutil/nullify"
+	"github.com/MonetaToday/HoneyWood/testutil/sample"
 	"github.com/MonetaToday/HoneyWood/x/bears/keeper"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
+func initGameForAddress(keeper *keeper.Keeper, ctx sdk.Context, creator string) types.Bears {
+	bear, _, _ := keeper.InitGame(ctx, creator)
+	return *bear
+}
+
 func createNBears(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Bears {
 	items := make([]types.Bears, n)
 	for i := range items {
-		items[i].Id = keeper.AppendBears(ctx, items[i])
+		bear, _, _ := keeper.InitGame(ctx, sample.AccAddress())
+		items[i] = *bear
 	}
 	return items
 }
