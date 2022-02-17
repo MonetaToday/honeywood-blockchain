@@ -15,6 +15,8 @@ message BeeParams {
   uint64 body_size = 4 [(gogoproto.moretags) = "yaml:\"size\""];
   string air_dependency = 5
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"air_dependency\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string air_consume = 6
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"air_consume\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
 message ApiaryHouse {

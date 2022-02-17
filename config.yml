@@ -125,6 +125,7 @@ genesis:
             honey_per_hour: "0.55"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1100"
@@ -132,6 +133,7 @@ genesis:
             honey_per_hour: "100"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1200"
@@ -139,6 +141,7 @@ genesis:
             honey_per_hour: "0.64"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1280"
@@ -146,6 +149,7 @@ genesis:
             honey_per_hour: "0.66"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1370"
@@ -153,6 +157,7 @@ genesis:
             honey_per_hour: "0.71"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1500"
@@ -160,6 +165,7 @@ genesis:
             honey_per_hour: "0.75"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1650"
@@ -167,6 +173,7 @@ genesis:
             honey_per_hour: "0.8"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1780"
@@ -174,6 +181,7 @@ genesis:
             honey_per_hour: "0.84"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "1800"
@@ -181,6 +189,7 @@ genesis:
             honey_per_hour: "0.85"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "2100"
@@ -188,6 +197,7 @@ genesis:
             honey_per_hour: "0.9"
             body_size: 1
             air_dependency: "1"
+            air_consume: "0.5"
             price:
             - denom: "honey"
               amount: "2350"

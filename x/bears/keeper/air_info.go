@@ -55,3 +55,16 @@ func (k Keeper) AddAirHistory(ctx sdk.Context, count sdk.Dec, quality sdk.Dec) {
 		k.SetAirInfo(ctx, airInfo)
 	}
 }
+
+
+// UpdateAir
+func (k Keeper) UpdateAir(ctx sdk.Context) {
+	// treesCount := k.GetTreesCount(ctx)
+	// bearsCount := k.GetBearsCount(ctx)
+	// beesCount := k.GetBeesCount(ctx)
+
+
+	// 	// a1 := sdk.NewDec(int64(ctx.BlockHeight()))
+	// // a2, _ := sdk.NewDecFromStr("0.2")
+	// k.AddAirHistory(ctx, a1, a2)
+}

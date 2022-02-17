@@ -33,6 +33,32 @@ func (k Keeper) SetBeesCount(ctx sdk.Context, count uint64) {
 	store.Set(byteKey, bz)
 }
 
+// SetTotalAirConsume
+func (k Keeper) SetTotalAirConsume(ctx sdk.Context, consume sdk.Dec) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
+	byteKey := types.KeyPrefix(types.TotalAirConsumeKey)
+
+	bz, _ := consume.Marshal()
+	store.Set(byteKey, bz)
+}
+
+// SetTotalAirConsume
+func (k Keeper) GetTotalAirConsume(ctx sdk.Context) sdk.Dec {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
+	byteKey := types.KeyPrefix(types.TotalAirConsumeKey)
+
+	bz := store.Get(byteKey)
+	dec := sdk.ZeroDec()
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return dec
+	}
+
+	dec.Unmarshal(bz)
+	return dec
+}
+
 // AppendBees appends a bees in the store with a new id and update the count
 func (k Keeper) AppendBees(
 	ctx sdk.Context,
@@ -51,11 +77,20 @@ func (k Keeper) AppendBees(
 	// Update bees count
 	k.SetBeesCount(ctx, count+1)
 
+	airConsume := k.GetTotalAirConsume(ctx).Add(bees.Params.AirConsume)
+	k.SetTotalAirConsume(ctx, airConsume)
+
 	return count
 }
 
 // SetBees set a specific bees in the store
 func (k Keeper) SetBees(ctx sdk.Context, bees types.Bees) {
+	oldBee, found := k.GetBees(ctx, bees.Id)
+	if found {
+		airConsume := k.GetTotalAirConsume(ctx).Sub(oldBee.Params.AirConsume).Add(bees.Params.AirConsume)
+		k.SetTotalAirConsume(ctx, airConsume)
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BeesKey))
 	b := k.cdc.MustMarshal(&bees)
 	store.Set(GetBeesIDBytes(bees.Id), b)
@@ -74,6 +109,12 @@ func (k Keeper) GetBees(ctx sdk.Context, id uint64) (val types.Bees, found bool)
 
 // RemoveBees removes a bees from the store
 func (k Keeper) RemoveBees(ctx sdk.Context, id uint64) {
+	bee, found := k.GetBees(ctx, id)
+	if found {
+		airConsume := k.GetTotalAirConsume(ctx)
+		k.SetTotalAirConsume(ctx, airConsume.Sub(bee.Params.AirConsume))
+	}
+	
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BeesKey))
 	store.Delete(GetBeesIDBytes(id))
 }
@@ -210,7 +251,6 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeTyp
 	}
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)
-	//TODO update air
 
 	return &newBee, nil
 }

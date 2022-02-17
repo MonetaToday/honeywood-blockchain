@@ -160,7 +160,8 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	}
 	k.SetAddressBears(ctx, addressBears)
 
-	//TODO update air
+	airConsume := k.GetTotalAirConsume(ctx).Add(sdk.OneDec())
+	k.SetTotalAirConsume(ctx, airConsume)
 
 	return &newBear, &newField, nil
 }
