@@ -25,22 +25,17 @@ message Params {
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tile\""];
 
 
-  repeated cosmos.base.v1beta1.Coin price_tree = 5
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"price_tree\""];
-  repeated cosmos.base.v1beta1.Coin reward_tree = 6
-    [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"reward_tree\""];  
-
-  repeated TreeParams tree_types = 7
+  repeated TreeParams tree_types = 5
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"tree_types\""];
 
-  repeated DecorationParams decoration_types = 8
+  repeated DecorationParams decoration_types = 6
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"decoration_types\""];
 
-  repeated ApiaryParams apiary_types = 9
+  repeated ApiaryParams apiary_types = 7
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"apiary_types\""];
 
-  repeated BeeParams bee_types = 10
+  repeated BeeParams bee_types = 8
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"bee_types\""];
 
-  string honey_denom = 11 [(gogoproto.moretags) = "yaml:\"honey_denom\""];
+  string honey_denom = 9 [(gogoproto.moretags) = "yaml:\"honey_denom\""];
 }
