@@ -55,8 +55,3 @@ const (
 	AirInfoKey = "AirInfo-value-"
 )
 
-
-const (
-	TotalAirConsumeKey = "Total-air-consume-"
-)
-

@@ -51,11 +51,20 @@ func (k Keeper) AppendTrees(
 	// Update trees count
 	k.SetTreesCount(ctx, count+1)
 
+	airSupply := k.GetTotalAirSupply(ctx).Add(trees.Params.AirSupply)
+	k.SetTotalAirSupply(ctx, airSupply)
+
 	return count
 }
 
 // SetTrees set a specific trees in the store
 func (k Keeper) SetTrees(ctx sdk.Context, trees types.Trees) {
+	oldTree, found := k.GetTrees(ctx, trees.Id)
+	if found {
+		airSupply := k.GetTotalAirSupply(ctx).Sub(oldTree.Params.AirSupply).Add(trees.Params.AirSupply)
+		k.SetTotalAirSupply(ctx, airSupply)
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TreesKey))
 	b := k.cdc.MustMarshal(&trees)
 	store.Set(GetTreesIDBytes(trees.Id), b)
@@ -74,6 +83,12 @@ func (k Keeper) GetTrees(ctx sdk.Context, id uint64) (val types.Trees, found boo
 
 // RemoveTrees removes a trees from the store
 func (k Keeper) RemoveTrees(ctx sdk.Context, id uint64) {
+	tree, found := k.GetTrees(ctx, id)
+	if found {
+		airSupply := k.GetTotalAirSupply(ctx)
+		k.SetTotalAirSupply(ctx, airSupply.Sub(tree.Params.AirSupply))
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TreesKey))
 	store.Delete(GetTreesIDBytes(id))
 }

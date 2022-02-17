@@ -130,6 +130,27 @@ func (gs GenesisState) Validate() error {
 		}
 		beesIdMap[elem.Id] = true
 	}
+
+	airInfo := gs.GetAirInfo()
+	if airInfo.Consume.IsNegative() || airInfo.Consume.IsZero() {
+		return fmt.Errorf("airInfo.Consume must be greater than 0")
+	}
+	if airInfo.Supply.IsNegative() {
+		return fmt.Errorf("airInfo.Supply must be greater than or equal 0")
+	}
+	if len(airInfo.History) == 0 {
+		return fmt.Errorf("airInfo.History can not be empty")
+	}
+	for index, elem := range airInfo.History {
+		if elem.Height < 0 {
+			return fmt.Errorf("airInfo.History.Height can not be a negative")
+		}
+
+		if index > 0 && airInfo.History[index - 1].Height > elem.Height {
+			return fmt.Errorf("airInfo.History.Height must be ordered")
+		}
+	}
+
 	// this line is used by starport scaffolding # genesis/types/validate
 
 	return gs.Params.Validate()

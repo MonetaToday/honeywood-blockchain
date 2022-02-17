@@ -130,20 +130,20 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 	}
 
 	count1, _ := sdk.NewDecFromStr("1.000000000000000000")
-	quality1, _ := sdk.NewDecFromStr("1.000000000000000000")
+	purity1, _ := sdk.NewDecFromStr("1.000000000000000000")
 	count2, _ := sdk.NewDecFromStr("0.500000000000000000")
-	quality2, _ := sdk.NewDecFromStr("1.000000000000000000")
+	purity2, _ := sdk.NewDecFromStr("1.000000000000000000")
 
 	airInfo := types.AirInfo{
 		History: []types.AirHistory{
 			{
 				Count: count1,
-				Quality: quality1,
+				Purity: purity1,
 				Height: 0,
 			},
 			{
 				Count: count2,
-				Quality: quality2,
+				Purity: purity2,
 				Height: 5,
 			},
 		},

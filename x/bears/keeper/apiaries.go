@@ -228,7 +228,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 	
 			beeHoneySpeed := loadedBees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
 
-			beeHoneyPower := airCycleHistory.Quality.Mul(
+			beeHoneyPower := airCycleHistory.Purity.Mul(
 				beeHoneySpeed.Mul(
 					sdk.OneDec().Add(
 						airCycleHistory.Count.Sub(

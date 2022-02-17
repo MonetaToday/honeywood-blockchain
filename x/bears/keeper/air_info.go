@@ -8,6 +8,25 @@ import (
 
 // SetAirInfo set airInfo in the store
 func (k Keeper) SetAirInfo(ctx sdk.Context, airInfo types.AirInfo) {
+	airCount := airInfo.Supply.Quo(airInfo.Consume)
+	airPurity := sdk.OneDec()
+	lastIndex := len(airInfo.History) - 1
+	if lastIndex < 0 || !airInfo.History[lastIndex].Count.Equal(airCount) || !airInfo.History[lastIndex].Purity.Equal(airPurity) {
+		height := uint64(ctx.BlockHeight())
+
+		airInfo.History = append(airInfo.History, types.AirHistory{
+			Height: height,
+			Count: airCount,
+			Purity: airPurity,
+		})
+
+		maxLength := k.AirHistoryLength(ctx)
+		currentLength := uint64(len(airInfo.History))
+		if currentLength > maxLength {
+			airInfo.History = airInfo.History[currentLength - maxLength:]
+		}
+	}
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.AirInfoKey))
 	b := k.cdc.MustMarshal(&airInfo)
 	store.Set([]byte{0}, b)
@@ -32,39 +51,28 @@ func (k Keeper) RemoveAirInfo(ctx sdk.Context) {
 	store.Delete([]byte{0})
 }
 
-// AddAirHistory
-func (k Keeper) AddAirHistory(ctx sdk.Context, count sdk.Dec, quality sdk.Dec) {
+// SetTotalAirConsume
+func (k Keeper) SetTotalAirConsume(ctx sdk.Context, consume sdk.Dec) {
 	airInfo, _ := k.GetAirInfo(ctx)
-
-	lastIndex := len(airInfo.History) - 1
-	if lastIndex < 0 || !airInfo.History[lastIndex].Count.Equal(count) || !airInfo.History[lastIndex].Quality.Equal(quality) {
-		height := uint64(ctx.BlockHeight())
-
-		airInfo.History = append(airInfo.History, types.AirHistory{
-			Height: height,
-			Count: count,
-			Quality: quality,
-		})
-
-		maxLength := k.AirHistoryLength(ctx)
-		currentLength := uint64(len(airInfo.History))
-		if currentLength > maxLength {
-			airInfo.History = airInfo.History[currentLength - maxLength:]
-		}
-
-		k.SetAirInfo(ctx, airInfo)
-	}
+	airInfo.Consume = consume
+	k.SetAirInfo(ctx, airInfo)
 }
 
+// SetTotalAirConsume
+func (k Keeper) GetTotalAirConsume(ctx sdk.Context) sdk.Dec {
+	airInfo, _ := k.GetAirInfo(ctx)
+	return airInfo.Consume
+}
 
-// UpdateAir
-func (k Keeper) UpdateAir(ctx sdk.Context) {
-	// treesCount := k.GetTreesCount(ctx)
-	// bearsCount := k.GetBearsCount(ctx)
-	// beesCount := k.GetBeesCount(ctx)
+// SetTotalAirSupply
+func (k Keeper) SetTotalAirSupply(ctx sdk.Context, supply sdk.Dec) {
+	airInfo, _ := k.GetAirInfo(ctx)
+	airInfo.Supply = supply
+	k.SetAirInfo(ctx, airInfo)
+}
 
-
-	// 	// a1 := sdk.NewDec(int64(ctx.BlockHeight()))
-	// // a2, _ := sdk.NewDecFromStr("0.2")
-	// k.AddAirHistory(ctx, a1, a2)
+// SetTotalAirSupply
+func (k Keeper) GetTotalAirSupply(ctx sdk.Context) sdk.Dec {
+	airInfo, _ := k.GetAirInfo(ctx)
+	return airInfo.Supply
 }

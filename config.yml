@@ -36,9 +36,16 @@ genesis:
       voting_params:
         voting_period: "172800s"
     bears:
+      airInfo:
+        supply: "1"
+        consume: "1"
+        history: 
+          - height: "0"
+            count: "1"
+            purity: "1"
       params:
         honey_denom: "honey"
-        air_history_length: "5"
+        air_history_length: "7776000"
         blocks_per_hour: "3600"
         burn_rate: "0.5"
         price_set_name: 
@@ -50,6 +57,7 @@ genesis:
 
         tree_types:
           - tree_type: OAK
+            air_supply: "1"
             price:
               - denom: "honey"
                 amount: "1500"
@@ -57,6 +65,7 @@ genesis:
               - denom: "cone"
                 amount: "150"
           - tree_type: SPRUCE
+            air_supply: "1"
             price:
               - denom: "honey"
                 amount: "1500"
@@ -64,6 +73,7 @@ genesis:
               - denom: "cone"
                 amount: "150"
           - tree_type: APPLE_TREE
+            air_supply: "1"
             price:
               - denom: "honey"
                 amount: "1500"
@@ -71,6 +81,7 @@ genesis:
               - denom: "cone"
                 amount: "150"
           - tree_type: WILLOW
+            air_supply: "1"
             price:
               - denom: "honey"
                 amount: "1500"
@@ -130,7 +141,7 @@ genesis:
             - denom: "honey"
               amount: "1100"
           - bee_type: "BEE"
-            honey_per_hour: "100"
+            honey_per_hour: "0.62"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"

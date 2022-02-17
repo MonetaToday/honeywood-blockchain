@@ -33,32 +33,6 @@ func (k Keeper) SetBeesCount(ctx sdk.Context, count uint64) {
 	store.Set(byteKey, bz)
 }
 
-// SetTotalAirConsume
-func (k Keeper) SetTotalAirConsume(ctx sdk.Context, consume sdk.Dec) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.TotalAirConsumeKey)
-
-	bz, _ := consume.Marshal()
-	store.Set(byteKey, bz)
-}
-
-// SetTotalAirConsume
-func (k Keeper) GetTotalAirConsume(ctx sdk.Context) sdk.Dec {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte{})
-	byteKey := types.KeyPrefix(types.TotalAirConsumeKey)
-
-	bz := store.Get(byteKey)
-	dec := sdk.ZeroDec()
-
-	// Count doesn't exist: no element
-	if bz == nil {
-		return dec
-	}
-
-	dec.Unmarshal(bz)
-	return dec
-}
-
 // AppendBees appends a bees in the store with a new id and update the count
 func (k Keeper) AppendBees(
 	ctx sdk.Context,

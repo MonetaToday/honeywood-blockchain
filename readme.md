@@ -60,6 +60,14 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 1honey --yes 
 ~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes
+
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 3 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 4 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 5 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 6 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 7 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 8 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 9 0 --from bob --fees 1honey --yes
  
 ~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0
 ~/go/bin/HoneyWoodd tx bears unset-apiary-house-for-bee 0 --from bob --fees 1honey --yes 
@@ -73,3 +81,9 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 ~/go/bin/HoneyWoodd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd query bears list-apiaries
+
+
+~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-tree 0 0 1 0 SPRUCE --from bob --fees 1honey --yes
+
+~/go/bin/HoneyWoodd query bears show-air-info
