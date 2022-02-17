@@ -46,10 +46,10 @@ func (k Keeper) AddAirHistory(ctx sdk.Context, count sdk.Dec, quality sdk.Dec) {
 			Quality: quality,
 		})
 
-		// TODO
-		// blocksPerHour := k.BlocksPerHour(ctx)
-		if uint64(len(airInfo.History)) >= 10 {
-			airInfo.History = airInfo.History[1:]
+		maxLength := k.AirHistoryLength(ctx)
+		currentLength := uint64(len(airInfo.History))
+		if currentLength > maxLength {
+			airInfo.History = airInfo.History[currentLength - maxLength:]
 		}
 
 		k.SetAirInfo(ctx, airInfo)

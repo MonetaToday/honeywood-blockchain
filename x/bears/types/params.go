@@ -13,6 +13,9 @@ var (
 	KeyBlocksPerHour     = []byte("BlocksPerHour")
 	DefaultBlocksPerHour = uint64(1)
 
+	KeyAirHistoryLength     = []byte("AirHistoryLength")
+	DefaultAirHistoryLength = uint64(100)
+
 	KeyBurnRate        = []byte("BurnRate")
 	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
 
@@ -41,6 +44,7 @@ var (
 
 // NewParams creates a new Params instance
 func NewParams(
+	airHistoryLength uint64,
 	blocksPerHour uint64,
 	burnRate sdk.Dec,
 	priceSetName sdk.Coins,
@@ -52,21 +56,23 @@ func NewParams(
 	honeyDenom string,
 ) Params {
 	return Params{
-		BlocksPerHour:   blocksPerHour,
-		BurnRate:        burnRate,
-		PriceSetName:    priceSetName,
-		PriceTile:       priceTile,
-		TreeTypes:       treeTypes,
-		DecorationTypes: decorationTypes,
-		ApiaryTypes:     apiaryTypes,
-		BeeTypes:        beeTypes,
-		HoneyDenom:      honeyDenom,
+		AirHistoryLength: airHistoryLength,
+		BlocksPerHour:    blocksPerHour,
+		BurnRate:         burnRate,
+		PriceSetName:     priceSetName,
+		PriceTile:        priceTile,
+		TreeTypes:        treeTypes,
+		DecorationTypes:  decorationTypes,
+		ApiaryTypes:      apiaryTypes,
+		BeeTypes:         beeTypes,
+		HoneyDenom:       honeyDenom,
 	}
 }
 
 // ParamSetPairs get the params.ParamSet
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
+		paramtypes.NewParamSetPair(KeyAirHistoryLength, &p.AirHistoryLength, validateAirHistoryLength),
 		paramtypes.NewParamSetPair(KeyBlocksPerHour, &p.BlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validateCoins),
@@ -81,6 +87,10 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 
 // Validate validates the set of params
 func (p Params) Validate() error {
+	if err := validateAirHistoryLength(p.AirHistoryLength); err != nil {
+		return err
+	}
+
 	if err := validateBlocksPerHour(p.BlocksPerHour); err != nil {
 		return err
 	}
@@ -123,6 +133,7 @@ func (p Params) Validate() error {
 // ParamKeyTable the param key table for launch module
 func ParamKeyTable() paramtypes.KeyTable {
 	return paramtypes.NewKeyTable(
+		paramtypes.NewParamSetPair(KeyAirHistoryLength, DefaultAirHistoryLength, validateAirHistoryLength),
 		paramtypes.NewParamSetPair(KeyBlocksPerHour, DefaultBlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coins{}, validateCoins),
@@ -138,6 +149,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
 	return NewParams(
+		DefaultAirHistoryLength,
 		DefaultBlocksPerHour,
 		DefaultBurnRate,
 		DefaultPriceSetName,
@@ -156,6 +168,19 @@ func (p Params) String() string {
 	return string(out)
 }
 
+func validateAirHistoryLength(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v <= 0 {
+		return fmt.Errorf("invalid AirHistoryLength: %d", v)
+	}
+
+	return nil
+}
+
 func validateBlocksPerHour(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
@@ -163,7 +188,7 @@ func validateBlocksPerHour(i interface{}) error {
 	}
 
 	if v <= 0 {
-		return fmt.Errorf("invalid BlocksPerHour: %s", v)
+		return fmt.Errorf("invalid BlocksPerHour: %d", v)
 	}
 
 	return nil
