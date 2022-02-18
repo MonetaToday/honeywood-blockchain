@@ -45,7 +45,7 @@ genesis:
             purity: "1"
       params:
         honey_denom: "honey"
-        air_history_length: "7776000"
+        air_history_length: "518400" // More than a month
         blocks_per_hour: "3600"
         burn_rate: "0.5"
         price_set_name: 
