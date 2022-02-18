@@ -4,6 +4,8 @@ import * as Long from "long";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -129,6 +131,65 @@ export interface MsgCreateApiary {
 export interface MsgCreateApiaryResponse {
   apiary: Apiaries | undefined;
 }
+
+export interface MsgInitGameAndCreateBee {
+  creator: string;
+  beeType: string;
+  beeName: string;
+}
+
+export interface MsgInitGameAndCreateBeeResponse {
+  bee: Bees | undefined;
+}
+
+export interface MsgCreateBee {
+  creator: string;
+  bearId: number;
+  beeType: string;
+  beeName: string;
+}
+
+export interface MsgCreateBeeResponse {
+  bee: Bees | undefined;
+}
+
+export interface MsgSetApiaryHouseForBee {
+  creator: string;
+  beeId: number;
+  apiaryId: number;
+}
+
+export interface MsgSetApiaryHouseForBeeResponse {}
+
+export interface MsgUnsetApiaryHouseForBee {
+  creator: string;
+  beeId: number;
+}
+
+export interface MsgUnsetApiaryHouseForBeeResponse {}
+
+export interface MsgCollectHoneyFromApiary {
+  creator: string;
+  apiaryId: number;
+}
+
+export interface MsgCollectHoneyFromApiaryResponse {
+  countHoney: Coin | undefined;
+}
+
+export interface MsgClearApiaryFromBees {
+  creator: string;
+  apiaryId: number;
+}
+
+export interface MsgClearApiaryFromBeesResponse {}
+
+export interface MsgDeleteApiary {
+  creator: string;
+  apiaryId: number;
+}
+
+export interface MsgDeleteApiaryResponse {}
 
 const baseMsgInitGameAndSetName: object = { creator: "", name: "" };
 
@@ -2263,6 +2324,1049 @@ export const MsgCreateApiaryResponse = {
   },
 };
 
+const baseMsgInitGameAndCreateBee: object = {
+  creator: "",
+  beeType: "",
+  beeName: "",
+};
+
+export const MsgInitGameAndCreateBee = {
+  encode(
+    message: MsgInitGameAndCreateBee,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.beeType !== "") {
+      writer.uint32(18).string(message.beeType);
+    }
+    if (message.beeName !== "") {
+      writer.uint32(26).string(message.beeName);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateBee {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateBee,
+    } as MsgInitGameAndCreateBee;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.beeType = reader.string();
+          break;
+        case 3:
+          message.beeName = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateBee {
+    const message = {
+      ...baseMsgInitGameAndCreateBee,
+    } as MsgInitGameAndCreateBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = String(object.beeType);
+    } else {
+      message.beeType = "";
+    }
+    if (object.beeName !== undefined && object.beeName !== null) {
+      message.beeName = String(object.beeName);
+    } else {
+      message.beeName = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateBee): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.beeType !== undefined && (obj.beeType = message.beeType);
+    message.beeName !== undefined && (obj.beeName = message.beeName);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateBee>
+  ): MsgInitGameAndCreateBee {
+    const message = {
+      ...baseMsgInitGameAndCreateBee,
+    } as MsgInitGameAndCreateBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = object.beeType;
+    } else {
+      message.beeType = "";
+    }
+    if (object.beeName !== undefined && object.beeName !== null) {
+      message.beeName = object.beeName;
+    } else {
+      message.beeName = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgInitGameAndCreateBeeResponse: object = {};
+
+export const MsgInitGameAndCreateBeeResponse = {
+  encode(
+    message: MsgInitGameAndCreateBeeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.bee !== undefined) {
+      Bees.encode(message.bee, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgInitGameAndCreateBeeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgInitGameAndCreateBeeResponse,
+    } as MsgInitGameAndCreateBeeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bee = Bees.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgInitGameAndCreateBeeResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateBeeResponse,
+    } as MsgInitGameAndCreateBeeResponse;
+    if (object.bee !== undefined && object.bee !== null) {
+      message.bee = Bees.fromJSON(object.bee);
+    } else {
+      message.bee = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgInitGameAndCreateBeeResponse): unknown {
+    const obj: any = {};
+    message.bee !== undefined &&
+      (obj.bee = message.bee ? Bees.toJSON(message.bee) : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgInitGameAndCreateBeeResponse>
+  ): MsgInitGameAndCreateBeeResponse {
+    const message = {
+      ...baseMsgInitGameAndCreateBeeResponse,
+    } as MsgInitGameAndCreateBeeResponse;
+    if (object.bee !== undefined && object.bee !== null) {
+      message.bee = Bees.fromPartial(object.bee);
+    } else {
+      message.bee = undefined;
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateBee: object = {
+  creator: "",
+  bearId: 0,
+  beeType: "",
+  beeName: "",
+};
+
+export const MsgCreateBee = {
+  encode(message: MsgCreateBee, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.bearId !== 0) {
+      writer.uint32(16).uint64(message.bearId);
+    }
+    if (message.beeType !== "") {
+      writer.uint32(26).string(message.beeType);
+    }
+    if (message.beeName !== "") {
+      writer.uint32(34).string(message.beeName);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateBee {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateBee } as MsgCreateBee;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.bearId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.beeType = reader.string();
+          break;
+        case 4:
+          message.beeName = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateBee {
+    const message = { ...baseMsgCreateBee } as MsgCreateBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = Number(object.bearId);
+    } else {
+      message.bearId = 0;
+    }
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = String(object.beeType);
+    } else {
+      message.beeType = "";
+    }
+    if (object.beeName !== undefined && object.beeName !== null) {
+      message.beeName = String(object.beeName);
+    } else {
+      message.beeName = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateBee): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.bearId !== undefined && (obj.bearId = message.bearId);
+    message.beeType !== undefined && (obj.beeType = message.beeType);
+    message.beeName !== undefined && (obj.beeName = message.beeName);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateBee>): MsgCreateBee {
+    const message = { ...baseMsgCreateBee } as MsgCreateBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = object.bearId;
+    } else {
+      message.bearId = 0;
+    }
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = object.beeType;
+    } else {
+      message.beeType = "";
+    }
+    if (object.beeName !== undefined && object.beeName !== null) {
+      message.beeName = object.beeName;
+    } else {
+      message.beeName = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateBeeResponse: object = {};
+
+export const MsgCreateBeeResponse = {
+  encode(
+    message: MsgCreateBeeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.bee !== undefined) {
+      Bees.encode(message.bee, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateBeeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateBeeResponse } as MsgCreateBeeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bee = Bees.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateBeeResponse {
+    const message = { ...baseMsgCreateBeeResponse } as MsgCreateBeeResponse;
+    if (object.bee !== undefined && object.bee !== null) {
+      message.bee = Bees.fromJSON(object.bee);
+    } else {
+      message.bee = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateBeeResponse): unknown {
+    const obj: any = {};
+    message.bee !== undefined &&
+      (obj.bee = message.bee ? Bees.toJSON(message.bee) : undefined);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateBeeResponse>): MsgCreateBeeResponse {
+    const message = { ...baseMsgCreateBeeResponse } as MsgCreateBeeResponse;
+    if (object.bee !== undefined && object.bee !== null) {
+      message.bee = Bees.fromPartial(object.bee);
+    } else {
+      message.bee = undefined;
+    }
+    return message;
+  },
+};
+
+const baseMsgSetApiaryHouseForBee: object = {
+  creator: "",
+  beeId: 0,
+  apiaryId: 0,
+};
+
+export const MsgSetApiaryHouseForBee = {
+  encode(
+    message: MsgSetApiaryHouseForBee,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.beeId !== 0) {
+      writer.uint32(16).uint64(message.beeId);
+    }
+    if (message.apiaryId !== 0) {
+      writer.uint32(24).uint64(message.apiaryId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgSetApiaryHouseForBee {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSetApiaryHouseForBee,
+    } as MsgSetApiaryHouseForBee;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.beeId = longToNumber(reader.uint64() as Long);
+          break;
+        case 3:
+          message.apiaryId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgSetApiaryHouseForBee {
+    const message = {
+      ...baseMsgSetApiaryHouseForBee,
+    } as MsgSetApiaryHouseForBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.beeId !== undefined && object.beeId !== null) {
+      message.beeId = Number(object.beeId);
+    } else {
+      message.beeId = 0;
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = Number(object.apiaryId);
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgSetApiaryHouseForBee): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.beeId !== undefined && (obj.beeId = message.beeId);
+    message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgSetApiaryHouseForBee>
+  ): MsgSetApiaryHouseForBee {
+    const message = {
+      ...baseMsgSetApiaryHouseForBee,
+    } as MsgSetApiaryHouseForBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.beeId !== undefined && object.beeId !== null) {
+      message.beeId = object.beeId;
+    } else {
+      message.beeId = 0;
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = object.apiaryId;
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgSetApiaryHouseForBeeResponse: object = {};
+
+export const MsgSetApiaryHouseForBeeResponse = {
+  encode(
+    _: MsgSetApiaryHouseForBeeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgSetApiaryHouseForBeeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgSetApiaryHouseForBeeResponse,
+    } as MsgSetApiaryHouseForBeeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgSetApiaryHouseForBeeResponse {
+    const message = {
+      ...baseMsgSetApiaryHouseForBeeResponse,
+    } as MsgSetApiaryHouseForBeeResponse;
+    return message;
+  },
+
+  toJSON(_: MsgSetApiaryHouseForBeeResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgSetApiaryHouseForBeeResponse>
+  ): MsgSetApiaryHouseForBeeResponse {
+    const message = {
+      ...baseMsgSetApiaryHouseForBeeResponse,
+    } as MsgSetApiaryHouseForBeeResponse;
+    return message;
+  },
+};
+
+const baseMsgUnsetApiaryHouseForBee: object = { creator: "", beeId: 0 };
+
+export const MsgUnsetApiaryHouseForBee = {
+  encode(
+    message: MsgUnsetApiaryHouseForBee,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.beeId !== 0) {
+      writer.uint32(16).uint64(message.beeId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUnsetApiaryHouseForBee {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBee,
+    } as MsgUnsetApiaryHouseForBee;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.beeId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUnsetApiaryHouseForBee {
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBee,
+    } as MsgUnsetApiaryHouseForBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.beeId !== undefined && object.beeId !== null) {
+      message.beeId = Number(object.beeId);
+    } else {
+      message.beeId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUnsetApiaryHouseForBee): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.beeId !== undefined && (obj.beeId = message.beeId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgUnsetApiaryHouseForBee>
+  ): MsgUnsetApiaryHouseForBee {
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBee,
+    } as MsgUnsetApiaryHouseForBee;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.beeId !== undefined && object.beeId !== null) {
+      message.beeId = object.beeId;
+    } else {
+      message.beeId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgUnsetApiaryHouseForBeeResponse: object = {};
+
+export const MsgUnsetApiaryHouseForBeeResponse = {
+  encode(
+    _: MsgUnsetApiaryHouseForBeeResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUnsetApiaryHouseForBeeResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBeeResponse,
+    } as MsgUnsetApiaryHouseForBeeResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUnsetApiaryHouseForBeeResponse {
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBeeResponse,
+    } as MsgUnsetApiaryHouseForBeeResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUnsetApiaryHouseForBeeResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUnsetApiaryHouseForBeeResponse>
+  ): MsgUnsetApiaryHouseForBeeResponse {
+    const message = {
+      ...baseMsgUnsetApiaryHouseForBeeResponse,
+    } as MsgUnsetApiaryHouseForBeeResponse;
+    return message;
+  },
+};
+
+const baseMsgCollectHoneyFromApiary: object = { creator: "", apiaryId: 0 };
+
+export const MsgCollectHoneyFromApiary = {
+  encode(
+    message: MsgCollectHoneyFromApiary,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.apiaryId !== 0) {
+      writer.uint32(16).uint64(message.apiaryId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCollectHoneyFromApiary {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCollectHoneyFromApiary,
+    } as MsgCollectHoneyFromApiary;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.apiaryId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCollectHoneyFromApiary {
+    const message = {
+      ...baseMsgCollectHoneyFromApiary,
+    } as MsgCollectHoneyFromApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = Number(object.apiaryId);
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCollectHoneyFromApiary): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCollectHoneyFromApiary>
+  ): MsgCollectHoneyFromApiary {
+    const message = {
+      ...baseMsgCollectHoneyFromApiary,
+    } as MsgCollectHoneyFromApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = object.apiaryId;
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgCollectHoneyFromApiaryResponse: object = {};
+
+export const MsgCollectHoneyFromApiaryResponse = {
+  encode(
+    message: MsgCollectHoneyFromApiaryResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.countHoney !== undefined) {
+      Coin.encode(message.countHoney, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCollectHoneyFromApiaryResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCollectHoneyFromApiaryResponse,
+    } as MsgCollectHoneyFromApiaryResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.countHoney = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCollectHoneyFromApiaryResponse {
+    const message = {
+      ...baseMsgCollectHoneyFromApiaryResponse,
+    } as MsgCollectHoneyFromApiaryResponse;
+    if (object.countHoney !== undefined && object.countHoney !== null) {
+      message.countHoney = Coin.fromJSON(object.countHoney);
+    } else {
+      message.countHoney = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCollectHoneyFromApiaryResponse): unknown {
+    const obj: any = {};
+    message.countHoney !== undefined &&
+      (obj.countHoney = message.countHoney
+        ? Coin.toJSON(message.countHoney)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCollectHoneyFromApiaryResponse>
+  ): MsgCollectHoneyFromApiaryResponse {
+    const message = {
+      ...baseMsgCollectHoneyFromApiaryResponse,
+    } as MsgCollectHoneyFromApiaryResponse;
+    if (object.countHoney !== undefined && object.countHoney !== null) {
+      message.countHoney = Coin.fromPartial(object.countHoney);
+    } else {
+      message.countHoney = undefined;
+    }
+    return message;
+  },
+};
+
+const baseMsgClearApiaryFromBees: object = { creator: "", apiaryId: 0 };
+
+export const MsgClearApiaryFromBees = {
+  encode(
+    message: MsgClearApiaryFromBees,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.apiaryId !== 0) {
+      writer.uint32(16).uint64(message.apiaryId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgClearApiaryFromBees {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgClearApiaryFromBees } as MsgClearApiaryFromBees;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.apiaryId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgClearApiaryFromBees {
+    const message = { ...baseMsgClearApiaryFromBees } as MsgClearApiaryFromBees;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = Number(object.apiaryId);
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgClearApiaryFromBees): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgClearApiaryFromBees>
+  ): MsgClearApiaryFromBees {
+    const message = { ...baseMsgClearApiaryFromBees } as MsgClearApiaryFromBees;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = object.apiaryId;
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgClearApiaryFromBeesResponse: object = {};
+
+export const MsgClearApiaryFromBeesResponse = {
+  encode(
+    _: MsgClearApiaryFromBeesResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgClearApiaryFromBeesResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgClearApiaryFromBeesResponse,
+    } as MsgClearApiaryFromBeesResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgClearApiaryFromBeesResponse {
+    const message = {
+      ...baseMsgClearApiaryFromBeesResponse,
+    } as MsgClearApiaryFromBeesResponse;
+    return message;
+  },
+
+  toJSON(_: MsgClearApiaryFromBeesResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgClearApiaryFromBeesResponse>
+  ): MsgClearApiaryFromBeesResponse {
+    const message = {
+      ...baseMsgClearApiaryFromBeesResponse,
+    } as MsgClearApiaryFromBeesResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteApiary: object = { creator: "", apiaryId: 0 };
+
+export const MsgDeleteApiary = {
+  encode(message: MsgDeleteApiary, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.apiaryId !== 0) {
+      writer.uint32(16).uint64(message.apiaryId);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteApiary {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteApiary } as MsgDeleteApiary;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.apiaryId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteApiary {
+    const message = { ...baseMsgDeleteApiary } as MsgDeleteApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = Number(object.apiaryId);
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteApiary): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteApiary>): MsgDeleteApiary {
+    const message = { ...baseMsgDeleteApiary } as MsgDeleteApiary;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = object.apiaryId;
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteApiaryResponse: object = {};
+
+export const MsgDeleteApiaryResponse = {
+  encode(_: MsgDeleteApiaryResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteApiaryResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteApiaryResponse,
+    } as MsgDeleteApiaryResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteApiaryResponse {
+    const message = {
+      ...baseMsgDeleteApiaryResponse,
+    } as MsgDeleteApiaryResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteApiaryResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteApiaryResponse>
+  ): MsgDeleteApiaryResponse {
+    const message = {
+      ...baseMsgDeleteApiaryResponse,
+    } as MsgDeleteApiaryResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   InitGameAndSetName(
@@ -2295,8 +3399,25 @@ export interface Msg {
   InitGameAndCreateApiary(
     request: MsgInitGameAndCreateApiary
   ): Promise<MsgInitGameAndCreateApiaryResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateApiary(request: MsgCreateApiary): Promise<MsgCreateApiaryResponse>;
+  InitGameAndCreateBee(
+    request: MsgInitGameAndCreateBee
+  ): Promise<MsgInitGameAndCreateBeeResponse>;
+  CreateBee(request: MsgCreateBee): Promise<MsgCreateBeeResponse>;
+  SetApiaryHouseForBee(
+    request: MsgSetApiaryHouseForBee
+  ): Promise<MsgSetApiaryHouseForBeeResponse>;
+  UnsetApiaryHouseForBee(
+    request: MsgUnsetApiaryHouseForBee
+  ): Promise<MsgUnsetApiaryHouseForBeeResponse>;
+  CollectHoneyFromApiary(
+    request: MsgCollectHoneyFromApiary
+  ): Promise<MsgCollectHoneyFromApiaryResponse>;
+  ClearApiaryFromBees(
+    request: MsgClearApiaryFromBees
+  ): Promise<MsgClearApiaryFromBeesResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteApiary(request: MsgDeleteApiary): Promise<MsgDeleteApiaryResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -2473,6 +3594,100 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateApiaryResponse.decode(new Reader(data))
+    );
+  }
+
+  InitGameAndCreateBee(
+    request: MsgInitGameAndCreateBee
+  ): Promise<MsgInitGameAndCreateBeeResponse> {
+    const data = MsgInitGameAndCreateBee.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "InitGameAndCreateBee",
+      data
+    );
+    return promise.then((data) =>
+      MsgInitGameAndCreateBeeResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateBee(request: MsgCreateBee): Promise<MsgCreateBeeResponse> {
+    const data = MsgCreateBee.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "CreateBee",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateBeeResponse.decode(new Reader(data))
+    );
+  }
+
+  SetApiaryHouseForBee(
+    request: MsgSetApiaryHouseForBee
+  ): Promise<MsgSetApiaryHouseForBeeResponse> {
+    const data = MsgSetApiaryHouseForBee.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "SetApiaryHouseForBee",
+      data
+    );
+    return promise.then((data) =>
+      MsgSetApiaryHouseForBeeResponse.decode(new Reader(data))
+    );
+  }
+
+  UnsetApiaryHouseForBee(
+    request: MsgUnsetApiaryHouseForBee
+  ): Promise<MsgUnsetApiaryHouseForBeeResponse> {
+    const data = MsgUnsetApiaryHouseForBee.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "UnsetApiaryHouseForBee",
+      data
+    );
+    return promise.then((data) =>
+      MsgUnsetApiaryHouseForBeeResponse.decode(new Reader(data))
+    );
+  }
+
+  CollectHoneyFromApiary(
+    request: MsgCollectHoneyFromApiary
+  ): Promise<MsgCollectHoneyFromApiaryResponse> {
+    const data = MsgCollectHoneyFromApiary.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "CollectHoneyFromApiary",
+      data
+    );
+    return promise.then((data) =>
+      MsgCollectHoneyFromApiaryResponse.decode(new Reader(data))
+    );
+  }
+
+  ClearApiaryFromBees(
+    request: MsgClearApiaryFromBees
+  ): Promise<MsgClearApiaryFromBeesResponse> {
+    const data = MsgClearApiaryFromBees.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "ClearApiaryFromBees",
+      data
+    );
+    return promise.then((data) =>
+      MsgClearApiaryFromBeesResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteApiary(request: MsgDeleteApiary): Promise<MsgDeleteApiaryResponse> {
+    const data = MsgDeleteApiary.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Msg",
+      "DeleteApiary",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteApiaryResponse.decode(new Reader(data))
     );
   }
 }

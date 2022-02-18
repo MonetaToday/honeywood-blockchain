@@ -1,19 +1,22 @@
+import { Writer, Reader } from "protobufjs/minimal";
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { TreeParams } from "../bears/trees";
 import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
 import { BeeParams } from "../bears/bees";
-import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** Params defines the parameters for the module. */
 export interface Params {
+    blocksPerHour: number;
+    airHistoryLength: number;
     burnRate: string;
     priceSetName: Coin[];
     priceTile: Coin[];
-    priceTree: Coin[];
-    rewardTree: Coin[];
+    treeTypes: TreeParams[];
     decorationTypes: DecorationParams[];
     apiaryTypes: ApiaryParams[];
     beeTypes: BeeParams[];
+    honeyDenom: string;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

@@ -5,15 +5,17 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface BeeParams {
     beeType: string;
     price: Coin[];
-    honeyPerBlock: string;
+    honeyPerHour: string;
     bodySize: number;
-    airSense: string;
+    airDependency: string;
+    airConsume: string;
 }
 export interface ApiaryHouse {
     id: number;
 }
 export interface Bees {
     id: number;
+    name: string;
     bearOwner: BearOwner | undefined;
     apiaryHouse: ApiaryHouse | undefined;
     params: BeeParams | undefined;

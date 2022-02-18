@@ -10,6 +10,7 @@ import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
+import { AirInfo } from "../bears/air_info";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -29,8 +30,9 @@ export interface GenesisState {
   apiariesList: Apiaries[];
   apiariesCount: number;
   beesList: Bees[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   beesCount: number;
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  airInfo: AirInfo | undefined;
 }
 
 const baseGenesisState: object = {
@@ -88,6 +90,9 @@ export const GenesisState = {
     }
     if (message.beesCount !== 0) {
       writer.uint32(120).uint64(message.beesCount);
+    }
+    if (message.airInfo !== undefined) {
+      AirInfo.encode(message.airInfo, writer.uint32(130).fork()).ldelim();
     }
     return writer;
   },
@@ -155,6 +160,9 @@ export const GenesisState = {
           break;
         case 15:
           message.beesCount = longToNumber(reader.uint64() as Long);
+          break;
+        case 16:
+          message.airInfo = AirInfo.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -258,6 +266,11 @@ export const GenesisState = {
     } else {
       message.beesCount = 0;
     }
+    if (object.airInfo !== undefined && object.airInfo !== null) {
+      message.airInfo = AirInfo.fromJSON(object.airInfo);
+    } else {
+      message.airInfo = undefined;
+    }
     return message;
   },
 
@@ -330,6 +343,10 @@ export const GenesisState = {
       obj.beesList = [];
     }
     message.beesCount !== undefined && (obj.beesCount = message.beesCount);
+    message.airInfo !== undefined &&
+      (obj.airInfo = message.airInfo
+        ? AirInfo.toJSON(message.airInfo)
+        : undefined);
     return obj;
   },
 
@@ -426,6 +443,11 @@ export const GenesisState = {
       message.beesCount = object.beesCount;
     } else {
       message.beesCount = 0;
+    }
+    if (object.airInfo !== undefined && object.airInfo !== null) {
+      message.airInfo = AirInfo.fromPartial(object.airInfo);
+    } else {
+      message.airInfo = undefined;
     }
     return message;
   },

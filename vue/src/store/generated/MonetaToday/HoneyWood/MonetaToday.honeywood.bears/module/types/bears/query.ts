@@ -14,6 +14,7 @@ import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
+import { AirInfo } from "../bears/air_info";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -160,6 +161,20 @@ export interface QueryAllBeesRequest {
 export interface QueryAllBeesResponse {
   Bees: Bees[];
   pagination: PageResponse | undefined;
+}
+
+export interface QueryCalculateHoneyInApiaryRequest {
+  apiaryId: number;
+}
+
+export interface QueryCalculateHoneyInApiaryResponse {
+  countHoney: string;
+}
+
+export interface QueryGetAirInfoRequest {}
+
+export interface QueryGetAirInfoResponse {
+  AirInfo: AirInfo | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -2599,6 +2614,251 @@ export const QueryAllBeesResponse = {
   },
 };
 
+const baseQueryCalculateHoneyInApiaryRequest: object = { apiaryId: 0 };
+
+export const QueryCalculateHoneyInApiaryRequest = {
+  encode(
+    message: QueryCalculateHoneyInApiaryRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.apiaryId !== 0) {
+      writer.uint32(8).uint64(message.apiaryId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryCalculateHoneyInApiaryRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryRequest,
+    } as QueryCalculateHoneyInApiaryRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.apiaryId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCalculateHoneyInApiaryRequest {
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryRequest,
+    } as QueryCalculateHoneyInApiaryRequest;
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = Number(object.apiaryId);
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryCalculateHoneyInApiaryRequest): unknown {
+    const obj: any = {};
+    message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryCalculateHoneyInApiaryRequest>
+  ): QueryCalculateHoneyInApiaryRequest {
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryRequest,
+    } as QueryCalculateHoneyInApiaryRequest;
+    if (object.apiaryId !== undefined && object.apiaryId !== null) {
+      message.apiaryId = object.apiaryId;
+    } else {
+      message.apiaryId = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryCalculateHoneyInApiaryResponse: object = { countHoney: "" };
+
+export const QueryCalculateHoneyInApiaryResponse = {
+  encode(
+    message: QueryCalculateHoneyInApiaryResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.countHoney !== "") {
+      writer.uint32(42).string(message.countHoney);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryCalculateHoneyInApiaryResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryResponse,
+    } as QueryCalculateHoneyInApiaryResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 5:
+          message.countHoney = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCalculateHoneyInApiaryResponse {
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryResponse,
+    } as QueryCalculateHoneyInApiaryResponse;
+    if (object.countHoney !== undefined && object.countHoney !== null) {
+      message.countHoney = String(object.countHoney);
+    } else {
+      message.countHoney = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryCalculateHoneyInApiaryResponse): unknown {
+    const obj: any = {};
+    message.countHoney !== undefined && (obj.countHoney = message.countHoney);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryCalculateHoneyInApiaryResponse>
+  ): QueryCalculateHoneyInApiaryResponse {
+    const message = {
+      ...baseQueryCalculateHoneyInApiaryResponse,
+    } as QueryCalculateHoneyInApiaryResponse;
+    if (object.countHoney !== undefined && object.countHoney !== null) {
+      message.countHoney = object.countHoney;
+    } else {
+      message.countHoney = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetAirInfoRequest: object = {};
+
+export const QueryGetAirInfoRequest = {
+  encode(_: QueryGetAirInfoRequest, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAirInfoRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetAirInfoRequest } as QueryGetAirInfoRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryGetAirInfoRequest {
+    const message = { ...baseQueryGetAirInfoRequest } as QueryGetAirInfoRequest;
+    return message;
+  },
+
+  toJSON(_: QueryGetAirInfoRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<QueryGetAirInfoRequest>): QueryGetAirInfoRequest {
+    const message = { ...baseQueryGetAirInfoRequest } as QueryGetAirInfoRequest;
+    return message;
+  },
+};
+
+const baseQueryGetAirInfoResponse: object = {};
+
+export const QueryGetAirInfoResponse = {
+  encode(
+    message: QueryGetAirInfoResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.AirInfo !== undefined) {
+      AirInfo.encode(message.AirInfo, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAirInfoResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetAirInfoResponse,
+    } as QueryGetAirInfoResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.AirInfo = AirInfo.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetAirInfoResponse {
+    const message = {
+      ...baseQueryGetAirInfoResponse,
+    } as QueryGetAirInfoResponse;
+    if (object.AirInfo !== undefined && object.AirInfo !== null) {
+      message.AirInfo = AirInfo.fromJSON(object.AirInfo);
+    } else {
+      message.AirInfo = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetAirInfoResponse): unknown {
+    const obj: any = {};
+    message.AirInfo !== undefined &&
+      (obj.AirInfo = message.AirInfo
+        ? AirInfo.toJSON(message.AirInfo)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetAirInfoResponse>
+  ): QueryGetAirInfoResponse {
+    const message = {
+      ...baseQueryGetAirInfoResponse,
+    } as QueryGetAirInfoResponse;
+    if (object.AirInfo !== undefined && object.AirInfo !== null) {
+      message.AirInfo = AirInfo.fromPartial(object.AirInfo);
+    } else {
+      message.AirInfo = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2649,6 +2909,12 @@ export interface Query {
   Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
   /** Queries a list of Bees items. */
   BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
+  /** Queries a list of CalculateHoneyInApiary items. */
+  CalculateHoneyInApiary(
+    request: QueryCalculateHoneyInApiaryRequest
+  ): Promise<QueryCalculateHoneyInApiaryResponse>;
+  /** Queries a AirInfo by index. */
+  AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2871,6 +3137,32 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllBeesResponse.decode(new Reader(data))
+    );
+  }
+
+  CalculateHoneyInApiary(
+    request: QueryCalculateHoneyInApiaryRequest
+  ): Promise<QueryCalculateHoneyInApiaryResponse> {
+    const data = QueryCalculateHoneyInApiaryRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "CalculateHoneyInApiary",
+      data
+    );
+    return promise.then((data) =>
+      QueryCalculateHoneyInApiaryResponse.decode(new Reader(data))
+    );
+  }
+
+  AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse> {
+    const data = QueryGetAirInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "AirInfo",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetAirInfoResponse.decode(new Reader(data))
     );
   }
 }

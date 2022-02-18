@@ -6,9 +6,10 @@ import { BearOwner } from "../bears/bears";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseBeeParams = {
     beeType: "",
-    honeyPerBlock: "",
+    honeyPerHour: "",
     bodySize: 0,
-    airSense: "",
+    airDependency: "",
+    airConsume: "",
 };
 export const BeeParams = {
     encode(message, writer = Writer.create()) {
@@ -18,14 +19,17 @@ export const BeeParams = {
         for (const v of message.price) {
             Coin.encode(v, writer.uint32(18).fork()).ldelim();
         }
-        if (message.honeyPerBlock !== "") {
-            writer.uint32(26).string(message.honeyPerBlock);
+        if (message.honeyPerHour !== "") {
+            writer.uint32(26).string(message.honeyPerHour);
         }
         if (message.bodySize !== 0) {
             writer.uint32(32).uint64(message.bodySize);
         }
-        if (message.airSense !== "") {
-            writer.uint32(42).string(message.airSense);
+        if (message.airDependency !== "") {
+            writer.uint32(42).string(message.airDependency);
+        }
+        if (message.airConsume !== "") {
+            writer.uint32(50).string(message.airConsume);
         }
         return writer;
     },
@@ -44,13 +48,16 @@ export const BeeParams = {
                     message.price.push(Coin.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.honeyPerBlock = reader.string();
+                    message.honeyPerHour = reader.string();
                     break;
                 case 4:
                     message.bodySize = longToNumber(reader.uint64());
                     break;
                 case 5:
-                    message.airSense = reader.string();
+                    message.airDependency = reader.string();
+                    break;
+                case 6:
+                    message.airConsume = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -73,11 +80,11 @@ export const BeeParams = {
                 message.price.push(Coin.fromJSON(e));
             }
         }
-        if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
-            message.honeyPerBlock = String(object.honeyPerBlock);
+        if (object.honeyPerHour !== undefined && object.honeyPerHour !== null) {
+            message.honeyPerHour = String(object.honeyPerHour);
         }
         else {
-            message.honeyPerBlock = "";
+            message.honeyPerHour = "";
         }
         if (object.bodySize !== undefined && object.bodySize !== null) {
             message.bodySize = Number(object.bodySize);
@@ -85,11 +92,17 @@ export const BeeParams = {
         else {
             message.bodySize = 0;
         }
-        if (object.airSense !== undefined && object.airSense !== null) {
-            message.airSense = String(object.airSense);
+        if (object.airDependency !== undefined && object.airDependency !== null) {
+            message.airDependency = String(object.airDependency);
         }
         else {
-            message.airSense = "";
+            message.airDependency = "";
+        }
+        if (object.airConsume !== undefined && object.airConsume !== null) {
+            message.airConsume = String(object.airConsume);
+        }
+        else {
+            message.airConsume = "";
         }
         return message;
     },
@@ -102,11 +115,12 @@ export const BeeParams = {
         else {
             obj.price = [];
         }
-        message.honeyPerBlock !== undefined &&
-            (obj.honeyPerBlock = message.honeyPerBlock);
+        message.honeyPerHour !== undefined &&
+            (obj.honeyPerHour = message.honeyPerHour);
         message.bodySize !== undefined && (obj.bodySize = message.bodySize);
-        message.airSense !== undefined &&
-            (obj.airSense = message.airSense);
+        message.airDependency !== undefined &&
+            (obj.airDependency = message.airDependency);
+        message.airConsume !== undefined && (obj.airConsume = message.airConsume);
         return obj;
     },
     fromPartial(object) {
@@ -123,11 +137,11 @@ export const BeeParams = {
                 message.price.push(Coin.fromPartial(e));
             }
         }
-        if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
-            message.honeyPerBlock = object.honeyPerBlock;
+        if (object.honeyPerHour !== undefined && object.honeyPerHour !== null) {
+            message.honeyPerHour = object.honeyPerHour;
         }
         else {
-            message.honeyPerBlock = "";
+            message.honeyPerHour = "";
         }
         if (object.bodySize !== undefined && object.bodySize !== null) {
             message.bodySize = object.bodySize;
@@ -135,11 +149,17 @@ export const BeeParams = {
         else {
             message.bodySize = 0;
         }
-        if (object.airSense !== undefined && object.airSense !== null) {
-            message.airSense = object.airSense;
+        if (object.airDependency !== undefined && object.airDependency !== null) {
+            message.airDependency = object.airDependency;
         }
         else {
-            message.airSense = "";
+            message.airDependency = "";
+        }
+        if (object.airConsume !== undefined && object.airConsume !== null) {
+            message.airConsume = object.airConsume;
+        }
+        else {
+            message.airConsume = "";
         }
         return message;
     },
@@ -195,20 +215,23 @@ export const ApiaryHouse = {
         return message;
     },
 };
-const baseBees = { id: 0 };
+const baseBees = { id: 0, name: "" };
 export const Bees = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
         }
+        if (message.name !== "") {
+            writer.uint32(18).string(message.name);
+        }
         if (message.bearOwner !== undefined) {
-            BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
+            BearOwner.encode(message.bearOwner, writer.uint32(26).fork()).ldelim();
         }
         if (message.apiaryHouse !== undefined) {
-            ApiaryHouse.encode(message.apiaryHouse, writer.uint32(26).fork()).ldelim();
+            ApiaryHouse.encode(message.apiaryHouse, writer.uint32(34).fork()).ldelim();
         }
         if (message.params !== undefined) {
-            BeeParams.encode(message.params, writer.uint32(34).fork()).ldelim();
+            BeeParams.encode(message.params, writer.uint32(42).fork()).ldelim();
         }
         return writer;
     },
@@ -223,12 +246,15 @@ export const Bees = {
                     message.id = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.bearOwner = BearOwner.decode(reader, reader.uint32());
+                    message.name = reader.string();
                     break;
                 case 3:
-                    message.apiaryHouse = ApiaryHouse.decode(reader, reader.uint32());
+                    message.bearOwner = BearOwner.decode(reader, reader.uint32());
                     break;
                 case 4:
+                    message.apiaryHouse = ApiaryHouse.decode(reader, reader.uint32());
+                    break;
+                case 5:
                     message.params = BeeParams.decode(reader, reader.uint32());
                     break;
                 default:
@@ -245,6 +271,12 @@ export const Bees = {
         }
         else {
             message.id = 0;
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = String(object.name);
+        }
+        else {
+            message.name = "";
         }
         if (object.bearOwner !== undefined && object.bearOwner !== null) {
             message.bearOwner = BearOwner.fromJSON(object.bearOwner);
@@ -269,6 +301,7 @@ export const Bees = {
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
+        message.name !== undefined && (obj.name = message.name);
         message.bearOwner !== undefined &&
             (obj.bearOwner = message.bearOwner
                 ? BearOwner.toJSON(message.bearOwner)
@@ -290,6 +323,12 @@ export const Bees = {
         }
         else {
             message.id = 0;
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = object.name;
+        }
+        else {
+            message.name = "";
         }
         if (object.bearOwner !== undefined && object.bearOwner !== null) {
             message.bearOwner = BearOwner.fromPartial(object.bearOwner);

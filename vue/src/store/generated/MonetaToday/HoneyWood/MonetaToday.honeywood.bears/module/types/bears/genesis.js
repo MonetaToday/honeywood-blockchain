@@ -10,6 +10,7 @@ import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
+import { AirInfo } from "../bears/air_info";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseGenesisState = {
     bearsCount: 0,
@@ -65,6 +66,9 @@ export const GenesisState = {
         }
         if (message.beesCount !== 0) {
             writer.uint32(120).uint64(message.beesCount);
+        }
+        if (message.airInfo !== undefined) {
+            AirInfo.encode(message.airInfo, writer.uint32(130).fork()).ldelim();
         }
         return writer;
     },
@@ -127,6 +131,9 @@ export const GenesisState = {
                     break;
                 case 15:
                     message.beesCount = longToNumber(reader.uint64());
+                    break;
+                case 16:
+                    message.airInfo = AirInfo.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -230,6 +237,12 @@ export const GenesisState = {
         else {
             message.beesCount = 0;
         }
+        if (object.airInfo !== undefined && object.airInfo !== null) {
+            message.airInfo = AirInfo.fromJSON(object.airInfo);
+        }
+        else {
+            message.airInfo = undefined;
+        }
         return message;
     },
     toJSON(message) {
@@ -293,6 +306,10 @@ export const GenesisState = {
             obj.beesList = [];
         }
         message.beesCount !== undefined && (obj.beesCount = message.beesCount);
+        message.airInfo !== undefined &&
+            (obj.airInfo = message.airInfo
+                ? AirInfo.toJSON(message.airInfo)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -389,6 +406,12 @@ export const GenesisState = {
         }
         else {
             message.beesCount = 0;
+        }
+        if (object.airInfo !== undefined && object.airInfo !== null) {
+            message.airInfo = AirInfo.fromPartial(object.airInfo);
+        }
+        else {
+            message.airInfo = undefined;
         }
         return message;
     },

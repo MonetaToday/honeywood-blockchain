@@ -1,7 +1,7 @@
 init:
   config:
     consensus:
-      timeout_commit: "1s"
+      timeout_commit: "5s"
   app:
     minimum-gas-prices: "0.000005honey"
 accounts:
@@ -14,11 +14,11 @@ accounts:
 validator:
   name: alice
   staked: "100000000cone"
-# client:
-#   openapi:
-#     path: "docs/static/openapi.yml"
-#   vuex:
-#     path: "vue/src/store"
+client:
+  openapi:
+    path: "docs/static/openapi.yml"
+  vuex:
+    path: "vue/src/store"
 # faucet:
 #   name: bob
 #   coins: ["5honey", "100000stake"]
@@ -46,7 +46,7 @@ genesis:
       params:
         honey_denom: "honey"
         air_history_length: "518400"
-        blocks_per_hour: "3600"
+        blocks_per_hour: "720"
         burn_rate: "0.5"
         price_set_name: 
           - denom: "honey"
@@ -129,7 +129,7 @@ genesis:
               amount: "900"
             deleteReward:
             - denom: "honey"
-              amount: "250"
+              amount: "450"
           - apiary_type: "ALVEARY"
             space_available: 12
             max_honey: "25"
@@ -138,7 +138,7 @@ genesis:
               amount: "1500"
             deleteReward:
             - denom: "honey"
-              amount: "250"
+              amount: "750"
 
         bee_types:
           - bee_type: "SMALL_BEE"

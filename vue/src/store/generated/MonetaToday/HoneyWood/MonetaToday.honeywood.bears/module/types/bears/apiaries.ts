@@ -10,12 +10,13 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 export interface ApiaryParams {
   apiaryType: string;
   price: Coin[];
-  maxCountBees: number;
-  maxCountHoney: number;
+  spaceAvailable: number;
+  maxHoney: string;
+  deleteReward: Coin[];
 }
 
-export interface CycleBeesHistory {
-  block: number;
+export interface CycleHistory {
+  height: number;
   bees: number[];
 }
 
@@ -23,16 +24,16 @@ export interface Apiaries {
   id: number;
   bearOwner: BearOwner | undefined;
   position: ItemPosition | undefined;
-  countBees: number;
   params: ApiaryParams | undefined;
-  cycleStartBlock: number;
-  cycleBeesHistory: CycleBeesHistory[];
+  cycleHistory: CycleHistory[];
+  spaceOccupied: number;
+  honeyFromPast: string;
 }
 
 const baseApiaryParams: object = {
   apiaryType: "",
-  maxCountBees: 0,
-  maxCountHoney: 0,
+  spaceAvailable: 0,
+  maxHoney: "",
 };
 
 export const ApiaryParams = {
@@ -43,11 +44,14 @@ export const ApiaryParams = {
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.maxCountBees !== 0) {
-      writer.uint32(24).uint64(message.maxCountBees);
+    if (message.spaceAvailable !== 0) {
+      writer.uint32(24).uint64(message.spaceAvailable);
     }
-    if (message.maxCountHoney !== 0) {
-      writer.uint32(32).uint64(message.maxCountHoney);
+    if (message.maxHoney !== "") {
+      writer.uint32(34).string(message.maxHoney);
+    }
+    for (const v of message.deleteReward) {
+      Coin.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -57,6 +61,7 @@ export const ApiaryParams = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
+    message.deleteReward = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -67,10 +72,13 @@ export const ApiaryParams = {
           message.price.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.maxCountBees = longToNumber(reader.uint64() as Long);
+          message.spaceAvailable = longToNumber(reader.uint64() as Long);
           break;
         case 4:
-          message.maxCountHoney = longToNumber(reader.uint64() as Long);
+          message.maxHoney = reader.string();
+          break;
+        case 5:
+          message.deleteReward.push(Coin.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -83,6 +91,7 @@ export const ApiaryParams = {
   fromJSON(object: any): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
+    message.deleteReward = [];
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = String(object.apiaryType);
     } else {
@@ -93,15 +102,20 @@ export const ApiaryParams = {
         message.price.push(Coin.fromJSON(e));
       }
     }
-    if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
-      message.maxCountBees = Number(object.maxCountBees);
+    if (object.spaceAvailable !== undefined && object.spaceAvailable !== null) {
+      message.spaceAvailable = Number(object.spaceAvailable);
     } else {
-      message.maxCountBees = 0;
+      message.spaceAvailable = 0;
     }
-    if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
-      message.maxCountHoney = Number(object.maxCountHoney);
+    if (object.maxHoney !== undefined && object.maxHoney !== null) {
+      message.maxHoney = String(object.maxHoney);
     } else {
-      message.maxCountHoney = 0;
+      message.maxHoney = "";
+    }
+    if (object.deleteReward !== undefined && object.deleteReward !== null) {
+      for (const e of object.deleteReward) {
+        message.deleteReward.push(Coin.fromJSON(e));
+      }
     }
     return message;
   },
@@ -114,16 +128,23 @@ export const ApiaryParams = {
     } else {
       obj.price = [];
     }
-    message.maxCountBees !== undefined &&
-      (obj.maxCountBees = message.maxCountBees);
-    message.maxCountHoney !== undefined &&
-      (obj.maxCountHoney = message.maxCountHoney);
+    message.spaceAvailable !== undefined &&
+      (obj.spaceAvailable = message.spaceAvailable);
+    message.maxHoney !== undefined && (obj.maxHoney = message.maxHoney);
+    if (message.deleteReward) {
+      obj.deleteReward = message.deleteReward.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.deleteReward = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<ApiaryParams>): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
+    message.deleteReward = [];
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = object.apiaryType;
     } else {
@@ -134,26 +155,31 @@ export const ApiaryParams = {
         message.price.push(Coin.fromPartial(e));
       }
     }
-    if (object.maxCountBees !== undefined && object.maxCountBees !== null) {
-      message.maxCountBees = object.maxCountBees;
+    if (object.spaceAvailable !== undefined && object.spaceAvailable !== null) {
+      message.spaceAvailable = object.spaceAvailable;
     } else {
-      message.maxCountBees = 0;
+      message.spaceAvailable = 0;
     }
-    if (object.maxCountHoney !== undefined && object.maxCountHoney !== null) {
-      message.maxCountHoney = object.maxCountHoney;
+    if (object.maxHoney !== undefined && object.maxHoney !== null) {
+      message.maxHoney = object.maxHoney;
     } else {
-      message.maxCountHoney = 0;
+      message.maxHoney = "";
+    }
+    if (object.deleteReward !== undefined && object.deleteReward !== null) {
+      for (const e of object.deleteReward) {
+        message.deleteReward.push(Coin.fromPartial(e));
+      }
     }
     return message;
   },
 };
 
-const baseCycleBeesHistory: object = { block: 0, bees: 0 };
+const baseCycleHistory: object = { height: 0, bees: 0 };
 
-export const CycleBeesHistory = {
-  encode(message: CycleBeesHistory, writer: Writer = Writer.create()): Writer {
-    if (message.block !== 0) {
-      writer.uint32(8).uint64(message.block);
+export const CycleHistory = {
+  encode(message: CycleHistory, writer: Writer = Writer.create()): Writer {
+    if (message.height !== 0) {
+      writer.uint32(8).uint64(message.height);
     }
     writer.uint32(18).fork();
     for (const v of message.bees) {
@@ -163,16 +189,16 @@ export const CycleBeesHistory = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): CycleBeesHistory {
+  decode(input: Reader | Uint8Array, length?: number): CycleHistory {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+    const message = { ...baseCycleHistory } as CycleHistory;
     message.bees = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.block = longToNumber(reader.uint64() as Long);
+          message.height = longToNumber(reader.uint64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
@@ -192,13 +218,13 @@ export const CycleBeesHistory = {
     return message;
   },
 
-  fromJSON(object: any): CycleBeesHistory {
-    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+  fromJSON(object: any): CycleHistory {
+    const message = { ...baseCycleHistory } as CycleHistory;
     message.bees = [];
-    if (object.block !== undefined && object.block !== null) {
-      message.block = Number(object.block);
+    if (object.height !== undefined && object.height !== null) {
+      message.height = Number(object.height);
     } else {
-      message.block = 0;
+      message.height = 0;
     }
     if (object.bees !== undefined && object.bees !== null) {
       for (const e of object.bees) {
@@ -208,9 +234,9 @@ export const CycleBeesHistory = {
     return message;
   },
 
-  toJSON(message: CycleBeesHistory): unknown {
+  toJSON(message: CycleHistory): unknown {
     const obj: any = {};
-    message.block !== undefined && (obj.block = message.block);
+    message.height !== undefined && (obj.height = message.height);
     if (message.bees) {
       obj.bees = message.bees.map((e) => e);
     } else {
@@ -219,13 +245,13 @@ export const CycleBeesHistory = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<CycleBeesHistory>): CycleBeesHistory {
-    const message = { ...baseCycleBeesHistory } as CycleBeesHistory;
+  fromPartial(object: DeepPartial<CycleHistory>): CycleHistory {
+    const message = { ...baseCycleHistory } as CycleHistory;
     message.bees = [];
-    if (object.block !== undefined && object.block !== null) {
-      message.block = object.block;
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
     } else {
-      message.block = 0;
+      message.height = 0;
     }
     if (object.bees !== undefined && object.bees !== null) {
       for (const e of object.bees) {
@@ -236,7 +262,7 @@ export const CycleBeesHistory = {
   },
 };
 
-const baseApiaries: object = { id: 0, countBees: 0, cycleStartBlock: 0 };
+const baseApiaries: object = { id: 0, spaceOccupied: 0, honeyFromPast: "" };
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
@@ -249,17 +275,17 @@ export const Apiaries = {
     if (message.position !== undefined) {
       ItemPosition.encode(message.position, writer.uint32(26).fork()).ldelim();
     }
-    if (message.countBees !== 0) {
-      writer.uint32(32).uint64(message.countBees);
-    }
     if (message.params !== undefined) {
-      ApiaryParams.encode(message.params, writer.uint32(42).fork()).ldelim();
+      ApiaryParams.encode(message.params, writer.uint32(34).fork()).ldelim();
     }
-    if (message.cycleStartBlock !== 0) {
-      writer.uint32(48).uint64(message.cycleStartBlock);
+    for (const v of message.cycleHistory) {
+      CycleHistory.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    for (const v of message.cycleBeesHistory) {
-      CycleBeesHistory.encode(v!, writer.uint32(58).fork()).ldelim();
+    if (message.spaceOccupied !== 0) {
+      writer.uint32(56).uint64(message.spaceOccupied);
+    }
+    if (message.honeyFromPast !== "") {
+      writer.uint32(66).string(message.honeyFromPast);
     }
     return writer;
   },
@@ -268,7 +294,7 @@ export const Apiaries = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseApiaries } as Apiaries;
-    message.cycleBeesHistory = [];
+    message.cycleHistory = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -282,18 +308,18 @@ export const Apiaries = {
           message.position = ItemPosition.decode(reader, reader.uint32());
           break;
         case 4:
-          message.countBees = longToNumber(reader.uint64() as Long);
-          break;
-        case 5:
           message.params = ApiaryParams.decode(reader, reader.uint32());
           break;
         case 6:
-          message.cycleStartBlock = longToNumber(reader.uint64() as Long);
+          message.cycleHistory.push(
+            CycleHistory.decode(reader, reader.uint32())
+          );
           break;
         case 7:
-          message.cycleBeesHistory.push(
-            CycleBeesHistory.decode(reader, reader.uint32())
-          );
+          message.spaceOccupied = longToNumber(reader.uint64() as Long);
+          break;
+        case 8:
+          message.honeyFromPast = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -305,7 +331,7 @@ export const Apiaries = {
 
   fromJSON(object: any): Apiaries {
     const message = { ...baseApiaries } as Apiaries;
-    message.cycleBeesHistory = [];
+    message.cycleHistory = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -321,31 +347,25 @@ export const Apiaries = {
     } else {
       message.position = undefined;
     }
-    if (object.countBees !== undefined && object.countBees !== null) {
-      message.countBees = Number(object.countBees);
-    } else {
-      message.countBees = 0;
-    }
     if (object.params !== undefined && object.params !== null) {
       message.params = ApiaryParams.fromJSON(object.params);
     } else {
       message.params = undefined;
     }
-    if (
-      object.cycleStartBlock !== undefined &&
-      object.cycleStartBlock !== null
-    ) {
-      message.cycleStartBlock = Number(object.cycleStartBlock);
-    } else {
-      message.cycleStartBlock = 0;
-    }
-    if (
-      object.cycleBeesHistory !== undefined &&
-      object.cycleBeesHistory !== null
-    ) {
-      for (const e of object.cycleBeesHistory) {
-        message.cycleBeesHistory.push(CycleBeesHistory.fromJSON(e));
+    if (object.cycleHistory !== undefined && object.cycleHistory !== null) {
+      for (const e of object.cycleHistory) {
+        message.cycleHistory.push(CycleHistory.fromJSON(e));
       }
+    }
+    if (object.spaceOccupied !== undefined && object.spaceOccupied !== null) {
+      message.spaceOccupied = Number(object.spaceOccupied);
+    } else {
+      message.spaceOccupied = 0;
+    }
+    if (object.honeyFromPast !== undefined && object.honeyFromPast !== null) {
+      message.honeyFromPast = String(object.honeyFromPast);
+    } else {
+      message.honeyFromPast = "";
     }
     return message;
   },
@@ -361,26 +381,27 @@ export const Apiaries = {
       (obj.position = message.position
         ? ItemPosition.toJSON(message.position)
         : undefined);
-    message.countBees !== undefined && (obj.countBees = message.countBees);
     message.params !== undefined &&
       (obj.params = message.params
         ? ApiaryParams.toJSON(message.params)
         : undefined);
-    message.cycleStartBlock !== undefined &&
-      (obj.cycleStartBlock = message.cycleStartBlock);
-    if (message.cycleBeesHistory) {
-      obj.cycleBeesHistory = message.cycleBeesHistory.map((e) =>
-        e ? CycleBeesHistory.toJSON(e) : undefined
+    if (message.cycleHistory) {
+      obj.cycleHistory = message.cycleHistory.map((e) =>
+        e ? CycleHistory.toJSON(e) : undefined
       );
     } else {
-      obj.cycleBeesHistory = [];
+      obj.cycleHistory = [];
     }
+    message.spaceOccupied !== undefined &&
+      (obj.spaceOccupied = message.spaceOccupied);
+    message.honeyFromPast !== undefined &&
+      (obj.honeyFromPast = message.honeyFromPast);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Apiaries>): Apiaries {
     const message = { ...baseApiaries } as Apiaries;
-    message.cycleBeesHistory = [];
+    message.cycleHistory = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
@@ -396,31 +417,25 @@ export const Apiaries = {
     } else {
       message.position = undefined;
     }
-    if (object.countBees !== undefined && object.countBees !== null) {
-      message.countBees = object.countBees;
-    } else {
-      message.countBees = 0;
-    }
     if (object.params !== undefined && object.params !== null) {
       message.params = ApiaryParams.fromPartial(object.params);
     } else {
       message.params = undefined;
     }
-    if (
-      object.cycleStartBlock !== undefined &&
-      object.cycleStartBlock !== null
-    ) {
-      message.cycleStartBlock = object.cycleStartBlock;
-    } else {
-      message.cycleStartBlock = 0;
-    }
-    if (
-      object.cycleBeesHistory !== undefined &&
-      object.cycleBeesHistory !== null
-    ) {
-      for (const e of object.cycleBeesHistory) {
-        message.cycleBeesHistory.push(CycleBeesHistory.fromPartial(e));
+    if (object.cycleHistory !== undefined && object.cycleHistory !== null) {
+      for (const e of object.cycleHistory) {
+        message.cycleHistory.push(CycleHistory.fromPartial(e));
       }
+    }
+    if (object.spaceOccupied !== undefined && object.spaceOccupied !== null) {
+      message.spaceOccupied = object.spaceOccupied;
+    } else {
+      message.spaceOccupied = 0;
+    }
+    if (object.honeyFromPast !== undefined && object.honeyFromPast !== null) {
+      message.honeyFromPast = object.honeyFromPast;
+    } else {
+      message.honeyFromPast = "";
     }
     return message;
   },

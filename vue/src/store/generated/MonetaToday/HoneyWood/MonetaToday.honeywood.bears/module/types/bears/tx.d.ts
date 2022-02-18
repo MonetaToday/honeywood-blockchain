@@ -2,6 +2,8 @@ import { Reader, Writer } from "protobufjs/minimal";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface MsgInitGameAndSetName {
     creator: string;
@@ -104,6 +106,55 @@ export interface MsgCreateApiary {
 }
 export interface MsgCreateApiaryResponse {
     apiary: Apiaries | undefined;
+}
+export interface MsgInitGameAndCreateBee {
+    creator: string;
+    beeType: string;
+    beeName: string;
+}
+export interface MsgInitGameAndCreateBeeResponse {
+    bee: Bees | undefined;
+}
+export interface MsgCreateBee {
+    creator: string;
+    bearId: number;
+    beeType: string;
+    beeName: string;
+}
+export interface MsgCreateBeeResponse {
+    bee: Bees | undefined;
+}
+export interface MsgSetApiaryHouseForBee {
+    creator: string;
+    beeId: number;
+    apiaryId: number;
+}
+export interface MsgSetApiaryHouseForBeeResponse {
+}
+export interface MsgUnsetApiaryHouseForBee {
+    creator: string;
+    beeId: number;
+}
+export interface MsgUnsetApiaryHouseForBeeResponse {
+}
+export interface MsgCollectHoneyFromApiary {
+    creator: string;
+    apiaryId: number;
+}
+export interface MsgCollectHoneyFromApiaryResponse {
+    countHoney: Coin | undefined;
+}
+export interface MsgClearApiaryFromBees {
+    creator: string;
+    apiaryId: number;
+}
+export interface MsgClearApiaryFromBeesResponse {
+}
+export interface MsgDeleteApiary {
+    creator: string;
+    apiaryId: number;
+}
+export interface MsgDeleteApiaryResponse {
 }
 export declare const MsgInitGameAndSetName: {
     encode(message: MsgInitGameAndSetName, writer?: Writer): Writer;
@@ -287,6 +338,104 @@ export declare const MsgCreateApiaryResponse: {
     toJSON(message: MsgCreateApiaryResponse): unknown;
     fromPartial(object: DeepPartial<MsgCreateApiaryResponse>): MsgCreateApiaryResponse;
 };
+export declare const MsgInitGameAndCreateBee: {
+    encode(message: MsgInitGameAndCreateBee, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateBee;
+    fromJSON(object: any): MsgInitGameAndCreateBee;
+    toJSON(message: MsgInitGameAndCreateBee): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndCreateBee>): MsgInitGameAndCreateBee;
+};
+export declare const MsgInitGameAndCreateBeeResponse: {
+    encode(message: MsgInitGameAndCreateBeeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgInitGameAndCreateBeeResponse;
+    fromJSON(object: any): MsgInitGameAndCreateBeeResponse;
+    toJSON(message: MsgInitGameAndCreateBeeResponse): unknown;
+    fromPartial(object: DeepPartial<MsgInitGameAndCreateBeeResponse>): MsgInitGameAndCreateBeeResponse;
+};
+export declare const MsgCreateBee: {
+    encode(message: MsgCreateBee, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateBee;
+    fromJSON(object: any): MsgCreateBee;
+    toJSON(message: MsgCreateBee): unknown;
+    fromPartial(object: DeepPartial<MsgCreateBee>): MsgCreateBee;
+};
+export declare const MsgCreateBeeResponse: {
+    encode(message: MsgCreateBeeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateBeeResponse;
+    fromJSON(object: any): MsgCreateBeeResponse;
+    toJSON(message: MsgCreateBeeResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateBeeResponse>): MsgCreateBeeResponse;
+};
+export declare const MsgSetApiaryHouseForBee: {
+    encode(message: MsgSetApiaryHouseForBee, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSetApiaryHouseForBee;
+    fromJSON(object: any): MsgSetApiaryHouseForBee;
+    toJSON(message: MsgSetApiaryHouseForBee): unknown;
+    fromPartial(object: DeepPartial<MsgSetApiaryHouseForBee>): MsgSetApiaryHouseForBee;
+};
+export declare const MsgSetApiaryHouseForBeeResponse: {
+    encode(_: MsgSetApiaryHouseForBeeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgSetApiaryHouseForBeeResponse;
+    fromJSON(_: any): MsgSetApiaryHouseForBeeResponse;
+    toJSON(_: MsgSetApiaryHouseForBeeResponse): unknown;
+    fromPartial(_: DeepPartial<MsgSetApiaryHouseForBeeResponse>): MsgSetApiaryHouseForBeeResponse;
+};
+export declare const MsgUnsetApiaryHouseForBee: {
+    encode(message: MsgUnsetApiaryHouseForBee, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnsetApiaryHouseForBee;
+    fromJSON(object: any): MsgUnsetApiaryHouseForBee;
+    toJSON(message: MsgUnsetApiaryHouseForBee): unknown;
+    fromPartial(object: DeepPartial<MsgUnsetApiaryHouseForBee>): MsgUnsetApiaryHouseForBee;
+};
+export declare const MsgUnsetApiaryHouseForBeeResponse: {
+    encode(_: MsgUnsetApiaryHouseForBeeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnsetApiaryHouseForBeeResponse;
+    fromJSON(_: any): MsgUnsetApiaryHouseForBeeResponse;
+    toJSON(_: MsgUnsetApiaryHouseForBeeResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUnsetApiaryHouseForBeeResponse>): MsgUnsetApiaryHouseForBeeResponse;
+};
+export declare const MsgCollectHoneyFromApiary: {
+    encode(message: MsgCollectHoneyFromApiary, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCollectHoneyFromApiary;
+    fromJSON(object: any): MsgCollectHoneyFromApiary;
+    toJSON(message: MsgCollectHoneyFromApiary): unknown;
+    fromPartial(object: DeepPartial<MsgCollectHoneyFromApiary>): MsgCollectHoneyFromApiary;
+};
+export declare const MsgCollectHoneyFromApiaryResponse: {
+    encode(message: MsgCollectHoneyFromApiaryResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCollectHoneyFromApiaryResponse;
+    fromJSON(object: any): MsgCollectHoneyFromApiaryResponse;
+    toJSON(message: MsgCollectHoneyFromApiaryResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCollectHoneyFromApiaryResponse>): MsgCollectHoneyFromApiaryResponse;
+};
+export declare const MsgClearApiaryFromBees: {
+    encode(message: MsgClearApiaryFromBees, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgClearApiaryFromBees;
+    fromJSON(object: any): MsgClearApiaryFromBees;
+    toJSON(message: MsgClearApiaryFromBees): unknown;
+    fromPartial(object: DeepPartial<MsgClearApiaryFromBees>): MsgClearApiaryFromBees;
+};
+export declare const MsgClearApiaryFromBeesResponse: {
+    encode(_: MsgClearApiaryFromBeesResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgClearApiaryFromBeesResponse;
+    fromJSON(_: any): MsgClearApiaryFromBeesResponse;
+    toJSON(_: MsgClearApiaryFromBeesResponse): unknown;
+    fromPartial(_: DeepPartial<MsgClearApiaryFromBeesResponse>): MsgClearApiaryFromBeesResponse;
+};
+export declare const MsgDeleteApiary: {
+    encode(message: MsgDeleteApiary, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteApiary;
+    fromJSON(object: any): MsgDeleteApiary;
+    toJSON(message: MsgDeleteApiary): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteApiary>): MsgDeleteApiary;
+};
+export declare const MsgDeleteApiaryResponse: {
+    encode(_: MsgDeleteApiaryResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteApiaryResponse;
+    fromJSON(_: any): MsgDeleteApiaryResponse;
+    toJSON(_: MsgDeleteApiaryResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteApiaryResponse>): MsgDeleteApiaryResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     InitGameAndSetName(request: MsgInitGameAndSetName): Promise<MsgInitGameAndSetNameResponse>;
@@ -301,8 +450,15 @@ export interface Msg {
     SetDecorationPosition(request: MsgSetDecorationPosition): Promise<MsgSetDecorationPositionResponse>;
     UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
     InitGameAndCreateApiary(request: MsgInitGameAndCreateApiary): Promise<MsgInitGameAndCreateApiaryResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     CreateApiary(request: MsgCreateApiary): Promise<MsgCreateApiaryResponse>;
+    InitGameAndCreateBee(request: MsgInitGameAndCreateBee): Promise<MsgInitGameAndCreateBeeResponse>;
+    CreateBee(request: MsgCreateBee): Promise<MsgCreateBeeResponse>;
+    SetApiaryHouseForBee(request: MsgSetApiaryHouseForBee): Promise<MsgSetApiaryHouseForBeeResponse>;
+    UnsetApiaryHouseForBee(request: MsgUnsetApiaryHouseForBee): Promise<MsgUnsetApiaryHouseForBeeResponse>;
+    CollectHoneyFromApiary(request: MsgCollectHoneyFromApiary): Promise<MsgCollectHoneyFromApiaryResponse>;
+    ClearApiaryFromBees(request: MsgClearApiaryFromBees): Promise<MsgClearApiaryFromBeesResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteApiary(request: MsgDeleteApiary): Promise<MsgDeleteApiaryResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -320,6 +476,13 @@ export declare class MsgClientImpl implements Msg {
     UnsetDecorationPosition(request: MsgUnsetDecorationPosition): Promise<MsgUnsetDecorationPositionResponse>;
     InitGameAndCreateApiary(request: MsgInitGameAndCreateApiary): Promise<MsgInitGameAndCreateApiaryResponse>;
     CreateApiary(request: MsgCreateApiary): Promise<MsgCreateApiaryResponse>;
+    InitGameAndCreateBee(request: MsgInitGameAndCreateBee): Promise<MsgInitGameAndCreateBeeResponse>;
+    CreateBee(request: MsgCreateBee): Promise<MsgCreateBeeResponse>;
+    SetApiaryHouseForBee(request: MsgSetApiaryHouseForBee): Promise<MsgSetApiaryHouseForBeeResponse>;
+    UnsetApiaryHouseForBee(request: MsgUnsetApiaryHouseForBee): Promise<MsgUnsetApiaryHouseForBeeResponse>;
+    CollectHoneyFromApiary(request: MsgCollectHoneyFromApiary): Promise<MsgCollectHoneyFromApiaryResponse>;
+    ClearApiaryFromBees(request: MsgClearApiaryFromBees): Promise<MsgClearApiaryFromBeesResponse>;
+    DeleteApiary(request: MsgDeleteApiary): Promise<MsgDeleteApiaryResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

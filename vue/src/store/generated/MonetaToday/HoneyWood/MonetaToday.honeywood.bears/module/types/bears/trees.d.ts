@@ -1,22 +1,27 @@
 import { Writer, Reader } from "protobufjs/minimal";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
+export interface TreeParams {
+    treeType: string;
+    price: Coin[];
+    reward: Coin[];
+    airSupply: string;
+}
 export interface Trees {
     id: number;
-    treeType: Trees_TreeTypes;
+    params: TreeParams | undefined;
     bearOwner: BearOwner | undefined;
     position: ItemPosition | undefined;
 }
-export declare enum Trees_TreeTypes {
-    OAK = 0,
-    SPRUCE = 1,
-    APPLETREE = 2,
-    WILLOW = 3,
-    UNRECOGNIZED = -1
-}
-export declare function trees_TreeTypesFromJSON(object: any): Trees_TreeTypes;
-export declare function trees_TreeTypesToJSON(object: Trees_TreeTypes): string;
+export declare const TreeParams: {
+    encode(message: TreeParams, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): TreeParams;
+    fromJSON(object: any): TreeParams;
+    toJSON(message: TreeParams): unknown;
+    fromPartial(object: DeepPartial<TreeParams>): TreeParams;
+};
 export declare const Trees: {
     encode(message: Trees, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): Trees;

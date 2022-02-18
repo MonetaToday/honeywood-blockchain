@@ -11,27 +11,31 @@ export interface TilesItems {
     itemId?: string;
     itemType?: ItemsItemTypes;
 }
-export declare enum TreesTreeTypes {
-    OAK = "OAK",
-    SPRUCE = "SPRUCE",
-    APPLETREE = "APPLETREE",
-    WILLOW = "WILLOW"
-}
 export interface BearsAddressBears {
     address?: string;
     bears?: string[];
+}
+export interface BearsAirHistory {
+    /** @format uint64 */
+    height?: string;
+    count?: string;
+    purity?: string;
+}
+export interface BearsAirInfo {
+    supply?: string;
+    consume?: string;
+    history?: BearsAirHistory[];
 }
 export interface BearsApiaries {
     /** @format uint64 */
     id?: string;
     bearOwner?: BearsBearOwner;
     position?: BearsItemPosition;
-    /** @format uint64 */
-    countBees?: string;
     params?: BearsApiaryParams;
+    cycleHistory?: BearsCycleHistory[];
     /** @format uint64 */
-    cycleStartBlock?: string;
-    cycleBeesHistory?: BearsCycleBeesHistory[];
+    spaceOccupied?: string;
+    honeyFromPast?: string;
 }
 export interface BearsApiaryHouse {
     /** @format uint64 */
@@ -41,9 +45,9 @@ export interface BearsApiaryParams {
     apiaryType?: string;
     price?: V1Beta1Coin[];
     /** @format uint64 */
-    maxCountBees?: string;
-    /** @format uint64 */
-    maxCountHoney?: string;
+    spaceAvailable?: string;
+    maxHoney?: string;
+    deleteReward?: V1Beta1Coin[];
 }
 export interface BearsBearNames {
     name?: string;
@@ -68,21 +72,23 @@ export interface BearsBears {
 export interface BearsBeeParams {
     beeType?: string;
     price?: V1Beta1Coin[];
-    honeyPerBlock?: string;
+    honeyPerHour?: string;
     /** @format uint64 */
     bodySize?: string;
-    airSense?: string;
+    airDependency?: string;
+    airConsume?: string;
 }
 export interface BearsBees {
     /** @format uint64 */
     id?: string;
+    name?: string;
     bearOwner?: BearsBearOwner;
     apiaryHouse?: BearsApiaryHouse;
     params?: BearsBeeParams;
 }
-export interface BearsCycleBeesHistory {
+export interface BearsCycleHistory {
     /** @format uint64 */
-    block?: string;
+    height?: string;
     bees?: string[];
 }
 export interface BearsDecorationParams {
@@ -116,8 +122,21 @@ export interface BearsItemPosition {
     /** @format uint64 */
     columnId?: string;
 }
+export declare type BearsMsgClearApiaryFromBeesResponse = object;
+export interface BearsMsgCollectHoneyFromApiaryResponse {
+    /**
+     * Coin defines a token with a denomination and an amount.
+     *
+     * NOTE: The amount field is an Int which implements the custom method
+     * signatures required by gogoproto.
+     */
+    countHoney?: V1Beta1Coin;
+}
 export interface BearsMsgCreateApiaryResponse {
     apiary?: BearsApiaries;
+}
+export interface BearsMsgCreateBeeResponse {
+    bee?: BearsBees;
 }
 export interface BearsMsgCreateDecorationResponse {
     decoration?: BearsDecorations;
@@ -125,12 +144,16 @@ export interface BearsMsgCreateDecorationResponse {
 export interface BearsMsgCreateTreeResponse {
     tree?: BearsTrees;
 }
+export declare type BearsMsgDeleteApiaryResponse = object;
 export interface BearsMsgExtendFieldResponse {
     /** @format uint64 */
     countTiles?: string;
 }
 export interface BearsMsgInitGameAndCreateApiaryResponse {
     apiary?: BearsApiaries;
+}
+export interface BearsMsgInitGameAndCreateBeeResponse {
+    bee?: BearsBees;
 }
 export interface BearsMsgInitGameAndCreateDecorationResponse {
     decoration?: BearsDecorations;
@@ -144,21 +167,27 @@ export interface BearsMsgInitGameAndExtendFieldResponse {
 }
 export declare type BearsMsgInitGameAndSetNameResponse = object;
 export declare type BearsMsgMoveItemOnFieldResponse = object;
+export declare type BearsMsgSetApiaryHouseForBeeResponse = object;
 export declare type BearsMsgSetDecorationPositionResponse = object;
 export declare type BearsMsgSetNameResponse = object;
+export declare type BearsMsgUnsetApiaryHouseForBeeResponse = object;
 export declare type BearsMsgUnsetDecorationPositionResponse = object;
 /**
  * Params defines the parameters for the module.
  */
 export interface BearsParams {
+    /** @format uint64 */
+    blocksPerHour?: string;
+    /** @format uint64 */
+    airHistoryLength?: string;
     burnRate?: string;
     priceSetName?: V1Beta1Coin[];
     priceTile?: V1Beta1Coin[];
-    priceTree?: V1Beta1Coin[];
-    rewardTree?: V1Beta1Coin[];
+    treeTypes?: BearsTreeParams[];
     decorationTypes?: BearsDecorationParams[];
     apiaryTypes?: BearsApiaryParams[];
     beeTypes?: BearsBeeParams[];
+    honeyDenom?: string;
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];
@@ -264,8 +293,14 @@ export interface BearsQueryAllTreesResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface BearsQueryCalculateHoneyInApiaryResponse {
+    countHoney?: string;
+}
 export interface BearsQueryGetAddressBearsResponse {
     addressBears?: BearsAddressBears;
+}
+export interface BearsQueryGetAirInfoResponse {
+    AirInfo?: BearsAirInfo;
 }
 export interface BearsQueryGetApiariesResponse {
     Apiaries?: BearsApiaries;
@@ -298,10 +333,16 @@ export interface BearsQueryParamsResponse {
 export interface BearsTiles {
     item?: TilesItems;
 }
+export interface BearsTreeParams {
+    treeType?: string;
+    price?: V1Beta1Coin[];
+    reward?: V1Beta1Coin[];
+    airSupply?: string;
+}
 export interface BearsTrees {
     /** @format uint64 */
     id?: string;
-    treeType?: TreesTreeTypes;
+    params?: BearsTreeParams;
     bearOwner?: BearsBearOwner;
     position?: BearsItemPosition;
 }
@@ -466,6 +507,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * No description
      *
      * @tags Query
+     * @name QueryAirInfo
+     * @summary Queries a AirInfo by index.
+     * @request GET:/MonetaToday/honeywood/bears/air_info
+     */
+    queryAirInfo: (params?: RequestParams) => Promise<HttpResponse<BearsQueryGetAirInfoResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
      * @name QueryApiariesAll
      * @summary Queries a list of Apiaries items.
      * @request GET:/MonetaToday/honeywood/bears/apiaries
@@ -558,6 +608,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/bees/{id}
      */
     queryBees: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetBeesResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryCalculateHoneyInApiary
+     * @summary Queries a list of CalculateHoneyInApiary items.
+     * @request GET:/MonetaToday/honeywood/bears/calculate_honey_in_apiary/{apiaryId}
+     */
+    queryCalculateHoneyInApiary: (apiaryId: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryCalculateHoneyInApiaryResponse, RpcStatus>>;
     /**
      * No description
      *

@@ -1,59 +1,138 @@
 /* eslint-disable */
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var Trees_TreeTypes;
-(function (Trees_TreeTypes) {
-    Trees_TreeTypes[Trees_TreeTypes["OAK"] = 0] = "OAK";
-    Trees_TreeTypes[Trees_TreeTypes["SPRUCE"] = 1] = "SPRUCE";
-    Trees_TreeTypes[Trees_TreeTypes["APPLETREE"] = 2] = "APPLETREE";
-    Trees_TreeTypes[Trees_TreeTypes["WILLOW"] = 3] = "WILLOW";
-    Trees_TreeTypes[Trees_TreeTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Trees_TreeTypes || (Trees_TreeTypes = {}));
-export function trees_TreeTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "OAK":
-            return Trees_TreeTypes.OAK;
-        case 1:
-        case "SPRUCE":
-            return Trees_TreeTypes.SPRUCE;
-        case 2:
-        case "APPLETREE":
-            return Trees_TreeTypes.APPLETREE;
-        case 3:
-        case "WILLOW":
-            return Trees_TreeTypes.WILLOW;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return Trees_TreeTypes.UNRECOGNIZED;
-    }
-}
-export function trees_TreeTypesToJSON(object) {
-    switch (object) {
-        case Trees_TreeTypes.OAK:
-            return "OAK";
-        case Trees_TreeTypes.SPRUCE:
-            return "SPRUCE";
-        case Trees_TreeTypes.APPLETREE:
-            return "APPLETREE";
-        case Trees_TreeTypes.WILLOW:
-            return "WILLOW";
-        default:
-            return "UNKNOWN";
-    }
-}
-const baseTrees = { id: 0, treeType: 0 };
+const baseTreeParams = { treeType: "", airSupply: "" };
+export const TreeParams = {
+    encode(message, writer = Writer.create()) {
+        if (message.treeType !== "") {
+            writer.uint32(10).string(message.treeType);
+        }
+        for (const v of message.price) {
+            Coin.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        for (const v of message.reward) {
+            Coin.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.airSupply !== "") {
+            writer.uint32(50).string(message.airSupply);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseTreeParams };
+        message.price = [];
+        message.reward = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.treeType = reader.string();
+                    break;
+                case 2:
+                    message.price.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.reward.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                case 6:
+                    message.airSupply = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseTreeParams };
+        message.price = [];
+        message.reward = [];
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = String(object.treeType);
+        }
+        else {
+            message.treeType = "";
+        }
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromJSON(e));
+            }
+        }
+        if (object.reward !== undefined && object.reward !== null) {
+            for (const e of object.reward) {
+                message.reward.push(Coin.fromJSON(e));
+            }
+        }
+        if (object.airSupply !== undefined && object.airSupply !== null) {
+            message.airSupply = String(object.airSupply);
+        }
+        else {
+            message.airSupply = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.treeType !== undefined && (obj.treeType = message.treeType);
+        if (message.price) {
+            obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
+        }
+        else {
+            obj.price = [];
+        }
+        if (message.reward) {
+            obj.reward = message.reward.map((e) => (e ? Coin.toJSON(e) : undefined));
+        }
+        else {
+            obj.reward = [];
+        }
+        message.airSupply !== undefined && (obj.airSupply = message.airSupply);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseTreeParams };
+        message.price = [];
+        message.reward = [];
+        if (object.treeType !== undefined && object.treeType !== null) {
+            message.treeType = object.treeType;
+        }
+        else {
+            message.treeType = "";
+        }
+        if (object.price !== undefined && object.price !== null) {
+            for (const e of object.price) {
+                message.price.push(Coin.fromPartial(e));
+            }
+        }
+        if (object.reward !== undefined && object.reward !== null) {
+            for (const e of object.reward) {
+                message.reward.push(Coin.fromPartial(e));
+            }
+        }
+        if (object.airSupply !== undefined && object.airSupply !== null) {
+            message.airSupply = object.airSupply;
+        }
+        else {
+            message.airSupply = "";
+        }
+        return message;
+    },
+};
+const baseTrees = { id: 0 };
 export const Trees = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
         }
-        if (message.treeType !== 0) {
-            writer.uint32(16).int32(message.treeType);
+        if (message.params !== undefined) {
+            TreeParams.encode(message.params, writer.uint32(18).fork()).ldelim();
         }
         if (message.bearOwner !== undefined) {
             BearOwner.encode(message.bearOwner, writer.uint32(26).fork()).ldelim();
@@ -74,7 +153,7 @@ export const Trees = {
                     message.id = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.treeType = reader.int32();
+                    message.params = TreeParams.decode(reader, reader.uint32());
                     break;
                 case 3:
                     message.bearOwner = BearOwner.decode(reader, reader.uint32());
@@ -97,11 +176,11 @@ export const Trees = {
         else {
             message.id = 0;
         }
-        if (object.treeType !== undefined && object.treeType !== null) {
-            message.treeType = trees_TreeTypesFromJSON(object.treeType);
+        if (object.params !== undefined && object.params !== null) {
+            message.params = TreeParams.fromJSON(object.params);
         }
         else {
-            message.treeType = 0;
+            message.params = undefined;
         }
         if (object.bearOwner !== undefined && object.bearOwner !== null) {
             message.bearOwner = BearOwner.fromJSON(object.bearOwner);
@@ -120,8 +199,10 @@ export const Trees = {
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
-        message.treeType !== undefined &&
-            (obj.treeType = trees_TreeTypesToJSON(message.treeType));
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? TreeParams.toJSON(message.params)
+                : undefined);
         message.bearOwner !== undefined &&
             (obj.bearOwner = message.bearOwner
                 ? BearOwner.toJSON(message.bearOwner)
@@ -140,11 +221,11 @@ export const Trees = {
         else {
             message.id = 0;
         }
-        if (object.treeType !== undefined && object.treeType !== null) {
-            message.treeType = object.treeType;
+        if (object.params !== undefined && object.params !== null) {
+            message.params = TreeParams.fromPartial(object.params);
         }
         else {
-            message.treeType = 0;
+            message.params = undefined;
         }
         if (object.bearOwner !== undefined && object.bearOwner !== null) {
             message.bearOwner = BearOwner.fromPartial(object.bearOwner);

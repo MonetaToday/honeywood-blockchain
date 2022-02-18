@@ -9,6 +9,7 @@ import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
+import { AirInfo } from "../bears/air_info";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -121,6 +122,17 @@ export interface QueryAllBeesRequest {
 export interface QueryAllBeesResponse {
     Bees: Bees[];
     pagination: PageResponse | undefined;
+}
+export interface QueryCalculateHoneyInApiaryRequest {
+    apiaryId: number;
+}
+export interface QueryCalculateHoneyInApiaryResponse {
+    countHoney: string;
+}
+export interface QueryGetAirInfoRequest {
+}
+export interface QueryGetAirInfoResponse {
+    AirInfo: AirInfo | undefined;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -360,6 +372,34 @@ export declare const QueryAllBeesResponse: {
     toJSON(message: QueryAllBeesResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllBeesResponse>): QueryAllBeesResponse;
 };
+export declare const QueryCalculateHoneyInApiaryRequest: {
+    encode(message: QueryCalculateHoneyInApiaryRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCalculateHoneyInApiaryRequest;
+    fromJSON(object: any): QueryCalculateHoneyInApiaryRequest;
+    toJSON(message: QueryCalculateHoneyInApiaryRequest): unknown;
+    fromPartial(object: DeepPartial<QueryCalculateHoneyInApiaryRequest>): QueryCalculateHoneyInApiaryRequest;
+};
+export declare const QueryCalculateHoneyInApiaryResponse: {
+    encode(message: QueryCalculateHoneyInApiaryResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCalculateHoneyInApiaryResponse;
+    fromJSON(object: any): QueryCalculateHoneyInApiaryResponse;
+    toJSON(message: QueryCalculateHoneyInApiaryResponse): unknown;
+    fromPartial(object: DeepPartial<QueryCalculateHoneyInApiaryResponse>): QueryCalculateHoneyInApiaryResponse;
+};
+export declare const QueryGetAirInfoRequest: {
+    encode(_: QueryGetAirInfoRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAirInfoRequest;
+    fromJSON(_: any): QueryGetAirInfoRequest;
+    toJSON(_: QueryGetAirInfoRequest): unknown;
+    fromPartial(_: DeepPartial<QueryGetAirInfoRequest>): QueryGetAirInfoRequest;
+};
+export declare const QueryGetAirInfoResponse: {
+    encode(message: QueryGetAirInfoResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAirInfoResponse;
+    fromJSON(object: any): QueryGetAirInfoResponse;
+    toJSON(message: QueryGetAirInfoResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetAirInfoResponse>): QueryGetAirInfoResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -396,6 +436,10 @@ export interface Query {
     Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
     /** Queries a list of Bees items. */
     BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
+    /** Queries a list of CalculateHoneyInApiary items. */
+    CalculateHoneyInApiary(request: QueryCalculateHoneyInApiaryRequest): Promise<QueryCalculateHoneyInApiaryResponse>;
+    /** Queries a AirInfo by index. */
+    AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -417,6 +461,8 @@ export declare class QueryClientImpl implements Query {
     ApiariesAll(request: QueryAllApiariesRequest): Promise<QueryAllApiariesResponse>;
     Bees(request: QueryGetBeesRequest): Promise<QueryGetBeesResponse>;
     BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
+    CalculateHoneyInApiary(request: QueryCalculateHoneyInApiaryRequest): Promise<QueryCalculateHoneyInApiaryResponse>;
+    AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

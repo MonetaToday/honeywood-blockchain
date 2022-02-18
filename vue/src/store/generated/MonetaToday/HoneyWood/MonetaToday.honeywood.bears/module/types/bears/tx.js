@@ -4,6 +4,8 @@ import * as Long from "long";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
+import { Bees } from "../bears/bees";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseMsgInitGameAndSetName = { creator: "", name: "" };
 export const MsgInitGameAndSetName = {
@@ -1936,6 +1938,931 @@ export const MsgCreateApiaryResponse = {
         return message;
     },
 };
+const baseMsgInitGameAndCreateBee = {
+    creator: "",
+    beeType: "",
+    beeName: "",
+};
+export const MsgInitGameAndCreateBee = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.beeType !== "") {
+            writer.uint32(18).string(message.beeType);
+        }
+        if (message.beeName !== "") {
+            writer.uint32(26).string(message.beeName);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateBee,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.beeType = reader.string();
+                    break;
+                case 3:
+                    message.beeName = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = String(object.beeType);
+        }
+        else {
+            message.beeType = "";
+        }
+        if (object.beeName !== undefined && object.beeName !== null) {
+            message.beeName = String(object.beeName);
+        }
+        else {
+            message.beeName = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.beeType !== undefined && (obj.beeType = message.beeType);
+        message.beeName !== undefined && (obj.beeName = message.beeName);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = object.beeType;
+        }
+        else {
+            message.beeType = "";
+        }
+        if (object.beeName !== undefined && object.beeName !== null) {
+            message.beeName = object.beeName;
+        }
+        else {
+            message.beeName = "";
+        }
+        return message;
+    },
+};
+const baseMsgInitGameAndCreateBeeResponse = {};
+export const MsgInitGameAndCreateBeeResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.bee !== undefined) {
+            Bees.encode(message.bee, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgInitGameAndCreateBeeResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bee = Bees.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateBeeResponse,
+        };
+        if (object.bee !== undefined && object.bee !== null) {
+            message.bee = Bees.fromJSON(object.bee);
+        }
+        else {
+            message.bee = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bee !== undefined &&
+            (obj.bee = message.bee ? Bees.toJSON(message.bee) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgInitGameAndCreateBeeResponse,
+        };
+        if (object.bee !== undefined && object.bee !== null) {
+            message.bee = Bees.fromPartial(object.bee);
+        }
+        else {
+            message.bee = undefined;
+        }
+        return message;
+    },
+};
+const baseMsgCreateBee = {
+    creator: "",
+    bearId: 0,
+    beeType: "",
+    beeName: "",
+};
+export const MsgCreateBee = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.bearId !== 0) {
+            writer.uint32(16).uint64(message.bearId);
+        }
+        if (message.beeType !== "") {
+            writer.uint32(26).string(message.beeType);
+        }
+        if (message.beeName !== "") {
+            writer.uint32(34).string(message.beeName);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateBee };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.beeType = reader.string();
+                    break;
+                case 4:
+                    message.beeName = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateBee };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = String(object.beeType);
+        }
+        else {
+            message.beeType = "";
+        }
+        if (object.beeName !== undefined && object.beeName !== null) {
+            message.beeName = String(object.beeName);
+        }
+        else {
+            message.beeName = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        message.beeType !== undefined && (obj.beeType = message.beeType);
+        message.beeName !== undefined && (obj.beeName = message.beeName);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateBee };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = object.beeType;
+        }
+        else {
+            message.beeType = "";
+        }
+        if (object.beeName !== undefined && object.beeName !== null) {
+            message.beeName = object.beeName;
+        }
+        else {
+            message.beeName = "";
+        }
+        return message;
+    },
+};
+const baseMsgCreateBeeResponse = {};
+export const MsgCreateBeeResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.bee !== undefined) {
+            Bees.encode(message.bee, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateBeeResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bee = Bees.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateBeeResponse };
+        if (object.bee !== undefined && object.bee !== null) {
+            message.bee = Bees.fromJSON(object.bee);
+        }
+        else {
+            message.bee = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bee !== undefined &&
+            (obj.bee = message.bee ? Bees.toJSON(message.bee) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateBeeResponse };
+        if (object.bee !== undefined && object.bee !== null) {
+            message.bee = Bees.fromPartial(object.bee);
+        }
+        else {
+            message.bee = undefined;
+        }
+        return message;
+    },
+};
+const baseMsgSetApiaryHouseForBee = {
+    creator: "",
+    beeId: 0,
+    apiaryId: 0,
+};
+export const MsgSetApiaryHouseForBee = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.beeId !== 0) {
+            writer.uint32(16).uint64(message.beeId);
+        }
+        if (message.apiaryId !== 0) {
+            writer.uint32(24).uint64(message.apiaryId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSetApiaryHouseForBee,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.beeId = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.apiaryId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgSetApiaryHouseForBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeId !== undefined && object.beeId !== null) {
+            message.beeId = Number(object.beeId);
+        }
+        else {
+            message.beeId = 0;
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = Number(object.apiaryId);
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.beeId !== undefined && (obj.beeId = message.beeId);
+        message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgSetApiaryHouseForBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeId !== undefined && object.beeId !== null) {
+            message.beeId = object.beeId;
+        }
+        else {
+            message.beeId = 0;
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = object.apiaryId;
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgSetApiaryHouseForBeeResponse = {};
+export const MsgSetApiaryHouseForBeeResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgSetApiaryHouseForBeeResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgSetApiaryHouseForBeeResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgSetApiaryHouseForBeeResponse,
+        };
+        return message;
+    },
+};
+const baseMsgUnsetApiaryHouseForBee = { creator: "", beeId: 0 };
+export const MsgUnsetApiaryHouseForBee = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.beeId !== 0) {
+            writer.uint32(16).uint64(message.beeId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBee,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.beeId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeId !== undefined && object.beeId !== null) {
+            message.beeId = Number(object.beeId);
+        }
+        else {
+            message.beeId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.beeId !== undefined && (obj.beeId = message.beeId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBee,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.beeId !== undefined && object.beeId !== null) {
+            message.beeId = object.beeId;
+        }
+        else {
+            message.beeId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgUnsetApiaryHouseForBeeResponse = {};
+export const MsgUnsetApiaryHouseForBeeResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBeeResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBeeResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgUnsetApiaryHouseForBeeResponse,
+        };
+        return message;
+    },
+};
+const baseMsgCollectHoneyFromApiary = { creator: "", apiaryId: 0 };
+export const MsgCollectHoneyFromApiary = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.apiaryId !== 0) {
+            writer.uint32(16).uint64(message.apiaryId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCollectHoneyFromApiary,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.apiaryId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCollectHoneyFromApiary,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = Number(object.apiaryId);
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCollectHoneyFromApiary,
+        };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = object.apiaryId;
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgCollectHoneyFromApiaryResponse = {};
+export const MsgCollectHoneyFromApiaryResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.countHoney !== undefined) {
+            Coin.encode(message.countHoney, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgCollectHoneyFromApiaryResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.countHoney = Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseMsgCollectHoneyFromApiaryResponse,
+        };
+        if (object.countHoney !== undefined && object.countHoney !== null) {
+            message.countHoney = Coin.fromJSON(object.countHoney);
+        }
+        else {
+            message.countHoney = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.countHoney !== undefined &&
+            (obj.countHoney = message.countHoney
+                ? Coin.toJSON(message.countHoney)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseMsgCollectHoneyFromApiaryResponse,
+        };
+        if (object.countHoney !== undefined && object.countHoney !== null) {
+            message.countHoney = Coin.fromPartial(object.countHoney);
+        }
+        else {
+            message.countHoney = undefined;
+        }
+        return message;
+    },
+};
+const baseMsgClearApiaryFromBees = { creator: "", apiaryId: 0 };
+export const MsgClearApiaryFromBees = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.apiaryId !== 0) {
+            writer.uint32(16).uint64(message.apiaryId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgClearApiaryFromBees };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.apiaryId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgClearApiaryFromBees };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = Number(object.apiaryId);
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgClearApiaryFromBees };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = object.apiaryId;
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgClearApiaryFromBeesResponse = {};
+export const MsgClearApiaryFromBeesResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgClearApiaryFromBeesResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgClearApiaryFromBeesResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgClearApiaryFromBeesResponse,
+        };
+        return message;
+    },
+};
+const baseMsgDeleteApiary = { creator: "", apiaryId: 0 };
+export const MsgDeleteApiary = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.apiaryId !== 0) {
+            writer.uint32(16).uint64(message.apiaryId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteApiary };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.apiaryId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteApiary };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = Number(object.apiaryId);
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteApiary };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = object.apiaryId;
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+};
+const baseMsgDeleteApiaryResponse = {};
+export const MsgDeleteApiaryResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseMsgDeleteApiaryResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseMsgDeleteApiaryResponse,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseMsgDeleteApiaryResponse,
+        };
+        return message;
+    },
+};
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2004,6 +2931,41 @@ export class MsgClientImpl {
         const data = MsgCreateApiary.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateApiary", data);
         return promise.then((data) => MsgCreateApiaryResponse.decode(new Reader(data)));
+    }
+    InitGameAndCreateBee(request) {
+        const data = MsgInitGameAndCreateBee.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "InitGameAndCreateBee", data);
+        return promise.then((data) => MsgInitGameAndCreateBeeResponse.decode(new Reader(data)));
+    }
+    CreateBee(request) {
+        const data = MsgCreateBee.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CreateBee", data);
+        return promise.then((data) => MsgCreateBeeResponse.decode(new Reader(data)));
+    }
+    SetApiaryHouseForBee(request) {
+        const data = MsgSetApiaryHouseForBee.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "SetApiaryHouseForBee", data);
+        return promise.then((data) => MsgSetApiaryHouseForBeeResponse.decode(new Reader(data)));
+    }
+    UnsetApiaryHouseForBee(request) {
+        const data = MsgUnsetApiaryHouseForBee.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "UnsetApiaryHouseForBee", data);
+        return promise.then((data) => MsgUnsetApiaryHouseForBeeResponse.decode(new Reader(data)));
+    }
+    CollectHoneyFromApiary(request) {
+        const data = MsgCollectHoneyFromApiary.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "CollectHoneyFromApiary", data);
+        return promise.then((data) => MsgCollectHoneyFromApiaryResponse.decode(new Reader(data)));
+    }
+    ClearApiaryFromBees(request) {
+        const data = MsgClearApiaryFromBees.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "ClearApiaryFromBees", data);
+        return promise.then((data) => MsgClearApiaryFromBeesResponse.decode(new Reader(data)));
+    }
+    DeleteApiary(request) {
+        const data = MsgDeleteApiary.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Msg", "DeleteApiary", data);
+        return promise.then((data) => MsgDeleteApiaryResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

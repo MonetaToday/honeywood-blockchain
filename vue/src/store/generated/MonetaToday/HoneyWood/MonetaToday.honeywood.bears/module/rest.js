@@ -18,13 +18,6 @@ export var ItemsItemTypes;
     ItemsItemTypes["TREE"] = "TREE";
     ItemsItemTypes["DECORATION"] = "DECORATION";
 })(ItemsItemTypes || (ItemsItemTypes = {}));
-export var TreesTreeTypes;
-(function (TreesTreeTypes) {
-    TreesTreeTypes["OAK"] = "OAK";
-    TreesTreeTypes["SPRUCE"] = "SPRUCE";
-    TreesTreeTypes["APPLETREE"] = "APPLETREE";
-    TreesTreeTypes["WILLOW"] = "WILLOW";
-})(TreesTreeTypes || (TreesTreeTypes = {}));
 export var ContentType;
 (function (ContentType) {
     ContentType["Json"] = "application/json";
@@ -186,6 +179,20 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryAirInfo
+         * @summary Queries a AirInfo by index.
+         * @request GET:/MonetaToday/honeywood/bears/air_info
+         */
+        this.queryAirInfo = (params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/air_info`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryApiariesAll
          * @summary Queries a list of Apiaries items.
          * @request GET:/MonetaToday/honeywood/bears/apiaries
@@ -294,6 +301,20 @@ export class Api extends HttpClient {
          */
         this.queryBees = (id, params = {}) => this.request({
             path: `/MonetaToday/honeywood/bears/bees/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryCalculateHoneyInApiary
+         * @summary Queries a list of CalculateHoneyInApiary items.
+         * @request GET:/MonetaToday/honeywood/bears/calculate_honey_in_apiary/{apiaryId}
+         */
+        this.queryCalculateHoneyInApiary = (apiaryId, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/calculate_honey_in_apiary/${apiaryId}`,
             method: "GET",
             format: "json",
             ...params,
