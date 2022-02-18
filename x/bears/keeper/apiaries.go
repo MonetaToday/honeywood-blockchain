@@ -183,10 +183,44 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 	if !bearFound {
 		return nil, types.ErrBearIsNotExisted
 	}
-	bear.Apiaries = append(bear.Trees, newApiaryId)
+	bear.Apiaries = append(bear.Apiaries, newApiaryId)
 	k.SetBears(ctx, bear)
 
 	return &newApiary, nil
+}
+
+
+// Create apiary on field for specific bear
+func (k Keeper) DeleteApiary(ctx sdk.Context, beneficiary string, apiary types.Apiaries) error {
+	field, fieldFound := k.GetFields(ctx, apiary.Position.FieldId)
+	if fieldFound {
+		field.Rows[apiary.Position.RowId].Columns[apiary.Position.ColumnId].Item = nil
+		k.SetFields(ctx, field)
+	}
+
+	if apiary.BearOwner != nil {
+		bear, bearFound := k.GetBears(ctx, apiary.BearOwner.Id)
+		if bearFound {
+			for index, id := range bear.Apiaries {
+				if id == apiary.Id {
+					bear.Apiaries = append(bear.Apiaries[:index], bear.Apiaries[index+1:]...)
+					break
+				}
+			}
+			k.SetBears(ctx, bear)
+		}
+	}
+
+	beneficiaryAcc, _ := sdk.AccAddressFromBech32(beneficiary)
+	k.bankKeeper.MintCoins(ctx, types.ModuleName, apiary.Params.DeleteReward)
+	errSendFromModuleToAccount := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, beneficiaryAcc, apiary.Params.DeleteReward)
+	if errSendFromModuleToAccount != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
+	}
+
+	k.RemoveApiaries(ctx, apiary.Id)
+
+	return nil
 }
 
 // Check if space is enough
@@ -225,7 +259,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 			if _, found := loadedBees[beeId]; !found {
 				loadedBees[beeId], _ = k.GetBees(ctx, beeId)
 			}
-	
+
 			beeHoneySpeed := loadedBees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
 
 			beeHoneyPower := airCycleHistory.Purity.Mul(
@@ -248,12 +282,12 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 	lastAirHistoryIndex := len(airInfo.History) - 1
 	lastApiaryHistoryIndex := len(apiary.CycleHistory) - 1
 
-	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastAirHistoryIndex >= 0 && lastApiaryHistoryIndex >= 0  {
+	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastAirHistoryIndex >= 0 && lastApiaryHistoryIndex >= 0 {
 		lastAirHistoryHeight := airInfo.History[lastAirHistoryIndex].Height
 		lastApiaryHistoryHeight := apiary.CycleHistory[lastApiaryHistoryIndex].Height
 
 		lastHoneyPower := calculateHoneyPower(
-			apiary.CycleHistory[lastApiaryHistoryIndex], 
+			apiary.CycleHistory[lastApiaryHistoryIndex],
 			airInfo.History[lastAirHistoryIndex],
 		)
 

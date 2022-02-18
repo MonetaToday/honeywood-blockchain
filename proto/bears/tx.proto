@@ -31,6 +31,7 @@ service Msg {
   rpc UnsetApiaryHouseForBee(MsgUnsetApiaryHouseForBee) returns (MsgUnsetApiaryHouseForBeeResponse);
   rpc CollectHoneyFromApiary(MsgCollectHoneyFromApiary) returns (MsgCollectHoneyFromApiaryResponse);
   rpc ClearApiaryFromBees(MsgClearApiaryFromBees) returns (MsgClearApiaryFromBeesResponse);
+  rpc DeleteApiary(MsgDeleteApiary) returns (MsgDeleteApiaryResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -215,6 +216,14 @@ message MsgClearApiaryFromBees {
 }
 
 message MsgClearApiaryFromBeesResponse {
+}
+
+message MsgDeleteApiary {
+  string creator = 1;
+  uint64 apiaryId = 2;
+}
+
+message MsgDeleteApiaryResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

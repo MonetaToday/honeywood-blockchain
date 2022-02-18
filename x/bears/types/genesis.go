@@ -18,7 +18,7 @@ func DefaultGenesis() *GenesisState {
 		DecorationsList:  []Decorations{},
 		ApiariesList:     []Apiaries{},
 		BeesList:         []Bees{},
-		AirInfo:       AirInfo{},
+		AirInfo:          AirInfo{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -146,7 +146,7 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("airInfo.History.Height can not be a negative")
 		}
 
-		if index > 0 && airInfo.History[index - 1].Height > elem.Height {
+		if index > 0 && airInfo.History[index-1].Height > elem.Height {
 			return fmt.Errorf("airInfo.History.Height must be ordered")
 		}
 	}

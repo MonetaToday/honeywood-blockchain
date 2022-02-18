@@ -16,14 +16,14 @@ func (k Keeper) SetAirInfo(ctx sdk.Context, airInfo types.AirInfo) {
 
 		airInfo.History = append(airInfo.History, types.AirHistory{
 			Height: height,
-			Count: airCount,
+			Count:  airCount,
 			Purity: airPurity,
 		})
 
 		maxLength := k.AirHistoryLength(ctx)
 		currentLength := uint64(len(airInfo.History))
 		if currentLength > maxLength {
-			airInfo.History = airInfo.History[currentLength - maxLength:]
+			airInfo.History = airInfo.History[currentLength-maxLength:]
 		}
 	}
 

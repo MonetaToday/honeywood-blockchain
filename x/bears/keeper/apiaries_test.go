@@ -9,8 +9,8 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/keeper"
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	"github.com/stretchr/testify/require"
 )
 
 func createNApiaries(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Apiaries {
@@ -65,7 +65,6 @@ func TestCalculateHoneyInApiary(t *testing.T) {
 
 	address := sample.AccAddress()
 	bear := initGameForAddress(keeper, ctx, address)
-
 
 	// items := createNApiaries(keeper, ctx, 10)
 	// count := uint64(len(items))

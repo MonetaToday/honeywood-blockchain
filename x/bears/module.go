@@ -167,9 +167,9 @@ func (AppModule) ConsensusVersion() uint64 { return 2 }
 
 // BeginBlock executes all ABCI BeginBlock logic respective to the capability module.
 func (am AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {
-// 	d := am.keeper.GetTotalAirConsume(ctx)
+	// 	d := am.keeper.GetTotalAirConsume(ctx)
 
-// 	fmt.Println(d.String())
+	// 	fmt.Println(d.String())
 }
 
 // EndBlock executes all ABCI EndBlock logic respective to the capability module. It

@@ -53,6 +53,25 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 
 go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
+////
+~/go/bin/HoneyWoodd tx bears init-game-and-extend-field --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
+
+~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-tree 0 0 0 1 OAK --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-decoration-position 0 0 0 2 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 3 APIARY --from bob --fees 1honey --yes
+
+~/go/bin/HoneyWoodd tx bears create-tree 0 0 1 0 OAK --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-decoration-position 1 0 1 1 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-apiary 0 0 1 2 APIARY --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-apiary 0 0 1 3 APIARY --from bob --fees 1honey --yes
+////
+
 ~/go/bin/HoneyWoodd tx bears init-game-and-create-bee BEE BEE --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
 ~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
@@ -87,3 +106,10 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/HoneyWoodd tx bears create-tree 0 0 1 0 SPRUCE --from bob --fees 1honey --yes
 
 ~/go/bin/HoneyWoodd query bears show-air-info
+
+~/go/bin/HoneyWoodd tx bears init-game-and-create-apiary APIARY --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
+~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
+~/go/bin/HoneyWoodd tx bears delete-apiary 0 --from bob --fees 1honey --yes

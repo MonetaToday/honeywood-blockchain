@@ -8,7 +8,7 @@ accounts:
   - name: alice
     coins: ["20000honey", "200000000cone"]
   - name: bob
-    coins: ["10000honey"]
+    coins: ["1000000honey"]
   - name: bobi
     coins: ["100000honey"]
 validator:
@@ -45,7 +45,7 @@ genesis:
             purity: "1"
       params:
         honey_denom: "honey"
-        air_history_length: "518400" // More than a month
+        air_history_length: "518400"
         blocks_per_hour: "3600"
         burn_rate: "0.5"
         price_set_name: 
@@ -118,18 +118,27 @@ genesis:
             price:
             - denom: "honey"
               amount: "500"
+            deleteReward:
+            - denom: "honey"
+              amount: "250"
           - apiary_type: "APIARY"
             space_available: 8
             max_honey: "15"
             price:
             - denom: "honey"
               amount: "900"
+            deleteReward:
+            - denom: "honey"
+              amount: "250"
           - apiary_type: "ALVEARY"
             space_available: 12
             max_honey: "25"
             price:
             - denom: "honey"
               amount: "1500"
+            deleteReward:
+            - denom: "honey"
+              amount: "250"
 
         bee_types:
           - bee_type: "SMALL_BEE"

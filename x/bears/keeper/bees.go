@@ -88,7 +88,7 @@ func (k Keeper) RemoveBees(ctx sdk.Context, id uint64) {
 		airConsume := k.GetTotalAirConsume(ctx)
 		k.SetTotalAirConsume(ctx, airConsume.Sub(bee.Params.AirConsume))
 	}
-	
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BeesKey))
 	store.Delete(GetBeesIDBytes(id))
 }

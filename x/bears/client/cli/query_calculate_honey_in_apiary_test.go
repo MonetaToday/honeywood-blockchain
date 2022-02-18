@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 	"google.golang.org/grpc/status"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/MonetaToday/HoneyWood/testutil/network"
 	"github.com/MonetaToday/HoneyWood/testutil/sample"
@@ -16,7 +16,7 @@ import (
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 )
 
-func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
+func networkWithBeesInApiaryObjects(t *testing.T) *network.Network {
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
@@ -29,7 +29,7 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 			Name:        "Name",
 			Fields:      []uint64{0},
 			Apiaries:    []uint64{0},
-			Bees:        []uint64{0,1,2},
+			Bees:        []uint64{0, 1, 2},
 			Trees:       []uint64{},
 			Decorations: []uint64{},
 		},
@@ -45,14 +45,14 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 			BearOwner: &types.BearOwner{
 				Id: 0,
 			},
-			Id: 0,
+			Id:   0,
 			Name: "BEE",
 			Params: &types.BeeParams{
 				AirDependency: airDependency,
-				BeeType: "BEE",
-				BodySize: 1,
-				HoneyPerHour: honeyPerHour,
-				Price: []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
+				BeeType:       "BEE",
+				BodySize:      1,
+				HoneyPerHour:  honeyPerHour,
+				Price:         []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
 			},
 		},
 		{
@@ -62,14 +62,14 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 			BearOwner: &types.BearOwner{
 				Id: 0,
 			},
-			Id: 1,
+			Id:   1,
 			Name: "BEE",
 			Params: &types.BeeParams{
 				AirDependency: airDependency,
-				BeeType: "BEE",
-				BodySize: 1,
-				HoneyPerHour: honeyPerHour,
-				Price: []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
+				BeeType:       "BEE",
+				BodySize:      1,
+				HoneyPerHour:  honeyPerHour,
+				Price:         []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
 			},
 		},
 		{
@@ -79,14 +79,14 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 			BearOwner: &types.BearOwner{
 				Id: 0,
 			},
-			Id: 2,
+			Id:   2,
 			Name: "BEE",
 			Params: &types.BeeParams{
 				AirDependency: airDependency,
-				BeeType: "BEE",
-				BodySize: 1,
-				HoneyPerHour: honeyPerHour,
-				Price: []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
+				BeeType:       "BEE",
+				BodySize:      1,
+				HoneyPerHour:  honeyPerHour,
+				Price:         []sdk.Coin{sdk.NewInt64Coin("honey", 1200)},
 			},
 		},
 	}
@@ -100,30 +100,30 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 			},
 			CycleHistory: []types.CycleHistory{
 				{
-					Bees: []uint64{0},
+					Bees:   []uint64{0},
 					Height: 0,
 				},
 				{
-					Bees: []uint64{0,1},
+					Bees:   []uint64{0, 1},
 					Height: 5,
 				},
 				{
-					Bees: []uint64{0},
+					Bees:   []uint64{0},
 					Height: 9,
 				},
 			},
 			HoneyFromPast: honeyFromPast,
-			Id: 0,
+			Id:            0,
 			Params: &types.ApiaryParams{
-				ApiaryType: "APIARY",
-				MaxHoney: maxHoney,
-				Price: []sdk.Coin{sdk.NewInt64Coin("honey", 900)},
+				ApiaryType:     "APIARY",
+				MaxHoney:       maxHoney,
+				Price:          []sdk.Coin{sdk.NewInt64Coin("honey", 900)},
 				SpaceAvailable: 8,
 			},
 			Position: types.ItemPosition{
 				ColumnId: 0,
-				FieldId: 0,
-				RowId: 0,
+				FieldId:  0,
+				RowId:    0,
 			},
 			SpaceOccupied: 3,
 		},
@@ -137,12 +137,12 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 	airInfo := types.AirInfo{
 		History: []types.AirHistory{
 			{
-				Count: count1,
+				Count:  count1,
 				Purity: purity1,
 				Height: 0,
 			},
 			{
-				Count: count2,
+				Count:  count2,
 				Purity: purity2,
 				Height: 5,
 			},
@@ -151,19 +151,18 @@ func networkWithBeesInApiaryObjects(t *testing.T) (*network.Network) {
 
 	params := types.Params{
 		BlocksPerHour: 3600,
-		HoneyDenom: "honey",
-		PriceSetName: sdk.Coins{sdk.NewInt64Coin("honey", 900)},
-		PriceTile: sdk.Coins{sdk.NewInt64Coin("honey", 900)},
+		HoneyDenom:    "honey",
+		PriceSetName:  sdk.Coins{sdk.NewInt64Coin("honey", 900)},
+		PriceTile:     sdk.Coins{sdk.NewInt64Coin("honey", 900)},
 	}
-	
-	
+
 	// nullify.Fill(&airInfo)
 	state.BearsList = bears
 	state.BeesList = bees
 	state.ApiariesList = apiaries
 	state.AirInfo = airInfo
 	state.Params = params
-	
+
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
@@ -205,7 +204,7 @@ func TestCalculateHoneyInApiary(t *testing.T) {
 				require.NoError(t, err)
 				var resp types.QueryCalculateHoneyInApiaryResponse
 				require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-				
+
 				require.NotNil(t, resp.CountHoney)
 
 				fmt.Println(resp)
