@@ -1,3 +1,5 @@
+build:
+  binary: "honeyd"
 init:
   config:
     consensus:
@@ -8,17 +10,17 @@ accounts:
   - name: alice
     coins: ["20000honey", "200000000cone"]
   - name: bob
-    coins: ["1000000honey"]
+    coins: ["1000000000honey"]
   - name: bobi
     coins: ["100000honey"]
 validator:
   name: alice
   staked: "100000000cone"
 client:
-  openapi:
-    path: "docs/static/openapi.yml"
-  vuex:
-    path: "vue/src/store"
+  # openapi:
+  #   path: "docs/static/openapi.yml"
+  # vuex:
+  #   path: "vue/src/store"
 # faucet:
 #   name: bob
 #   coins: ["5honey", "100000stake"]
