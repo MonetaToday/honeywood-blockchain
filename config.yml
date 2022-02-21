@@ -45,7 +45,9 @@ genesis:
             - denom: "cone"
               exponent: 0
     crisis:
-      constant_fee: "1000cone"
+      constant_fee:
+        denom: "cone"
+        amount: "1000"
     staking:
       params:
         bond_denom: "cone"
