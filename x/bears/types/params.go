@@ -20,7 +20,7 @@ var (
 	DefaultBurnRate, _ = sdk.NewDecFromStr("0.5")
 
 	KeyPriceSetName               = []byte("PriceSetName")
-	DefaultPriceSetName sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
+	DefaultPriceSetName sdk.Coins = sdk.NewCoins(sdk.NewCoin("uhoney", sdk.NewInt(100000000)))
 	MaxNameLength                 = 100
 
 	KeyFieldTypes     = []byte("FieldTypes")
@@ -39,7 +39,7 @@ var (
 	DefaultBeeTypes = []BeeParams{}
 
 	KeyHoneyDenom     = []byte("HoneyDenom")
-	DefaultHoneyDenom = "honey"
+	DefaultHoneyDenom = "uhoney"
 )
 
 // NewParams creates a new Params instance

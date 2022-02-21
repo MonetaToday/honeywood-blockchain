@@ -5,12 +5,12 @@ init:
     consensus:
       timeout_commit: "5s"
   app:
-    minimum-gas-prices: "0.000005honey"
+    minimum-gas-prices: "5uhoney"
 accounts:
   - name: alice
-    coins: ["20000honey", "200000000cone"]
+    coins: ["200000000cone"]
   - name: bob
-    coins: ["10000000000000honey"]
+    coins: ["100000000000000000000000000000000000000000000000uhoney"]
 validator:
   name: alice
   staked: "100000000cone"
@@ -21,9 +21,29 @@ client:
   #   path: "vue/src/store"
 # faucet:
 #   name: bob
-#   coins: ["5honey", "100000stake"]
+#   coins: ["5uhoney", "100000stake"]
 genesis:
   app_state:
+    bank:
+      denom_metadata:
+        - name: "HoneyCoin"
+          description: "HoneyCoin is a native coin which is used to play"
+          symbol: "HONEY"
+          base: "uhoney"
+          display: "honey"
+          denom_units:
+            - denom: "uhoney"
+              exponent: 0
+            - denom: "honey"
+              exponent: 6
+        - name: "CONE"
+          description: "CONE is a native coin which is used to stake and governance"
+          symbol: "CONE"
+          base: "cone"
+          display: "cone"
+          denom_units:
+            - denom: "cone"
+              exponent: 0
     staking:
       params:
         bond_denom: "cone"
@@ -44,50 +64,50 @@ genesis:
             count: "1"
             purity: "1"
       params:
-        honey_denom: "honey"
+        honey_denom: "uhoney"
         air_history_length: "518400"
         blocks_per_hour: "720"
         burn_rate: "0.5"
         price_set_name: 
-          - denom: "honey"
-            amount: "100"
+          - denom: "uhoney"
+            amount: "100000000"
 
         field_types:
           - field_type: "DEFAULT"
             price_tile:
-              - denom: "honey"
-                amount: "100"
+              - denom: "uhoney"
+                amount: "100000000"
 
         tree_types:
           - tree_type: OAK
             air_supply: "1"
             price:
-              - denom: "honey"
-                amount: "1500"
+              - denom: "uhoney"
+                amount: "1500000000"
             reward:
               - denom: "cone"
                 amount: "150"
           - tree_type: SPRUCE
             air_supply: "1"
             price:
-              - denom: "honey"
-                amount: "1500"
+              - denom: "uhoney"
+                amount: "1500000000"
             reward:
               - denom: "cone"
                 amount: "150"
           - tree_type: APPLE_TREE
             air_supply: "1"
             price:
-              - denom: "honey"
-                amount: "1500"
+              - denom: "uhoney"
+                amount: "1500000000"
             reward:
               - denom: "cone"
                 amount: "150"
           - tree_type: WILLOW
             air_supply: "1"
             price:
-              - denom: "honey"
-                amount: "1500"
+              - denom: "uhoney"
+                amount: "1500000000"
             reward:
               - denom: "cone"
                 amount: "150"
@@ -95,132 +115,132 @@ genesis:
         decoration_types:
           - decoration_type: "FLOWERS"
             price:
-              - denom: "honey"
-                amount: "100"
+              - denom: "uhoney"
+                amount: "100000000"
           - decoration_type: "FLAG"
             price:
-              - denom: "honey"
-                amount: "150"
+              - denom: "uhoney"
+                amount: "150000000"
           - decoration_type: "LAMP"
             price:
-              - denom: "honey"
-                amount: "200"
+              - denom: "uhoney"
+                amount: "200000000"
           - decoration_type: "GREEN_BEE"
             price:
-              - denom: "honey"
-                amount: "500" 
+              - denom: "uhoney"
+                amount: "500000000" 
           - decoration_type: "FOUNTAIN"
             price:
-              - denom: "honey"
-                amount: "1000" 
+              - denom: "uhoney"
+                amount: "1000000000" 
         
         apiary_types:
           - apiary_type: "BEE_HOUSE"
             space_available: 5
-            max_honey: "5"
+            max_honey: "5000000"
             price:
-            - denom: "honey"
-              amount: "500"
+            - denom: "uhoney"
+              amount: "500000000"
             deleteReward:
-            - denom: "honey"
-              amount: "250"
+            - denom: "uhoney"
+              amount: "250000000"
           - apiary_type: "APIARY"
             space_available: 8
-            max_honey: "15"
+            max_honey: "15000000"
             price:
-            - denom: "honey"
-              amount: "900"
+            - denom: "uhoney"
+              amount: "900000000"
             deleteReward:
-            - denom: "honey"
-              amount: "450"
+            - denom: "uhoney"
+              amount: "450000000"
           - apiary_type: "ALVEARY"
             space_available: 12
-            max_honey: "25"
+            max_honey: "25000000"
             price:
-            - denom: "honey"
-              amount: "1500"
+            - denom: "uhoney"
+              amount: "1500000000"
             deleteReward:
-            - denom: "honey"
-              amount: "750"
+            - denom: "uhoney"
+              amount: "750000000"
 
         bee_types:
           - bee_type: "SMALL_BEE"
-            honey_per_hour: "0.55"
+            honey_per_hour: "550000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1100"
+            - denom: "uhoney"
+              amount: "1100000000"
           - bee_type: "BEE"
-            honey_per_hour: "0.62"
+            honey_per_hour: "620000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1200"
+            - denom: "uhoney"
+              amount: "1200000000"
           - bee_type: "LUCKY_BEE"
-            honey_per_hour: "0.64"
+            honey_per_hour: "640000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1280"
+            - denom: "uhoney"
+              amount: "1280000000"
           - bee_type: "HONEY_BEE"
-            honey_per_hour: "0.66"
+            honey_per_hour: "660000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1370"
+            - denom: "uhoney"
+              amount: "1370000000"
           - bee_type: "SKILLED_BEE"
-            honey_per_hour: "0.71"
+            honey_per_hour: "710000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1500"
+            - denom: "uhoney"
+              amount: "1500000000"
           - bee_type: "CURIOUS_BEE"
-            honey_per_hour: "0.75"
+            honey_per_hour: "750000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1650"
+            - denom: "uhoney"
+              amount: "1650000000"
           - bee_type: "HONEY_EXPLORER"
-            honey_per_hour: "0.8"
+            honey_per_hour: "800000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1780"
+            - denom: "uhoney"
+              amount: "1780000000"
           - bee_type: "HONEY_HUNTER"
-            honey_per_hour: "0.84"
+            honey_per_hour: "840000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "1800"
+            - denom: "uhoney"
+              amount: "1800000000"
           - bee_type: "WONDER_BEE"
-            honey_per_hour: "0.85"
+            honey_per_hour: "850000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "2100"
+            - denom: "uhoney"
+              amount: "2100000000"
           - bee_type: "DIAMOND_STING"
-            honey_per_hour: "0.9"
+            honey_per_hour: "900000"
             body_size: 1
             air_dependency: "1"
             air_consume: "0.5"
             price:
-            - denom: "honey"
-              amount: "2350"
+            - denom: "uhoney"
+              amount: "2350000000"
