@@ -116,6 +116,13 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	bearId := k.GetBearsCount(ctx)
 	name := address
 
+	// TODO
+	fieldType := "DEFAULT"
+	fieldParams, _ := k.GetFieldParams(ctx, fieldType)
+	if fieldParams == nil {
+		return nil, nil, types.ErrFieldTypeIsNotDefined
+	}
+
 	// One empty tile.
 	rows := []types.FieldRows{
 		{
@@ -128,7 +135,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 		BearOwner: &types.BearOwner{
 			Id: bearId,
 		},
-		FieldType: types.Fields_DEFAULT,
+		Params: fieldParams,
 		Rows:      rows,
 	}
 	newField.CountTiles = k.GetFieldsTilesCount(newField)

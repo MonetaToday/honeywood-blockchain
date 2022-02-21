@@ -14075,11 +14075,29 @@ paths:
                         id:
                           type: string
                           format: uint64
-                    fieldType:
-                      type: string
-                      enum:
-                        - DEFAULT
-                      default: DEFAULT
+                    params:
+                      type: object
+                      properties:
+                        fieldType:
+                          type: string
+                        priceTile:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
                     rows:
                       type: array
                       items:
@@ -14232,11 +14250,29 @@ paths:
                       id:
                         type: string
                         format: uint64
-                  fieldType:
-                    type: string
-                    enum:
-                      - DEFAULT
-                    default: DEFAULT
+                  params:
+                    type: object
+                    properties:
+                      fieldType:
+                        type: string
+                      priceTile:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
                   rows:
                     type: array
                     items:
@@ -14328,23 +14364,31 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                  priceTile:
+                  fieldTypes:
                     type: array
                     items:
                       type: object
                       properties:
-                        denom:
+                        fieldType:
                           type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
+                        priceTile:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
 
 
-                        NOTE: The amount field is an Int which implements the
-                        custom method
+                              NOTE: The amount field is an Int which implements
+                              the custom method
 
-                        signatures required by gogoproto.
+                              signatures required by gogoproto.
                   treeTypes:
                     type: array
                     items:
@@ -22531,6 +22575,25 @@ definitions:
           columnId:
             type: string
             format: uint64
+  MonetaToday.honeywood.bears.FieldParams:
+    type: object
+    properties:
+      fieldType:
+        type: string
+      priceTile:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
   MonetaToday.honeywood.bears.FieldRows:
     type: object
     properties:
@@ -22564,11 +22627,28 @@ definitions:
           id:
             type: string
             format: uint64
-      fieldType:
-        type: string
-        enum:
-          - DEFAULT
-        default: DEFAULT
+      params:
+        type: object
+        properties:
+          fieldType:
+            type: string
+          priceTile:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
       rows:
         type: array
         items:
@@ -22595,11 +22675,6 @@ definitions:
       countTiles:
         type: string
         format: uint64
-  MonetaToday.honeywood.bears.Fields.FieldTypes:
-    type: string
-    enum:
-      - DEFAULT
-    default: DEFAULT
   MonetaToday.honeywood.bears.ItemPosition:
     type: object
     properties:
@@ -23202,20 +23277,30 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      priceTile:
+      fieldTypes:
         type: array
         items:
           type: object
           properties:
-            denom:
+            fieldType:
               type: string
-            amount:
-              type: string
-          description: |-
-            Coin defines a token with a denomination and an amount.
+            priceTile:
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
 
-            NOTE: The amount field is an Int which implements the custom method
-            signatures required by gogoproto.
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
       treeTypes:
         type: array
         items:
@@ -23798,11 +23883,28 @@ definitions:
                 id:
                   type: string
                   format: uint64
-            fieldType:
-              type: string
-              enum:
-                - DEFAULT
-              default: DEFAULT
+            params:
+              type: object
+              properties:
+                fieldType:
+                  type: string
+                priceTile:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
             rows:
               type: array
               items:
@@ -24245,11 +24347,28 @@ definitions:
               id:
                 type: string
                 format: uint64
-          fieldType:
-            type: string
-            enum:
-              - DEFAULT
-            default: DEFAULT
+          params:
+            type: object
+            properties:
+              fieldType:
+                type: string
+              priceTile:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
           rows:
             type: array
             items:
@@ -24376,23 +24495,30 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          priceTile:
+          fieldTypes:
             type: array
             items:
               type: object
               properties:
-                denom:
+                fieldType:
                   type: string
-                amount:
-                  type: string
-              description: >-
-                Coin defines a token with a denomination and an amount.
+                priceTile:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
 
 
-                NOTE: The amount field is an Int which implements the custom
-                method
+                      NOTE: The amount field is an Int which implements the
+                      custom method
 
-                signatures required by gogoproto.
+                      signatures required by gogoproto.
           treeTypes:
             type: array
             items:

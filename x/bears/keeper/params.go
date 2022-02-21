@@ -12,7 +12,7 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.BlocksPerHour(ctx),
 		k.BurnRate(ctx),
 		k.PriceSetName(ctx),
-		k.PriceTile(ctx),
+		k.FieldTypes(ctx),
 		k.TreeTypes(ctx),
 		k.DecorationTypes(ctx),
 		k.ApiaryTypes(ctx),
@@ -50,9 +50,9 @@ func (k Keeper) PriceSetName(ctx sdk.Context) (res sdk.Coins) {
 	return
 }
 
-// PriceTile returns the PriceTile param
-func (k Keeper) PriceTile(ctx sdk.Context) (res sdk.Coins) {
-	k.paramstore.Get(ctx, types.KeyPriceTile, &res)
+// FieldTypes returns the FieldTypes param
+func (k Keeper) FieldTypes(ctx sdk.Context) (res []types.FieldParams) {
+	k.paramstore.Get(ctx, types.KeyFieldTypes, &res)
 	return
 }
 

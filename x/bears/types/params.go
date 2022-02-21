@@ -23,8 +23,8 @@ var (
 	DefaultPriceSetName sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
 	MaxNameLength                 = 100
 
-	KeyPriceTile               = []byte("PriceTile")
-	DefaultPriceTile sdk.Coins = sdk.NewCoins(sdk.NewCoin("honey", sdk.NewInt(100)))
+	KeyFieldTypes     = []byte("FieldTypes")
+	DefaultFieldTypes = []FieldParams{}
 
 	KeyTreeTypes     = []byte("TreeTypes")
 	DefaultTreeTypes = []TreeParams{}
@@ -48,7 +48,7 @@ func NewParams(
 	blocksPerHour uint64,
 	burnRate sdk.Dec,
 	priceSetName sdk.Coins,
-	priceTile sdk.Coins,
+	fieldTypes []FieldParams,
 	treeTypes []TreeParams,
 	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
@@ -60,7 +60,7 @@ func NewParams(
 		BlocksPerHour:    blocksPerHour,
 		BurnRate:         burnRate,
 		PriceSetName:     priceSetName,
-		PriceTile:        priceTile,
+		FieldTypes:       fieldTypes,
 		TreeTypes:        treeTypes,
 		DecorationTypes:  decorationTypes,
 		ApiaryTypes:      apiaryTypes,
@@ -76,7 +76,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyBlocksPerHour, &p.BlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, &p.BurnRate, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, &p.PriceSetName, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceTile, &p.PriceTile, validateCoins),
+		paramtypes.NewParamSetPair(KeyFieldTypes, &p.FieldTypes, validateFieldTypes),
 		paramtypes.NewParamSetPair(KeyTreeTypes, &p.TreeTypes, validateTreeTypes),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
@@ -103,7 +103,7 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validateCoins(p.PriceTile); err != nil {
+	if err := validateFieldTypes(p.FieldTypes); err != nil {
 		return err
 	}
 
@@ -137,7 +137,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyBlocksPerHour, DefaultBlocksPerHour, validateBlocksPerHour),
 		paramtypes.NewParamSetPair(KeyBurnRate, sdk.Dec{}, validateBurnRate),
 		paramtypes.NewParamSetPair(KeyPriceSetName, sdk.Coins{}, validateCoins),
-		paramtypes.NewParamSetPair(KeyPriceTile, sdk.Coins{}, validateCoins),
+		paramtypes.NewParamSetPair(KeyFieldTypes, []FieldParams{}, validateFieldTypes),
 		paramtypes.NewParamSetPair(KeyTreeTypes, []TreeParams{}, validateTreeTypes),
 		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
@@ -153,7 +153,7 @@ func DefaultParams() Params {
 		DefaultBlocksPerHour,
 		DefaultBurnRate,
 		DefaultPriceSetName,
-		DefaultPriceTile,
+		DefaultFieldTypes,
 		DefaultTreeTypes,
 		DefaultDecorationTypes,
 		DefaultApiaryTypes,
@@ -220,6 +220,21 @@ func validateCoins(i interface{}) error {
 	return nil
 }
 
+func validateFieldTypes(i interface{}) error {
+	v, ok := i.([]FieldParams)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	for _, params := range v {
+		if !params.PriceTile.IsValid() {
+			return fmt.Errorf("invalid PriceTile parameter in FieldParams: %v", v)
+		}
+	}
+
+	return nil
+}
+
 func validateTreeTypes(i interface{}) error {
 	v, ok := i.([]TreeParams)
 	if !ok {
@@ -228,11 +243,11 @@ func validateTreeTypes(i interface{}) error {
 
 	for _, params := range v {
 		if !params.Price.IsValid() {
-			return fmt.Errorf("invalid coins parameter in TreeParams: %v", v)
+			return fmt.Errorf("invalid Price parameter in TreeParams: %v", v)
 		}
 
 		if !params.Reward.IsValid() {
-			return fmt.Errorf("invalid coins parameter in TreeParams: %v", v)
+			return fmt.Errorf("invalid Reward parameter in TreeParams: %v", v)
 		}
 	}
 

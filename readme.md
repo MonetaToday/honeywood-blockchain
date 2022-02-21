@@ -54,62 +54,62 @@ curl https://get.starport.com/MonetaToday/HoneyWood@latest! | sudo bash
 go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 ////
-~/go/bin/HoneyWoodd tx bears init-game-and-extend-field --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears init-game-and-extend-field --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears extend-field 0 --from bob --fees 1honey --yes
 
-~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-tree 0 0 0 1 OAK --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-decoration-position 0 0 0 2 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 3 APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-tree 0 0 0 1 OAK --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-decoration-position 0 0 0 2 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-apiary 0 0 0 3 APIARY --from bob --fees 1honey --yes
 
-~/go/bin/HoneyWoodd tx bears create-tree 0 0 1 0 OAK --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-decoration-position 1 0 1 1 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-apiary 0 0 1 2 APIARY --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-apiary 0 0 1 3 APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-tree 0 0 1 0 OAK --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-decoration 0 FOUNTAIN --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-decoration-position 1 0 1 1 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-apiary 0 0 1 2 APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-apiary 0 0 1 3 APIARY --from bob --fees 1honey --yes
 ////
 
-~/go/bin/HoneyWoodd tx bears init-game-and-create-bee BEE BEE --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 1honey --yes 
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears init-game-and-create-bee BEE BEE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-apiary 0 0 0 0 APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 1honey --yes 
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 1honey --yes
 
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 3 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 4 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 5 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 6 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 7 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 8 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 9 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 3 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 4 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 5 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 6 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 7 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 8 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 9 0 --from bob --fees 1honey --yes
  
-~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0
-~/go/bin/HoneyWoodd tx bears unset-apiary-house-for-bee 0 --from bob --fees 1honey --yes 
-~/go/bin/HoneyWoodd query bears list-apiaries
+~/go/bin/honeyd query bears calculate-honey-in-apiary 0
+~/go/bin/honeyd tx bears unset-apiary-house-for-bee 0 --from bob --fees 1honey --yes 
+~/go/bin/honeyd query bears list-apiaries
 
-~/go/bin/HoneyWoodd tx bears collect-honey-from-apiary 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd query bears list-apiaries
-~/go/bin/HoneyWoodd query bears calculate-honey-in-apiary 0 
-~/go/bin/HoneyWoodd query bank balances bears1jha5494q2lh3htkanddczkuuv7gtm80edrxc36
-
-
-~/go/bin/HoneyWoodd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd query bears list-apiaries
+~/go/bin/honeyd tx bears collect-honey-from-apiary 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd query bears list-apiaries
+~/go/bin/honeyd query bears calculate-honey-in-apiary 0 
+~/go/bin/honeyd query bank balances bears1jha5494q2lh3htkanddczkuuv7gtm80edrxc36
 
 
-~/go/bin/HoneyWoodd tx bears extend-field 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-tree 0 0 1 0 SPRUCE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd query bears list-apiaries
 
-~/go/bin/HoneyWoodd query bears show-air-info
 
-~/go/bin/HoneyWoodd tx bears init-game-and-create-apiary APIARY --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
-~/go/bin/HoneyWoodd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
-~/go/bin/HoneyWoodd tx bears delete-apiary 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears extend-field 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-tree 0 0 1 0 SPRUCE --from bob --fees 1honey --yes
+
+~/go/bin/honeyd query bears show-air-info
+
+~/go/bin/honeyd tx bears init-game-and-create-apiary APIARY --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 1honey --yes 
+~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears clear-apiary-from-bees 0 --from bob --fees 1honey --yes
+~/go/bin/honeyd tx bears delete-apiary 0 --from bob --fees 1honey --yes

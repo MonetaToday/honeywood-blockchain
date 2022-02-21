@@ -1,5 +1,6 @@
 import { Writer, Reader } from "protobufjs/minimal";
 import { Tiles } from "../bears/tiles";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface FieldRows {
@@ -10,19 +11,17 @@ export interface ItemPosition {
     rowId: number;
     columnId: number;
 }
+export interface FieldParams {
+    fieldType: string;
+    priceTile: Coin[];
+}
 export interface Fields {
     id: number;
     bearOwner: BearOwner | undefined;
-    fieldType: Fields_FieldTypes;
+    params: FieldParams | undefined;
     rows: FieldRows[];
     countTiles: number;
 }
-export declare enum Fields_FieldTypes {
-    DEFAULT = 0,
-    UNRECOGNIZED = -1
-}
-export declare function fields_FieldTypesFromJSON(object: any): Fields_FieldTypes;
-export declare function fields_FieldTypesToJSON(object: Fields_FieldTypes): string;
 export declare const FieldRows: {
     encode(message: FieldRows, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): FieldRows;
@@ -36,6 +35,13 @@ export declare const ItemPosition: {
     fromJSON(object: any): ItemPosition;
     toJSON(message: ItemPosition): unknown;
     fromPartial(object: DeepPartial<ItemPosition>): ItemPosition;
+};
+export declare const FieldParams: {
+    encode(message: FieldParams, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): FieldParams;
+    fromJSON(object: any): FieldParams;
+    toJSON(message: FieldParams): unknown;
+    fromPartial(object: DeepPartial<FieldParams>): FieldParams;
 };
 export declare const Fields: {
     encode(message: Fields, writer?: Writer): Writer;

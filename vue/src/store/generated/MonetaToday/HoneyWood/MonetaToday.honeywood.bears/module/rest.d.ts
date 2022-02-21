@@ -1,6 +1,3 @@
-export declare enum FieldsFieldTypes {
-    DEFAULT = "DEFAULT"
-}
 export declare enum ItemsItemTypes {
     APIARY = "APIARY",
     TREE = "TREE",
@@ -102,6 +99,10 @@ export interface BearsDecorations {
     params?: BearsDecorationParams;
     position?: BearsItemPosition;
 }
+export interface BearsFieldParams {
+    fieldType?: string;
+    priceTile?: V1Beta1Coin[];
+}
 export interface BearsFieldRows {
     columns?: BearsTiles[];
 }
@@ -109,7 +110,7 @@ export interface BearsFields {
     /** @format uint64 */
     id?: string;
     bearOwner?: BearsBearOwner;
-    fieldType?: FieldsFieldTypes;
+    params?: BearsFieldParams;
     rows?: BearsFieldRows[];
     /** @format uint64 */
     countTiles?: string;
@@ -182,7 +183,7 @@ export interface BearsParams {
     airHistoryLength?: string;
     burnRate?: string;
     priceSetName?: V1Beta1Coin[];
-    priceTile?: V1Beta1Coin[];
+    fieldTypes?: BearsFieldParams[];
     treeTypes?: BearsTreeParams[];
     decorationTypes?: BearsDecorationParams[];
     apiaryTypes?: BearsApiaryParams[];

@@ -53,9 +53,12 @@ genesis:
         price_set_name: 
           - denom: "honey"
             amount: "100"
-        price_tile: 
-          - denom: "honey"
-            amount: "100"
+
+        field_types:
+          - field_type: "DEFAULT"
+            price_tile:
+              - denom: "honey"
+                amount: "100"
 
         tree_types:
           - tree_type: OAK

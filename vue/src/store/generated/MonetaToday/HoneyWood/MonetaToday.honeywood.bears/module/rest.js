@@ -8,10 +8,6 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-export var FieldsFieldTypes;
-(function (FieldsFieldTypes) {
-    FieldsFieldTypes["DEFAULT"] = "DEFAULT";
-})(FieldsFieldTypes || (FieldsFieldTypes = {}));
 export var ItemsItemTypes;
 (function (ItemsItemTypes) {
     ItemsItemTypes["APIARY"] = "APIARY";

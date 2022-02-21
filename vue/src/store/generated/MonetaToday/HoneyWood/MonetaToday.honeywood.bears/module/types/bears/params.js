@@ -2,6 +2,7 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { FieldParams } from "../bears/fields";
 import { TreeParams } from "../bears/trees";
 import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
@@ -27,8 +28,8 @@ export const Params = {
         for (const v of message.priceSetName) {
             Coin.encode(v, writer.uint32(34).fork()).ldelim();
         }
-        for (const v of message.priceTile) {
-            Coin.encode(v, writer.uint32(42).fork()).ldelim();
+        for (const v of message.fieldTypes) {
+            FieldParams.encode(v, writer.uint32(42).fork()).ldelim();
         }
         for (const v of message.treeTypes) {
             TreeParams.encode(v, writer.uint32(50).fork()).ldelim();
@@ -52,7 +53,7 @@ export const Params = {
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseParams };
         message.priceSetName = [];
-        message.priceTile = [];
+        message.fieldTypes = [];
         message.treeTypes = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
@@ -73,7 +74,7 @@ export const Params = {
                     message.priceSetName.push(Coin.decode(reader, reader.uint32()));
                     break;
                 case 5:
-                    message.priceTile.push(Coin.decode(reader, reader.uint32()));
+                    message.fieldTypes.push(FieldParams.decode(reader, reader.uint32()));
                     break;
                 case 6:
                     message.treeTypes.push(TreeParams.decode(reader, reader.uint32()));
@@ -100,7 +101,7 @@ export const Params = {
     fromJSON(object) {
         const message = { ...baseParams };
         message.priceSetName = [];
-        message.priceTile = [];
+        message.fieldTypes = [];
         message.treeTypes = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
@@ -129,9 +130,9 @@ export const Params = {
                 message.priceSetName.push(Coin.fromJSON(e));
             }
         }
-        if (object.priceTile !== undefined && object.priceTile !== null) {
-            for (const e of object.priceTile) {
-                message.priceTile.push(Coin.fromJSON(e));
+        if (object.fieldTypes !== undefined && object.fieldTypes !== null) {
+            for (const e of object.fieldTypes) {
+                message.fieldTypes.push(FieldParams.fromJSON(e));
             }
         }
         if (object.treeTypes !== undefined && object.treeTypes !== null) {
@@ -176,11 +177,11 @@ export const Params = {
         else {
             obj.priceSetName = [];
         }
-        if (message.priceTile) {
-            obj.priceTile = message.priceTile.map((e) => e ? Coin.toJSON(e) : undefined);
+        if (message.fieldTypes) {
+            obj.fieldTypes = message.fieldTypes.map((e) => e ? FieldParams.toJSON(e) : undefined);
         }
         else {
-            obj.priceTile = [];
+            obj.fieldTypes = [];
         }
         if (message.treeTypes) {
             obj.treeTypes = message.treeTypes.map((e) => e ? TreeParams.toJSON(e) : undefined);
@@ -212,7 +213,7 @@ export const Params = {
     fromPartial(object) {
         const message = { ...baseParams };
         message.priceSetName = [];
-        message.priceTile = [];
+        message.fieldTypes = [];
         message.treeTypes = [];
         message.decorationTypes = [];
         message.apiaryTypes = [];
@@ -241,9 +242,9 @@ export const Params = {
                 message.priceSetName.push(Coin.fromPartial(e));
             }
         }
-        if (object.priceTile !== undefined && object.priceTile !== null) {
-            for (const e of object.priceTile) {
-                message.priceTile.push(Coin.fromPartial(e));
+        if (object.fieldTypes !== undefined && object.fieldTypes !== null) {
+            for (const e of object.fieldTypes) {
+                message.fieldTypes.push(FieldParams.fromPartial(e));
             }
         }
         if (object.treeTypes !== undefined && object.treeTypes !== null) {

@@ -106,6 +106,17 @@ func GetFieldsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
+func (k Keeper) GetFieldParams(ctx sdk.Context, fieldType string) (*types.FieldParams, bool) {
+	fieldTypes := k.FieldTypes(ctx)
+	for _, params := range fieldTypes {
+		if params.FieldType == fieldType {
+			return &params, true
+		}
+	}
+
+	return nil, false
+}
+
 func (k Keeper) GetFieldsTilesCount(field types.Fields) uint64 {
 	count := 0
 	for _, row := range field.Rows {
@@ -138,13 +149,13 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
-	priceForExtending := k.PriceTile(ctx)
 
-	for i, price := range priceForExtending {
-		priceForExtending[i] = sdk.NewCoin(
+	priceForExtending := sdk.Coins{}
+	for _, price := range field.Params.PriceTile {
+		priceForExtending = append(priceForExtending, sdk.NewCoin(
 			price.Denom,
 			price.Amount.MulRaw(differenceTiles),
-		)
+		))
 	}
 
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceForExtending)

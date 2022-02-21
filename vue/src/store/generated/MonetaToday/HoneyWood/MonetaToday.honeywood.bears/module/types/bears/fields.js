@@ -2,32 +2,9 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 import { Tiles } from "../bears/tiles";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var Fields_FieldTypes;
-(function (Fields_FieldTypes) {
-    Fields_FieldTypes[Fields_FieldTypes["DEFAULT"] = 0] = "DEFAULT";
-    Fields_FieldTypes[Fields_FieldTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Fields_FieldTypes || (Fields_FieldTypes = {}));
-export function fields_FieldTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "DEFAULT":
-            return Fields_FieldTypes.DEFAULT;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return Fields_FieldTypes.UNRECOGNIZED;
-    }
-}
-export function fields_FieldTypesToJSON(object) {
-    switch (object) {
-        case Fields_FieldTypes.DEFAULT:
-            return "DEFAULT";
-        default:
-            return "UNKNOWN";
-    }
-}
 const baseFieldRows = {};
 export const FieldRows = {
     encode(message, writer = Writer.create()) {
@@ -174,7 +151,83 @@ export const ItemPosition = {
         return message;
     },
 };
-const baseFields = { id: 0, fieldType: 0, countTiles: 0 };
+const baseFieldParams = { fieldType: "" };
+export const FieldParams = {
+    encode(message, writer = Writer.create()) {
+        if (message.fieldType !== "") {
+            writer.uint32(10).string(message.fieldType);
+        }
+        for (const v of message.priceTile) {
+            Coin.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseFieldParams };
+        message.priceTile = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.fieldType = reader.string();
+                    break;
+                case 2:
+                    message.priceTile.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseFieldParams };
+        message.priceTile = [];
+        if (object.fieldType !== undefined && object.fieldType !== null) {
+            message.fieldType = String(object.fieldType);
+        }
+        else {
+            message.fieldType = "";
+        }
+        if (object.priceTile !== undefined && object.priceTile !== null) {
+            for (const e of object.priceTile) {
+                message.priceTile.push(Coin.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.fieldType !== undefined && (obj.fieldType = message.fieldType);
+        if (message.priceTile) {
+            obj.priceTile = message.priceTile.map((e) => e ? Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.priceTile = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseFieldParams };
+        message.priceTile = [];
+        if (object.fieldType !== undefined && object.fieldType !== null) {
+            message.fieldType = object.fieldType;
+        }
+        else {
+            message.fieldType = "";
+        }
+        if (object.priceTile !== undefined && object.priceTile !== null) {
+            for (const e of object.priceTile) {
+                message.priceTile.push(Coin.fromPartial(e));
+            }
+        }
+        return message;
+    },
+};
+const baseFields = { id: 0, countTiles: 0 };
 export const Fields = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
@@ -183,8 +236,8 @@ export const Fields = {
         if (message.bearOwner !== undefined) {
             BearOwner.encode(message.bearOwner, writer.uint32(18).fork()).ldelim();
         }
-        if (message.fieldType !== 0) {
-            writer.uint32(24).int32(message.fieldType);
+        if (message.params !== undefined) {
+            FieldParams.encode(message.params, writer.uint32(26).fork()).ldelim();
         }
         for (const v of message.rows) {
             FieldRows.encode(v, writer.uint32(34).fork()).ldelim();
@@ -209,7 +262,7 @@ export const Fields = {
                     message.bearOwner = BearOwner.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.fieldType = reader.int32();
+                    message.params = FieldParams.decode(reader, reader.uint32());
                     break;
                 case 4:
                     message.rows.push(FieldRows.decode(reader, reader.uint32()));
@@ -239,11 +292,11 @@ export const Fields = {
         else {
             message.bearOwner = undefined;
         }
-        if (object.fieldType !== undefined && object.fieldType !== null) {
-            message.fieldType = fields_FieldTypesFromJSON(object.fieldType);
+        if (object.params !== undefined && object.params !== null) {
+            message.params = FieldParams.fromJSON(object.params);
         }
         else {
-            message.fieldType = 0;
+            message.params = undefined;
         }
         if (object.rows !== undefined && object.rows !== null) {
             for (const e of object.rows) {
@@ -265,8 +318,10 @@ export const Fields = {
             (obj.bearOwner = message.bearOwner
                 ? BearOwner.toJSON(message.bearOwner)
                 : undefined);
-        message.fieldType !== undefined &&
-            (obj.fieldType = fields_FieldTypesToJSON(message.fieldType));
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? FieldParams.toJSON(message.params)
+                : undefined);
         if (message.rows) {
             obj.rows = message.rows.map((e) => (e ? FieldRows.toJSON(e) : undefined));
         }
@@ -291,11 +346,11 @@ export const Fields = {
         else {
             message.bearOwner = undefined;
         }
-        if (object.fieldType !== undefined && object.fieldType !== null) {
-            message.fieldType = object.fieldType;
+        if (object.params !== undefined && object.params !== null) {
+            message.params = FieldParams.fromPartial(object.params);
         }
         else {
-            message.fieldType = 0;
+            message.params = undefined;
         }
         if (object.rows !== undefined && object.rows !== null) {
             for (const e of object.rows) {

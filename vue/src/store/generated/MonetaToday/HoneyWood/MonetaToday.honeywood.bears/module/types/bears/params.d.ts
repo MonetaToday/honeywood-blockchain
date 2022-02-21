@@ -1,5 +1,6 @@
 import { Writer, Reader } from "protobufjs/minimal";
 import { Coin } from "../cosmos/base/v1beta1/coin";
+import { FieldParams } from "../bears/fields";
 import { TreeParams } from "../bears/trees";
 import { DecorationParams } from "../bears/decorations";
 import { ApiaryParams } from "../bears/apiaries";
@@ -11,7 +12,7 @@ export interface Params {
     airHistoryLength: number;
     burnRate: string;
     priceSetName: Coin[];
-    priceTile: Coin[];
+    fieldTypes: FieldParams[];
     treeTypes: TreeParams[];
     decorationTypes: DecorationParams[];
     apiaryTypes: ApiaryParams[];
