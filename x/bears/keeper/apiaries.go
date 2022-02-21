@@ -268,7 +268,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 						airCycleHistory.Count.Sub(
 							sdk.OneDec(),
 						).Mul(
-							loadedBees[beeId].Params.AirDependency,
+							loadedBees[beeId].Params.AirCountDependency,
 						),
 					),
 				),

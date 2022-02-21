@@ -174,7 +174,7 @@ genesis:
           - bee_type: "SMALL_BEE"
             honey_per_hour: "550000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -182,7 +182,7 @@ genesis:
           - bee_type: "BEE"
             honey_per_hour: "620000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -190,7 +190,7 @@ genesis:
           - bee_type: "LUCKY_BEE"
             honey_per_hour: "640000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -198,7 +198,7 @@ genesis:
           - bee_type: "HONEY_BEE"
             honey_per_hour: "660000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -206,7 +206,7 @@ genesis:
           - bee_type: "SKILLED_BEE"
             honey_per_hour: "710000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -214,7 +214,7 @@ genesis:
           - bee_type: "CURIOUS_BEE"
             honey_per_hour: "750000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -222,7 +222,7 @@ genesis:
           - bee_type: "HONEY_EXPLORER"
             honey_per_hour: "800000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -230,7 +230,7 @@ genesis:
           - bee_type: "HONEY_HUNTER"
             honey_per_hour: "840000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -238,7 +238,7 @@ genesis:
           - bee_type: "WONDER_BEE"
             honey_per_hour: "850000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
@@ -246,7 +246,7 @@ genesis:
           - bee_type: "DIAMOND_STING"
             honey_per_hour: "900000"
             body_size: 1
-            air_dependency: "1"
+            air_count_dependency: "1"
             air_consume: "0.5"
             price:
             - denom: "uhoney"
