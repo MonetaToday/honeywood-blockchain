@@ -10,9 +10,7 @@ accounts:
   - name: alice
     coins: ["20000honey", "200000000cone"]
   - name: bob
-    coins: ["1000000000honey"]
-  - name: bobi
-    coins: ["100000honey"]
+    coins: ["10000000000000honey"]
 validator:
   name: alice
   staked: "100000000cone"
