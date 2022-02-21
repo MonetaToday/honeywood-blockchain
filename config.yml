@@ -44,9 +44,14 @@ genesis:
           denom_units:
             - denom: "cone"
               exponent: 0
+    crisis:
+      constant_fee: "1000cone"
     staking:
       params:
         bond_denom: "cone"
+    mint:
+      params:
+        mint_denom: "uhoney"
     gov:
       deposit_params:
         min_deposit:
