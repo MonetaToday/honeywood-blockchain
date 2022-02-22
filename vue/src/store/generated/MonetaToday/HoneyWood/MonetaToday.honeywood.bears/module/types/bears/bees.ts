@@ -11,7 +11,7 @@ export interface BeeParams {
   price: Coin[];
   honeyPerHour: string;
   bodySize: number;
-  airDependency: string;
+  airCountDependency: string;
   airConsume: string;
 }
 
@@ -31,7 +31,7 @@ const baseBeeParams: object = {
   beeType: "",
   honeyPerHour: "",
   bodySize: 0,
-  airDependency: "",
+  airCountDependency: "",
   airConsume: "",
 };
 
@@ -49,8 +49,8 @@ export const BeeParams = {
     if (message.bodySize !== 0) {
       writer.uint32(32).uint64(message.bodySize);
     }
-    if (message.airDependency !== "") {
-      writer.uint32(42).string(message.airDependency);
+    if (message.airCountDependency !== "") {
+      writer.uint32(42).string(message.airCountDependency);
     }
     if (message.airConsume !== "") {
       writer.uint32(50).string(message.airConsume);
@@ -79,7 +79,7 @@ export const BeeParams = {
           message.bodySize = longToNumber(reader.uint64() as Long);
           break;
         case 5:
-          message.airDependency = reader.string();
+          message.airCountDependency = reader.string();
           break;
         case 6:
           message.airConsume = reader.string();
@@ -115,10 +115,13 @@ export const BeeParams = {
     } else {
       message.bodySize = 0;
     }
-    if (object.airDependency !== undefined && object.airDependency !== null) {
-      message.airDependency = String(object.airDependency);
+    if (
+      object.airCountDependency !== undefined &&
+      object.airCountDependency !== null
+    ) {
+      message.airCountDependency = String(object.airCountDependency);
     } else {
-      message.airDependency = "";
+      message.airCountDependency = "";
     }
     if (object.airConsume !== undefined && object.airConsume !== null) {
       message.airConsume = String(object.airConsume);
@@ -139,8 +142,8 @@ export const BeeParams = {
     message.honeyPerHour !== undefined &&
       (obj.honeyPerHour = message.honeyPerHour);
     message.bodySize !== undefined && (obj.bodySize = message.bodySize);
-    message.airDependency !== undefined &&
-      (obj.airDependency = message.airDependency);
+    message.airCountDependency !== undefined &&
+      (obj.airCountDependency = message.airCountDependency);
     message.airConsume !== undefined && (obj.airConsume = message.airConsume);
     return obj;
   },
@@ -168,10 +171,13 @@ export const BeeParams = {
     } else {
       message.bodySize = 0;
     }
-    if (object.airDependency !== undefined && object.airDependency !== null) {
-      message.airDependency = object.airDependency;
+    if (
+      object.airCountDependency !== undefined &&
+      object.airCountDependency !== null
+    ) {
+      message.airCountDependency = object.airCountDependency;
     } else {
-      message.airDependency = "";
+      message.airCountDependency = "";
     }
     if (object.airConsume !== undefined && object.airConsume !== null) {
       message.airConsume = object.airConsume;

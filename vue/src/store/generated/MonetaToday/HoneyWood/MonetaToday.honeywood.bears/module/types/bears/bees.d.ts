@@ -7,7 +7,7 @@ export interface BeeParams {
     price: Coin[];
     honeyPerHour: string;
     bodySize: number;
-    airDependency: string;
+    airCountDependency: string;
     airConsume: string;
 }
 export interface ApiaryHouse {

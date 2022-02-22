@@ -13571,7 +13571,7 @@ paths:
                         bodySize:
                           type: string
                           format: uint64
-                        airDependency:
+                        airCountDependency:
                           type: string
                         airConsume:
                           type: string
@@ -13737,7 +13737,7 @@ paths:
                       bodySize:
                         type: string
                         format: uint64
-                      airDependency:
+                      airCountDependency:
                         type: string
                       airConsume:
                         type: string
@@ -14537,7 +14537,7 @@ paths:
                         bodySize:
                           type: string
                           format: uint64
-                        airDependency:
+                        airCountDependency:
                           type: string
                         airConsume:
                           type: string
@@ -22444,7 +22444,7 @@ definitions:
       bodySize:
         type: string
         format: uint64
-      airDependency:
+      airCountDependency:
         type: string
       airConsume:
         type: string
@@ -22495,7 +22495,7 @@ definitions:
           bodySize:
             type: string
             format: uint64
-          airDependency:
+          airCountDependency:
             type: string
           airConsume:
             type: string
@@ -22843,7 +22843,7 @@ definitions:
               bodySize:
                 type: string
                 format: uint64
-              airDependency:
+              airCountDependency:
                 type: string
               airConsume:
                 type: string
@@ -23111,7 +23111,7 @@ definitions:
               bodySize:
                 type: string
                 format: uint64
-              airDependency:
+              airCountDependency:
                 type: string
               airConsume:
                 type: string
@@ -23443,7 +23443,7 @@ definitions:
             bodySize:
               type: string
               format: uint64
-            airDependency:
+            airCountDependency:
               type: string
             airConsume:
               type: string
@@ -23761,7 +23761,7 @@ definitions:
                 bodySize:
                   type: string
                   format: uint64
-                airDependency:
+                airCountDependency:
                   type: string
                 airConsume:
                   type: string
@@ -24279,7 +24279,7 @@ definitions:
               bodySize:
                 type: string
                 format: uint64
-              airDependency:
+              airCountDependency:
                 type: string
               airConsume:
                 type: string
@@ -24661,7 +24661,7 @@ definitions:
                 bodySize:
                   type: string
                   format: uint64
-                airDependency:
+                airCountDependency:
                   type: string
                 airConsume:
                   type: string

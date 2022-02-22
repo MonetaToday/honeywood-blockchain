@@ -98,7 +98,7 @@ export interface BearsBeeParams {
 
   /** @format uint64 */
   bodySize?: string;
-  airDependency?: string;
+  airCountDependency?: string;
   airConsume?: string;
 }
 

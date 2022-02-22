@@ -72,7 +72,7 @@ export interface BearsBeeParams {
     honeyPerHour?: string;
     /** @format uint64 */
     bodySize?: string;
-    airDependency?: string;
+    airCountDependency?: string;
     airConsume?: string;
 }
 export interface BearsBees {
