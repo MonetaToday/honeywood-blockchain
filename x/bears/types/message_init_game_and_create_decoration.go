@@ -43,9 +43,5 @@ func (msg *MsgInitGameAndCreateDecoration) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	if _, ok := Decorations_DecorationTypes_value[msg.DecorationType]; !ok {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Decoration type must be in enum")
-	}
-
 	return nil
 }

@@ -11,6 +11,10 @@ accounts:
     coins: ["200000000cone"]
   - name: bob
     coins: ["100000000000000000000000000000000000000000000000uhoney"]
+  - name: koss
+    coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
+  - name: oleg
+    coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
 validator:
   name: alice
   staked: "100000000cone"

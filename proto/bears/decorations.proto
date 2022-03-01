@@ -16,13 +16,6 @@ message DecorationParams {
 message Decorations {
   uint64 id = 1;
   BearOwner bearOwner = 2; 
-  enum DecorationTypes {
-    FLOWERS	= 0;
-    FLAG = 1;
-    LAMP = 2;
-    GREEN_BEE = 3;
-    FOUNTAIN = 4;
-  }
   DecorationParams params = 3;
   ItemPosition position = 4;
 }
