@@ -132,8 +132,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		return nil, types.ErrFieldIsNotExisted
 	}
 
-	hasRights := k.HasRightsToField(ctx, buyer, field)
-	if !hasRights {
+	if !k.HasRightsToField(ctx, buyer, field) {
 		return nil, types.ErrAddressHasNoRights
 	}
 

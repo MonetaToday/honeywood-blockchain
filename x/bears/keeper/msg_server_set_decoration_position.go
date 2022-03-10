@@ -27,8 +27,7 @@ func (k msgServer) SetDecorationPosition(goCtx context.Context, msg *types.MsgSe
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	hasRights := k.Keeper.HasRightsToBear(ctx, msg.Creator, decoration.BearOwner.Id)
-	if !hasRights {
+	if !k.Keeper.HasRightsToBearById(ctx, msg.Creator, decoration.BearOwner.Id) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
@@ -36,8 +35,7 @@ func (k msgServer) SetDecorationPosition(goCtx context.Context, msg *types.MsgSe
 	if !fieldFound {
 		return nil, types.ErrFieldIsNotExisted
 	}
-	hasRightsField := k.Keeper.HasRightsToField(ctx, msg.Creator, field)
-	if !hasRightsField {
+	if !k.Keeper.HasRightsToField(ctx, msg.Creator, field) {
 		return nil, types.ErrAddressHasNoRights
 	}
 	isEmptyTile, errEmptyTile := k.Keeper.isEmptyTile(ctx, field, rowId, columnId)

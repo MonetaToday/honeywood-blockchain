@@ -139,17 +139,16 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		return nil, types.ErrFieldIsNotExisted
 	}
 
-	if field.BearOwner != nil && field.BearOwner.Id != bearId {
-		return nil, types.ErrBearHasNoRights
+	bear, bearFound := k.GetBears(ctx, bearId)
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
 	}
 
-	hasRights := k.HasRightsToBear(ctx, creator, bearId)
-	if !hasRights {
+	if !k.HasRightsToBear(ctx, creator, bear) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	hasRights = k.HasRightsToField(ctx, creator, field)
-	if !hasRights {
+	if !k.HasRightsToField(ctx, creator, field) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
@@ -191,10 +190,6 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 	k.SetFields(ctx, field)
 
-	bear, bearFound := k.GetBears(ctx, bearId)
-	if !bearFound {
-		return nil, types.ErrBearIsNotExisted
-	}
 	bear.Trees = append(bear.Trees, newTreeId)
 	k.SetBears(ctx, bear)
 

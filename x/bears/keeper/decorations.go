@@ -119,8 +119,12 @@ func (k Keeper) GetDecorationParams(ctx sdk.Context, decorationType string) (*ty
 
 // create decoration for specific bear
 func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64, decorationType string) (*types.Decorations, error) {
-	hasRights := k.HasRightsToBear(ctx, creator, bearId)
-	if !hasRights {
+	bear, bearFound := k.GetBears(ctx, bearId)
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
+	}
+
+	if !k.HasRightsToBear(ctx, creator, bear) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
@@ -141,15 +145,11 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 	}
 
 	newDecoration := types.Decorations{
-		BearOwner: &types.BearOwner{Id: bearId},
+		BearOwner: &types.BearOwner{Id: bear.Id},
 		Params:    decorationParams,
 	}
 	newDecorationId := k.AppendDecorations(ctx, newDecoration)
 
-	bear, bearFound := k.GetBears(ctx, bearId)
-	if !bearFound {
-		return nil, types.ErrBearIsNotExisted
-	}
 	bear.Decorations = append(bear.Decorations, newDecorationId)
 	k.SetBears(ctx, bear)
 

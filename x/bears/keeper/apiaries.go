@@ -124,17 +124,11 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 		return nil, types.ErrFieldIsNotExisted
 	}
 
-	if field.BearOwner != nil && field.BearOwner.Id != bearId {
-		return nil, types.ErrBearHasNoRights
-	}
-
-	hasRights := k.HasRightsToBear(ctx, creator, bearId)
-	if !hasRights {
+	if !k.HasRightsToBearById(ctx, creator, bearId) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
-	hasRights = k.HasRightsToField(ctx, creator, field)
-	if !hasRights {
+	if !k.HasRightsToField(ctx, creator, field) {
 		return nil, types.ErrAddressHasNoRights
 	}
 

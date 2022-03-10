@@ -24,12 +24,7 @@ func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.Msg
 	rowId := decoration.Position.RowId
 	columnId := decoration.Position.ColumnId
 
-	if decoration.BearOwner == nil {
-		return nil, types.ErrAddressHasNoRights
-	}
-
-	hasRights := k.Keeper.HasRightsToBear(ctx, msg.Creator, decoration.BearOwner.Id)
-	if !hasRights {
+	if !k.Keeper.HasRightsToDecoration(ctx, msg.Creator, decoration) {
 		return nil, types.ErrAddressHasNoRights
 	}
 
