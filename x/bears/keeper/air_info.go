@@ -58,7 +58,7 @@ func (k Keeper) SetTotalAirConsume(ctx sdk.Context, consume sdk.Dec) {
 	k.SetAirInfo(ctx, airInfo)
 }
 
-// SetTotalAirConsume
+// GetTotalAirConsume
 func (k Keeper) GetTotalAirConsume(ctx sdk.Context) sdk.Dec {
 	airInfo, _ := k.GetAirInfo(ctx)
 	return airInfo.Consume
@@ -71,7 +71,7 @@ func (k Keeper) SetTotalAirSupply(ctx sdk.Context, supply sdk.Dec) {
 	k.SetAirInfo(ctx, airInfo)
 }
 
-// SetTotalAirSupply
+// GetTotalAirSupply
 func (k Keeper) GetTotalAirSupply(ctx sdk.Context) sdk.Dec {
 	airInfo, _ := k.GetAirInfo(ctx)
 	return airInfo.Supply
