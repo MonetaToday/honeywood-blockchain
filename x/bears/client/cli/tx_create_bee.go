@@ -17,14 +17,15 @@ func CmdCreateBee() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-bee [bear-id] [bee-type] [bee-name]",
 		Short: "Create a bee",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBearId, err := cast.ToUint64E(args[0])
+			argReceiver := args[0]
+			argBearId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argBeeType := args[1]
-			argBeeName := args[2]
+			argBeeType := args[2]
+			argBeeName := args[3]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -33,6 +34,7 @@ func CmdCreateBee() *cobra.Command {
 
 			msg := types.NewMsgCreateBee(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argBearId,
 				argBeeType,
 				argBeeName,

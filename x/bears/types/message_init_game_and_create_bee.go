@@ -9,9 +9,10 @@ const TypeMsgInitGameAndCreateBee = "init_game_and_create_bee"
 
 var _ sdk.Msg = &MsgInitGameAndCreateBee{}
 
-func NewMsgInitGameAndCreateBee(creator string, beeType string, beeName string) *MsgInitGameAndCreateBee {
+func NewMsgInitGameAndCreateBee(creator string, receiver string, beeType string, beeName string) *MsgInitGameAndCreateBee {
 	return &MsgInitGameAndCreateBee{
 		Creator: creator,
+		Receiver: receiver,
 		BeeType: beeType,
 		BeeName: beeName,
 	}
@@ -43,5 +44,11 @@ func (msg *MsgInitGameAndCreateBee) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
+	}
+
 	return ValidateNameInput(msg.BeeName)
 }

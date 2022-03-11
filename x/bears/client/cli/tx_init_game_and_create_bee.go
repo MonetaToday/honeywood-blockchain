@@ -14,12 +14,13 @@ var _ = strconv.Itoa(0)
 
 func CmdInitGameAndCreateBee() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "init-game-and-create-bee [bee-type] [bee-name]",
+		Use:   "init-game-and-create-bee [receiver] [bee-type] [bee-name]",
 		Short: "Initialize game and create a bee",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBeeType := args[0]
-			argBeeName := args[1]
+			argReceiver := args[0]
+			argBeeType := args[1]
+			argBeeName := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -28,6 +29,7 @@ func CmdInitGameAndCreateBee() *cobra.Command {
 
 			msg := types.NewMsgInitGameAndCreateBee(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argBeeType,
 				argBeeName,
 			)
