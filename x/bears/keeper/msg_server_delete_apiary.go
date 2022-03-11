@@ -16,7 +16,7 @@ func (k msgServer) DeleteApiary(goCtx context.Context, msg *types.MsgDeleteApiar
 	}
 
 	if !k.Keeper.HasRightsToApiary(ctx, msg.Creator, apiary) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	if len(k.Keeper.GetAllCurrentBeesFromApiary(ctx, apiary)) > 0 {

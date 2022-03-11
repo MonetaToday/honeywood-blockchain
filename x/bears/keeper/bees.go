@@ -197,7 +197,7 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, bearId uint64, beeTyp
 	}
 
 	if !k.HasRightsToBear(ctx, creator, bear) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	beeParams, _ := k.GetBeeParams(ctx, beeType)
@@ -236,22 +236,22 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 		return types.ErrBeeIsNotExisted
 	}
 	if !k.HasRightsToBee(ctx, creator, bee) {
-		return types.ErrAddressHasNoRights
+		return types.ErrAddressHasNoRight
 	}
 	apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
 	if !apiaryFound {
 		return types.ErrApiaryIsNotExisted
 	}
 	if !k.HasRightsToApiary(ctx, creator, apiary) {
-		return types.ErrAddressHasNoRights
+		return types.ErrAddressHasNoRight
 	}
 	hasEnoughSpace := k.HasEnoughSpaceInApiary(ctx, apiary, bee)
 	if !hasEnoughSpace {
-		return types.ErrApiaryHasNotEnoughSpace
+		return types.ErrApiaryHasNoEnoughSpace
 	}
 	isBeeInApiaryHouse := k.IsBeeInApiaryHouse(ctx, apiary, bee)
 	if isBeeInApiaryHouse {
-		return types.ErrBeeIsInApiaryHouse
+		return types.ErrBeeIsInApiary
 	}
 
 	if bee.ApiaryHouse != nil && bee.ApiaryHouse.Id != apiary.Id {
@@ -282,13 +282,13 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 		return types.ErrBeeIsNotExisted
 	}
 	if bee.BearOwner == nil {
-		return types.ErrAddressHasNoRights
+		return types.ErrAddressHasNoRight
 	}
 	if bee.ApiaryHouse == nil {
-		return types.ErrBeeIsNotInApiaryHouse
+		return types.ErrBeeIsNotInApiary
 	}
 	if !k.HasRightsToBearById(ctx, creator, bee.BearOwner.Id) {
-		return types.ErrAddressHasNoRights
+		return types.ErrAddressHasNoRight
 	}
 
 	apiary, apiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)

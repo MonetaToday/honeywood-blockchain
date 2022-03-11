@@ -133,7 +133,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	}
 
 	if !k.HasRightsToField(ctx, buyer, field) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	for rowIndex, _ := range field.Rows {
@@ -184,7 +184,7 @@ func (k Keeper) isEmptyTile(ctx sdk.Context, field types.Fields, rowId uint64, c
 	}
 
 	if field.Rows[rowId].Columns[columnId].Item != nil {
-		return false, types.ErrTileIsNotEmpty
+		return false, types.ErrTileIsOccupied
 	}
 
 	return true, nil

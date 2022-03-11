@@ -16,7 +16,7 @@ func (k msgServer) CollectHoneyFromApiary(goCtx context.Context, msg *types.MsgC
 	}
 
 	if !k.Keeper.HasRightsToApiary(ctx, msg.Creator, apiary) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	countHoney, err := k.Keeper.CollectHoneyFromApiary(ctx, msg.Creator, apiary)

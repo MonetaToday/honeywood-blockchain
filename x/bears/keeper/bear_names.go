@@ -71,12 +71,12 @@ func (k Keeper) BuyBearNameForBear(ctx sdk.Context, buyer string, bearId uint64,
 	}
 
 	if !k.HasRightsToBear(ctx, buyer, bear) {
-		return types.ErrAddressHasNoRights
+		return types.ErrAddressHasNoRight
 	}
 
 	_, nameFound := k.GetBearNames(ctx, name)
 	if nameFound {
-		return types.ErrNameIsAlreadyExisted
+		return types.ErrNameIsAlreadyTaken
 	}
 
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)

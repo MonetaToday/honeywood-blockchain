@@ -125,11 +125,11 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint
 	}
 
 	if !k.HasRightsToBearById(ctx, creator, bearId) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	if !k.HasRightsToField(ctx, creator, field) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	isEmpty, errEmptyTile := k.isEmptyTile(ctx, field, rowId, columnId)

@@ -125,7 +125,7 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, bearId uint64,
 	}
 
 	if !k.HasRightsToBear(ctx, creator, bear) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	decorationParams, _ := k.GetDecorationParams(ctx, decorationType)

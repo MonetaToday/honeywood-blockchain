@@ -21,7 +21,7 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 		return nil, types.ErrFieldIsNotExisted
 	}
 	if !k.Keeper.HasRightsToField(ctx, msg.Creator, field) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 	isEmptyOldTile, _ := k.Keeper.isEmptyTile(ctx, field, oldRowId, oldColumnId)
 	if isEmptyOldTile {

@@ -25,7 +25,7 @@ func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.Msg
 	columnId := decoration.Position.ColumnId
 
 	if !k.Keeper.HasRightsToDecoration(ctx, msg.Creator, decoration) {
-		return nil, types.ErrAddressHasNoRights
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	field, fieldFound := k.Keeper.GetFields(ctx, fieldId)
