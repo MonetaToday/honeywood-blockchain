@@ -9,9 +9,10 @@ const TypeMsgCreateApiary = "create_apiary"
 
 var _ sdk.Msg = &MsgCreateApiary{}
 
-func NewMsgCreateApiary(creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) *MsgCreateApiary {
+func NewMsgCreateApiary(creator string, receiver string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) *MsgCreateApiary {
 	return &MsgCreateApiary{
 		Creator:    creator,
+		Receiver:		receiver,
 		BearId:     bearId,
 		FieldId:    fieldId,
 		RowId:      rowId,
@@ -45,6 +46,11 @@ func (msg *MsgCreateApiary) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 	}
 
 	return nil

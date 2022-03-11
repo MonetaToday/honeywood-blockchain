@@ -143,7 +143,8 @@ message MsgUnsetDecorationPositionResponse {
 
 message MsgInitGameAndCreateApiary {
   string creator = 1;
-  string apiaryType = 2;
+  string receiver = 2;
+  string apiaryType = 3;
 }
 
 message MsgInitGameAndCreateApiaryResponse {
@@ -152,11 +153,12 @@ message MsgInitGameAndCreateApiaryResponse {
 
 message MsgCreateApiary {
   string creator = 1;
-  uint64 bearId = 2;
-  uint64 fieldId = 3;
-  uint64 rowId = 4;
-  uint64 columnId = 5;
-  string apiaryType = 6;
+  string receiver = 2;
+  uint64 bearId = 3;
+  uint64 fieldId = 4;
+  uint64 rowId = 5;
+  uint64 columnId = 6;
+  string apiaryType = 7;
 }
 
 message MsgCreateApiaryResponse {

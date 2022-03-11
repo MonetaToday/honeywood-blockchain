@@ -9,9 +9,10 @@ const TypeMsgInitGameAndCreateApiary = "init_game_and_create_apiary"
 
 var _ sdk.Msg = &MsgInitGameAndCreateApiary{}
 
-func NewMsgInitGameAndCreateApiary(creator string, apiaryType string) *MsgInitGameAndCreateApiary {
+func NewMsgInitGameAndCreateApiary(creator string, receiver string, apiaryType string) *MsgInitGameAndCreateApiary {
 	return &MsgInitGameAndCreateApiary{
 		Creator:    creator,
+		Receiver: receiver,
 		ApiaryType: apiaryType,
 	}
 }
@@ -41,6 +42,11 @@ func (msg *MsgInitGameAndCreateApiary) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 	}
 
 	return nil

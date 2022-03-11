@@ -10,12 +10,12 @@ import (
 func (k msgServer) InitGameAndCreateApiary(goCtx context.Context, msg *types.MsgInitGameAndCreateApiary) (*types.MsgInitGameAndCreateApiaryResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	newBear, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	newBear, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Receiver)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}
 
-	apiary, createApiaryErr := k.Keeper.CreateApiaryOnField(ctx, msg.Creator, newBear.Id, newField.Id, 0, 0, msg.ApiaryType)
+	apiary, createApiaryErr := k.Keeper.CreateApiaryOnField(ctx, msg.Creator, msg.Receiver, newBear.Id, newField.Id, 0, 0, msg.ApiaryType)
 	if createApiaryErr != nil {
 		return nil, createApiaryErr
 	}

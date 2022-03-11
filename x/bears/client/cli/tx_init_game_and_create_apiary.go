@@ -14,11 +14,12 @@ var _ = strconv.Itoa(0)
 
 func CmdInitGameAndCreateApiary() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "init-game-and-create-apiary [apiary-type]",
+		Use:   "init-game-and-create-apiary [apiary-type] [receiver]",
 		Short: "Initialize game and create a apiary",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argApiaryType := args[0]
+			argReceiver := args[0]
+			argApiaryType := args[1]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -27,6 +28,7 @@ func CmdInitGameAndCreateApiary() *cobra.Command {
 
 			msg := types.NewMsgInitGameAndCreateApiary(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argApiaryType,
 			)
 			if err := msg.ValidateBasic(); err != nil {

@@ -118,17 +118,17 @@ func (k Keeper) GetApiaryParams(ctx sdk.Context, apiaryType string) (*types.Apia
 }
 
 // Create apiary on field for specific bear
-func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) (*types.Apiaries, error) {
+func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) (*types.Apiaries, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
 		return nil, types.ErrFieldIsNotExisted
 	}
 
-	if !k.HasRightsToBearById(ctx, creator, bearId) {
+	if !k.HasRightsToBearById(ctx, receiver, bearId) {
 		return nil, types.ErrAddressHasNoRight
 	}
 
-	if !k.HasRightsToField(ctx, creator, field) {
+	if !k.HasRightsToField(ctx, receiver, field) {
 		return nil, types.ErrAddressHasNoRight
 	}
 

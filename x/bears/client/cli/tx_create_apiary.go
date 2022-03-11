@@ -15,23 +15,24 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateApiary() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-apiary [bear-id] [field-id] [row-id] [column-id] [apiary-type]",
+		Use:   "create-apiary [receiver] [bear-id] [field-id] [row-id] [column-id] [apiary-type]",
 		Short: "Create a apiary",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBearId, err := cast.ToUint64E(args[0])
+			argReceiver := args[0]
+			argBearId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argFieldId, err := cast.ToUint64E(args[1])
+			argFieldId, err := cast.ToUint64E(args[2])
 			if err != nil {
 				return err
 			}
-			argRowId, err := cast.ToUint64E(args[2])
+			argRowId, err := cast.ToUint64E(args[3])
 			if err != nil {
 				return err
 			}
-			argColumnId, err := cast.ToUint64E(args[3])
+			argColumnId, err := cast.ToUint64E(args[4])
 			if err != nil {
 				return err
 			}
@@ -44,6 +45,7 @@ func CmdCreateApiary() *cobra.Command {
 
 			msg := types.NewMsgCreateApiary(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argBearId,
 				argFieldId,
 				argRowId,
