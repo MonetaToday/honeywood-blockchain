@@ -26,6 +26,8 @@ import (
 	authsims "github.com/cosmos/cosmos-sdk/x/auth/simulation"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/cosmos/cosmos-sdk/x/auth/vesting"
+	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -140,6 +142,7 @@ var (
 		upgrade.AppModuleBasic{},
 		evidence.AppModuleBasic{},
 		transfer.AppModuleBasic{},
+		vesting.AppModuleBasic{},
 		bearsmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
@@ -380,6 +383,7 @@ func New(
 			encodingConfig.TxConfig,
 		),
 		auth.NewAppModule(appCodec, app.AccountKeeper, nil),
+		vesting.NewAppModule(app.AccountKeeper, app.BankKeeper),
 		bank.NewAppModule(appCodec, app.BankKeeper, app.AccountKeeper),
 		capability.NewAppModule(appCodec, *app.CapabilityKeeper),
 		feegrantmodule.NewAppModule(appCodec, app.AccountKeeper, app.BankKeeper, app.FeeGrantKeeper, app.interfaceRegistry),
@@ -420,6 +424,7 @@ func New(
 		feegrant.ModuleName,
 		paramstypes.ModuleName,
 		ibctransfertypes.ModuleName,
+		vestingtypes.ModuleName,
 		bearsmoduletypes.ModuleName,
 	)
 	app.mm.SetOrderEndBlockers(
@@ -439,6 +444,7 @@ func New(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		ibctransfertypes.ModuleName,
+		vestingtypes.ModuleName,
 		bearsmoduletypes.ModuleName,
 	)
 
@@ -464,6 +470,7 @@ func New(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		ibctransfertypes.ModuleName,
+		vestingtypes.ModuleName,
 		bearsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)

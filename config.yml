@@ -15,6 +15,8 @@ accounts:
     coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
   - name: oleg
     coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
+  - name: test
+    coins: ["0uhoney", "0cone"]
 validator:
   name: alice
   staked: "100000000cone"
@@ -55,9 +57,16 @@ genesis:
     staking:
       params:
         bond_denom: "cone"
+    distribution:
+      params:
+        community_tax: "0"
     mint:
       params:
         mint_denom: "uhoney"
+        goal_bonded: "0.000000000000000001"
+        inflation_max: "0.000000000000000001"
+        inflation_min: "0.000000000000000001"
+        inflation_rate_change: "0.000000000000000001"
     gov:
       deposit_params:
         min_deposit:
@@ -136,7 +145,7 @@ genesis:
             price:
               - denom: "uhoney"
                 amount: "200000000"
-          - decoration_type: "GREEN_BEE"
+          - decoration_type: "FLOWER_BARREL"
             price:
               - denom: "uhoney"
                 amount: "500000000" 
