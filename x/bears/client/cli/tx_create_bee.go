@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateBee() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-bee [bear-id] [bee-type] [bee-name]",
+		Use:   "create-bee [receiver] [bear-id] [bee-type] [bee-name]",
 		Short: "Create a bee",
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
