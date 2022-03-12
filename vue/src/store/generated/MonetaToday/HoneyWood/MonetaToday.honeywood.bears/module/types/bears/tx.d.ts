@@ -61,6 +61,7 @@ export interface MsgMoveItemOnFieldResponse {
 }
 export interface MsgInitGameAndCreateDecoration {
     creator: string;
+    receiver: string;
     decorationType: string;
 }
 export interface MsgInitGameAndCreateDecorationResponse {
@@ -68,6 +69,7 @@ export interface MsgInitGameAndCreateDecorationResponse {
 }
 export interface MsgCreateDecoration {
     creator: string;
+    receiver: string;
     bearId: number;
     decorationType: string;
 }
@@ -91,6 +93,7 @@ export interface MsgUnsetDecorationPositionResponse {
 }
 export interface MsgInitGameAndCreateApiary {
     creator: string;
+    receiver: string;
     apiaryType: string;
 }
 export interface MsgInitGameAndCreateApiaryResponse {
@@ -98,6 +101,7 @@ export interface MsgInitGameAndCreateApiaryResponse {
 }
 export interface MsgCreateApiary {
     creator: string;
+    receiver: string;
     bearId: number;
     fieldId: number;
     rowId: number;
@@ -109,6 +113,7 @@ export interface MsgCreateApiaryResponse {
 }
 export interface MsgInitGameAndCreateBee {
     creator: string;
+    receiver: string;
     beeType: string;
     beeName: string;
 }
@@ -117,6 +122,7 @@ export interface MsgInitGameAndCreateBeeResponse {
 }
 export interface MsgCreateBee {
     creator: string;
+    receiver: string;
     bearId: number;
     beeType: string;
     beeName: string;

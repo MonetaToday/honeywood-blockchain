@@ -5,54 +5,6 @@ import { Coin } from "../cosmos/base/v1beta1/coin";
 import { BearOwner } from "../bears/bears";
 import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-export var Decorations_DecorationTypes;
-(function (Decorations_DecorationTypes) {
-    Decorations_DecorationTypes[Decorations_DecorationTypes["FLOWERS"] = 0] = "FLOWERS";
-    Decorations_DecorationTypes[Decorations_DecorationTypes["FLAG"] = 1] = "FLAG";
-    Decorations_DecorationTypes[Decorations_DecorationTypes["LAMP"] = 2] = "LAMP";
-    Decorations_DecorationTypes[Decorations_DecorationTypes["GREEN_BEE"] = 3] = "GREEN_BEE";
-    Decorations_DecorationTypes[Decorations_DecorationTypes["FOUNTAIN"] = 4] = "FOUNTAIN";
-    Decorations_DecorationTypes[Decorations_DecorationTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Decorations_DecorationTypes || (Decorations_DecorationTypes = {}));
-export function decorations_DecorationTypesFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "FLOWERS":
-            return Decorations_DecorationTypes.FLOWERS;
-        case 1:
-        case "FLAG":
-            return Decorations_DecorationTypes.FLAG;
-        case 2:
-        case "LAMP":
-            return Decorations_DecorationTypes.LAMP;
-        case 3:
-        case "GREEN_BEE":
-            return Decorations_DecorationTypes.GREEN_BEE;
-        case 4:
-        case "FOUNTAIN":
-            return Decorations_DecorationTypes.FOUNTAIN;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return Decorations_DecorationTypes.UNRECOGNIZED;
-    }
-}
-export function decorations_DecorationTypesToJSON(object) {
-    switch (object) {
-        case Decorations_DecorationTypes.FLOWERS:
-            return "FLOWERS";
-        case Decorations_DecorationTypes.FLAG:
-            return "FLAG";
-        case Decorations_DecorationTypes.LAMP:
-            return "LAMP";
-        case Decorations_DecorationTypes.GREEN_BEE:
-            return "GREEN_BEE";
-        case Decorations_DecorationTypes.FOUNTAIN:
-            return "FOUNTAIN";
-        default:
-            return "UNKNOWN";
-    }
-}
 const baseDecorationParams = { decorationType: "" };
 export const DecorationParams = {
     encode(message, writer = Writer.create()) {

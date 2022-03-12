@@ -13,16 +13,6 @@ export interface Decorations {
     params: DecorationParams | undefined;
     position: ItemPosition | undefined;
 }
-export declare enum Decorations_DecorationTypes {
-    FLOWERS = 0,
-    FLAG = 1,
-    LAMP = 2,
-    GREEN_BEE = 3,
-    FOUNTAIN = 4,
-    UNRECOGNIZED = -1
-}
-export declare function decorations_DecorationTypesFromJSON(object: any): Decorations_DecorationTypes;
-export declare function decorations_DecorationTypesToJSON(object: Decorations_DecorationTypes): string;
 export declare const DecorationParams: {
     encode(message: DecorationParams, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): DecorationParams;

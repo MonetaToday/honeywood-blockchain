@@ -19,60 +19,6 @@ export interface Decorations {
   position: ItemPosition | undefined;
 }
 
-export enum Decorations_DecorationTypes {
-  FLOWERS = 0,
-  FLAG = 1,
-  LAMP = 2,
-  GREEN_BEE = 3,
-  FOUNTAIN = 4,
-  UNRECOGNIZED = -1,
-}
-
-export function decorations_DecorationTypesFromJSON(
-  object: any
-): Decorations_DecorationTypes {
-  switch (object) {
-    case 0:
-    case "FLOWERS":
-      return Decorations_DecorationTypes.FLOWERS;
-    case 1:
-    case "FLAG":
-      return Decorations_DecorationTypes.FLAG;
-    case 2:
-    case "LAMP":
-      return Decorations_DecorationTypes.LAMP;
-    case 3:
-    case "GREEN_BEE":
-      return Decorations_DecorationTypes.GREEN_BEE;
-    case 4:
-    case "FOUNTAIN":
-      return Decorations_DecorationTypes.FOUNTAIN;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return Decorations_DecorationTypes.UNRECOGNIZED;
-  }
-}
-
-export function decorations_DecorationTypesToJSON(
-  object: Decorations_DecorationTypes
-): string {
-  switch (object) {
-    case Decorations_DecorationTypes.FLOWERS:
-      return "FLOWERS";
-    case Decorations_DecorationTypes.FLAG:
-      return "FLAG";
-    case Decorations_DecorationTypes.LAMP:
-      return "LAMP";
-    case Decorations_DecorationTypes.GREEN_BEE:
-      return "GREEN_BEE";
-    case Decorations_DecorationTypes.FOUNTAIN:
-      return "FOUNTAIN";
-    default:
-      return "UNKNOWN";
-  }
-}
-
 const baseDecorationParams: object = { decorationType: "" };
 
 export const DecorationParams = {

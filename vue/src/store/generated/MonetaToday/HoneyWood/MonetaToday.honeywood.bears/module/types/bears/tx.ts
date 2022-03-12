@@ -76,6 +76,7 @@ export interface MsgMoveItemOnFieldResponse {}
 
 export interface MsgInitGameAndCreateDecoration {
   creator: string;
+  receiver: string;
   decorationType: string;
 }
 
@@ -85,6 +86,7 @@ export interface MsgInitGameAndCreateDecorationResponse {
 
 export interface MsgCreateDecoration {
   creator: string;
+  receiver: string;
   bearId: number;
   decorationType: string;
 }
@@ -112,6 +114,7 @@ export interface MsgUnsetDecorationPositionResponse {}
 
 export interface MsgInitGameAndCreateApiary {
   creator: string;
+  receiver: string;
   apiaryType: string;
 }
 
@@ -121,6 +124,7 @@ export interface MsgInitGameAndCreateApiaryResponse {
 
 export interface MsgCreateApiary {
   creator: string;
+  receiver: string;
   bearId: number;
   fieldId: number;
   rowId: number;
@@ -134,6 +138,7 @@ export interface MsgCreateApiaryResponse {
 
 export interface MsgInitGameAndCreateBee {
   creator: string;
+  receiver: string;
   beeType: string;
   beeName: string;
 }
@@ -144,6 +149,7 @@ export interface MsgInitGameAndCreateBeeResponse {
 
 export interface MsgCreateBee {
   creator: string;
+  receiver: string;
   bearId: number;
   beeType: string;
   beeName: string;
@@ -1286,6 +1292,7 @@ export const MsgMoveItemOnFieldResponse = {
 
 const baseMsgInitGameAndCreateDecoration: object = {
   creator: "",
+  receiver: "",
   decorationType: "",
 };
 
@@ -1297,8 +1304,11 @@ export const MsgInitGameAndCreateDecoration = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.decorationType !== "") {
-      writer.uint32(18).string(message.decorationType);
+      writer.uint32(26).string(message.decorationType);
     }
     return writer;
   },
@@ -1319,6 +1329,9 @@ export const MsgInitGameAndCreateDecoration = {
           message.creator = reader.string();
           break;
         case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
           message.decorationType = reader.string();
           break;
         default:
@@ -1338,6 +1351,11 @@ export const MsgInitGameAndCreateDecoration = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     if (object.decorationType !== undefined && object.decorationType !== null) {
       message.decorationType = String(object.decorationType);
     } else {
@@ -1349,6 +1367,7 @@ export const MsgInitGameAndCreateDecoration = {
   toJSON(message: MsgInitGameAndCreateDecoration): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.decorationType !== undefined &&
       (obj.decorationType = message.decorationType);
     return obj;
@@ -1364,6 +1383,11 @@ export const MsgInitGameAndCreateDecoration = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.decorationType !== undefined && object.decorationType !== null) {
       message.decorationType = object.decorationType;
@@ -1448,6 +1472,7 @@ export const MsgInitGameAndCreateDecorationResponse = {
 
 const baseMsgCreateDecoration: object = {
   creator: "",
+  receiver: "",
   bearId: 0,
   decorationType: "",
 };
@@ -1460,11 +1485,14 @@ export const MsgCreateDecoration = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.bearId !== 0) {
-      writer.uint32(16).uint64(message.bearId);
+      writer.uint32(24).uint64(message.bearId);
     }
     if (message.decorationType !== "") {
-      writer.uint32(26).string(message.decorationType);
+      writer.uint32(34).string(message.decorationType);
     }
     return writer;
   },
@@ -1480,9 +1508,12 @@ export const MsgCreateDecoration = {
           message.creator = reader.string();
           break;
         case 2:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.receiver = reader.string();
           break;
         case 3:
+          message.bearId = longToNumber(reader.uint64() as Long);
+          break;
+        case 4:
           message.decorationType = reader.string();
           break;
         default:
@@ -1500,6 +1531,11 @@ export const MsgCreateDecoration = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = Number(object.bearId);
     } else {
@@ -1516,6 +1552,7 @@ export const MsgCreateDecoration = {
   toJSON(message: MsgCreateDecoration): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.bearId !== undefined && (obj.bearId = message.bearId);
     message.decorationType !== undefined &&
       (obj.decorationType = message.decorationType);
@@ -1528,6 +1565,11 @@ export const MsgCreateDecoration = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = object.bearId;
@@ -1950,7 +1992,11 @@ export const MsgUnsetDecorationPositionResponse = {
   },
 };
 
-const baseMsgInitGameAndCreateApiary: object = { creator: "", apiaryType: "" };
+const baseMsgInitGameAndCreateApiary: object = {
+  creator: "",
+  receiver: "",
+  apiaryType: "",
+};
 
 export const MsgInitGameAndCreateApiary = {
   encode(
@@ -1960,8 +2006,11 @@ export const MsgInitGameAndCreateApiary = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.apiaryType !== "") {
-      writer.uint32(18).string(message.apiaryType);
+      writer.uint32(26).string(message.apiaryType);
     }
     return writer;
   },
@@ -1982,6 +2031,9 @@ export const MsgInitGameAndCreateApiary = {
           message.creator = reader.string();
           break;
         case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
           message.apiaryType = reader.string();
           break;
         default:
@@ -2001,6 +2053,11 @@ export const MsgInitGameAndCreateApiary = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = String(object.apiaryType);
     } else {
@@ -2012,6 +2069,7 @@ export const MsgInitGameAndCreateApiary = {
   toJSON(message: MsgInitGameAndCreateApiary): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
     return obj;
   },
@@ -2026,6 +2084,11 @@ export const MsgInitGameAndCreateApiary = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.apiaryType !== undefined && object.apiaryType !== null) {
       message.apiaryType = object.apiaryType;
@@ -2110,6 +2173,7 @@ export const MsgInitGameAndCreateApiaryResponse = {
 
 const baseMsgCreateApiary: object = {
   creator: "",
+  receiver: "",
   bearId: 0,
   fieldId: 0,
   rowId: 0,
@@ -2122,20 +2186,23 @@ export const MsgCreateApiary = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.bearId !== 0) {
-      writer.uint32(16).uint64(message.bearId);
+      writer.uint32(24).uint64(message.bearId);
     }
     if (message.fieldId !== 0) {
-      writer.uint32(24).uint64(message.fieldId);
+      writer.uint32(32).uint64(message.fieldId);
     }
     if (message.rowId !== 0) {
-      writer.uint32(32).uint64(message.rowId);
+      writer.uint32(40).uint64(message.rowId);
     }
     if (message.columnId !== 0) {
-      writer.uint32(40).uint64(message.columnId);
+      writer.uint32(48).uint64(message.columnId);
     }
     if (message.apiaryType !== "") {
-      writer.uint32(50).string(message.apiaryType);
+      writer.uint32(58).string(message.apiaryType);
     }
     return writer;
   },
@@ -2151,18 +2218,21 @@ export const MsgCreateApiary = {
           message.creator = reader.string();
           break;
         case 2:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.receiver = reader.string();
           break;
         case 3:
-          message.fieldId = longToNumber(reader.uint64() as Long);
+          message.bearId = longToNumber(reader.uint64() as Long);
           break;
         case 4:
-          message.rowId = longToNumber(reader.uint64() as Long);
+          message.fieldId = longToNumber(reader.uint64() as Long);
           break;
         case 5:
-          message.columnId = longToNumber(reader.uint64() as Long);
+          message.rowId = longToNumber(reader.uint64() as Long);
           break;
         case 6:
+          message.columnId = longToNumber(reader.uint64() as Long);
+          break;
+        case 7:
           message.apiaryType = reader.string();
           break;
         default:
@@ -2179,6 +2249,11 @@ export const MsgCreateApiary = {
       message.creator = String(object.creator);
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = Number(object.bearId);
@@ -2211,6 +2286,7 @@ export const MsgCreateApiary = {
   toJSON(message: MsgCreateApiary): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.bearId !== undefined && (obj.bearId = message.bearId);
     message.fieldId !== undefined && (obj.fieldId = message.fieldId);
     message.rowId !== undefined && (obj.rowId = message.rowId);
@@ -2225,6 +2301,11 @@ export const MsgCreateApiary = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = object.bearId;
@@ -2326,6 +2407,7 @@ export const MsgCreateApiaryResponse = {
 
 const baseMsgInitGameAndCreateBee: object = {
   creator: "",
+  receiver: "",
   beeType: "",
   beeName: "",
 };
@@ -2338,11 +2420,14 @@ export const MsgInitGameAndCreateBee = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.beeType !== "") {
-      writer.uint32(18).string(message.beeType);
+      writer.uint32(26).string(message.beeType);
     }
     if (message.beeName !== "") {
-      writer.uint32(26).string(message.beeName);
+      writer.uint32(34).string(message.beeName);
     }
     return writer;
   },
@@ -2360,9 +2445,12 @@ export const MsgInitGameAndCreateBee = {
           message.creator = reader.string();
           break;
         case 2:
-          message.beeType = reader.string();
+          message.receiver = reader.string();
           break;
         case 3:
+          message.beeType = reader.string();
+          break;
+        case 4:
           message.beeName = reader.string();
           break;
         default:
@@ -2382,6 +2470,11 @@ export const MsgInitGameAndCreateBee = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     if (object.beeType !== undefined && object.beeType !== null) {
       message.beeType = String(object.beeType);
     } else {
@@ -2398,6 +2491,7 @@ export const MsgInitGameAndCreateBee = {
   toJSON(message: MsgInitGameAndCreateBee): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.beeType !== undefined && (obj.beeType = message.beeType);
     message.beeName !== undefined && (obj.beeName = message.beeName);
     return obj;
@@ -2413,6 +2507,11 @@ export const MsgInitGameAndCreateBee = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.beeType !== undefined && object.beeType !== null) {
       message.beeType = object.beeType;
@@ -2500,6 +2599,7 @@ export const MsgInitGameAndCreateBeeResponse = {
 
 const baseMsgCreateBee: object = {
   creator: "",
+  receiver: "",
   bearId: 0,
   beeType: "",
   beeName: "",
@@ -2510,14 +2610,17 @@ export const MsgCreateBee = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.bearId !== 0) {
-      writer.uint32(16).uint64(message.bearId);
+      writer.uint32(24).uint64(message.bearId);
     }
     if (message.beeType !== "") {
-      writer.uint32(26).string(message.beeType);
+      writer.uint32(34).string(message.beeType);
     }
     if (message.beeName !== "") {
-      writer.uint32(34).string(message.beeName);
+      writer.uint32(42).string(message.beeName);
     }
     return writer;
   },
@@ -2533,12 +2636,15 @@ export const MsgCreateBee = {
           message.creator = reader.string();
           break;
         case 2:
-          message.bearId = longToNumber(reader.uint64() as Long);
+          message.receiver = reader.string();
           break;
         case 3:
-          message.beeType = reader.string();
+          message.bearId = longToNumber(reader.uint64() as Long);
           break;
         case 4:
+          message.beeType = reader.string();
+          break;
+        case 5:
           message.beeName = reader.string();
           break;
         default:
@@ -2555,6 +2661,11 @@ export const MsgCreateBee = {
       message.creator = String(object.creator);
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = Number(object.bearId);
@@ -2577,6 +2688,7 @@ export const MsgCreateBee = {
   toJSON(message: MsgCreateBee): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.bearId !== undefined && (obj.bearId = message.bearId);
     message.beeType !== undefined && (obj.beeType = message.beeType);
     message.beeName !== undefined && (obj.beeName = message.beeName);
@@ -2589,6 +2701,11 @@ export const MsgCreateBee = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.bearId !== undefined && object.bearId !== null) {
       message.bearId = object.bearId;
