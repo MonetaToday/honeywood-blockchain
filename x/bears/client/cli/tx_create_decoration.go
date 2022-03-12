@@ -15,15 +15,16 @@ var _ = strconv.Itoa(0)
 
 func CmdCreateDecoration() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-decoration [bear-id] [decoration-type]",
+		Use:   "create-decoration [receiver] [bear-id] [decoration-type]",
 		Short: "Create a decoration",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argBearId, err := cast.ToUint64E(args[0])
+			argReceiver := args[0]
+			argBearId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
-			argDecorationType := args[1]
+			argDecorationType := args[2]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -32,6 +33,7 @@ func CmdCreateDecoration() *cobra.Command {
 
 			msg := types.NewMsgCreateDecoration(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argBearId,
 				argDecorationType,
 			)

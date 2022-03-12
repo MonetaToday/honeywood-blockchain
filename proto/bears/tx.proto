@@ -105,7 +105,8 @@ message MsgMoveItemOnFieldResponse {
 
 message MsgInitGameAndCreateDecoration {
   string creator = 1;
-  string decorationType = 2;
+  string receiver = 2;
+  string decorationType = 3;
 }
 
 message MsgInitGameAndCreateDecorationResponse {
@@ -114,8 +115,9 @@ message MsgInitGameAndCreateDecorationResponse {
 
 message MsgCreateDecoration {
   string creator = 1;
-  uint64 bearId = 2;
-  string decorationType = 3;
+  string receiver = 2;
+  uint64 bearId = 3;
+  string decorationType = 4;
 }
 
 message MsgCreateDecorationResponse {

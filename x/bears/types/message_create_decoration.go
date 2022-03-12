@@ -9,9 +9,10 @@ const TypeMsgCreateDecoration = "create_decoration"
 
 var _ sdk.Msg = &MsgCreateDecoration{}
 
-func NewMsgCreateDecoration(creator string, bearId uint64, decorationType string) *MsgCreateDecoration {
+func NewMsgCreateDecoration(creator string, receiver string, bearId uint64, decorationType string) *MsgCreateDecoration {
 	return &MsgCreateDecoration{
 		Creator:        creator,
+		Receiver:       receiver,
 		BearId:         bearId,
 		DecorationType: decorationType,
 	}
@@ -42,6 +43,11 @@ func (msg *MsgCreateDecoration) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 	}
 
 	return nil
