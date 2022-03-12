@@ -331,6 +331,14 @@ export interface BearsQueryParamsResponse {
     /** params holds all the parameters of this module. */
     params?: BearsParams;
 }
+export interface BearsQueryShowLastAirInfoResponse {
+    /** @format uint64 */
+    height?: string;
+    count?: string;
+    purity?: string;
+    supply?: string;
+    consume?: string;
+}
 export interface BearsTiles {
     item?: TilesItems;
 }
@@ -675,6 +683,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/params
      */
     queryParams: (params?: RequestParams) => Promise<HttpResponse<BearsQueryParamsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryShowLastAirInfo
+     * @summary Queries a list of ShowLastAirInfo items.
+     * @request GET:/MonetaToday/honeywood/bears/show_last_air_info
+     */
+    queryShowLastAirInfo: (params?: RequestParams) => Promise<HttpResponse<BearsQueryShowLastAirInfoResponse, RpcStatus>>;
     /**
      * No description
      *

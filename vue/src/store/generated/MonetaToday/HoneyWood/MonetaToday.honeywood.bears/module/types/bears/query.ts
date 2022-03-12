@@ -177,6 +177,16 @@ export interface QueryGetAirInfoResponse {
   AirInfo: AirInfo | undefined;
 }
 
+export interface QueryShowLastAirInfoRequest {}
+
+export interface QueryShowLastAirInfoResponse {
+  height: number;
+  count: string;
+  purity: string;
+  supply: string;
+  consume: string;
+}
+
 const baseQueryParamsRequest: object = {};
 
 export const QueryParamsRequest = {
@@ -2859,6 +2869,201 @@ export const QueryGetAirInfoResponse = {
   },
 };
 
+const baseQueryShowLastAirInfoRequest: object = {};
+
+export const QueryShowLastAirInfoRequest = {
+  encode(
+    _: QueryShowLastAirInfoRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryShowLastAirInfoRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryShowLastAirInfoRequest,
+    } as QueryShowLastAirInfoRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryShowLastAirInfoRequest {
+    const message = {
+      ...baseQueryShowLastAirInfoRequest,
+    } as QueryShowLastAirInfoRequest;
+    return message;
+  },
+
+  toJSON(_: QueryShowLastAirInfoRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<QueryShowLastAirInfoRequest>
+  ): QueryShowLastAirInfoRequest {
+    const message = {
+      ...baseQueryShowLastAirInfoRequest,
+    } as QueryShowLastAirInfoRequest;
+    return message;
+  },
+};
+
+const baseQueryShowLastAirInfoResponse: object = {
+  height: 0,
+  count: "",
+  purity: "",
+  supply: "",
+  consume: "",
+};
+
+export const QueryShowLastAirInfoResponse = {
+  encode(
+    message: QueryShowLastAirInfoResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.height !== 0) {
+      writer.uint32(8).uint64(message.height);
+    }
+    if (message.count !== "") {
+      writer.uint32(18).string(message.count);
+    }
+    if (message.purity !== "") {
+      writer.uint32(26).string(message.purity);
+    }
+    if (message.supply !== "") {
+      writer.uint32(34).string(message.supply);
+    }
+    if (message.consume !== "") {
+      writer.uint32(42).string(message.consume);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryShowLastAirInfoResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryShowLastAirInfoResponse,
+    } as QueryShowLastAirInfoResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.height = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.count = reader.string();
+          break;
+        case 3:
+          message.purity = reader.string();
+          break;
+        case 4:
+          message.supply = reader.string();
+          break;
+        case 5:
+          message.consume = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowLastAirInfoResponse {
+    const message = {
+      ...baseQueryShowLastAirInfoResponse,
+    } as QueryShowLastAirInfoResponse;
+    if (object.height !== undefined && object.height !== null) {
+      message.height = Number(object.height);
+    } else {
+      message.height = 0;
+    }
+    if (object.count !== undefined && object.count !== null) {
+      message.count = String(object.count);
+    } else {
+      message.count = "";
+    }
+    if (object.purity !== undefined && object.purity !== null) {
+      message.purity = String(object.purity);
+    } else {
+      message.purity = "";
+    }
+    if (object.supply !== undefined && object.supply !== null) {
+      message.supply = String(object.supply);
+    } else {
+      message.supply = "";
+    }
+    if (object.consume !== undefined && object.consume !== null) {
+      message.consume = String(object.consume);
+    } else {
+      message.consume = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryShowLastAirInfoResponse): unknown {
+    const obj: any = {};
+    message.height !== undefined && (obj.height = message.height);
+    message.count !== undefined && (obj.count = message.count);
+    message.purity !== undefined && (obj.purity = message.purity);
+    message.supply !== undefined && (obj.supply = message.supply);
+    message.consume !== undefined && (obj.consume = message.consume);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryShowLastAirInfoResponse>
+  ): QueryShowLastAirInfoResponse {
+    const message = {
+      ...baseQueryShowLastAirInfoResponse,
+    } as QueryShowLastAirInfoResponse;
+    if (object.height !== undefined && object.height !== null) {
+      message.height = object.height;
+    } else {
+      message.height = 0;
+    }
+    if (object.count !== undefined && object.count !== null) {
+      message.count = object.count;
+    } else {
+      message.count = "";
+    }
+    if (object.purity !== undefined && object.purity !== null) {
+      message.purity = object.purity;
+    } else {
+      message.purity = "";
+    }
+    if (object.supply !== undefined && object.supply !== null) {
+      message.supply = object.supply;
+    } else {
+      message.supply = "";
+    }
+    if (object.consume !== undefined && object.consume !== null) {
+      message.consume = object.consume;
+    } else {
+      message.consume = "";
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -2915,6 +3120,10 @@ export interface Query {
   ): Promise<QueryCalculateHoneyInApiaryResponse>;
   /** Queries a AirInfo by index. */
   AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
+  /** Queries a list of ShowLastAirInfo items. */
+  ShowLastAirInfo(
+    request: QueryShowLastAirInfoRequest
+  ): Promise<QueryShowLastAirInfoResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3163,6 +3372,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryGetAirInfoResponse.decode(new Reader(data))
+    );
+  }
+
+  ShowLastAirInfo(
+    request: QueryShowLastAirInfoRequest
+  ): Promise<QueryShowLastAirInfoResponse> {
+    const data = QueryShowLastAirInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "ShowLastAirInfo",
+      data
+    );
+    return promise.then((data) =>
+      QueryShowLastAirInfoResponse.decode(new Reader(data))
     );
   }
 }

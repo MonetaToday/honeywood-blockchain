@@ -136,7 +136,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 			Id: bearId,
 		},
 		Params: fieldParams,
-		Rows:      rows,
+		Rows:   rows,
 	}
 	newField.CountTiles = k.GetFieldsTilesCount(newField)
 	newField.Id = k.AppendFields(ctx, newField)

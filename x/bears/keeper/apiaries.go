@@ -183,7 +183,6 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 	return &newApiary, nil
 }
 
-
 // Create apiary on field for specific bear
 func (k Keeper) DeleteApiary(ctx sdk.Context, beneficiary string, apiary types.Apiaries) error {
 	field, fieldFound := k.GetFields(ctx, apiary.Position.FieldId)

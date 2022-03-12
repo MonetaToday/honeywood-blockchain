@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgInitGameAndCreateApiary{}
 func NewMsgInitGameAndCreateApiary(creator string, receiver string, apiaryType string) *MsgInitGameAndCreateApiary {
 	return &MsgInitGameAndCreateApiary{
 		Creator:    creator,
-		Receiver: receiver,
+		Receiver:   receiver,
 		ApiaryType: apiaryType,
 	}
 }

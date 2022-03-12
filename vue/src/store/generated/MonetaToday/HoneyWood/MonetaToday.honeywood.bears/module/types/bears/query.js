@@ -2295,6 +2295,183 @@ export const QueryGetAirInfoResponse = {
         return message;
     },
 };
+const baseQueryShowLastAirInfoRequest = {};
+export const QueryShowLastAirInfoRequest = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowLastAirInfoRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = {
+            ...baseQueryShowLastAirInfoRequest,
+        };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = {
+            ...baseQueryShowLastAirInfoRequest,
+        };
+        return message;
+    },
+};
+const baseQueryShowLastAirInfoResponse = {
+    height: 0,
+    count: "",
+    purity: "",
+    supply: "",
+    consume: "",
+};
+export const QueryShowLastAirInfoResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.height !== 0) {
+            writer.uint32(8).uint64(message.height);
+        }
+        if (message.count !== "") {
+            writer.uint32(18).string(message.count);
+        }
+        if (message.purity !== "") {
+            writer.uint32(26).string(message.purity);
+        }
+        if (message.supply !== "") {
+            writer.uint32(34).string(message.supply);
+        }
+        if (message.consume !== "") {
+            writer.uint32(42).string(message.consume);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowLastAirInfoResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.height = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.count = reader.string();
+                    break;
+                case 3:
+                    message.purity = reader.string();
+                    break;
+                case 4:
+                    message.supply = reader.string();
+                    break;
+                case 5:
+                    message.consume = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowLastAirInfoResponse,
+        };
+        if (object.height !== undefined && object.height !== null) {
+            message.height = Number(object.height);
+        }
+        else {
+            message.height = 0;
+        }
+        if (object.count !== undefined && object.count !== null) {
+            message.count = String(object.count);
+        }
+        else {
+            message.count = "";
+        }
+        if (object.purity !== undefined && object.purity !== null) {
+            message.purity = String(object.purity);
+        }
+        else {
+            message.purity = "";
+        }
+        if (object.supply !== undefined && object.supply !== null) {
+            message.supply = String(object.supply);
+        }
+        else {
+            message.supply = "";
+        }
+        if (object.consume !== undefined && object.consume !== null) {
+            message.consume = String(object.consume);
+        }
+        else {
+            message.consume = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.height !== undefined && (obj.height = message.height);
+        message.count !== undefined && (obj.count = message.count);
+        message.purity !== undefined && (obj.purity = message.purity);
+        message.supply !== undefined && (obj.supply = message.supply);
+        message.consume !== undefined && (obj.consume = message.consume);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowLastAirInfoResponse,
+        };
+        if (object.height !== undefined && object.height !== null) {
+            message.height = object.height;
+        }
+        else {
+            message.height = 0;
+        }
+        if (object.count !== undefined && object.count !== null) {
+            message.count = object.count;
+        }
+        else {
+            message.count = "";
+        }
+        if (object.purity !== undefined && object.purity !== null) {
+            message.purity = object.purity;
+        }
+        else {
+            message.purity = "";
+        }
+        if (object.supply !== undefined && object.supply !== null) {
+            message.supply = object.supply;
+        }
+        else {
+            message.supply = "";
+        }
+        if (object.consume !== undefined && object.consume !== null) {
+            message.consume = object.consume;
+        }
+        else {
+            message.consume = "";
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2393,6 +2570,11 @@ export class QueryClientImpl {
         const data = QueryGetAirInfoRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "AirInfo", data);
         return promise.then((data) => QueryGetAirInfoResponse.decode(new Reader(data)));
+    }
+    ShowLastAirInfo(request) {
+        const data = QueryShowLastAirInfoRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowLastAirInfo", data);
+        return promise.then((data) => QueryShowLastAirInfoResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

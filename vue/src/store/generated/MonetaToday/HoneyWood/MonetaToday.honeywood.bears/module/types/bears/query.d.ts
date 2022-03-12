@@ -134,6 +134,15 @@ export interface QueryGetAirInfoRequest {
 export interface QueryGetAirInfoResponse {
     AirInfo: AirInfo | undefined;
 }
+export interface QueryShowLastAirInfoRequest {
+}
+export interface QueryShowLastAirInfoResponse {
+    height: number;
+    count: string;
+    purity: string;
+    supply: string;
+    consume: string;
+}
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryParamsRequest;
@@ -400,6 +409,20 @@ export declare const QueryGetAirInfoResponse: {
     toJSON(message: QueryGetAirInfoResponse): unknown;
     fromPartial(object: DeepPartial<QueryGetAirInfoResponse>): QueryGetAirInfoResponse;
 };
+export declare const QueryShowLastAirInfoRequest: {
+    encode(_: QueryShowLastAirInfoRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowLastAirInfoRequest;
+    fromJSON(_: any): QueryShowLastAirInfoRequest;
+    toJSON(_: QueryShowLastAirInfoRequest): unknown;
+    fromPartial(_: DeepPartial<QueryShowLastAirInfoRequest>): QueryShowLastAirInfoRequest;
+};
+export declare const QueryShowLastAirInfoResponse: {
+    encode(message: QueryShowLastAirInfoResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowLastAirInfoResponse;
+    fromJSON(object: any): QueryShowLastAirInfoResponse;
+    toJSON(message: QueryShowLastAirInfoResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowLastAirInfoResponse>): QueryShowLastAirInfoResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -440,6 +463,8 @@ export interface Query {
     CalculateHoneyInApiary(request: QueryCalculateHoneyInApiaryRequest): Promise<QueryCalculateHoneyInApiaryResponse>;
     /** Queries a AirInfo by index. */
     AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
+    /** Queries a list of ShowLastAirInfo items. */
+    ShowLastAirInfo(request: QueryShowLastAirInfoRequest): Promise<QueryShowLastAirInfoResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -463,6 +488,7 @@ export declare class QueryClientImpl implements Query {
     BeesAll(request: QueryAllBeesRequest): Promise<QueryAllBeesResponse>;
     CalculateHoneyInApiary(request: QueryCalculateHoneyInApiaryRequest): Promise<QueryCalculateHoneyInApiaryResponse>;
     AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
+    ShowLastAirInfo(request: QueryShowLastAirInfoRequest): Promise<QueryShowLastAirInfoResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

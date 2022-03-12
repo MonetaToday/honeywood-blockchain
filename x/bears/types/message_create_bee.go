@@ -11,11 +11,11 @@ var _ sdk.Msg = &MsgCreateBee{}
 
 func NewMsgCreateBee(creator string, receiver string, bearId uint64, beeType string, beeName string) *MsgCreateBee {
 	return &MsgCreateBee{
-		Creator: creator,
+		Creator:  creator,
 		Receiver: receiver,
-		BearId:  bearId,
-		BeeType: beeType,
-		BeeName: beeName,
+		BearId:   bearId,
+		BeeType:  beeType,
+		BeeName:  beeName,
 	}
 }
 

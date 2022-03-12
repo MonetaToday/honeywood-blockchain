@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgInitGameAndCreateDecoration{}
 func NewMsgInitGameAndCreateDecoration(creator string, receiver string, decorationType string) *MsgInitGameAndCreateDecoration {
 	return &MsgInitGameAndCreateDecoration{
 		Creator:        creator,
-		Receiver:				receiver,
+		Receiver:       receiver,
 		DecorationType: decorationType,
 	}
 }

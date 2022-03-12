@@ -44,6 +44,8 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 	cmd.AddCommand(CmdCalculateHoneyInApiary())
 
 	cmd.AddCommand(CmdShowAirInfo())
+	cmd.AddCommand(CmdShowLastAirInfo())
+
 	// this line is used by starport scaffolding # 1
 
 	return cmd

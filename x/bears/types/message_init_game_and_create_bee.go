@@ -11,10 +11,10 @@ var _ sdk.Msg = &MsgInitGameAndCreateBee{}
 
 func NewMsgInitGameAndCreateBee(creator string, receiver string, beeType string, beeName string) *MsgInitGameAndCreateBee {
 	return &MsgInitGameAndCreateBee{
-		Creator: creator,
+		Creator:  creator,
 		Receiver: receiver,
-		BeeType: beeType,
-		BeeName: beeName,
+		BeeType:  beeType,
+		BeeName:  beeName,
 	}
 }
 

@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgCreateApiary{}
 func NewMsgCreateApiary(creator string, receiver string, bearId uint64, fieldId uint64, rowId uint64, columnId uint64, apiaryType string) *MsgCreateApiary {
 	return &MsgCreateApiary{
 		Creator:    creator,
-		Receiver:		receiver,
+		Receiver:   receiver,
 		BearId:     bearId,
 		FieldId:    fieldId,
 		RowId:      rowId,

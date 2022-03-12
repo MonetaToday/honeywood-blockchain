@@ -113,6 +113,11 @@ service Query {
 	rpc AirInfo(QueryGetAirInfoRequest) returns (QueryGetAirInfoResponse) {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/air_info";
 	}
+// Queries a list of ShowLastAirInfo items.
+	rpc ShowLastAirInfo(QueryShowLastAirInfoRequest) returns (QueryShowLastAirInfoResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_last_air_info";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -277,4 +282,19 @@ message QueryGetAirInfoRequest {}
 message QueryGetAirInfoResponse {
 	AirInfo AirInfo = 1 [(gogoproto.nullable) = false];
 }
+message QueryShowLastAirInfoRequest {
+}
+
+message QueryShowLastAirInfoResponse {
+  uint64 height = 1;
+  string count = 2
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string purity = 3
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string supply = 4
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string consume = 5
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+}
+
 // this line is used by starport scaffolding # 3
