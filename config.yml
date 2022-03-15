@@ -10,11 +10,11 @@ accounts:
   - name: alice
     coins: ["200000000cone"]
   - name: bob
-    coins: ["100000000000000000000000000000000000000000000000uhoney"]
+    coins: ["10000000000000000000000000uhoney"]
   - name: koss
-    coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
+    coins: ["10000000000000000000000000uhoney", "100000000000cone"]
   - name: oleg
-    coins: ["10000000000000000000000000000000000000uhoney", "100000000000cone"]
+    coins: ["10000000000000000000000000uhoney", "100000000000cone"]
   - name: test
     coins: ["0uhoney", "0cone"]
 validator:
@@ -23,8 +23,8 @@ validator:
 client:
   # openapi:
   #   path: "docs/static/openapi.yml"
-  vuex:
-    path: "vue/src/store"
+  # vuex:
+  #   path: "vue/src/store"
 # faucet:
 #   name: bob
 #   coins: ["5uhoney", "100000stake"]
