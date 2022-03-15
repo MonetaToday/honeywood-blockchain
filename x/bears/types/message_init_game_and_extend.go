@@ -9,9 +9,10 @@ const TypeMsgInitGameAndExtend = "init_game_and_extend"
 
 var _ sdk.Msg = &MsgInitGameAndExtendField{}
 
-func NewMsgInitGameAndExtend(creator string) *MsgInitGameAndExtendField {
+func NewMsgInitGameAndExtend(creator string, receiver string) *MsgInitGameAndExtendField {
 	return &MsgInitGameAndExtendField{
 		Creator: creator,
+		Receiver: receiver,
 	}
 }
 
@@ -41,5 +42,11 @@ func (msg *MsgInitGameAndExtendField) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
+	}
+
 	return nil
 }

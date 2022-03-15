@@ -10,12 +10,12 @@ import (
 func (k msgServer) InitGameAndExtendField(goCtx context.Context, msg *types.MsgInitGameAndExtendField) (*types.MsgInitGameAndExtendFieldResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	_, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	_, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Receiver)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}
 
-	countTiles, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, newField.Id)
+	countTiles, extendFieldErr := k.Keeper.ExtendField(ctx, msg.Creator, msg.Receiver, newField.Id)
 	if extendFieldErr != nil {
 		return nil, extendFieldErr
 	}

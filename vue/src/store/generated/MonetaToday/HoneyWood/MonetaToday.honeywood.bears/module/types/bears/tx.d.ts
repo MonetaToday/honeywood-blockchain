@@ -20,12 +20,14 @@ export interface MsgSetNameResponse {
 }
 export interface MsgInitGameAndExtendField {
     creator: string;
+    receiver: string;
 }
 export interface MsgInitGameAndExtendFieldResponse {
     countTiles: number;
 }
 export interface MsgExtendField {
     creator: string;
+    receiver: string;
     id: number;
 }
 export interface MsgExtendFieldResponse {

@@ -15,11 +15,12 @@ var _ = strconv.Itoa(0)
 
 func CmdExtendField() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "extend-field [id]",
+		Use:   "extend-field [receiver] [id]",
 		Short: "Extend a field",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argId, err := cast.ToUint64E(args[0])
+			argReceiver := args[0]
+			argId, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
 			}
@@ -31,6 +32,7 @@ func CmdExtendField() *cobra.Command {
 
 			msg := types.NewMsgExtendField(
 				clientCtx.GetFromAddress().String(),
+				argReceiver,
 				argId,
 			)
 			if err := msg.ValidateBasic(); err != nil {

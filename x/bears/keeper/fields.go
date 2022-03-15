@@ -126,13 +126,13 @@ func (k Keeper) GetFieldsTilesCount(field types.Fields) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uint64, error) {
+func (k Keeper) ExtendField(ctx sdk.Context, creator string, receiver string, fieldId uint64) (*uint64, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
 		return nil, types.ErrFieldIsNotExisted
 	}
 
-	if !k.HasRightsToField(ctx, buyer, field) {
+	if !k.HasRightsToField(ctx, receiver, field) {
 		return nil, types.ErrAddressHasNoRight
 	}
 
@@ -147,7 +147,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	differenceTiles := newCountTiles - int64(field.CountTiles)
 	k.Logger(ctx).Debug(fmt.Sprintf("newCountTiles is %d", newCountTiles))
 
-	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
+	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
 
 	priceForExtending := sdk.Coins{}
 	for _, price := range field.Params.PriceTile {
@@ -157,7 +157,7 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 		))
 	}
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceForExtending)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceForExtending)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}

@@ -9,9 +9,10 @@ const TypeMsgExtendField = "extend_field"
 
 var _ sdk.Msg = &MsgExtendField{}
 
-func NewMsgExtendField(creator string, id uint64) *MsgExtendField {
+func NewMsgExtendField(creator string, receiver string, id uint64) *MsgExtendField {
 	return &MsgExtendField{
 		Creator: creator,
+		Receiver: receiver,
 		Id:      id,
 	}
 }
@@ -42,5 +43,11 @@ func (msg *MsgExtendField) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+
+	_, err = sdk.AccAddressFromBech32(msg.Receiver)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
+	}
+
 	return nil
 }

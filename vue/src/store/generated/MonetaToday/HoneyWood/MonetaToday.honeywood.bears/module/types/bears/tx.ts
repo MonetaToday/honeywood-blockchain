@@ -26,6 +26,7 @@ export interface MsgSetNameResponse {}
 
 export interface MsgInitGameAndExtendField {
   creator: string;
+  receiver: string;
 }
 
 export interface MsgInitGameAndExtendFieldResponse {
@@ -34,6 +35,7 @@ export interface MsgInitGameAndExtendFieldResponse {
 
 export interface MsgExtendField {
   creator: string;
+  receiver: string;
   id: number;
 }
 
@@ -453,7 +455,7 @@ export const MsgSetNameResponse = {
   },
 };
 
-const baseMsgInitGameAndExtendField: object = { creator: "" };
+const baseMsgInitGameAndExtendField: object = { creator: "", receiver: "" };
 
 export const MsgInitGameAndExtendField = {
   encode(
@@ -462,6 +464,9 @@ export const MsgInitGameAndExtendField = {
   ): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
+    }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
     }
     return writer;
   },
@@ -481,6 +486,9 @@ export const MsgInitGameAndExtendField = {
         case 1:
           message.creator = reader.string();
           break;
+        case 2:
+          message.receiver = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -498,12 +506,18 @@ export const MsgInitGameAndExtendField = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     return message;
   },
 
   toJSON(message: MsgInitGameAndExtendField): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     return obj;
   },
 
@@ -517,6 +531,11 @@ export const MsgInitGameAndExtendField = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     return message;
   },
@@ -591,15 +610,18 @@ export const MsgInitGameAndExtendFieldResponse = {
   },
 };
 
-const baseMsgExtendField: object = { creator: "", id: 0 };
+const baseMsgExtendField: object = { creator: "", receiver: "", id: 0 };
 
 export const MsgExtendField = {
   encode(message: MsgExtendField, writer: Writer = Writer.create()): Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.receiver !== "") {
+      writer.uint32(18).string(message.receiver);
+    }
     if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id);
+      writer.uint32(24).uint64(message.id);
     }
     return writer;
   },
@@ -615,6 +637,9 @@ export const MsgExtendField = {
           message.creator = reader.string();
           break;
         case 2:
+          message.receiver = reader.string();
+          break;
+        case 3:
           message.id = longToNumber(reader.uint64() as Long);
           break;
         default:
@@ -632,6 +657,11 @@ export const MsgExtendField = {
     } else {
       message.creator = "";
     }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = String(object.receiver);
+    } else {
+      message.receiver = "";
+    }
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -643,6 +673,7 @@ export const MsgExtendField = {
   toJSON(message: MsgExtendField): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.receiver !== undefined && (obj.receiver = message.receiver);
     message.id !== undefined && (obj.id = message.id);
     return obj;
   },
@@ -653,6 +684,11 @@ export const MsgExtendField = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.receiver !== undefined && object.receiver !== null) {
+      message.receiver = object.receiver;
+    } else {
+      message.receiver = "";
     }
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
