@@ -141,11 +141,21 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	newField.CountTiles = k.GetFieldsTilesCount(newField)
 	newField.Id = k.AppendFields(ctx, newField)
 
+	// emit field created event
+	ctx.EventManager().EmitEvent(
+		types.NewFieldCreatedEvent(newField.Id),
+	)
+
 	bearName := types.BearNames{
 		Name:   name,
 		BearId: bearId,
 	}
 	k.SetBearNames(ctx, bearName)
+
+	// emit name set event
+	ctx.EventManager().EmitEvent(
+		types.NewNameSetEvent(name, newField.Id),
+	)
 
 	newBear := types.Bears{
 		Id:          bearId,
@@ -166,6 +176,11 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 		Bears:   []uint64{bearId},
 	}
 	k.SetAddressBears(ctx, addressBears)
+
+	// emit bear created event
+	ctx.EventManager().EmitEvent(
+		types.NewBearCreatedEvent(bearId, address),
+	)
 
 	airConsume := k.GetTotalAirConsume(ctx).Add(sdk.OneDec())
 	k.SetTotalAirConsume(ctx, airConsume)

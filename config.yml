@@ -5,7 +5,7 @@ init:
     consensus:
       timeout_commit: "5s"
   app:
-    minimum-gas-prices: "5uhoney"
+    minimum-gas-prices: "0.05uhoney"
 accounts:
   - name: alice
     coins: ["200000000cone"]
