@@ -36,7 +36,7 @@ func CmdCreateApiary() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argApiaryType := args[4]
+			argApiaryType := args[5]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

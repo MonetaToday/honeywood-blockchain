@@ -79,5 +79,18 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 		return nil, types.ErrItemTypeIsNotDefined
 	}
 
+	// emit item moved on field event
+	ctx.EventManager().EmitEvent(
+		types.NewItemMovedOnFieldEvent(
+			fieldId,
+			oldRowId,
+			oldColumnId,
+			newRowId,
+			newColumnId,
+			itemId,
+			itemType.String(),
+		),
+	)
+
 	return &types.MsgMoveItemOnFieldResponse{}, nil
 }

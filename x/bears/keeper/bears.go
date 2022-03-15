@@ -154,7 +154,7 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 
 	// emit name set event
 	ctx.EventManager().EmitEvent(
-		types.NewNameSetEvent(name, newField.Id),
+		types.NewNameSetEvent(name, bearId),
 	)
 
 	newBear := types.Bears{

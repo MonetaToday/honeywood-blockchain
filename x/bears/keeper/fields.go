@@ -170,6 +170,11 @@ func (k Keeper) ExtendField(ctx sdk.Context, buyer string, fieldId uint64) (*uin
 	field.CountTiles = uint64(newCountTiles)
 	k.SetFields(ctx, field)
 
+	// emit field extended event
+	ctx.EventManager().EmitEvent(
+		types.NewFieldExtendedEvent(fieldId, field.CountTiles),
+	)
+
 	return &field.CountTiles, nil
 }
 

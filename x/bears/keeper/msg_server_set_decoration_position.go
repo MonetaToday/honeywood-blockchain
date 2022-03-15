@@ -56,5 +56,15 @@ func (k msgServer) SetDecorationPosition(goCtx context.Context, msg *types.MsgSe
 	}
 	k.SetFields(ctx, field)
 
+	// emit decoration position set event
+	ctx.EventManager().EmitEvent(
+		types.NewDecorationPositionSetEvent(
+			decorationId,
+			fieldId,
+			rowId,
+			columnId,
+		),
+	)
+
 	return &types.MsgSetDecorationPositionResponse{}, nil
 }

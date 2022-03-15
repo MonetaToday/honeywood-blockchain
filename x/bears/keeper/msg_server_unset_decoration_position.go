@@ -38,5 +38,12 @@ func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.Msg
 	field.Rows[rowId].Columns[columnId].Item = nil
 	k.SetFields(ctx, field)
 
+	// emit decoration position unset event
+	ctx.EventManager().EmitEvent(
+		types.NewDecorationPositionUnsetEvent(
+			decorationId,
+		),
+	)
+
 	return &types.MsgUnsetDecorationPositionResponse{}, nil
 }

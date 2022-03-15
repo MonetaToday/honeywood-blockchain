@@ -199,5 +199,10 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, errSendFromModuleToAccount.Error())
 	}
 
+	// emit tree created event
+	ctx.EventManager().EmitEvent(
+		types.NewTreeCreatedEvent(newTreeId),
+	)
+
 	return &newTree, nil
 }

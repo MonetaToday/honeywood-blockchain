@@ -180,6 +180,11 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 	bear.Apiaries = append(bear.Apiaries, newApiaryId)
 	k.SetBears(ctx, bear)
 
+	// emit apiary created event
+	ctx.EventManager().EmitEvent(
+		types.NewApiaryCreatedEvent(newApiaryId),
+	)
+
 	return &newApiary, nil
 }
 
@@ -212,6 +217,11 @@ func (k Keeper) DeleteApiary(ctx sdk.Context, beneficiary string, apiary types.A
 	}
 
 	k.RemoveApiaries(ctx, apiary.Id)
+
+	// emit apiary deleted event
+	ctx.EventManager().EmitEvent(
+		types.NewApiaryDeletedEvent(apiary.Id),
+	)
 
 	return nil
 }
@@ -336,6 +346,11 @@ func (k Keeper) CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary t
 
 	k.SetApiaries(ctx, apiary)
 
+	// emit honey collected from apiary event
+	ctx.EventManager().EmitEvent(
+		types.NewHoneyCollectedFromApiaryEvent(apiary.Id, honeyInApiary),
+	)
+
 	return &honeyInApiary, nil
 }
 
@@ -348,6 +363,12 @@ func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary type
 
 	for _, beeId := range bees {
 		bee, _ := k.GetBees(ctx, beeId)
+
+		// emit bee apiary house unset event
+		ctx.EventManager().EmitEvent(
+			types.NewBeeApiaryHouseUnsetEvent(beeId, bee.ApiaryHouse.Id),
+		)
+
 		bee.ApiaryHouse = nil
 		k.SetBees(ctx, bee)
 	}

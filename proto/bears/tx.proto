@@ -12,7 +12,7 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 
 // Msg defines the Msg service.
 service Msg {
-      rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
+  rpc InitGameAndSetName(MsgInitGameAndSetName) returns (MsgInitGameAndSetNameResponse);
   rpc SetName(MsgSetName) returns (MsgSetNameResponse);
   rpc InitGameAndExtendField(MsgInitGameAndExtendField) returns (MsgInitGameAndExtendFieldResponse);
   rpc ExtendField(MsgExtendField) returns (MsgExtendFieldResponse);

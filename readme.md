@@ -107,9 +107,13 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 ~/go/bin/honeyd query bears show-air-info
 
-~/go/bin/honeyd tx bears init-game-and-create-apiary bears1qktc6qntnsnl4nk3n47fkl0ed5sz6d65gzkeaq APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-apiary bears1jahl8ydaeuax9vqx4rfxzhpl3dcft5ndqhlr4e APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears1jahl8ydaeuax9vqx4rfxzhpl3dcft5ndqhlr4e 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd tx bears create-bee 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears clear-apiary-from-bees 0 --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears delete-apiary 0 --from bob --fees 10000uhoney --yes
+
+
+~/go/bin/honeyd tx bears create-apiary bears1jahl8ydaeuax9vqx4rfxzhpl3dcft5ndqhlr4e 0 0 0 0 APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears move-item-on-field 0 0 0 1 1 --from bob --fees 10000uhoney --yes

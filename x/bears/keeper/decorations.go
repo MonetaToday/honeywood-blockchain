@@ -153,5 +153,10 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, receiver strin
 	bear.Decorations = append(bear.Decorations, newDecorationId)
 	k.SetBears(ctx, bear)
 
+	// emit decoration created event
+	ctx.EventManager().EmitEvent(
+		types.NewDecorationCreatedEvent(newDecorationId),
+	)
+
 	return &newDecoration, nil
 }

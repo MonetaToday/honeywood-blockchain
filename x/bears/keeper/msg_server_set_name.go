@@ -10,7 +10,7 @@ import (
 func (k msgServer) SetName(goCtx context.Context, msg *types.MsgSetName) (*types.MsgSetNameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	buyErr := k.Keeper.BuyBearNameForBear(ctx, msg.Creator, msg.BearId, msg.Name)
+	buyErr := k.Keeper.BuyBearName(ctx, msg.Creator, msg.BearId, msg.Name)
 	if buyErr != nil {
 		return nil, buyErr
 	}

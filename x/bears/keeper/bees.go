@@ -226,6 +226,11 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)
 
+	// emit bee created event
+	ctx.EventManager().EmitEvent(
+		types.NewBeeCreatedEvent(newBeeId),
+	)
+
 	return &newBee, nil
 }
 
@@ -272,6 +277,11 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 	apiary, _ = k.GetApiaryWithAddedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
 
+	// emit bee apiary house set event
+	ctx.EventManager().EmitEvent(
+		types.NewBeeApiaryHouseSetEvent(beeId, apiaryId),
+	)
+
 	return nil
 }
 
@@ -300,6 +310,11 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 
 	bee.ApiaryHouse = nil
 	k.SetBees(ctx, bee)
+
+	// emit bee apiary house unset event
+	ctx.EventManager().EmitEvent(
+		types.NewBeeApiaryHouseUnsetEvent(beeId, bee.ApiaryHouse.Id),
+	)
 
 	return nil
 }
