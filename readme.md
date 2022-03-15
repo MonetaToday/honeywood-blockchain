@@ -117,3 +117,6 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 ~/go/bin/honeyd tx bears create-apiary bears1jahl8ydaeuax9vqx4rfxzhpl3dcft5ndqhlr4e 0 0 0 0 APIARY --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears move-item-on-field 0 0 0 1 1 --from bob --fees 10000uhoney --yes
+
+
+~/go/bin/honeyd tx bears init-game-and-create-tree BUSH --from bob --fees 10000uhoney --yes

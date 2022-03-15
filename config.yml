@@ -90,7 +90,7 @@ genesis:
         burn_rate: "0.5"
         price_set_name: 
           - denom: "uhoney"
-            amount: "100000000"
+            amount: "5000000000"
 
         field_types:
           - field_type: "DEFAULT"
@@ -131,6 +131,11 @@ genesis:
             reward:
               - denom: "cone"
                 amount: "150"
+          - tree_type: BUSH
+            air_supply: "1"
+            price:
+              - denom: "uhoney"
+                amount: "200000000"
 
         decoration_types:
           - decoration_type: "FLOWERS"
