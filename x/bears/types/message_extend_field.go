@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgExtendField{}
 
 func NewMsgExtendField(creator string, receiver string, id uint64) *MsgExtendField {
 	return &MsgExtendField{
-		Creator: creator,
+		Creator:  creator,
 		Receiver: receiver,
-		Id:      id,
+		Id:       id,
 	}
 }
 

@@ -118,6 +118,11 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_last_air_info";
 	}
 
+// Queries a list of ShowHoneyFromAllBearApiaries items.
+	rpc ShowHoneyFromAllBearApiaries(QueryShowHoneyFromAllBearApiariesRequest) returns (QueryShowHoneyFromAllBearApiariesResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -273,7 +278,7 @@ message QueryCalculateHoneyInApiaryRequest {
 }
 
 message QueryCalculateHoneyInApiaryResponse {
-  string countHoney = 5
+  string countHoney = 1
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
@@ -295,6 +300,20 @@ message QueryShowLastAirInfoResponse {
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
   string consume = 5
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+}
+
+message QueryShowHoneyFromAllBearApiariesRequest {
+  uint64 bearId = 1;
+}
+
+message QueryShowHoneyFromAllBearApiariesResponse {
+  message HoneyInApiary {
+    uint64 apiaryId = 1;
+    string countHoney = 2
+      [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  }
+
+  repeated HoneyInApiary honeyInApiaries = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3

@@ -1,54 +1,51 @@
 package types
 
 import (
-	"strconv"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"strconv"
 )
 
 // bears module event types
 const (
 	EventTypeBearCreated = "bear_created"
-	
-	EventTypeFieldCreated = "field_created"
-	EventTypeFieldExtended = "field_extended"
+
+	EventTypeFieldCreated     = "field_created"
+	EventTypeFieldExtended    = "field_extended"
 	EventTypeItemMovedOnField = "item_moved_on_field"
 
-	EventTypeApiaryCreated = "apiary_created"
+	EventTypeApiaryCreated            = "apiary_created"
 	EventTypeHoneyCollectedFromApiary = "honey_collected_from_apiary"
-	EventTypeApiaryDeleted = "apiary_deleted"
+	EventTypeApiaryDeleted            = "apiary_deleted"
 
-	EventTypeBeeCreated = "bee_created"
-	EventTypeBeeApiaryHouseSet = "bee_apiary_house_set"
+	EventTypeBeeCreated          = "bee_created"
+	EventTypeBeeApiaryHouseSet   = "bee_apiary_house_set"
 	EventTypeBeeApiaryHouseUnset = "bee_apiary_house_unset"
-	
-	EventTypeDecorationCreated = "decoration_created"
-	EventTypeDecorationPositionSet = "decoration_position_set"
+
+	EventTypeDecorationCreated       = "decoration_created"
+	EventTypeDecorationPositionSet   = "decoration_position_set"
 	EventTypeDecorationPositionUnset = "decoration_position_unset"
-	
+
 	EventTypeTreeCreated = "tree_created"
-	
+
 	EventTypeNameSet = "name_set"
 
-
-	AttributeKeyId = "id"
-	AttributeKeyBearId = "bear_id"
-	AttributeKeyFieldId = "field_id"
-	AttributeKeyCountTiles = "count_tiles"
-	AttributeKeyItemId = "item_id"
-	AttributeKeyItemType = "item_type"
-	AttributeKeyOldRowId = "old_row_id"
+	AttributeKeyId          = "id"
+	AttributeKeyBearId      = "bear_id"
+	AttributeKeyFieldId     = "field_id"
+	AttributeKeyCountTiles  = "count_tiles"
+	AttributeKeyItemId      = "item_id"
+	AttributeKeyItemType    = "item_type"
+	AttributeKeyOldRowId    = "old_row_id"
 	AttributeKeyOldColumnId = "old_column_id"
-	AttributeKeyRowId = "row_id"
-	AttributeKeyColumnId = "column_id"
-	AttributeKeyAddress = "address"
-	AttributeKeyBearName = "bear_name"
-	AttributeKeyApiaryId = "apiary_id"
-	AttributeKeyCountHoney = "count_honey"
+	AttributeKeyRowId       = "row_id"
+	AttributeKeyColumnId    = "column_id"
+	AttributeKeyAddress     = "address"
+	AttributeKeyBearName    = "bear_name"
+	AttributeKeyApiaryId    = "apiary_id"
+	AttributeKeyCountHoney  = "count_honey"
 
 	AttributeValueCategory = ModuleName
 )
-
-
 
 // NewBearCreatedEvent
 // nolint: interfacer
@@ -162,8 +159,6 @@ func NewHoneyCollectedFromApiaryEvent(id uint64, honey sdk.Coin) sdk.Event {
 	)
 }
 
-
-
 // NewApiaryDeletedEvent
 // nolint: interfacer
 func NewApiaryDeletedEvent(id uint64) sdk.Event {
@@ -172,7 +167,6 @@ func NewApiaryDeletedEvent(id uint64) sdk.Event {
 		sdk.NewAttribute(AttributeKeyId, strconv.FormatUint(id, 10)),
 	)
 }
-
 
 // NewBeeCreatedEvent
 // nolint: interfacer

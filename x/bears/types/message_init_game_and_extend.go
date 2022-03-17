@@ -11,7 +11,7 @@ var _ sdk.Msg = &MsgInitGameAndExtendField{}
 
 func NewMsgInitGameAndExtend(creator string, receiver string) *MsgInitGameAndExtendField {
 	return &MsgInitGameAndExtendField{
-		Creator: creator,
+		Creator:  creator,
 		Receiver: receiver,
 	}
 }

@@ -17,15 +17,15 @@ func (k Keeper) ShowLastAirInfo(goCtx context.Context, req *types.QueryShowLastA
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	airInfo, found := k.GetAirInfo(ctx)
-  if !found {
-    return nil, status.Error(codes.InvalidArgument, "not found")
-  }
+	if !found {
+		return nil, status.Error(codes.InvalidArgument, "not found")
+	}
 
-  return &types.QueryShowLastAirInfoResponse{
-		Height: airInfo.History[len(airInfo.History) - 1].Height,
-		Purity: airInfo.History[len(airInfo.History) - 1].Purity,
-		Count: airInfo.History[len(airInfo.History) - 1].Count,
-    Supply: airInfo.Supply,
-    Consume: airInfo.Consume,
-  }, nil
+	return &types.QueryShowLastAirInfoResponse{
+		Height:  airInfo.History[len(airInfo.History)-1].Height,
+		Purity:  airInfo.History[len(airInfo.History)-1].Purity,
+		Count:   airInfo.History[len(airInfo.History)-1].Count,
+		Supply:  airInfo.Supply,
+		Consume: airInfo.Consume,
+	}, nil
 }
