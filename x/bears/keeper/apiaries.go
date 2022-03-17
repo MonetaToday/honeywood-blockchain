@@ -251,10 +251,8 @@ func (k Keeper) GetAllCurrentBeesFromApiary(ctx sdk.Context, apiary types.Apiari
 func (k Keeper) CalculateBeesHoneyPower(ctx sdk.Context, blocksPerHour uint64, bees []types.Bees, airPurity sdk.Dec, airCount sdk.Dec) sdk.Dec {
 	honeyPower := sdk.ZeroDec()
 	for _, bee := range bees {
-		beeHoneySpeed := bee.Params.HoneyPerHour.QuoInt64(int64(blocksPerHour))
-
 		beeHoneyPower := airPurity.Mul(
-			beeHoneySpeed.Mul(
+			bee.Params.HoneyPerBlock.Mul(
 				sdk.OneDec().Add(
 					airCount.Sub(
 						sdk.OneDec(),
