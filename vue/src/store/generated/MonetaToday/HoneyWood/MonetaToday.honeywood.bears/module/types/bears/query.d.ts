@@ -7,7 +7,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
-import { Apiaries } from "../bears/apiaries";
+import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
 import { AirInfo } from "../bears/air_info";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
@@ -142,6 +142,35 @@ export interface QueryShowLastAirInfoResponse {
     purity: string;
     supply: string;
     consume: string;
+}
+export interface QueryShowApiariesInfoByBearIdRequest {
+    bearId: number;
+}
+export interface QueryShowApiariesInfoByBearIdResponse {
+    apiariesInfo: QueryShowApiariesInfoByBearIdResponse_ApiaryInfo[];
+}
+export interface QueryShowApiariesInfoByBearIdResponse_ApiaryInfo {
+    id: number;
+    countHoney: string;
+    params: ApiaryParams | undefined;
+}
+export interface QueryShowHoneyPowerByApiaryIdRequest {
+    apiaryId: number;
+}
+export interface QueryShowHoneyPowerByApiaryIdResponse {
+    honeyPower: string;
+}
+export interface QueryShowHoneyPowerByBeeTypeRequest {
+    beeType: string;
+}
+export interface QueryShowHoneyPowerByBeeTypeResponse {
+    honeyPower: string;
+}
+export interface QueryShowHoneyPowerByBearIdRequest {
+    bearId: number;
+}
+export interface QueryShowHoneyPowerByBearIdResponse {
+    honeyPower: string;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -423,6 +452,69 @@ export declare const QueryShowLastAirInfoResponse: {
     toJSON(message: QueryShowLastAirInfoResponse): unknown;
     fromPartial(object: DeepPartial<QueryShowLastAirInfoResponse>): QueryShowLastAirInfoResponse;
 };
+export declare const QueryShowApiariesInfoByBearIdRequest: {
+    encode(message: QueryShowApiariesInfoByBearIdRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowApiariesInfoByBearIdRequest;
+    fromJSON(object: any): QueryShowApiariesInfoByBearIdRequest;
+    toJSON(message: QueryShowApiariesInfoByBearIdRequest): unknown;
+    fromPartial(object: DeepPartial<QueryShowApiariesInfoByBearIdRequest>): QueryShowApiariesInfoByBearIdRequest;
+};
+export declare const QueryShowApiariesInfoByBearIdResponse: {
+    encode(message: QueryShowApiariesInfoByBearIdResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowApiariesInfoByBearIdResponse;
+    fromJSON(object: any): QueryShowApiariesInfoByBearIdResponse;
+    toJSON(message: QueryShowApiariesInfoByBearIdResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowApiariesInfoByBearIdResponse>): QueryShowApiariesInfoByBearIdResponse;
+};
+export declare const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo: {
+    encode(message: QueryShowApiariesInfoByBearIdResponse_ApiaryInfo, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowApiariesInfoByBearIdResponse_ApiaryInfo;
+    fromJSON(object: any): QueryShowApiariesInfoByBearIdResponse_ApiaryInfo;
+    toJSON(message: QueryShowApiariesInfoByBearIdResponse_ApiaryInfo): unknown;
+    fromPartial(object: DeepPartial<QueryShowApiariesInfoByBearIdResponse_ApiaryInfo>): QueryShowApiariesInfoByBearIdResponse_ApiaryInfo;
+};
+export declare const QueryShowHoneyPowerByApiaryIdRequest: {
+    encode(message: QueryShowHoneyPowerByApiaryIdRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByApiaryIdRequest;
+    fromJSON(object: any): QueryShowHoneyPowerByApiaryIdRequest;
+    toJSON(message: QueryShowHoneyPowerByApiaryIdRequest): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByApiaryIdRequest>): QueryShowHoneyPowerByApiaryIdRequest;
+};
+export declare const QueryShowHoneyPowerByApiaryIdResponse: {
+    encode(message: QueryShowHoneyPowerByApiaryIdResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByApiaryIdResponse;
+    fromJSON(object: any): QueryShowHoneyPowerByApiaryIdResponse;
+    toJSON(message: QueryShowHoneyPowerByApiaryIdResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByApiaryIdResponse>): QueryShowHoneyPowerByApiaryIdResponse;
+};
+export declare const QueryShowHoneyPowerByBeeTypeRequest: {
+    encode(message: QueryShowHoneyPowerByBeeTypeRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByBeeTypeRequest;
+    fromJSON(object: any): QueryShowHoneyPowerByBeeTypeRequest;
+    toJSON(message: QueryShowHoneyPowerByBeeTypeRequest): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByBeeTypeRequest>): QueryShowHoneyPowerByBeeTypeRequest;
+};
+export declare const QueryShowHoneyPowerByBeeTypeResponse: {
+    encode(message: QueryShowHoneyPowerByBeeTypeResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByBeeTypeResponse;
+    fromJSON(object: any): QueryShowHoneyPowerByBeeTypeResponse;
+    toJSON(message: QueryShowHoneyPowerByBeeTypeResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByBeeTypeResponse>): QueryShowHoneyPowerByBeeTypeResponse;
+};
+export declare const QueryShowHoneyPowerByBearIdRequest: {
+    encode(message: QueryShowHoneyPowerByBearIdRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByBearIdRequest;
+    fromJSON(object: any): QueryShowHoneyPowerByBearIdRequest;
+    toJSON(message: QueryShowHoneyPowerByBearIdRequest): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByBearIdRequest>): QueryShowHoneyPowerByBearIdRequest;
+};
+export declare const QueryShowHoneyPowerByBearIdResponse: {
+    encode(message: QueryShowHoneyPowerByBearIdResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowHoneyPowerByBearIdResponse;
+    fromJSON(object: any): QueryShowHoneyPowerByBearIdResponse;
+    toJSON(message: QueryShowHoneyPowerByBearIdResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowHoneyPowerByBearIdResponse>): QueryShowHoneyPowerByBearIdResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -465,6 +557,14 @@ export interface Query {
     AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
     /** Queries a list of ShowLastAirInfo items. */
     ShowLastAirInfo(request: QueryShowLastAirInfoRequest): Promise<QueryShowLastAirInfoResponse>;
+    /** Queries a list of ShowApiariesInfoByBearId items. */
+    ShowApiariesInfoByBearId(request: QueryShowApiariesInfoByBearIdRequest): Promise<QueryShowApiariesInfoByBearIdResponse>;
+    /** Queries a list of ShowHoneyPowerByApiaryId items. */
+    ShowHoneyPowerByApiaryId(request: QueryShowHoneyPowerByApiaryIdRequest): Promise<QueryShowHoneyPowerByApiaryIdResponse>;
+    /** Queries a list of ShowHoneyPowerByBeeType items. */
+    ShowHoneyPowerByBeeType(request: QueryShowHoneyPowerByBeeTypeRequest): Promise<QueryShowHoneyPowerByBeeTypeResponse>;
+    /** Queries a list of ShowHoneyPowerByBearId items. */
+    ShowHoneyPowerByBearId(request: QueryShowHoneyPowerByBearIdRequest): Promise<QueryShowHoneyPowerByBearIdResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -489,6 +589,10 @@ export declare class QueryClientImpl implements Query {
     CalculateHoneyInApiary(request: QueryCalculateHoneyInApiaryRequest): Promise<QueryCalculateHoneyInApiaryResponse>;
     AirInfo(request: QueryGetAirInfoRequest): Promise<QueryGetAirInfoResponse>;
     ShowLastAirInfo(request: QueryShowLastAirInfoRequest): Promise<QueryShowLastAirInfoResponse>;
+    ShowApiariesInfoByBearId(request: QueryShowApiariesInfoByBearIdRequest): Promise<QueryShowApiariesInfoByBearIdResponse>;
+    ShowHoneyPowerByApiaryId(request: QueryShowHoneyPowerByApiaryIdRequest): Promise<QueryShowHoneyPowerByApiaryIdResponse>;
+    ShowHoneyPowerByBeeType(request: QueryShowHoneyPowerByBeeTypeRequest): Promise<QueryShowHoneyPowerByBeeTypeResponse>;
+    ShowHoneyPowerByBearId(request: QueryShowHoneyPowerByBearIdRequest): Promise<QueryShowHoneyPowerByBearIdResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

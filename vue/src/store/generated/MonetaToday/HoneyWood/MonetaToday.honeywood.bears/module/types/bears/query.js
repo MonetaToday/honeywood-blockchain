@@ -9,7 +9,7 @@ import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
-import { Apiaries } from "../bears/apiaries";
+import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
 import { AirInfo } from "../bears/air_info";
 export const protobufPackage = "MonetaToday.honeywood.bears";
@@ -2150,7 +2150,7 @@ const baseQueryCalculateHoneyInApiaryResponse = { countHoney: "" };
 export const QueryCalculateHoneyInApiaryResponse = {
     encode(message, writer = Writer.create()) {
         if (message.countHoney !== "") {
-            writer.uint32(42).string(message.countHoney);
+            writer.uint32(10).string(message.countHoney);
         }
         return writer;
     },
@@ -2163,7 +2163,7 @@ export const QueryCalculateHoneyInApiaryResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                case 5:
+                case 1:
                     message.countHoney = reader.string();
                     break;
                 default:
@@ -2472,6 +2472,571 @@ export const QueryShowLastAirInfoResponse = {
         return message;
     },
 };
+const baseQueryShowApiariesInfoByBearIdRequest = { bearId: 0 };
+export const QueryShowApiariesInfoByBearIdRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.bearId !== 0) {
+            writer.uint32(8).uint64(message.bearId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryShowApiariesInfoByBearIdResponse = {};
+export const QueryShowApiariesInfoByBearIdResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.apiariesInfo) {
+            QueryShowApiariesInfoByBearIdResponse_ApiaryInfo.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse,
+        };
+        message.apiariesInfo = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apiariesInfo.push(QueryShowApiariesInfoByBearIdResponse_ApiaryInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse,
+        };
+        message.apiariesInfo = [];
+        if (object.apiariesInfo !== undefined && object.apiariesInfo !== null) {
+            for (const e of object.apiariesInfo) {
+                message.apiariesInfo.push(QueryShowApiariesInfoByBearIdResponse_ApiaryInfo.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.apiariesInfo) {
+            obj.apiariesInfo = message.apiariesInfo.map((e) => e
+                ? QueryShowApiariesInfoByBearIdResponse_ApiaryInfo.toJSON(e)
+                : undefined);
+        }
+        else {
+            obj.apiariesInfo = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse,
+        };
+        message.apiariesInfo = [];
+        if (object.apiariesInfo !== undefined && object.apiariesInfo !== null) {
+            for (const e of object.apiariesInfo) {
+                message.apiariesInfo.push(QueryShowApiariesInfoByBearIdResponse_ApiaryInfo.fromPartial(e));
+            }
+        }
+        return message;
+    },
+};
+const baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
+    id: 0,
+    countHoney: "",
+};
+export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (message.countHoney !== "") {
+            writer.uint32(18).string(message.countHoney);
+        }
+        if (message.params !== undefined) {
+            ApiaryParams.encode(message.params, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.countHoney = reader.string();
+                    break;
+                case 3:
+                    message.params = ApiaryParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.countHoney !== undefined && object.countHoney !== null) {
+            message.countHoney = String(object.countHoney);
+        }
+        else {
+            message.countHoney = "";
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = ApiaryParams.fromJSON(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        message.countHoney !== undefined && (obj.countHoney = message.countHoney);
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? ApiaryParams.toJSON(message.params)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.countHoney !== undefined && object.countHoney !== null) {
+            message.countHoney = object.countHoney;
+        }
+        else {
+            message.countHoney = "";
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = ApiaryParams.fromPartial(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByApiaryIdRequest = { apiaryId: 0 };
+export const QueryShowHoneyPowerByApiaryIdRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.apiaryId !== 0) {
+            writer.uint32(8).uint64(message.apiaryId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apiaryId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdRequest,
+        };
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = Number(object.apiaryId);
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.apiaryId !== undefined && (obj.apiaryId = message.apiaryId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdRequest,
+        };
+        if (object.apiaryId !== undefined && object.apiaryId !== null) {
+            message.apiaryId = object.apiaryId;
+        }
+        else {
+            message.apiaryId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByApiaryIdResponse = { honeyPower: "" };
+export const QueryShowHoneyPowerByApiaryIdResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.honeyPower !== "") {
+            writer.uint32(10).string(message.honeyPower);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.honeyPower = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = String(object.honeyPower);
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.honeyPower !== undefined && (obj.honeyPower = message.honeyPower);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByApiaryIdResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = object.honeyPower;
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByBeeTypeRequest = { beeType: "" };
+export const QueryShowHoneyPowerByBeeTypeRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.beeType !== "") {
+            writer.uint32(10).string(message.beeType);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.beeType = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeRequest,
+        };
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = String(object.beeType);
+        }
+        else {
+            message.beeType = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.beeType !== undefined && (obj.beeType = message.beeType);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeRequest,
+        };
+        if (object.beeType !== undefined && object.beeType !== null) {
+            message.beeType = object.beeType;
+        }
+        else {
+            message.beeType = "";
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByBeeTypeResponse = { honeyPower: "" };
+export const QueryShowHoneyPowerByBeeTypeResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.honeyPower !== "") {
+            writer.uint32(10).string(message.honeyPower);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.honeyPower = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = String(object.honeyPower);
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.honeyPower !== undefined && (obj.honeyPower = message.honeyPower);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBeeTypeResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = object.honeyPower;
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByBearIdRequest = { bearId: 0 };
+export const QueryShowHoneyPowerByBearIdRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.bearId !== 0) {
+            writer.uint32(8).uint64(message.bearId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryShowHoneyPowerByBearIdResponse = { honeyPower: "" };
+export const QueryShowHoneyPowerByBearIdResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.honeyPower !== "") {
+            writer.uint32(10).string(message.honeyPower);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.honeyPower = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = String(object.honeyPower);
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.honeyPower !== undefined && (obj.honeyPower = message.honeyPower);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowHoneyPowerByBearIdResponse,
+        };
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = object.honeyPower;
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2575,6 +3140,26 @@ export class QueryClientImpl {
         const data = QueryShowLastAirInfoRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowLastAirInfo", data);
         return promise.then((data) => QueryShowLastAirInfoResponse.decode(new Reader(data)));
+    }
+    ShowApiariesInfoByBearId(request) {
+        const data = QueryShowApiariesInfoByBearIdRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowApiariesInfoByBearId", data);
+        return promise.then((data) => QueryShowApiariesInfoByBearIdResponse.decode(new Reader(data)));
+    }
+    ShowHoneyPowerByApiaryId(request) {
+        const data = QueryShowHoneyPowerByApiaryIdRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowHoneyPowerByApiaryId", data);
+        return promise.then((data) => QueryShowHoneyPowerByApiaryIdResponse.decode(new Reader(data)));
+    }
+    ShowHoneyPowerByBeeType(request) {
+        const data = QueryShowHoneyPowerByBeeTypeRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowHoneyPowerByBeeType", data);
+        return promise.then((data) => QueryShowHoneyPowerByBeeTypeResponse.decode(new Reader(data)));
+    }
+    ShowHoneyPowerByBearId(request) {
+        const data = QueryShowHoneyPowerByBearIdRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowHoneyPowerByBearId", data);
+        return promise.then((data) => QueryShowHoneyPowerByBearIdResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

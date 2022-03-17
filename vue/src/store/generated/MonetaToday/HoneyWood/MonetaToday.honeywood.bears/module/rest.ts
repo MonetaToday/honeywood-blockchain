@@ -15,6 +15,13 @@ export enum ItemsItemTypes {
   DECORATION = "DECORATION",
 }
 
+export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
+  /** @format uint64 */
+  id?: string;
+  countHoney?: string;
+  params?: BearsApiaryParams;
+}
+
 export interface TilesItems {
   /** @format uint64 */
   itemId?: string;
@@ -94,7 +101,7 @@ export interface BearsBears {
 export interface BearsBeeParams {
   beeType?: string;
   price?: V1Beta1Coin[];
-  honeyPerHour?: string;
+  honeyPerBlock?: string;
 
   /** @format uint64 */
   bodySize?: string;
@@ -416,6 +423,22 @@ export interface BearsQueryGetTreesResponse {
 export interface BearsQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: BearsParams;
+}
+
+export interface BearsQueryShowApiariesInfoByBearIdResponse {
+  apiariesInfo?: QueryShowApiariesInfoByBearIdResponseApiaryInfo[];
+}
+
+export interface BearsQueryShowHoneyPowerByApiaryIdResponse {
+  honeyPower?: string;
+}
+
+export interface BearsQueryShowHoneyPowerByBearIdResponse {
+  honeyPower?: string;
+}
+
+export interface BearsQueryShowHoneyPowerByBeeTypeResponse {
+  honeyPower?: string;
 }
 
 export interface BearsQueryShowLastAirInfoResponse {
@@ -1064,6 +1087,70 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<BearsQueryParamsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowApiariesInfoByBearId
+   * @summary Queries a list of ShowApiariesInfoByBearId items.
+   * @request GET:/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}
+   */
+  queryShowApiariesInfoByBearId = (bearId: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowApiariesInfoByBearIdResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/${bearId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowHoneyPowerByBearId
+   * @summary Queries a list of ShowHoneyPowerByBearId items.
+   * @request GET:/MonetaToday/honeywood/bears/show_honey_power_by_bear_id/{bearId}
+   */
+  queryShowHoneyPowerByBearId = (bearId: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowHoneyPowerByBearIdResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_honey_power_by_bear_id/${bearId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowHoneyPowerByBeeType
+   * @summary Queries a list of ShowHoneyPowerByBeeType items.
+   * @request GET:/MonetaToday/honeywood/bears/show_honey_power_by_bee_type/{beeType}
+   */
+  queryShowHoneyPowerByBeeType = (beeType: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowHoneyPowerByBeeTypeResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_honey_power_by_bee_type/${beeType}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowHoneyPowerByApiaryId
+   * @summary Queries a list of ShowHoneyPowerByApiaryId items.
+   * @request GET:/MonetaToday/honeywood/bears/show_honey_power_in_apiary/{apiaryId}
+   */
+  queryShowHoneyPowerByApiaryId = (apiaryId: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowHoneyPowerByApiaryIdResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_honey_power_in_apiary/${apiaryId}`,
       method: "GET",
       format: "json",
       ...params,

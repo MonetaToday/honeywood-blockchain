@@ -5,7 +5,7 @@ export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface BeeParams {
     beeType: string;
     price: Coin[];
-    honeyPerHour: string;
+    honeyPerBlock: string;
     bodySize: number;
     airCountDependency: string;
     airConsume: string;

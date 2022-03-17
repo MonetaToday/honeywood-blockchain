@@ -391,6 +391,62 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryShowApiariesInfoByBearId
+         * @summary Queries a list of ShowApiariesInfoByBearId items.
+         * @request GET:/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}
+         */
+        this.queryShowApiariesInfoByBearId = (bearId, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/${bearId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryShowHoneyPowerByBearId
+         * @summary Queries a list of ShowHoneyPowerByBearId items.
+         * @request GET:/MonetaToday/honeywood/bears/show_honey_power_by_bear_id/{bearId}
+         */
+        this.queryShowHoneyPowerByBearId = (bearId, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/show_honey_power_by_bear_id/${bearId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryShowHoneyPowerByBeeType
+         * @summary Queries a list of ShowHoneyPowerByBeeType items.
+         * @request GET:/MonetaToday/honeywood/bears/show_honey_power_by_bee_type/{beeType}
+         */
+        this.queryShowHoneyPowerByBeeType = (beeType, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/show_honey_power_by_bee_type/${beeType}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryShowHoneyPowerByApiaryId
+         * @summary Queries a list of ShowHoneyPowerByApiaryId items.
+         * @request GET:/MonetaToday/honeywood/bears/show_honey_power_in_apiary/{apiaryId}
+         */
+        this.queryShowHoneyPowerByApiaryId = (apiaryId, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/show_honey_power_in_apiary/${apiaryId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryShowLastAirInfo
          * @summary Queries a list of ShowLastAirInfo items.
          * @request GET:/MonetaToday/honeywood/bears/show_last_air_info

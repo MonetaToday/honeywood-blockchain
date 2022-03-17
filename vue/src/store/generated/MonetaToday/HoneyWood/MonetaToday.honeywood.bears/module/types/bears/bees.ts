@@ -9,7 +9,7 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 export interface BeeParams {
   beeType: string;
   price: Coin[];
-  honeyPerHour: string;
+  honeyPerBlock: string;
   bodySize: number;
   airCountDependency: string;
   airConsume: string;
@@ -29,7 +29,7 @@ export interface Bees {
 
 const baseBeeParams: object = {
   beeType: "",
-  honeyPerHour: "",
+  honeyPerBlock: "",
   bodySize: 0,
   airCountDependency: "",
   airConsume: "",
@@ -43,8 +43,8 @@ export const BeeParams = {
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.honeyPerHour !== "") {
-      writer.uint32(26).string(message.honeyPerHour);
+    if (message.honeyPerBlock !== "") {
+      writer.uint32(26).string(message.honeyPerBlock);
     }
     if (message.bodySize !== 0) {
       writer.uint32(32).uint64(message.bodySize);
@@ -73,7 +73,7 @@ export const BeeParams = {
           message.price.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.honeyPerHour = reader.string();
+          message.honeyPerBlock = reader.string();
           break;
         case 4:
           message.bodySize = longToNumber(reader.uint64() as Long);
@@ -105,10 +105,10 @@ export const BeeParams = {
         message.price.push(Coin.fromJSON(e));
       }
     }
-    if (object.honeyPerHour !== undefined && object.honeyPerHour !== null) {
-      message.honeyPerHour = String(object.honeyPerHour);
+    if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+      message.honeyPerBlock = String(object.honeyPerBlock);
     } else {
-      message.honeyPerHour = "";
+      message.honeyPerBlock = "";
     }
     if (object.bodySize !== undefined && object.bodySize !== null) {
       message.bodySize = Number(object.bodySize);
@@ -139,8 +139,8 @@ export const BeeParams = {
     } else {
       obj.price = [];
     }
-    message.honeyPerHour !== undefined &&
-      (obj.honeyPerHour = message.honeyPerHour);
+    message.honeyPerBlock !== undefined &&
+      (obj.honeyPerBlock = message.honeyPerBlock);
     message.bodySize !== undefined && (obj.bodySize = message.bodySize);
     message.airCountDependency !== undefined &&
       (obj.airCountDependency = message.airCountDependency);
@@ -161,10 +161,10 @@ export const BeeParams = {
         message.price.push(Coin.fromPartial(e));
       }
     }
-    if (object.honeyPerHour !== undefined && object.honeyPerHour !== null) {
-      message.honeyPerHour = object.honeyPerHour;
+    if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+      message.honeyPerBlock = object.honeyPerBlock;
     } else {
-      message.honeyPerHour = "";
+      message.honeyPerBlock = "";
     }
     if (object.bodySize !== undefined && object.bodySize !== null) {
       message.bodySize = object.bodySize;
