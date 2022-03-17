@@ -123,6 +123,11 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}";
 	}
 
+// Queries a list of ShowHoneyPowerInApiary items.
+	rpc ShowHoneyPowerInApiary(QueryShowHoneyPowerInApiaryRequest) returns (QueryShowHoneyPowerInApiaryResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_power_in_apiary/{apiaryId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -314,6 +319,15 @@ message QueryShowHoneyFromAllBearApiariesResponse {
   }
 
   repeated HoneyInApiary honeyInApiaries = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryShowHoneyPowerInApiaryRequest {
+  uint64 apiaryId = 1;
+}
+
+message QueryShowHoneyPowerInApiaryResponse {
+  string honeyPower = 1
+    [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
 // this line is used by starport scaffolding # 3

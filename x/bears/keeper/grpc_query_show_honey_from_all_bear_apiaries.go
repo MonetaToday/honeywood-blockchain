@@ -17,23 +17,23 @@ func (k Keeper) ShowHoneyFromAllBearApiaries(goCtx context.Context, req *types.Q
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	bear, bearFound := k.GetBears(ctx, req.BearId)
-  if !bearFound {
-    return nil, types.ErrBearIsNotExisted
-  }
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
+	}
 
-  honeyInApiaries := []types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{}
+	honeyInApiaries := []types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{}
 
-  for _, apiaryId := range bear.Apiaries {
-    apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
-    if !apiaryFound {
-      return nil, types.ErrApiaryIsNotExisted
-    }
+	for _, apiaryId := range bear.Apiaries {
+		apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
+		if !apiaryFound {
+			return nil, types.ErrApiaryIsNotExisted
+		}
 
-    honeyInApiaries = append(honeyInApiaries, types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{
-      ApiaryId: apiaryId,
-      CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
-    })
-  }
+		honeyInApiaries = append(honeyInApiaries, types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{
+			ApiaryId:   apiaryId,
+			CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
+		})
+	}
 
 	return &types.QueryShowHoneyFromAllBearApiariesResponse{
 		HoneyInApiaries: honeyInApiaries,
