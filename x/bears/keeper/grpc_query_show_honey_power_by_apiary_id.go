@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) ShowHoneyPowerInApiary(goCtx context.Context, req *types.QueryShowHoneyPowerInApiaryRequest) (*types.QueryShowHoneyPowerInApiaryResponse, error) {
+func (k Keeper) ShowHoneyPowerByApiaryId(goCtx context.Context, req *types.QueryShowHoneyPowerByApiaryIdRequest) (*types.QueryShowHoneyPowerByApiaryIdResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -34,7 +34,7 @@ func (k Keeper) ShowHoneyPowerInApiary(goCtx context.Context, req *types.QuerySh
 		lastLoadedBees = append(lastLoadedBees, bee)
 	}
 
-	return &types.QueryShowHoneyPowerInApiaryResponse{
+	return &types.QueryShowHoneyPowerByApiaryIdResponse{
 		HoneyPower: k.CalculateBeesHoneyPower(
 			ctx,
 			blocksPerHour,

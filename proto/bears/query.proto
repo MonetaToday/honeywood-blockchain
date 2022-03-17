@@ -123,8 +123,8 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}";
 	}
 
-// Queries a list of ShowHoneyPowerInApiary items.
-	rpc ShowHoneyPowerInApiary(QueryShowHoneyPowerInApiaryRequest) returns (QueryShowHoneyPowerInApiaryResponse) {
+// Queries a list of ShowHoneyPowerByApiaryId items.
+	rpc ShowHoneyPowerByApiaryId(QueryShowHoneyPowerByApiaryIdRequest) returns (QueryShowHoneyPowerByApiaryIdResponse) {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_power_in_apiary/{apiaryId}";
 	}
 
@@ -327,11 +327,11 @@ message QueryShowApiariesInfoByBearIdResponse {
   repeated ApiaryInfo apiariesInfo = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryShowHoneyPowerInApiaryRequest {
+message QueryShowHoneyPowerByApiaryIdRequest {
   uint64 apiaryId = 1;
 }
 
-message QueryShowHoneyPowerInApiaryResponse {
+message QueryShowHoneyPowerByApiaryIdResponse {
   string honeyPower = 1
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }

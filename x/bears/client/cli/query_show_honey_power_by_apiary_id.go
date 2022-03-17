@@ -12,9 +12,9 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdShowHoneyPowerInApiary() *cobra.Command {
+func CmdShowHoneyPowerByApiaryId() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-honey-power-in-apiary [apiary-id]",
+		Use:   "show-honey-power-by-apiary-id [apiary-id]",
 		Short: "Show how much honey power in apiary",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -30,12 +30,12 @@ func CmdShowHoneyPowerInApiary() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryShowHoneyPowerInApiaryRequest{
+			params := &types.QueryShowHoneyPowerByApiaryIdRequest{
 
 				ApiaryId: reqApiaryId,
 			}
 
-			res, err := queryClient.ShowHoneyPowerInApiary(cmd.Context(), params)
+			res, err := queryClient.ShowHoneyPowerByApiaryId(cmd.Context(), params)
 			if err != nil {
 				return err
 			}
