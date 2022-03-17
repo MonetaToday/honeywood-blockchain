@@ -364,15 +364,16 @@ func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary type
 	for _, beeId := range bees {
 		bee, _ := k.GetBees(ctx, beeId)
 
-		// emit bee apiary house unset event
-		ctx.EventManager().EmitEvent(
-			types.NewBeeApiaryHouseUnsetEvent(beeId, bee.ApiaryHouse.Id),
-		)
-
 		bee.ApiaryHouse = nil
 		k.SetBees(ctx, bee)
+
+		// emit bee apiary house unset event
+		ctx.EventManager().EmitEvent(
+			types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
+		)
 	}
 
+	apiary.SpaceOccupied = 0
 	apiary.CycleHistory = append(apiary.CycleHistory, types.CycleHistory{
 		Height: uint64(ctx.BlockHeight()),
 		Bees:   []uint64{},

@@ -313,7 +313,7 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 
 	// emit bee apiary house unset event
 	ctx.EventManager().EmitEvent(
-		types.NewBeeApiaryHouseUnsetEvent(beeId, bee.ApiaryHouse.Id),
+		types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
 	)
 
 	return nil
