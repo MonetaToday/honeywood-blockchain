@@ -9,29 +9,28 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) ShowHoneyPowerByBeeType(goCtx context.Context, req *types.QueryShowHoneyPowerByBeeTypeRequest) (*types.QueryShowHoneyPowerByBeeTypeResponse, error) {
+func (k Keeper) ShowHoneyPowerByBearId(goCtx context.Context, req *types.QueryShowHoneyPowerByBearIdRequest) (*types.QueryShowHoneyPowerByBearIdResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	beeParams, _ := k.GetBeeParams(ctx, req.BeeType)
-	if beeParams == nil {
-		return nil, types.ErrBeeTypeIsNotDefined
+	bear, bearFound := k.GetBears(ctx, req.BearId)
+	if !bearFound {
+		return nil, types.ErrBearIsNotExisted
 	}
 
 	airInfo, _ := k.GetAirInfo(ctx)
-
 	lastAirHistoryIndex := len(airInfo.History) - 1
 
-	lastLoadedBees := []types.Bees{
-		types.Bees{
-			Params: beeParams,
-		},
+	lastLoadedBees := []types.Bees{}
+	for _, beeId := range bear.Bees {
+		bee, _ := k.GetBees(ctx, beeId)
+		lastLoadedBees = append(lastLoadedBees, bee)
 	}
 
-	return &types.QueryShowHoneyPowerByBeeTypeResponse{
+	return &types.QueryShowHoneyPowerByBearIdResponse{
 		HoneyPower: k.CalculateBeesHoneyPower(
 			ctx,
 			lastLoadedBees,

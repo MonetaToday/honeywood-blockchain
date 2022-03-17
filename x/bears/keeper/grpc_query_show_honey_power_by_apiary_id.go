@@ -21,7 +21,6 @@ func (k Keeper) ShowHoneyPowerByApiaryId(goCtx context.Context, req *types.Query
 		return nil, types.ErrApiaryIsNotExisted
 	}
 
-	blocksPerHour := k.BlocksPerHour(ctx)
 	airInfo, _ := k.GetAirInfo(ctx)
 
 	lastAirHistoryIndex := len(airInfo.History) - 1
@@ -37,7 +36,6 @@ func (k Keeper) ShowHoneyPowerByApiaryId(goCtx context.Context, req *types.Query
 	return &types.QueryShowHoneyPowerByApiaryIdResponse{
 		HoneyPower: k.CalculateBeesHoneyPower(
 			ctx,
-			blocksPerHour,
 			lastLoadedBees,
 			airInfo.History[lastAirHistoryIndex].Purity,
 			airInfo.History[lastAirHistoryIndex].Count,
