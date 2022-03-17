@@ -136,5 +136,6 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears create-bee bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 2 1 --from bob --fees 10000uhoney --yes 
 
+~/go/bin/honeyd tx bears create-decoration bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 FOUNTAIN --from bob --fees 10000uhoney --yes
 
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0
