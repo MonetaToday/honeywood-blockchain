@@ -247,6 +247,30 @@ func (k Keeper) GetAllCurrentBeesFromApiary(ctx sdk.Context, apiary types.Apiari
 	return apiary.CycleHistory[lastInfoIndex].Bees
 }
 
+// Calculate bees honey power
+func (k Keeper) CalculateBeesHoneyPower(ctx sdk.Context, blocksPerHour uint64, bees []types.Bees, airPurity sdk.Dec, airCount sdk.Dec) sdk.Dec {
+	honeyPower := sdk.ZeroDec()
+	for _, bee := range bees {
+		beeHoneySpeed := bee.Params.HoneyPerHour.QuoInt64(int64(blocksPerHour))
+
+		beeHoneyPower := airPurity.Mul(
+			beeHoneySpeed.Mul(
+				sdk.OneDec().Add(
+					airCount.Sub(
+						sdk.OneDec(),
+					).Mul(
+						bee.Params.AirCountDependency,
+					),
+				),
+			),
+		)
+
+		honeyPower = honeyPower.Add(beeHoneyPower)
+	}
+
+	return honeyPower
+}
+
 // Calculate honey in apiary
 func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) sdk.Dec {
 	lastHeight := uint64(ctx.BlockHeight())
@@ -254,33 +278,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 
 	loadedBees := make(map[uint64]types.Bees)
 	honeyInApiary := apiary.HoneyFromPast
-	blocksPerHour := int64(k.BlocksPerHour(ctx))
-
-	calculateHoneyPower := func(apiaryCycleHistory types.CycleHistory, airCycleHistory types.AirHistory) sdk.Dec {
-		honeyPower := sdk.ZeroDec()
-		for _, beeId := range apiaryCycleHistory.Bees {
-			if _, found := loadedBees[beeId]; !found {
-				loadedBees[beeId], _ = k.GetBees(ctx, beeId)
-			}
-
-			beeHoneySpeed := loadedBees[beeId].Params.HoneyPerHour.QuoInt64(blocksPerHour)
-
-			beeHoneyPower := airCycleHistory.Purity.Mul(
-				beeHoneySpeed.Mul(
-					sdk.OneDec().Add(
-						airCycleHistory.Count.Sub(
-							sdk.OneDec(),
-						).Mul(
-							loadedBees[beeId].Params.AirCountDependency,
-						),
-					),
-				),
-			)
-
-			honeyPower = honeyPower.Add(beeHoneyPower)
-		}
-		return honeyPower
-	}
+	blocksPerHour := k.BlocksPerHour(ctx)
 
 	lastAirHistoryIndex := len(airInfo.History) - 1
 	lastApiaryHistoryIndex := len(apiary.CycleHistory) - 1
@@ -289,9 +287,21 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 		lastAirHistoryHeight := airInfo.History[lastAirHistoryIndex].Height
 		lastApiaryHistoryHeight := apiary.CycleHistory[lastApiaryHistoryIndex].Height
 
-		lastHoneyPower := calculateHoneyPower(
-			apiary.CycleHistory[lastApiaryHistoryIndex],
-			airInfo.History[lastAirHistoryIndex],
+		lastLoadedBees := []types.Bees{}
+		for _, beeId := range apiary.CycleHistory[lastApiaryHistoryIndex].Bees {
+			if _, found := loadedBees[beeId]; !found {
+				loadedBees[beeId], _ = k.GetBees(ctx, beeId)
+			}
+
+			lastLoadedBees = append(lastLoadedBees, loadedBees[beeId])
+		}
+
+		lastHoneyPower := k.CalculateBeesHoneyPower(
+			ctx,
+			blocksPerHour,
+			lastLoadedBees,
+			airInfo.History[lastAirHistoryIndex].Purity,
+			airInfo.History[lastAirHistoryIndex].Count,
 		)
 
 		countBlocks := uint64(0)
