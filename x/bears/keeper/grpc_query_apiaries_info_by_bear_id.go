@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) ShowHoneyFromAllBearApiaries(goCtx context.Context, req *types.QueryShowHoneyFromAllBearApiariesRequest) (*types.QueryShowHoneyFromAllBearApiariesResponse, error) {
+func (k Keeper) ShowApiariesInfoByBearId(goCtx context.Context, req *types.QueryShowApiariesInfoByBearIdRequest) (*types.QueryShowApiariesInfoByBearIdResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -21,7 +21,7 @@ func (k Keeper) ShowHoneyFromAllBearApiaries(goCtx context.Context, req *types.Q
 		return nil, types.ErrBearIsNotExisted
 	}
 
-	honeyInApiaries := []types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{}
+	apiariesInfo := []types.QueryShowApiariesInfoByBearIdResponse_ApiaryInfo{}
 
 	for _, apiaryId := range bear.Apiaries {
 		apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
@@ -29,13 +29,14 @@ func (k Keeper) ShowHoneyFromAllBearApiaries(goCtx context.Context, req *types.Q
 			return nil, types.ErrApiaryIsNotExisted
 		}
 
-		honeyInApiaries = append(honeyInApiaries, types.QueryShowHoneyFromAllBearApiariesResponse_HoneyInApiary{
-			ApiaryId:   apiaryId,
+		apiariesInfo = append(apiariesInfo, types.QueryShowApiariesInfoByBearIdResponse_ApiaryInfo{
+			Id:   apiaryId,
 			CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
+			Params: apiary.Params,
 		})
 	}
 
-	return &types.QueryShowHoneyFromAllBearApiariesResponse{
-		HoneyInApiaries: honeyInApiaries,
+	return &types.QueryShowApiariesInfoByBearIdResponse{
+		ApiariesInfo: apiariesInfo,
 	}, nil
 }

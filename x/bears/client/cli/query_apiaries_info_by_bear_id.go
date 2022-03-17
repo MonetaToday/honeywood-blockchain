@@ -12,10 +12,10 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdShowHoneyFromAllBearApiaries() *cobra.Command {
+func CmdShowApiariesInfoByBearId() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-honey-from-all-bear-apiaries [bear-id]",
-		Short: "Show how much honey in all bear apiaries",
+		Use:   "show-apiaries-info-by-bear-id [bear-id]",
+		Short: "Show apiaries info by bear id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqBearId, err := cast.ToUint64E(args[0])
@@ -30,12 +30,12 @@ func CmdShowHoneyFromAllBearApiaries() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryShowHoneyFromAllBearApiariesRequest{
+			params := &types.QueryShowApiariesInfoByBearIdRequest{
 
 				BearId: reqBearId,
 			}
 
-			res, err := queryClient.ShowHoneyFromAllBearApiaries(cmd.Context(), params)
+			res, err := queryClient.ShowApiariesInfoByBearId(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

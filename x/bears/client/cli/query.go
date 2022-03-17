@@ -46,7 +46,7 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 	cmd.AddCommand(CmdShowAirInfo())
 	cmd.AddCommand(CmdShowLastAirInfo())
 
-	cmd.AddCommand(CmdShowHoneyFromAllBearApiaries())
+	cmd.AddCommand(CmdShowApiariesInfoByBearId())
 
 	cmd.AddCommand(CmdShowHoneyPowerInApiary())
 

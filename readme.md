@@ -137,4 +137,4 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 2 1 --from bob --fees 10000uhoney --yes 
 
 
-~/go/bin/honeyd query bears show-honey-from-all-bear-apiaries 0
+~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0

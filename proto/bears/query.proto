@@ -118,8 +118,8 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_last_air_info";
 	}
 
-// Queries a list of ShowHoneyFromAllBearApiaries items.
-	rpc ShowHoneyFromAllBearApiaries(QueryShowHoneyFromAllBearApiariesRequest) returns (QueryShowHoneyFromAllBearApiariesResponse) {
+// Queries a list of ShowApiariesInfoByBearId items.
+	rpc ShowApiariesInfoByBearId(QueryShowApiariesInfoByBearIdRequest) returns (QueryShowApiariesInfoByBearIdResponse) {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_honey_from_all_bear_apiaries/{bearId}";
 	}
 
@@ -312,18 +312,19 @@ message QueryShowLastAirInfoResponse {
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
-message QueryShowHoneyFromAllBearApiariesRequest {
+message QueryShowApiariesInfoByBearIdRequest {
   uint64 bearId = 1;
 }
 
-message QueryShowHoneyFromAllBearApiariesResponse {
-  message HoneyInApiary {
-    uint64 apiaryId = 1;
+message QueryShowApiariesInfoByBearIdResponse {
+  message ApiaryInfo {
+    uint64 id = 1;
     string countHoney = 2
       [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+    ApiaryParams params = 3;
   }
 
-  repeated HoneyInApiary honeyInApiaries = 1 [(gogoproto.nullable) = false];
+  repeated ApiaryInfo apiariesInfo = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryShowHoneyPowerInApiaryRequest {
