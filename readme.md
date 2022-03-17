@@ -126,16 +126,16 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears unset-apiary-house-for-bee 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd query bears list-apiaries
 
-~/go/bin/honeyd tx bears init-game-and-create-apiary bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears extend-field bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-apiary bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 0 1 1 APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 BEE BEE --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-apiary bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears extend-field bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-apiary bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 0 1 1 APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 1 1 --from bob --fees 10000uhoney --yes 
-~/go/bin/honeyd tx bears create-bee bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 2 1 --from bob --fees 10000uhoney --yes 
 
-~/go/bin/honeyd tx bears create-decoration bears10thgcxcj642cjcv8pvphtx2dg5rp64m5cxpdx7 0 FOUNTAIN --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes
 
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0

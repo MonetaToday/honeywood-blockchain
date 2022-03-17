@@ -27,7 +27,10 @@ func (k Keeper) ShowHoneyPowerByBearId(goCtx context.Context, req *types.QuerySh
 	lastLoadedBees := []types.Bees{}
 	for _, beeId := range bear.Bees {
 		bee, _ := k.GetBees(ctx, beeId)
-		lastLoadedBees = append(lastLoadedBees, bee)
+
+		if bee.ApiaryHouse != nil {
+			lastLoadedBees = append(lastLoadedBees, bee)
+		}
 	}
 
 	return &types.QueryShowHoneyPowerByBearIdResponse{
