@@ -272,16 +272,20 @@ func (k Keeper) CalculateBeesHoneyPower(ctx sdk.Context, bees []types.Bees, airP
 // Calculate honey in apiary
 func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) sdk.Dec {
 	lastHeight := uint64(ctx.BlockHeight())
-	airInfo, _ := k.GetAirInfo(ctx)
 
 	loadedBees := make(map[uint64]types.Bees)
 	honeyInApiary := apiary.HoneyFromPast
 
-	lastAirHistoryIndex := len(airInfo.History) - 1
+	lastAirHistoryIndex := k.GetAirHistoryLastIndex(ctx) - 1
 	lastApiaryHistoryIndex := len(apiary.CycleHistory) - 1
 
-	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastAirHistoryIndex >= 0 && lastApiaryHistoryIndex >= 0 {
-		lastAirHistoryHeight := airInfo.History[lastAirHistoryIndex].Height
+	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastApiaryHistoryIndex >= 0 {
+		lastAirHistory, found := k.GetAirHistory(ctx, lastAirHistoryIndex)
+		if !found {
+			break;
+		}
+
+		lastAirHistoryHeight := lastAirHistory.Height
 		lastApiaryHistoryHeight := apiary.CycleHistory[lastApiaryHistoryIndex].Height
 
 		lastLoadedBees := []types.Bees{}
@@ -296,8 +300,8 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 		lastHoneyPower := k.CalculateBeesHoneyPower(
 			ctx,
 			lastLoadedBees,
-			airInfo.History[lastAirHistoryIndex].Purity,
-			airInfo.History[lastAirHistoryIndex].Count,
+			lastAirHistory.Purity,
+			lastAirHistory.Count,
 		)
 
 		countBlocks := uint64(0)

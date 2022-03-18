@@ -20,11 +20,16 @@ func (k Keeper) ShowLastAirInfo(goCtx context.Context, req *types.QueryShowLastA
 	if !found {
 		return nil, status.Error(codes.InvalidArgument, "not found")
 	}
+	lastAirHistoryIndex := k.GetAirHistoryLastIndex(ctx) - 1
+	lastAirHistory, found := k.GetAirHistory(ctx, lastAirHistoryIndex)
+	if !found {
+		return nil, status.Error(codes.InvalidArgument, "not found")
+	}
 
 	return &types.QueryShowLastAirInfoResponse{
-		Height:  airInfo.History[len(airInfo.History)-1].Height,
-		Purity:  airInfo.History[len(airInfo.History)-1].Purity,
-		Count:   airInfo.History[len(airInfo.History)-1].Count,
+		Height:  lastAirHistory.Height,
+		Purity:  lastAirHistory.Purity,
+		Count:   lastAirHistory.Count,
 		Supply:  airInfo.Supply,
 		Consume: airInfo.Consume,
 	}, nil

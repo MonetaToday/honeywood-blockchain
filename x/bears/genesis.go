@@ -59,10 +59,11 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set bees count
 	k.SetBeesCount(ctx, genState.BeesCount)
+	k.SetParams(ctx, genState.Params)
 	// Set air info
 	k.SetAirInfo(ctx, genState.AirInfo)
 	// this line is used by starport scaffolding # genesis/module/init
-	k.SetParams(ctx, genState.Params)
+
 }
 
 // ExportGenesis returns the capability module's exported genesis.

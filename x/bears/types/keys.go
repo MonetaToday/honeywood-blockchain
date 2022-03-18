@@ -53,4 +53,6 @@ const (
 
 const (
 	AirInfoKey = "AirInfo-value-"
+	AirHistoryKey      = "AirHistory-value-"
+	AirHistoryLastIndexKey = "AirHistory-lastIndex-"
 )

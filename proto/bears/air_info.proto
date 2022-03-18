@@ -5,10 +5,11 @@ option go_package = "github.com/MonetaToday/HoneyWood/x/bears/types";
 import "gogoproto/gogo.proto"; 
 
 message AirHistory {
-  uint64 height = 1;
-  string count = 2
+  uint64 id = 1;
+  uint64 height = 2;
+  string count = 3
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
-  string purity = 3
+  string purity = 4
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
@@ -17,5 +18,4 @@ message AirInfo {
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
   string consume = 2
     [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
-  repeated AirHistory history = 3 [(gogoproto.nullable) = false]; 
 }

@@ -139,3 +139,10 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes
 
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0
+
+
+Created account "oleg" with address "bears1nrh5uamalh89g0phxf2tdv4l8fl3amtuty938e" with mnemonic: "only hurdle debate ankle lumber junk blossom toddler reward swap sure oppose know rain crunch matter hybrid mad logic rookie public daring fiction famous"
+
+Created account "koss" with address "bears14y3zeuuyreew7ed7hdp8cu5zuapc2qn8knw2pp" with mnemonic: "brick crazy ridge couch sword smoke forest ivory people foot mushroom economy panic wife noble slam also muffin sunny book snow cat media bottom"
+
+Created account "bob" with address "bears1d4yw8857rqfv2xcphsr2jsz4xa62e7v2tttd4h" with mnemonic: "total run tourist tent bicycle relief boost control enact farm panther elevator social question identify hover hand mom update action lyrics system galaxy gather"

@@ -21,9 +21,8 @@ func (k Keeper) ShowHoneyPowerByBeeType(goCtx context.Context, req *types.QueryS
 		return nil, types.ErrBeeTypeIsNotDefined
 	}
 
-	airInfo, _ := k.GetAirInfo(ctx)
-
-	lastAirHistoryIndex := len(airInfo.History) - 1
+	lastAirHistoryIndex := k.GetAirHistoryLastIndex(ctx) - 1
+	lastAirHistory, _ := k.GetAirHistory(ctx, lastAirHistoryIndex)
 
 	lastLoadedBees := []types.Bees{
 		types.Bees{
@@ -35,8 +34,8 @@ func (k Keeper) ShowHoneyPowerByBeeType(goCtx context.Context, req *types.QueryS
 		HoneyPower: k.CalculateBeesHoneyPower(
 			ctx,
 			lastLoadedBees,
-			airInfo.History[lastAirHistoryIndex].Purity,
-			airInfo.History[lastAirHistoryIndex].Count,
+			lastAirHistory.Purity,
+			lastAirHistory.Count,
 		),
 	}, nil
 }

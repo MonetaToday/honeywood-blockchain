@@ -79,10 +79,6 @@ genesis:
       airInfo:
         supply: "1"
         consume: "1"
-        history: 
-          - height: "0"
-            count: "1"
-            purity: "1"
       params:
         honey_denom: "uhoney"
         air_history_length: "518400"

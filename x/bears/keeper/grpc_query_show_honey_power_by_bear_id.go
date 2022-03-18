@@ -21,8 +21,8 @@ func (k Keeper) ShowHoneyPowerByBearId(goCtx context.Context, req *types.QuerySh
 		return nil, types.ErrBearIsNotExisted
 	}
 
-	airInfo, _ := k.GetAirInfo(ctx)
-	lastAirHistoryIndex := len(airInfo.History) - 1
+	lastAirHistoryIndex := k.GetAirHistoryLastIndex(ctx) - 1
+	lastAirHistory, _ := k.GetAirHistory(ctx, lastAirHistoryIndex)
 
 	lastLoadedBees := []types.Bees{}
 	for _, beeId := range bear.Bees {
@@ -37,8 +37,8 @@ func (k Keeper) ShowHoneyPowerByBearId(goCtx context.Context, req *types.QuerySh
 		HoneyPower: k.CalculateBeesHoneyPower(
 			ctx,
 			lastLoadedBees,
-			airInfo.History[lastAirHistoryIndex].Purity,
-			airInfo.History[lastAirHistoryIndex].Count,
+			lastAirHistory.Purity,
+			lastAirHistory.Count,
 		),
 	}, nil
 }
