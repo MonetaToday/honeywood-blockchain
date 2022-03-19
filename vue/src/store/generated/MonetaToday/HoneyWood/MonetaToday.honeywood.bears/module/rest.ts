@@ -33,17 +33,9 @@ export interface BearsAddressBears {
   bears?: string[];
 }
 
-export interface BearsAirHistory {
-  /** @format uint64 */
-  height?: string;
-  count?: string;
-  purity?: string;
-}
-
 export interface BearsAirInfo {
   supply?: string;
   consume?: string;
-  history?: BearsAirHistory[];
 }
 
 export interface BearsApiaries {

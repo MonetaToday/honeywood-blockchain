@@ -1,6 +1,7 @@
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 export interface AirHistory {
+    id: number;
     height: number;
     count: string;
     purity: string;
@@ -8,7 +9,6 @@ export interface AirHistory {
 export interface AirInfo {
     supply: string;
     consume: string;
-    history: AirHistory[];
 }
 export declare const AirHistory: {
     encode(message: AirHistory, writer?: Writer): Writer;

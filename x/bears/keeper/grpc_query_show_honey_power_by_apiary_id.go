@@ -27,10 +27,12 @@ func (k Keeper) ShowHoneyPowerByApiaryId(goCtx context.Context, req *types.Query
 	lastApiaryHistoryIndex := len(apiary.CycleHistory) - 1
 
 	lastLoadedBees := []types.Bees{}
-	for _, beeId := range apiary.CycleHistory[lastApiaryHistoryIndex].Bees {
-		bee, _ := k.GetBees(ctx, beeId)
-
-		lastLoadedBees = append(lastLoadedBees, bee)
+	if lastApiaryHistoryIndex >= 0 {
+		for _, beeId := range apiary.CycleHistory[lastApiaryHistoryIndex].Bees {
+			bee, _ := k.GetBees(ctx, beeId)
+	
+			lastLoadedBees = append(lastLoadedBees, bee)
+		}
 	}
 
 	return &types.QueryShowHoneyPowerByApiaryIdResponse{

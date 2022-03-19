@@ -5,6 +5,7 @@ import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface AirHistory {
+  id: number;
   height: number;
   count: string;
   purity: string;
@@ -13,21 +14,23 @@ export interface AirHistory {
 export interface AirInfo {
   supply: string;
   consume: string;
-  history: AirHistory[];
 }
 
-const baseAirHistory: object = { height: 0, count: "", purity: "" };
+const baseAirHistory: object = { id: 0, height: 0, count: "", purity: "" };
 
 export const AirHistory = {
   encode(message: AirHistory, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
     if (message.height !== 0) {
-      writer.uint32(8).uint64(message.height);
+      writer.uint32(16).uint64(message.height);
     }
     if (message.count !== "") {
-      writer.uint32(18).string(message.count);
+      writer.uint32(26).string(message.count);
     }
     if (message.purity !== "") {
-      writer.uint32(26).string(message.purity);
+      writer.uint32(34).string(message.purity);
     }
     return writer;
   },
@@ -40,12 +43,15 @@ export const AirHistory = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.height = longToNumber(reader.uint64() as Long);
+          message.id = longToNumber(reader.uint64() as Long);
           break;
         case 2:
-          message.count = reader.string();
+          message.height = longToNumber(reader.uint64() as Long);
           break;
         case 3:
+          message.count = reader.string();
+          break;
+        case 4:
           message.purity = reader.string();
           break;
         default:
@@ -58,6 +64,11 @@ export const AirHistory = {
 
   fromJSON(object: any): AirHistory {
     const message = { ...baseAirHistory } as AirHistory;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
     if (object.height !== undefined && object.height !== null) {
       message.height = Number(object.height);
     } else {
@@ -78,6 +89,7 @@ export const AirHistory = {
 
   toJSON(message: AirHistory): unknown {
     const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
     message.height !== undefined && (obj.height = message.height);
     message.count !== undefined && (obj.count = message.count);
     message.purity !== undefined && (obj.purity = message.purity);
@@ -86,6 +98,11 @@ export const AirHistory = {
 
   fromPartial(object: DeepPartial<AirHistory>): AirHistory {
     const message = { ...baseAirHistory } as AirHistory;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
     if (object.height !== undefined && object.height !== null) {
       message.height = object.height;
     } else {
@@ -115,9 +132,6 @@ export const AirInfo = {
     if (message.consume !== "") {
       writer.uint32(18).string(message.consume);
     }
-    for (const v of message.history) {
-      AirHistory.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
     return writer;
   },
 
@@ -125,7 +139,6 @@ export const AirInfo = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseAirInfo } as AirInfo;
-    message.history = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -134,9 +147,6 @@ export const AirInfo = {
           break;
         case 2:
           message.consume = reader.string();
-          break;
-        case 3:
-          message.history.push(AirHistory.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -148,7 +158,6 @@ export const AirInfo = {
 
   fromJSON(object: any): AirInfo {
     const message = { ...baseAirInfo } as AirInfo;
-    message.history = [];
     if (object.supply !== undefined && object.supply !== null) {
       message.supply = String(object.supply);
     } else {
@@ -159,11 +168,6 @@ export const AirInfo = {
     } else {
       message.consume = "";
     }
-    if (object.history !== undefined && object.history !== null) {
-      for (const e of object.history) {
-        message.history.push(AirHistory.fromJSON(e));
-      }
-    }
     return message;
   },
 
@@ -171,19 +175,11 @@ export const AirInfo = {
     const obj: any = {};
     message.supply !== undefined && (obj.supply = message.supply);
     message.consume !== undefined && (obj.consume = message.consume);
-    if (message.history) {
-      obj.history = message.history.map((e) =>
-        e ? AirHistory.toJSON(e) : undefined
-      );
-    } else {
-      obj.history = [];
-    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<AirInfo>): AirInfo {
     const message = { ...baseAirInfo } as AirInfo;
-    message.history = [];
     if (object.supply !== undefined && object.supply !== null) {
       message.supply = object.supply;
     } else {
@@ -193,11 +189,6 @@ export const AirInfo = {
       message.consume = object.consume;
     } else {
       message.consume = "";
-    }
-    if (object.history !== undefined && object.history !== null) {
-      for (const e of object.history) {
-        message.history.push(AirHistory.fromPartial(e));
-      }
     }
     return message;
   },

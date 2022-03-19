@@ -2,17 +2,20 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "MonetaToday.honeywood.bears";
-const baseAirHistory = { height: 0, count: "", purity: "" };
+const baseAirHistory = { id: 0, height: 0, count: "", purity: "" };
 export const AirHistory = {
     encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
         if (message.height !== 0) {
-            writer.uint32(8).uint64(message.height);
+            writer.uint32(16).uint64(message.height);
         }
         if (message.count !== "") {
-            writer.uint32(18).string(message.count);
+            writer.uint32(26).string(message.count);
         }
         if (message.purity !== "") {
-            writer.uint32(26).string(message.purity);
+            writer.uint32(34).string(message.purity);
         }
         return writer;
     },
@@ -24,12 +27,15 @@ export const AirHistory = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.height = longToNumber(reader.uint64());
+                    message.id = longToNumber(reader.uint64());
                     break;
                 case 2:
-                    message.count = reader.string();
+                    message.height = longToNumber(reader.uint64());
                     break;
                 case 3:
+                    message.count = reader.string();
+                    break;
+                case 4:
                     message.purity = reader.string();
                     break;
                 default:
@@ -41,6 +47,12 @@ export const AirHistory = {
     },
     fromJSON(object) {
         const message = { ...baseAirHistory };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
         if (object.height !== undefined && object.height !== null) {
             message.height = Number(object.height);
         }
@@ -63,6 +75,7 @@ export const AirHistory = {
     },
     toJSON(message) {
         const obj = {};
+        message.id !== undefined && (obj.id = message.id);
         message.height !== undefined && (obj.height = message.height);
         message.count !== undefined && (obj.count = message.count);
         message.purity !== undefined && (obj.purity = message.purity);
@@ -70,6 +83,12 @@ export const AirHistory = {
     },
     fromPartial(object) {
         const message = { ...baseAirHistory };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
         if (object.height !== undefined && object.height !== null) {
             message.height = object.height;
         }
@@ -100,16 +119,12 @@ export const AirInfo = {
         if (message.consume !== "") {
             writer.uint32(18).string(message.consume);
         }
-        for (const v of message.history) {
-            AirHistory.encode(v, writer.uint32(26).fork()).ldelim();
-        }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseAirInfo };
-        message.history = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -118,9 +133,6 @@ export const AirInfo = {
                     break;
                 case 2:
                     message.consume = reader.string();
-                    break;
-                case 3:
-                    message.history.push(AirHistory.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -131,7 +143,6 @@ export const AirInfo = {
     },
     fromJSON(object) {
         const message = { ...baseAirInfo };
-        message.history = [];
         if (object.supply !== undefined && object.supply !== null) {
             message.supply = String(object.supply);
         }
@@ -144,28 +155,16 @@ export const AirInfo = {
         else {
             message.consume = "";
         }
-        if (object.history !== undefined && object.history !== null) {
-            for (const e of object.history) {
-                message.history.push(AirHistory.fromJSON(e));
-            }
-        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.supply !== undefined && (obj.supply = message.supply);
         message.consume !== undefined && (obj.consume = message.consume);
-        if (message.history) {
-            obj.history = message.history.map((e) => e ? AirHistory.toJSON(e) : undefined);
-        }
-        else {
-            obj.history = [];
-        }
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseAirInfo };
-        message.history = [];
         if (object.supply !== undefined && object.supply !== null) {
             message.supply = object.supply;
         }
@@ -177,11 +176,6 @@ export const AirInfo = {
         }
         else {
             message.consume = "";
-        }
-        if (object.history !== undefined && object.history !== null) {
-            for (const e of object.history) {
-                message.history.push(AirHistory.fromPartial(e));
-            }
         }
         return message;
     },
