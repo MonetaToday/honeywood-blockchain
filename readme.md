@@ -120,8 +120,8 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 
 
-~/go/bin/honeyd tx bears init-game-and-create-apiary bears1r5hfvx924r36n4wg8r0pplvevlhrynehulclmw APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee bears1r5hfvx924r36n4wg8r0pplvevlhrynehulclmw 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-apiary bears1r8yx53zyp4n9d8fazj60uws5kfe8l5kshxesa8 APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears1r8yx53zyp4n9d8fazj60uws5kfe8l5kshxesa8 0 BEE BEE --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd tx bears unset-apiary-house-for-bee 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd query bears list-apiaries

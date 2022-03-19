@@ -70,7 +70,7 @@ func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name s
 		return types.ErrBearIsNotExisted
 	}
 
-	if !k.HasRightsToBear(ctx, buyer, bear) {
+	if !k.HasRightsToBearById(ctx, buyer, bear.Id) {
 		return types.ErrAddressHasNoRight
 	}
 

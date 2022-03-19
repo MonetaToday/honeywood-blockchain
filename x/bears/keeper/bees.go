@@ -196,7 +196,7 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 		return nil, types.ErrBearIsNotExisted
 	}
 
-	if !k.HasRightsToBear(ctx, receiver, bear) {
+	if !k.HasRightsToBearById(ctx, receiver, bear.Id) {
 		return nil, types.ErrAddressHasNoRight
 	}
 

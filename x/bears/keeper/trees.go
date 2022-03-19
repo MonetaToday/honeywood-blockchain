@@ -144,7 +144,7 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 		return nil, types.ErrBearIsNotExisted
 	}
 
-	if !k.HasRightsToBear(ctx, creator, bear) {
+	if !k.HasRightsToBearById(ctx, creator, bear.Id) {
 		return nil, types.ErrAddressHasNoRight
 	}
 

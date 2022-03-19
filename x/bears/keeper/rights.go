@@ -5,23 +5,20 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// Check rights to bear
-func (k Keeper) HasRightsToBear(ctx sdk.Context, address string, bear types.Bears) bool {
-	if bear.Owner == address {
-		return true
-	}
-
-	return false
-}
-
 // Check rights to bear by ID
 func (k Keeper) HasRightsToBearById(ctx sdk.Context, address string, bearId uint64) bool {
-	bear, bearFound := k.GetBears(ctx, bearId)
-	if !bearFound {
+	addressBears, found := k.GetAddressBears(ctx, address)
+	if !found {
 		return false
 	}
 
-	return k.HasRightsToBear(ctx, address, bear)
+	for _, addressBearId := range addressBears.Bears {
+		if addressBearId == bearId {
+			return true
+		}
+	}
+
+	return false
 }
 
 // Check rights to field
