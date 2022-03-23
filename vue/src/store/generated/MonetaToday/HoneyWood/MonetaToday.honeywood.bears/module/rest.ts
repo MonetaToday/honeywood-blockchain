@@ -19,6 +19,7 @@ export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
   /** @format uint64 */
   id?: string;
   countHoney?: string;
+  bees?: string[];
   params?: BearsApiaryParams;
 }
 

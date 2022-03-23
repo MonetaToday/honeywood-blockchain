@@ -29,9 +29,12 @@ func (k Keeper) ShowApiariesInfoByBearId(goCtx context.Context, req *types.Query
 			return nil, types.ErrApiaryIsNotExisted
 		}
 
+		bees := k.GetAllCurrentBeesFromApiary(ctx, apiary)
+
 		apiariesInfo = append(apiariesInfo, types.QueryShowApiariesInfoByBearIdResponse_ApiaryInfo{
 			Id:         apiaryId,
 			CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
+			Bees: 			bees,
 			Params:     apiary.Params,
 		})
 	}

@@ -2597,6 +2597,7 @@ export const QueryShowApiariesInfoByBearIdResponse = {
 const baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
     id: 0,
     countHoney: "",
+    bees: 0,
 };
 export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
     encode(message, writer = Writer.create()) {
@@ -2606,8 +2607,13 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         if (message.countHoney !== "") {
             writer.uint32(18).string(message.countHoney);
         }
+        writer.uint32(26).fork();
+        for (const v of message.bees) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
         if (message.params !== undefined) {
-            ApiaryParams.encode(message.params, writer.uint32(26).fork()).ldelim();
+            ApiaryParams.encode(message.params, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
@@ -2617,6 +2623,7 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         const message = {
             ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
         };
+        message.bees = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2627,6 +2634,17 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
                     message.countHoney = reader.string();
                     break;
                 case 3:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.bees.push(longToNumber(reader.uint64()));
+                        }
+                    }
+                    else {
+                        message.bees.push(longToNumber(reader.uint64()));
+                    }
+                    break;
+                case 4:
                     message.params = ApiaryParams.decode(reader, reader.uint32());
                     break;
                 default:
@@ -2640,6 +2658,7 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         const message = {
             ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
         };
+        message.bees = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = Number(object.id);
         }
@@ -2651,6 +2670,11 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         }
         else {
             message.countHoney = "";
+        }
+        if (object.bees !== undefined && object.bees !== null) {
+            for (const e of object.bees) {
+                message.bees.push(Number(e));
+            }
         }
         if (object.params !== undefined && object.params !== null) {
             message.params = ApiaryParams.fromJSON(object.params);
@@ -2664,6 +2688,12 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
         message.countHoney !== undefined && (obj.countHoney = message.countHoney);
+        if (message.bees) {
+            obj.bees = message.bees.map((e) => e);
+        }
+        else {
+            obj.bees = [];
+        }
         message.params !== undefined &&
             (obj.params = message.params
                 ? ApiaryParams.toJSON(message.params)
@@ -2674,6 +2704,7 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         const message = {
             ...baseQueryShowApiariesInfoByBearIdResponse_ApiaryInfo,
         };
+        message.bees = [];
         if (object.id !== undefined && object.id !== null) {
             message.id = object.id;
         }
@@ -2685,6 +2716,11 @@ export const QueryShowApiariesInfoByBearIdResponse_ApiaryInfo = {
         }
         else {
             message.countHoney = "";
+        }
+        if (object.bees !== undefined && object.bees !== null) {
+            for (const e of object.bees) {
+                message.bees.push(e);
+            }
         }
         if (object.params !== undefined && object.params !== null) {
             message.params = ApiaryParams.fromPartial(object.params);

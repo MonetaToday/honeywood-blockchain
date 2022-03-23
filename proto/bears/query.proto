@@ -326,7 +326,8 @@ message QueryShowApiariesInfoByBearIdResponse {
     uint64 id = 1;
     string countHoney = 2
       [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
-    ApiaryParams params = 3;
+    repeated uint64 bees = 3;
+    ApiaryParams params = 4;
   }
 
   repeated ApiaryInfo apiariesInfo = 1 [(gogoproto.nullable) = false];

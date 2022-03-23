@@ -152,6 +152,7 @@ export interface QueryShowApiariesInfoByBearIdResponse {
 export interface QueryShowApiariesInfoByBearIdResponse_ApiaryInfo {
     id: number;
     countHoney: string;
+    bees: number[];
     params: ApiaryParams | undefined;
 }
 export interface QueryShowHoneyPowerByApiaryIdRequest {

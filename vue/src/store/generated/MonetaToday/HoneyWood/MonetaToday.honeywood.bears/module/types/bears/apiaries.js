@@ -251,13 +251,13 @@ export const Apiaries = {
             ApiaryParams.encode(message.params, writer.uint32(34).fork()).ldelim();
         }
         for (const v of message.cycleHistory) {
-            CycleHistory.encode(v, writer.uint32(50).fork()).ldelim();
+            CycleHistory.encode(v, writer.uint32(42).fork()).ldelim();
         }
         if (message.spaceOccupied !== 0) {
-            writer.uint32(56).uint64(message.spaceOccupied);
+            writer.uint32(48).uint64(message.spaceOccupied);
         }
         if (message.honeyFromPast !== "") {
-            writer.uint32(66).string(message.honeyFromPast);
+            writer.uint32(58).string(message.honeyFromPast);
         }
         return writer;
     },
@@ -281,13 +281,13 @@ export const Apiaries = {
                 case 4:
                     message.params = ApiaryParams.decode(reader, reader.uint32());
                     break;
-                case 6:
+                case 5:
                     message.cycleHistory.push(CycleHistory.decode(reader, reader.uint32()));
                     break;
-                case 7:
+                case 6:
                     message.spaceOccupied = longToNumber(reader.uint64());
                     break;
-                case 8:
+                case 7:
                     message.honeyFromPast = reader.string();
                     break;
                 default:
