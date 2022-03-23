@@ -27,7 +27,7 @@ message Apiaries {
   BearOwner bearOwner = 2; 
   ItemPosition position = 3 [(gogoproto.nullable) = false];
   ApiaryParams params = 4;
-  repeated CycleHistory cycleHistory = 5 [(gogoproto.nullable) = false];
-  uint64 spaceOccupied = 6;
-  string honeyFromPast = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  repeated CycleHistory cycleHistory = 6 [(gogoproto.nullable) = false];
+  uint64 spaceOccupied = 7;
+  string honeyFromPast = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
