@@ -391,6 +391,20 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryShowBeesInfoByBearId
+         * @summary Queries a list of ShowBeesInfoByBearId items.
+         * @request GET:/MonetaToday/honeywood/bears/show_bees_info_by_bear_id/{bearId}
+         */
+        this.queryShowBeesInfoByBearId = (bearId, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/show_bees_info_by_bear_id/${bearId}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryShowDecorationsInfoByBearId
          * @summary Queries a list of ShowDecorationsInfoByBearId items.
          * @request GET:/MonetaToday/honeywood/bears/show_decorations_info_by_bear_id/{bearId}

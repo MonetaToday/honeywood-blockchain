@@ -10,7 +10,7 @@ import { Fields } from "../bears/fields";
 import { Trees, TreeParams } from "../bears/trees";
 import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
-import { Bees } from "../bears/bees";
+import { Bees, ApiaryHouse, BeeParams } from "../bears/bees";
 import { AirInfo } from "../bears/air_info";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseQueryParamsRequest = {};
@@ -3477,6 +3477,227 @@ export const QueryShowDecorationsInfoByBearIdResponse_DecorationInfo = {
         return message;
     },
 };
+const baseQueryShowBeesInfoByBearIdRequest = { bearId: 0 };
+export const QueryShowBeesInfoByBearIdRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.bearId !== 0) {
+            writer.uint32(8).uint64(message.bearId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryShowBeesInfoByBearIdResponse = {};
+export const QueryShowBeesInfoByBearIdResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.beesInfo) {
+            QueryShowBeesInfoByBearIdResponse_BeeInfo.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse,
+        };
+        message.beesInfo = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.beesInfo.push(QueryShowBeesInfoByBearIdResponse_BeeInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse,
+        };
+        message.beesInfo = [];
+        if (object.beesInfo !== undefined && object.beesInfo !== null) {
+            for (const e of object.beesInfo) {
+                message.beesInfo.push(QueryShowBeesInfoByBearIdResponse_BeeInfo.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.beesInfo) {
+            obj.beesInfo = message.beesInfo.map((e) => e ? QueryShowBeesInfoByBearIdResponse_BeeInfo.toJSON(e) : undefined);
+        }
+        else {
+            obj.beesInfo = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse,
+        };
+        message.beesInfo = [];
+        if (object.beesInfo !== undefined && object.beesInfo !== null) {
+            for (const e of object.beesInfo) {
+                message.beesInfo.push(QueryShowBeesInfoByBearIdResponse_BeeInfo.fromPartial(e));
+            }
+        }
+        return message;
+    },
+};
+const baseQueryShowBeesInfoByBearIdResponse_BeeInfo = { id: 0 };
+export const QueryShowBeesInfoByBearIdResponse_BeeInfo = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (message.apiaryHouse !== undefined) {
+            ApiaryHouse.encode(message.apiaryHouse, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.params !== undefined) {
+            BeeParams.encode(message.params, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse_BeeInfo,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.apiaryHouse = ApiaryHouse.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.params = BeeParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse_BeeInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.apiaryHouse !== undefined && object.apiaryHouse !== null) {
+            message.apiaryHouse = ApiaryHouse.fromJSON(object.apiaryHouse);
+        }
+        else {
+            message.apiaryHouse = undefined;
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = BeeParams.fromJSON(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        message.apiaryHouse !== undefined &&
+            (obj.apiaryHouse = message.apiaryHouse
+                ? ApiaryHouse.toJSON(message.apiaryHouse)
+                : undefined);
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? BeeParams.toJSON(message.params)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowBeesInfoByBearIdResponse_BeeInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.apiaryHouse !== undefined && object.apiaryHouse !== null) {
+            message.apiaryHouse = ApiaryHouse.fromPartial(object.apiaryHouse);
+        }
+        else {
+            message.apiaryHouse = undefined;
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = BeeParams.fromPartial(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3610,6 +3831,11 @@ export class QueryClientImpl {
         const data = QueryShowDecorationsInfoByBearIdRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowDecorationsInfoByBearId", data);
         return promise.then((data) => QueryShowDecorationsInfoByBearIdResponse.decode(new Reader(data)));
+    }
+    ShowBeesInfoByBearId(request) {
+        const data = QueryShowBeesInfoByBearIdRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowBeesInfoByBearId", data);
+        return promise.then((data) => QueryShowBeesInfoByBearIdResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {
