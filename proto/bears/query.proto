@@ -143,6 +143,11 @@ service Query {
 		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_trees_info_by_bear_id/{bearId}";
 	}
 
+// Queries a list of ShowDecorationsInfoByBearId items.
+	rpc ShowDecorationsInfoByBearId(QueryShowDecorationsInfoByBearIdRequest) returns (QueryShowDecorationsInfoByBearIdResponse) {
+		option (google.api.http).get = "/MonetaToday/honeywood/bears/show_decorations_info_by_bear_id/{bearId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -376,6 +381,19 @@ message QueryShowTreesInfoByBearIdResponse {
   }
 
   repeated TreeInfo treesInfo = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryShowDecorationsInfoByBearIdRequest {
+  uint64 bearId = 1;
+}
+
+message QueryShowDecorationsInfoByBearIdResponse {
+  message DecorationInfo {
+    uint64 id = 1;
+    DecorationParams params = 2;
+  }
+
+  repeated DecorationInfo decorationsInfo = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3

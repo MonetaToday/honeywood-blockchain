@@ -30,8 +30,8 @@ func (k Keeper) ShowTreesInfoByBearId(goCtx context.Context, req *types.QuerySho
 		}
 
 		treesInfo = append(treesInfo, types.QueryShowTreesInfoByBearIdResponse_TreeInfo{
-			Id:         treeId,
-			Params:     tree.Params,
+			Id:     treeId,
+			Params: tree.Params,
 		})
 	}
 
