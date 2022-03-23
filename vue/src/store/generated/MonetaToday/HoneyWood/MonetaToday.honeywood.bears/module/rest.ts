@@ -23,6 +23,12 @@ export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
   params?: BearsApiaryParams;
 }
 
+export interface QueryShowTreesInfoByBearIdResponseTreeInfo {
+  /** @format uint64 */
+  id?: string;
+  params?: BearsTreeParams;
+}
+
 export interface TilesItems {
   /** @format uint64 */
   itemId?: string;
@@ -441,6 +447,10 @@ export interface BearsQueryShowLastAirInfoResponse {
   purity?: string;
   supply?: string;
   consume?: string;
+}
+
+export interface BearsQueryShowTreesInfoByBearIdResponse {
+  treesInfo?: QueryShowTreesInfoByBearIdResponseTreeInfo[];
 }
 
 export interface BearsTiles {
@@ -1160,6 +1170,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryShowLastAirInfo = (params: RequestParams = {}) =>
     this.request<BearsQueryShowLastAirInfoResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/show_last_air_info`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowTreesInfoByBearId
+   * @summary Queries a list of ShowTreesInfoByBearId items.
+   * @request GET:/MonetaToday/honeywood/bears/show_trees_info_by_bear_id/{bearId}
+   */
+  queryShowTreesInfoByBearId = (bearId: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowTreesInfoByBearIdResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_trees_info_by_bear_id/${bearId}`,
       method: "GET",
       format: "json",
       ...params,

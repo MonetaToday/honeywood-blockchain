@@ -10,6 +10,11 @@ export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
     bees?: string[];
     params?: BearsApiaryParams;
 }
+export interface QueryShowTreesInfoByBearIdResponseTreeInfo {
+    /** @format uint64 */
+    id?: string;
+    params?: BearsTreeParams;
+}
 export interface TilesItems {
     /** @format uint64 */
     itemId?: string;
@@ -350,6 +355,9 @@ export interface BearsQueryShowLastAirInfoResponse {
     purity?: string;
     supply?: string;
     consume?: string;
+}
+export interface BearsQueryShowTreesInfoByBearIdResponse {
+    treesInfo?: QueryShowTreesInfoByBearIdResponseTreeInfo[];
 }
 export interface BearsTiles {
     item?: TilesItems;
@@ -740,6 +748,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/show_last_air_info
      */
     queryShowLastAirInfo: (params?: RequestParams) => Promise<HttpResponse<BearsQueryShowLastAirInfoResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryShowTreesInfoByBearId
+     * @summary Queries a list of ShowTreesInfoByBearId items.
+     * @request GET:/MonetaToday/honeywood/bears/show_trees_info_by_bear_id/{bearId}
+     */
+    queryShowTreesInfoByBearId: (bearId: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryShowTreesInfoByBearIdResponse, RpcStatus>>;
     /**
      * No description
      *

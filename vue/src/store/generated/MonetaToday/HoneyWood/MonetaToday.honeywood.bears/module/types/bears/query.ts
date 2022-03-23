@@ -10,7 +10,7 @@ import {
 import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
-import { Trees } from "../bears/trees";
+import { Trees, TreeParams } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
@@ -224,6 +224,19 @@ export interface QueryShowHoneyPowerByBearIdRequest {
 
 export interface QueryShowHoneyPowerByBearIdResponse {
   honeyPower: string;
+}
+
+export interface QueryShowTreesInfoByBearIdRequest {
+  bearId: number;
+}
+
+export interface QueryShowTreesInfoByBearIdResponse {
+  treesInfo: QueryShowTreesInfoByBearIdResponse_TreeInfo[];
+}
+
+export interface QueryShowTreesInfoByBearIdResponse_TreeInfo {
+  id: number;
+  params: TreeParams | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -3821,6 +3834,254 @@ export const QueryShowHoneyPowerByBearIdResponse = {
   },
 };
 
+const baseQueryShowTreesInfoByBearIdRequest: object = { bearId: 0 };
+
+export const QueryShowTreesInfoByBearIdRequest = {
+  encode(
+    message: QueryShowTreesInfoByBearIdRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.bearId !== 0) {
+      writer.uint32(8).uint64(message.bearId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryShowTreesInfoByBearIdRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdRequest,
+    } as QueryShowTreesInfoByBearIdRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bearId = longToNumber(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowTreesInfoByBearIdRequest {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdRequest,
+    } as QueryShowTreesInfoByBearIdRequest;
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = Number(object.bearId);
+    } else {
+      message.bearId = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryShowTreesInfoByBearIdRequest): unknown {
+    const obj: any = {};
+    message.bearId !== undefined && (obj.bearId = message.bearId);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryShowTreesInfoByBearIdRequest>
+  ): QueryShowTreesInfoByBearIdRequest {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdRequest,
+    } as QueryShowTreesInfoByBearIdRequest;
+    if (object.bearId !== undefined && object.bearId !== null) {
+      message.bearId = object.bearId;
+    } else {
+      message.bearId = 0;
+    }
+    return message;
+  },
+};
+
+const baseQueryShowTreesInfoByBearIdResponse: object = {};
+
+export const QueryShowTreesInfoByBearIdResponse = {
+  encode(
+    message: QueryShowTreesInfoByBearIdResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.treesInfo) {
+      QueryShowTreesInfoByBearIdResponse_TreeInfo.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryShowTreesInfoByBearIdResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse,
+    } as QueryShowTreesInfoByBearIdResponse;
+    message.treesInfo = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.treesInfo.push(
+            QueryShowTreesInfoByBearIdResponse_TreeInfo.decode(
+              reader,
+              reader.uint32()
+            )
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowTreesInfoByBearIdResponse {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse,
+    } as QueryShowTreesInfoByBearIdResponse;
+    message.treesInfo = [];
+    if (object.treesInfo !== undefined && object.treesInfo !== null) {
+      for (const e of object.treesInfo) {
+        message.treesInfo.push(
+          QueryShowTreesInfoByBearIdResponse_TreeInfo.fromJSON(e)
+        );
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: QueryShowTreesInfoByBearIdResponse): unknown {
+    const obj: any = {};
+    if (message.treesInfo) {
+      obj.treesInfo = message.treesInfo.map((e) =>
+        e ? QueryShowTreesInfoByBearIdResponse_TreeInfo.toJSON(e) : undefined
+      );
+    } else {
+      obj.treesInfo = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryShowTreesInfoByBearIdResponse>
+  ): QueryShowTreesInfoByBearIdResponse {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse,
+    } as QueryShowTreesInfoByBearIdResponse;
+    message.treesInfo = [];
+    if (object.treesInfo !== undefined && object.treesInfo !== null) {
+      for (const e of object.treesInfo) {
+        message.treesInfo.push(
+          QueryShowTreesInfoByBearIdResponse_TreeInfo.fromPartial(e)
+        );
+      }
+    }
+    return message;
+  },
+};
+
+const baseQueryShowTreesInfoByBearIdResponse_TreeInfo: object = { id: 0 };
+
+export const QueryShowTreesInfoByBearIdResponse_TreeInfo = {
+  encode(
+    message: QueryShowTreesInfoByBearIdResponse_TreeInfo,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id);
+    }
+    if (message.params !== undefined) {
+      TreeParams.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryShowTreesInfoByBearIdResponse_TreeInfo {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse_TreeInfo,
+    } as QueryShowTreesInfoByBearIdResponse_TreeInfo;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long);
+          break;
+        case 2:
+          message.params = TreeParams.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowTreesInfoByBearIdResponse_TreeInfo {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse_TreeInfo,
+    } as QueryShowTreesInfoByBearIdResponse_TreeInfo;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = TreeParams.fromJSON(object.params);
+    } else {
+      message.params = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryShowTreesInfoByBearIdResponse_TreeInfo): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    message.params !== undefined &&
+      (obj.params = message.params
+        ? TreeParams.toJSON(message.params)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryShowTreesInfoByBearIdResponse_TreeInfo>
+  ): QueryShowTreesInfoByBearIdResponse_TreeInfo {
+    const message = {
+      ...baseQueryShowTreesInfoByBearIdResponse_TreeInfo,
+    } as QueryShowTreesInfoByBearIdResponse_TreeInfo;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    if (object.params !== undefined && object.params !== null) {
+      message.params = TreeParams.fromPartial(object.params);
+    } else {
+      message.params = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -3897,6 +4158,10 @@ export interface Query {
   ShowHoneyPowerByBearId(
     request: QueryShowHoneyPowerByBearIdRequest
   ): Promise<QueryShowHoneyPowerByBearIdResponse>;
+  /** Queries a list of ShowTreesInfoByBearId items. */
+  ShowTreesInfoByBearId(
+    request: QueryShowTreesInfoByBearIdRequest
+  ): Promise<QueryShowTreesInfoByBearIdResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -4215,6 +4480,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryShowHoneyPowerByBearIdResponse.decode(new Reader(data))
+    );
+  }
+
+  ShowTreesInfoByBearId(
+    request: QueryShowTreesInfoByBearIdRequest
+  ): Promise<QueryShowTreesInfoByBearIdResponse> {
+    const data = QueryShowTreesInfoByBearIdRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "ShowTreesInfoByBearId",
+      data
+    );
+    return promise.then((data) =>
+      QueryShowTreesInfoByBearIdResponse.decode(new Reader(data))
     );
   }
 }

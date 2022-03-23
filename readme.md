@@ -139,3 +139,8 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes
 
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0
+
+
+~/go/bin/honeyd tx bears init-game-and-create-tree OAK --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd query bears show-trees-info-by-bear-id 0
+

@@ -34,7 +34,7 @@ func (k Keeper) ShowApiariesInfoByBearId(goCtx context.Context, req *types.Query
 		apiariesInfo = append(apiariesInfo, types.QueryShowApiariesInfoByBearIdResponse_ApiaryInfo{
 			Id:         apiaryId,
 			CountHoney: k._CalculateHoneyInApiary(ctx, apiary),
-			Bees: 			bees,
+			Bees:       bees,
 			Params:     apiary.Params,
 		})
 	}

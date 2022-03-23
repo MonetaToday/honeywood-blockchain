@@ -282,7 +282,7 @@ func (k Keeper) _CalculateHoneyInApiary(ctx sdk.Context, apiary types.Apiaries) 
 	for honeyInApiary.LT(apiary.Params.MaxHoney) && lastApiaryHistoryIndex >= 0 {
 		lastAirHistory, found := k.GetAirHistory(ctx, lastAirHistoryIndex)
 		if !found {
-			break;
+			break
 		}
 
 		lastAirHistoryHeight := lastAirHistory.Height
