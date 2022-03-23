@@ -6,7 +6,7 @@ import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees, TreeParams } from "../bears/trees";
-import { Decorations } from "../bears/decorations";
+import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
 import { AirInfo } from "../bears/air_info";
@@ -182,6 +182,16 @@ export interface QueryShowTreesInfoByBearIdResponse {
 export interface QueryShowTreesInfoByBearIdResponse_TreeInfo {
     id: number;
     params: TreeParams | undefined;
+}
+export interface QueryShowDecorationsInfoByBearIdRequest {
+    bearId: number;
+}
+export interface QueryShowDecorationsInfoByBearIdResponse {
+    decorationsInfo: QueryShowDecorationsInfoByBearIdResponse_DecorationInfo[];
+}
+export interface QueryShowDecorationsInfoByBearIdResponse_DecorationInfo {
+    id: number;
+    params: DecorationParams | undefined;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -547,6 +557,27 @@ export declare const QueryShowTreesInfoByBearIdResponse_TreeInfo: {
     toJSON(message: QueryShowTreesInfoByBearIdResponse_TreeInfo): unknown;
     fromPartial(object: DeepPartial<QueryShowTreesInfoByBearIdResponse_TreeInfo>): QueryShowTreesInfoByBearIdResponse_TreeInfo;
 };
+export declare const QueryShowDecorationsInfoByBearIdRequest: {
+    encode(message: QueryShowDecorationsInfoByBearIdRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowDecorationsInfoByBearIdRequest;
+    fromJSON(object: any): QueryShowDecorationsInfoByBearIdRequest;
+    toJSON(message: QueryShowDecorationsInfoByBearIdRequest): unknown;
+    fromPartial(object: DeepPartial<QueryShowDecorationsInfoByBearIdRequest>): QueryShowDecorationsInfoByBearIdRequest;
+};
+export declare const QueryShowDecorationsInfoByBearIdResponse: {
+    encode(message: QueryShowDecorationsInfoByBearIdResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowDecorationsInfoByBearIdResponse;
+    fromJSON(object: any): QueryShowDecorationsInfoByBearIdResponse;
+    toJSON(message: QueryShowDecorationsInfoByBearIdResponse): unknown;
+    fromPartial(object: DeepPartial<QueryShowDecorationsInfoByBearIdResponse>): QueryShowDecorationsInfoByBearIdResponse;
+};
+export declare const QueryShowDecorationsInfoByBearIdResponse_DecorationInfo: {
+    encode(message: QueryShowDecorationsInfoByBearIdResponse_DecorationInfo, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryShowDecorationsInfoByBearIdResponse_DecorationInfo;
+    fromJSON(object: any): QueryShowDecorationsInfoByBearIdResponse_DecorationInfo;
+    toJSON(message: QueryShowDecorationsInfoByBearIdResponse_DecorationInfo): unknown;
+    fromPartial(object: DeepPartial<QueryShowDecorationsInfoByBearIdResponse_DecorationInfo>): QueryShowDecorationsInfoByBearIdResponse_DecorationInfo;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -599,6 +630,8 @@ export interface Query {
     ShowHoneyPowerByBearId(request: QueryShowHoneyPowerByBearIdRequest): Promise<QueryShowHoneyPowerByBearIdResponse>;
     /** Queries a list of ShowTreesInfoByBearId items. */
     ShowTreesInfoByBearId(request: QueryShowTreesInfoByBearIdRequest): Promise<QueryShowTreesInfoByBearIdResponse>;
+    /** Queries a list of ShowDecorationsInfoByBearId items. */
+    ShowDecorationsInfoByBearId(request: QueryShowDecorationsInfoByBearIdRequest): Promise<QueryShowDecorationsInfoByBearIdResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -628,6 +661,7 @@ export declare class QueryClientImpl implements Query {
     ShowHoneyPowerByBeeType(request: QueryShowHoneyPowerByBeeTypeRequest): Promise<QueryShowHoneyPowerByBeeTypeResponse>;
     ShowHoneyPowerByBearId(request: QueryShowHoneyPowerByBearIdRequest): Promise<QueryShowHoneyPowerByBearIdResponse>;
     ShowTreesInfoByBearId(request: QueryShowTreesInfoByBearIdRequest): Promise<QueryShowTreesInfoByBearIdResponse>;
+    ShowDecorationsInfoByBearId(request: QueryShowDecorationsInfoByBearIdRequest): Promise<QueryShowDecorationsInfoByBearIdResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

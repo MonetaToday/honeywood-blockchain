@@ -8,7 +8,7 @@ import { Bears } from "../bears/bears";
 import { AddressBears } from "../bears/address_bears";
 import { Fields } from "../bears/fields";
 import { Trees, TreeParams } from "../bears/trees";
-import { Decorations } from "../bears/decorations";
+import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
 import { AirInfo } from "../bears/air_info";
@@ -3272,6 +3272,211 @@ export const QueryShowTreesInfoByBearIdResponse_TreeInfo = {
         return message;
     },
 };
+const baseQueryShowDecorationsInfoByBearIdRequest = { bearId: 0 };
+export const QueryShowDecorationsInfoByBearIdRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.bearId !== 0) {
+            writer.uint32(8).uint64(message.bearId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bearId = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = Number(object.bearId);
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bearId !== undefined && (obj.bearId = message.bearId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdRequest,
+        };
+        if (object.bearId !== undefined && object.bearId !== null) {
+            message.bearId = object.bearId;
+        }
+        else {
+            message.bearId = 0;
+        }
+        return message;
+    },
+};
+const baseQueryShowDecorationsInfoByBearIdResponse = {};
+export const QueryShowDecorationsInfoByBearIdResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.decorationsInfo) {
+            QueryShowDecorationsInfoByBearIdResponse_DecorationInfo.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse,
+        };
+        message.decorationsInfo = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.decorationsInfo.push(QueryShowDecorationsInfoByBearIdResponse_DecorationInfo.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse,
+        };
+        message.decorationsInfo = [];
+        if (object.decorationsInfo !== undefined &&
+            object.decorationsInfo !== null) {
+            for (const e of object.decorationsInfo) {
+                message.decorationsInfo.push(QueryShowDecorationsInfoByBearIdResponse_DecorationInfo.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.decorationsInfo) {
+            obj.decorationsInfo = message.decorationsInfo.map((e) => e
+                ? QueryShowDecorationsInfoByBearIdResponse_DecorationInfo.toJSON(e)
+                : undefined);
+        }
+        else {
+            obj.decorationsInfo = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse,
+        };
+        message.decorationsInfo = [];
+        if (object.decorationsInfo !== undefined &&
+            object.decorationsInfo !== null) {
+            for (const e of object.decorationsInfo) {
+                message.decorationsInfo.push(QueryShowDecorationsInfoByBearIdResponse_DecorationInfo.fromPartial(e));
+            }
+        }
+        return message;
+    },
+};
+const baseQueryShowDecorationsInfoByBearIdResponse_DecorationInfo = {
+    id: 0,
+};
+export const QueryShowDecorationsInfoByBearIdResponse_DecorationInfo = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (message.params !== undefined) {
+            DecorationParams.encode(message.params, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse_DecorationInfo,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.params = DecorationParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse_DecorationInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = DecorationParams.fromJSON(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? DecorationParams.toJSON(message.params)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryShowDecorationsInfoByBearIdResponse_DecorationInfo,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.params !== undefined && object.params !== null) {
+            message.params = DecorationParams.fromPartial(object.params);
+        }
+        else {
+            message.params = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3400,6 +3605,11 @@ export class QueryClientImpl {
         const data = QueryShowTreesInfoByBearIdRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowTreesInfoByBearId", data);
         return promise.then((data) => QueryShowTreesInfoByBearIdResponse.decode(new Reader(data)));
+    }
+    ShowDecorationsInfoByBearId(request) {
+        const data = QueryShowDecorationsInfoByBearIdRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowDecorationsInfoByBearId", data);
+        return promise.then((data) => QueryShowDecorationsInfoByBearIdResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

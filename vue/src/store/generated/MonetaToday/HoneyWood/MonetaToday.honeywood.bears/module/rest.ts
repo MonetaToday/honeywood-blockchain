@@ -23,6 +23,12 @@ export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
   params?: BearsApiaryParams;
 }
 
+export interface QueryShowDecorationsInfoByBearIdResponseDecorationInfo {
+  /** @format uint64 */
+  id?: string;
+  params?: BearsDecorationParams;
+}
+
 export interface QueryShowTreesInfoByBearIdResponseTreeInfo {
   /** @format uint64 */
   id?: string;
@@ -426,6 +432,10 @@ export interface BearsQueryParamsResponse {
 
 export interface BearsQueryShowApiariesInfoByBearIdResponse {
   apiariesInfo?: QueryShowApiariesInfoByBearIdResponseApiaryInfo[];
+}
+
+export interface BearsQueryShowDecorationsInfoByBearIdResponse {
+  decorationsInfo?: QueryShowDecorationsInfoByBearIdResponseDecorationInfo[];
 }
 
 export interface BearsQueryShowHoneyPowerByApiaryIdResponse {
@@ -1090,6 +1100,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<BearsQueryParamsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowDecorationsInfoByBearId
+   * @summary Queries a list of ShowDecorationsInfoByBearId items.
+   * @request GET:/MonetaToday/honeywood/bears/show_decorations_info_by_bear_id/{bearId}
+   */
+  queryShowDecorationsInfoByBearId = (bearId: string, params: RequestParams = {}) =>
+    this.request<BearsQueryShowDecorationsInfoByBearIdResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/show_decorations_info_by_bear_id/${bearId}`,
       method: "GET",
       format: "json",
       ...params,
