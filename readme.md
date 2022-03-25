@@ -41,12 +41,12 @@ Show your node ID:
 Change configs chain:
 ```sh
   sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
-  sed -i'' 's/seeds = ""/seeds = "ID@IP:PORT"/' $HOME/.gaia/config/config.toml
+  sed -i'' 's/seeds = ""/seeds = "f6d43e2a29b5fd738637de4cb3e6e3b557543bb3@172.105.64.39:26656"/' $HOME/.gaia/config/config.toml
 ```
 
 Init cosmovisor:
 ```sh
-  git clone git@github.com:cosmos/cosmos-sdk -b cosmovisor/v1.1.0
+  git clone https://github.com/cosmos/cosmos-sdk.git -b cosmovisor/v1.1.0
   cd cosmos-sdk
   make cosmovisor
   cp cosmovisor/cosmovisor ~/go/bin/cosmovisor
@@ -78,7 +78,7 @@ with:
   Environment="DAEMON_NAME=honeyd"
   Environment="DAEMON_HOME=/root/.HoneyWood"
   User=root
-  ExecStart=~/go/bin/cosmovisor start
+  ExecStart=/root/go/bin/cosmovisor start
   StandardOutput=file:/var/log/honeyd/honeyd.log
   StandardError=file:/var/log/honeyd/honeyd_error.log
   Restart=always
