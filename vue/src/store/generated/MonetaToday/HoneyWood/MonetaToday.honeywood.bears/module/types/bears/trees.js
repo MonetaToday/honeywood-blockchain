@@ -18,7 +18,7 @@ export const TreeParams = {
             Coin.encode(v, writer.uint32(26).fork()).ldelim();
         }
         if (message.airSupply !== "") {
-            writer.uint32(50).string(message.airSupply);
+            writer.uint32(34).string(message.airSupply);
         }
         return writer;
     },
@@ -40,7 +40,7 @@ export const TreeParams = {
                 case 3:
                     message.reward.push(Coin.decode(reader, reader.uint32()));
                     break;
-                case 6:
+                case 4:
                     message.airSupply = reader.string();
                     break;
                 default:

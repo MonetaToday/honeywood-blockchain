@@ -35,7 +35,7 @@ const baseFieldRows: object = {};
 export const FieldRows = {
   encode(message: FieldRows, writer: Writer = Writer.create()): Writer {
     for (const v of message.columns) {
-      Tiles.encode(v!, writer.uint32(34).fork()).ldelim();
+      Tiles.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -48,7 +48,7 @@ export const FieldRows = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 4:
+        case 1:
           message.columns.push(Tiles.decode(reader, reader.uint32()));
           break;
         default:
