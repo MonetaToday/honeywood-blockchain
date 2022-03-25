@@ -1,6 +1,6 @@
 {
   "genesis_time": "2022-03-25T12:13:11.421500752Z",
-  "chain_id": "HoneyWood_Testnet",
+  "chain_id": "HoneyWood",
   "initial_height": "1",
   "consensus_params": {
     "block": {
