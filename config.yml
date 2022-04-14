@@ -8,9 +8,9 @@ init:
     minimum-gas-prices: "0.05uhoney"
 accounts:
   - name: alice
-    coins: ["19993665cone"]
+    coins: ["19993665cone", "667000000uhoney"]
   - name: bob
-    coins: ["287966667000000uhoney"]
+    coins: ["287966000000000uhoney"]
 validator:
   name: alice
   staked: "10000000cone"
