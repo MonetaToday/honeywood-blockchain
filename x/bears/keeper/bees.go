@@ -226,43 +226,43 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)
 
-	// emit bee created event
-	ctx.EventManager().EmitEvent(
-		types.NewBeeCreatedEvent(newBeeId),
-	)
+	// // emit bee created event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewBeeCreatedEvent(newBeeId),
+	// )
 
 	return &newBee, nil
 }
 
 // set apiary house for a bee
-func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64, apiaryId uint64) error {
+func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64, apiaryId uint64) (*types.Bees, *types.Apiaries, error) {
 	bee, beeFound := k.GetBees(ctx, beeId)
 	if !beeFound {
-		return types.ErrBeeIsNotExisted
+		return nil, nil, types.ErrBeeIsNotExisted
 	}
 	if !k.HasRightsToBee(ctx, creator, bee) {
-		return types.ErrAddressHasNoRight
+		return nil, nil, types.ErrAddressHasNoRight
 	}
 	apiary, apiaryFound := k.GetApiaries(ctx, apiaryId)
 	if !apiaryFound {
-		return types.ErrApiaryIsNotExisted
+		return nil, nil, types.ErrApiaryIsNotExisted
 	}
 	if !k.HasRightsToApiary(ctx, creator, apiary) {
-		return types.ErrAddressHasNoRight
+		return nil, nil, types.ErrAddressHasNoRight
 	}
 	hasEnoughSpace := k.HasEnoughSpaceInApiary(ctx, apiary, bee)
 	if !hasEnoughSpace {
-		return types.ErrApiaryHasNoEnoughSpace
+		return nil, nil, types.ErrApiaryHasNoEnoughSpace
 	}
 	isBeeInApiaryHouse := k.IsBeeInApiaryHouse(ctx, apiary, bee)
 	if isBeeInApiaryHouse {
-		return types.ErrBeeIsInApiary
+		return nil, nil, types.ErrBeeIsInApiary
 	}
 
 	if bee.ApiaryHouse != nil && bee.ApiaryHouse.Id != apiary.Id {
 		previousApiary, previousApiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)
 		if !previousApiaryFound {
-			return types.ErrApiaryIsNotExisted
+			return nil, nil, types.ErrApiaryIsNotExisted
 		}
 
 		previousApiary, _ = k.GetApiaryWithRemovedBee(ctx, previousApiary, bee)
@@ -277,33 +277,33 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 	apiary, _ = k.GetApiaryWithAddedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
 
-	// emit bee apiary house set event
-	ctx.EventManager().EmitEvent(
-		types.NewBeeApiaryHouseSetEvent(beeId, apiaryId),
-	)
+	// // emit bee apiary house set event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewBeeApiaryHouseSetEvent(beeId, apiaryId),
+	// )
 
-	return nil
+	return &bee, &apiary, nil
 }
 
 // Unset apiary house for a bee
-func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64) error {
+func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint64) (*types.Bees, error) {
 	bee, beeFound := k.GetBees(ctx, beeId)
 	if !beeFound {
-		return types.ErrBeeIsNotExisted
+		return nil, types.ErrBeeIsNotExisted
 	}
 	if bee.BearOwner == nil {
-		return types.ErrAddressHasNoRight
+		return nil, types.ErrAddressHasNoRight
 	}
 	if bee.ApiaryHouse == nil {
-		return types.ErrBeeIsNotInApiary
+		return nil, types.ErrBeeIsNotInApiary
 	}
 	if !k.HasRightsToBearById(ctx, creator, bee.BearOwner.Id) {
-		return types.ErrAddressHasNoRight
+		return nil, types.ErrAddressHasNoRight
 	}
 
 	apiary, apiaryFound := k.GetApiaries(ctx, bee.ApiaryHouse.Id)
 	if !apiaryFound {
-		return types.ErrApiaryIsNotExisted
+		return nil, types.ErrApiaryIsNotExisted
 	}
 	apiary, _ = k.GetApiaryWithRemovedBee(ctx, apiary, bee)
 	k.SetApiaries(ctx, apiary)
@@ -311,10 +311,10 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 	bee.ApiaryHouse = nil
 	k.SetBees(ctx, bee)
 
-	// emit bee apiary house unset event
-	ctx.EventManager().EmitEvent(
-		types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
-	)
+	// // emit bee apiary house unset event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
+	// )
 
-	return nil
+	return &bee, nil
 }

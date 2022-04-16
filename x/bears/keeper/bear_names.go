@@ -102,10 +102,10 @@ func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name s
 	bear.Name = name
 	k.SetBears(ctx, bear)
 
-	// emit name set event
-	ctx.EventManager().EmitEvent(
-		types.NewNameSetEvent(name, bearId),
-	)
+	// // emit name set event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewNameSetEvent(name, bearId),
+	// )
 
 	return nil
 }

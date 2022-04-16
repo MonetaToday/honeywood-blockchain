@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -19,6 +20,15 @@ func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitG
 	if buyErr != nil {
 		return nil, buyErr
 	}
+
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyBearName, msg.Name),
+			sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(newBear.Id, 10)),
+		),
+	})
 
 	return &types.MsgInitGameAndSetNameResponse{}, nil
 }

@@ -180,10 +180,10 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 	bear.Apiaries = append(bear.Apiaries, newApiaryId)
 	k.SetBears(ctx, bear)
 
-	// emit apiary created event
-	ctx.EventManager().EmitEvent(
-		types.NewApiaryCreatedEvent(newApiaryId),
-	)
+	// // emit apiary created event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewApiaryCreatedEvent(newApiaryId),
+	// )
 
 	return &newApiary, nil
 }
@@ -218,10 +218,10 @@ func (k Keeper) DeleteApiary(ctx sdk.Context, beneficiary string, apiary types.A
 
 	k.RemoveApiaries(ctx, apiary.Id)
 
-	// emit apiary deleted event
-	ctx.EventManager().EmitEvent(
-		types.NewApiaryDeletedEvent(apiary.Id),
-	)
+	// // emit apiary deleted event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewApiaryDeletedEvent(apiary.Id),
+	// )
 
 	return nil
 }
@@ -356,19 +356,19 @@ func (k Keeper) CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary t
 
 	k.SetApiaries(ctx, apiary)
 
-	// emit honey collected from apiary event
-	ctx.EventManager().EmitEvent(
-		types.NewHoneyCollectedFromApiaryEvent(apiary.Id, honeyInApiary),
-	)
+	// // emit honey collected from apiary event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewHoneyCollectedFromApiaryEvent(apiary.Id, honeyInApiary),
+	// )
 
 	return &honeyInApiary, nil
 }
 
 // Collect honey and Clear apiary from bees
-func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) error {
+func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) ( []uint64, error) {
 	bees := k.GetAllCurrentBeesFromApiary(ctx, apiary)
 	if len(bees) == 0 {
-		return types.ErrApiaryHasNoBees
+		return bees, types.ErrApiaryHasNoBees
 	}
 
 	for _, beeId := range bees {
@@ -377,10 +377,10 @@ func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary type
 		bee.ApiaryHouse = nil
 		k.SetBees(ctx, bee)
 
-		// emit bee apiary house unset event
-		ctx.EventManager().EmitEvent(
-			types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
-		)
+		// // emit bee apiary house unset event
+		// ctx.EventManager().EmitEvent(
+		// 	types.NewBeeApiaryHouseUnsetEvent(beeId, apiary.Id),
+		// )
 	}
 
 	apiary.SpaceOccupied = 0
@@ -391,5 +391,5 @@ func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary type
 
 	k.SetApiaries(ctx, apiary)
 
-	return nil
+	return bees, nil
 }

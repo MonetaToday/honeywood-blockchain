@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -38,12 +39,33 @@ func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.Msg
 	field.Rows[rowId].Columns[columnId].Item = nil
 	k.SetFields(ctx, field)
 
-	// emit decoration position unset event
-	ctx.EventManager().EmitEvent(
-		types.NewDecorationPositionUnsetEvent(
-			decorationId,
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyDecorationId, strconv.FormatUint(decorationId, 10)),
+			sdk.NewAttribute(types.AttributeKeyDecorationType, decoration.Params.DecorationType),
+			
+			sdk.NewAttribute(types.AttributeKeyOldFieldId, strconv.FormatUint(fieldId, 10)),
+			sdk.NewAttribute(types.AttributeKeyOldRowId, strconv.FormatUint(rowId, 10)),
+			sdk.NewAttribute(types.AttributeKeyOldColumnId, strconv.FormatUint(columnId, 10)),
 		),
-	)
+	})
+	if field.BearOwner != nil {
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(field.BearOwner.Id, 10)),
+			),
+		})
+	}
+
+	// // emit decoration position unset event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewDecorationPositionUnsetEvent(
+	// 		decorationId,
+	// 	),
+	// )
 
 	return &types.MsgUnsetDecorationPositionResponse{}, nil
 }

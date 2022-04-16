@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -51,6 +52,14 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 			RowId:    newRowId,
 			ColumnId: newColumnId,
 		}
+
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyApiaryId, strconv.FormatUint(apiary.Id, 10)),
+			),
+		})
+
 		k.Keeper.SetApiaries(ctx, apiary)
 	case types.Tiles_Items_TREE:
 		tree, treeFound := k.Keeper.GetTrees(ctx, itemId)
@@ -62,6 +71,14 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 			RowId:    newRowId,
 			ColumnId: newColumnId,
 		}
+
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyTreeId, strconv.FormatUint(tree.Id, 10)),
+			),
+		})
+
 		k.Keeper.SetTrees(ctx, tree)
 	case types.Tiles_Items_DECORATION:
 		decoration, decorationFound := k.Keeper.GetDecorations(ctx, itemId)
@@ -73,24 +90,52 @@ func (k msgServer) MoveItemOnField(goCtx context.Context, msg *types.MsgMoveItem
 			RowId:    newRowId,
 			ColumnId: newColumnId,
 		}
+
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyDecorationId, strconv.FormatUint(decoration.Id, 10)),
+			),
+		})
+
 		k.Keeper.SetDecorations(ctx, decoration)
 
 	default:
 		return nil, types.ErrItemTypeIsNotDefined
 	}
 
-	// emit item moved on field event
-	ctx.EventManager().EmitEvent(
-		types.NewItemMovedOnFieldEvent(
-			fieldId,
-			oldRowId,
-			oldColumnId,
-			newRowId,
-			newColumnId,
-			itemId,
-			itemType.String(),
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyFieldId, strconv.FormatUint(fieldId, 10)),
+			sdk.NewAttribute(types.AttributeKeyOldRowId, strconv.FormatUint(oldRowId, 10)),
+			sdk.NewAttribute(types.AttributeKeyOldColumnId, strconv.FormatUint(oldColumnId, 10)),
+			sdk.NewAttribute(types.AttributeKeyRowId, strconv.FormatUint(newRowId, 10)),
+			sdk.NewAttribute(types.AttributeKeyColumnId, strconv.FormatUint(newColumnId, 10)),
 		),
-	)
+	})
+	if field.BearOwner != nil {
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(field.BearOwner.Id, 10)),
+			),
+		})
+	}
+
+	// // emit item moved on field event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewItemMovedOnFieldEvent(
+	// 		fieldId,
+	// 		oldRowId,
+	// 		oldColumnId,
+	// 		newRowId,
+	// 		newColumnId,
+	// 		itemId,
+	// 		itemType.String(),
+	// 	),
+	// )
 
 	return &types.MsgMoveItemOnFieldResponse{}, nil
 }

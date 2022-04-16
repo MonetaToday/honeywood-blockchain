@@ -126,14 +126,14 @@ func (k Keeper) GetFieldsTilesCount(field types.Fields) uint64 {
 }
 
 // BuyBearName for specific bear
-func (k Keeper) ExtendField(ctx sdk.Context, creator string, receiver string, fieldId uint64) (*uint64, error) {
+func (k Keeper) ExtendField(ctx sdk.Context, creator string, receiver string, fieldId uint64) (*uint64, *types.Fields, error) {
 	field, fieldFound := k.GetFields(ctx, fieldId)
 	if !fieldFound {
-		return nil, types.ErrFieldIsNotExisted
+		return nil, nil, types.ErrFieldIsNotExisted
 	}
 
 	if !k.HasRightsToField(ctx, receiver, field) {
-		return nil, types.ErrAddressHasNoRight
+		return nil, &field, types.ErrAddressHasNoRight
 	}
 
 	for rowIndex, _ := range field.Rows {
@@ -159,23 +159,23 @@ func (k Keeper) ExtendField(ctx sdk.Context, creator string, receiver string, fi
 
 	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceForExtending)
 	if err != nil {
-		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
+		return nil, &field, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
 	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceForExtending)
 	if errBurn != nil {
-		return nil, errBurn
+		return nil, &field, errBurn
 	}
 
 	field.CountTiles = uint64(newCountTiles)
 	k.SetFields(ctx, field)
 
-	// emit field extended event
-	ctx.EventManager().EmitEvent(
-		types.NewFieldExtendedEvent(fieldId, field.CountTiles),
-	)
+	// // emit field extended event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewFieldExtendedEvent(fieldId, field.CountTiles),
+	// )
 
-	return &field.CountTiles, nil
+	return &field.CountTiles, &field, nil
 }
 
 // Check if tile is empty

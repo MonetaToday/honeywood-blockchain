@@ -5,7 +5,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgClearApiaryFromBees = "collect_honey_and_clear_apiary_from_bees"
+const TypeMsgClearApiaryFromBees = "clear_apiary_from_bees"
 
 var _ sdk.Msg = &MsgClearApiaryFromBees{}
 

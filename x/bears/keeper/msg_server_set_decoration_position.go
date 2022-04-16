@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -56,15 +57,36 @@ func (k msgServer) SetDecorationPosition(goCtx context.Context, msg *types.MsgSe
 	}
 	k.SetFields(ctx, field)
 
-	// emit decoration position set event
-	ctx.EventManager().EmitEvent(
-		types.NewDecorationPositionSetEvent(
-			decorationId,
-			fieldId,
-			rowId,
-			columnId,
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyDecorationId, strconv.FormatUint(decorationId, 10)),
+			sdk.NewAttribute(types.AttributeKeyDecorationType, decoration.Params.DecorationType),
+			
+			sdk.NewAttribute(types.AttributeKeyFieldId, strconv.FormatUint(fieldId, 10)),
+			sdk.NewAttribute(types.AttributeKeyRowId, strconv.FormatUint(rowId, 10)),
+			sdk.NewAttribute(types.AttributeKeyColumnId, strconv.FormatUint(columnId, 10)),
 		),
-	)
+	})
+	if field.BearOwner != nil {
+		ctx.EventManager().EmitEvents(sdk.Events{
+			sdk.NewEvent(
+				sdk.EventTypeMessage,
+				sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(field.BearOwner.Id, 10)),
+			),
+		})
+	}
+
+	// // emit decoration position set event
+	// ctx.EventManager().EmitEvent(
+	// 	types.NewDecorationPositionSetEvent(
+	// 		decorationId,
+	// 		fieldId,
+	// 		rowId,
+	// 		columnId,
+	// 	),
+	// )
 
 	return &types.MsgSetDecorationPositionResponse{}, nil
 }

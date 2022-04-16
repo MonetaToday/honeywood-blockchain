@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,6 +15,19 @@ func (k msgServer) CreateTree(goCtx context.Context, msg *types.MsgCreateTree) (
 	if createTreeErr != nil {
 		return nil, createTreeErr
 	}
+
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
+			sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(msg.BearId, 10)),
+			sdk.NewAttribute(types.AttributeKeyFieldId, strconv.FormatUint(msg.FieldId, 10)),
+			sdk.NewAttribute(types.AttributeKeyRowId, strconv.FormatUint(msg.RowId, 10)),
+			sdk.NewAttribute(types.AttributeKeyColumnId, strconv.FormatUint(msg.ColumnId, 10)),
+			sdk.NewAttribute(types.AttributeKeyTreeId, strconv.FormatUint(tree.Id, 10)),
+			sdk.NewAttribute(types.AttributeKeyTreeType, msg.TreeType),
+		),
+	})
 
 	return &types.MsgCreateTreeResponse{
 		Tree: tree,
