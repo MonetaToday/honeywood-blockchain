@@ -29,4 +29,6 @@ message Bees {
   BearOwner bearOwner = 3;
   ApiaryHouse apiaryHouse = 4;
   BeeParams params = 5;
+  string fieldFertility = 6 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string apiaryFertility = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }

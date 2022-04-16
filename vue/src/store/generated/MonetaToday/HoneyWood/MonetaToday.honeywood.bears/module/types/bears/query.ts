@@ -14,7 +14,7 @@ import { Trees, TreeParams } from "../bears/trees";
 import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees, ApiaryHouse, BeeParams } from "../bears/bees";
-import { AirInfo } from "../bears/air_info";
+import { AirInfo, AirHistory } from "../bears/air_info";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -264,6 +264,15 @@ export interface QueryShowBeesInfoByBearIdResponse_BeeInfo {
   id: number;
   apiaryHouse: ApiaryHouse | undefined;
   params: BeeParams | undefined;
+}
+
+export interface QueryAllAirHistoryRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllAirHistoryResponse {
+  airHistory: AirHistory[];
+  pagination: PageResponse | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -4645,6 +4654,179 @@ export const QueryShowBeesInfoByBearIdResponse_BeeInfo = {
   },
 };
 
+const baseQueryAllAirHistoryRequest: object = {};
+
+export const QueryAllAirHistoryRequest = {
+  encode(
+    message: QueryAllAirHistoryRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllAirHistoryRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllAirHistoryRequest,
+    } as QueryAllAirHistoryRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllAirHistoryRequest {
+    const message = {
+      ...baseQueryAllAirHistoryRequest,
+    } as QueryAllAirHistoryRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllAirHistoryRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllAirHistoryRequest>
+  ): QueryAllAirHistoryRequest {
+    const message = {
+      ...baseQueryAllAirHistoryRequest,
+    } as QueryAllAirHistoryRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllAirHistoryResponse: object = {};
+
+export const QueryAllAirHistoryResponse = {
+  encode(
+    message: QueryAllAirHistoryResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.airHistory) {
+      AirHistory.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllAirHistoryResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllAirHistoryResponse,
+    } as QueryAllAirHistoryResponse;
+    message.airHistory = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.airHistory.push(AirHistory.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllAirHistoryResponse {
+    const message = {
+      ...baseQueryAllAirHistoryResponse,
+    } as QueryAllAirHistoryResponse;
+    message.airHistory = [];
+    if (object.airHistory !== undefined && object.airHistory !== null) {
+      for (const e of object.airHistory) {
+        message.airHistory.push(AirHistory.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllAirHistoryResponse): unknown {
+    const obj: any = {};
+    if (message.airHistory) {
+      obj.airHistory = message.airHistory.map((e) =>
+        e ? AirHistory.toJSON(e) : undefined
+      );
+    } else {
+      obj.airHistory = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllAirHistoryResponse>
+  ): QueryAllAirHistoryResponse {
+    const message = {
+      ...baseQueryAllAirHistoryResponse,
+    } as QueryAllAirHistoryResponse;
+    message.airHistory = [];
+    if (object.airHistory !== undefined && object.airHistory !== null) {
+      for (const e of object.airHistory) {
+        message.airHistory.push(AirHistory.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -4733,6 +4915,10 @@ export interface Query {
   ShowBeesInfoByBearId(
     request: QueryShowBeesInfoByBearIdRequest
   ): Promise<QueryShowBeesInfoByBearIdResponse>;
+  /** Queries a list of AirHistory items. */
+  AirHistoryAll(
+    request: QueryAllAirHistoryRequest
+  ): Promise<QueryAllAirHistoryResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -5095,6 +5281,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryShowBeesInfoByBearIdResponse.decode(new Reader(data))
+    );
+  }
+
+  AirHistoryAll(
+    request: QueryAllAirHistoryRequest
+  ): Promise<QueryAllAirHistoryResponse> {
+    const data = QueryAllAirHistoryRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "MonetaToday.honeywood.bears.Query",
+      "AirHistoryAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllAirHistoryResponse.decode(new Reader(data))
     );
   }
 }

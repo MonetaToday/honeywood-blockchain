@@ -8,11 +8,12 @@ import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface ApiaryParams {
-  apiaryType: string;
+  apiary_type: string;
   price: Coin[];
-  spaceAvailable: number;
-  maxHoney: string;
-  deleteReward: Coin[];
+  space_available: number;
+  max_honey: string;
+  delete_reward: Coin[];
+  fertility: string;
 }
 
 export interface CycleHistory {
@@ -28,30 +29,35 @@ export interface Apiaries {
   cycleHistory: CycleHistory[];
   spaceOccupied: number;
   honeyFromPast: string;
+  fieldFertility: string;
 }
 
 const baseApiaryParams: object = {
-  apiaryType: "",
-  spaceAvailable: 0,
-  maxHoney: "",
+  apiary_type: "",
+  space_available: 0,
+  max_honey: "",
+  fertility: "",
 };
 
 export const ApiaryParams = {
   encode(message: ApiaryParams, writer: Writer = Writer.create()): Writer {
-    if (message.apiaryType !== "") {
-      writer.uint32(10).string(message.apiaryType);
+    if (message.apiary_type !== "") {
+      writer.uint32(10).string(message.apiary_type);
     }
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.spaceAvailable !== 0) {
-      writer.uint32(24).uint64(message.spaceAvailable);
+    if (message.space_available !== 0) {
+      writer.uint32(24).uint64(message.space_available);
     }
-    if (message.maxHoney !== "") {
-      writer.uint32(34).string(message.maxHoney);
+    if (message.max_honey !== "") {
+      writer.uint32(34).string(message.max_honey);
     }
-    for (const v of message.deleteReward) {
+    for (const v of message.delete_reward) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.fertility !== "") {
+      writer.uint32(50).string(message.fertility);
     }
     return writer;
   },
@@ -61,24 +67,27 @@ export const ApiaryParams = {
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
-    message.deleteReward = [];
+    message.delete_reward = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.apiaryType = reader.string();
+          message.apiary_type = reader.string();
           break;
         case 2:
           message.price.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.spaceAvailable = longToNumber(reader.uint64() as Long);
+          message.space_available = longToNumber(reader.uint64() as Long);
           break;
         case 4:
-          message.maxHoney = reader.string();
+          message.max_honey = reader.string();
           break;
         case 5:
-          message.deleteReward.push(Coin.decode(reader, reader.uint32()));
+          message.delete_reward.push(Coin.decode(reader, reader.uint32()));
+          break;
+        case 6:
+          message.fertility = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -91,84 +100,102 @@ export const ApiaryParams = {
   fromJSON(object: any): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
-    message.deleteReward = [];
-    if (object.apiaryType !== undefined && object.apiaryType !== null) {
-      message.apiaryType = String(object.apiaryType);
+    message.delete_reward = [];
+    if (object.apiary_type !== undefined && object.apiary_type !== null) {
+      message.apiary_type = String(object.apiary_type);
     } else {
-      message.apiaryType = "";
+      message.apiary_type = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromJSON(e));
       }
     }
-    if (object.spaceAvailable !== undefined && object.spaceAvailable !== null) {
-      message.spaceAvailable = Number(object.spaceAvailable);
+    if (
+      object.space_available !== undefined &&
+      object.space_available !== null
+    ) {
+      message.space_available = Number(object.space_available);
     } else {
-      message.spaceAvailable = 0;
+      message.space_available = 0;
     }
-    if (object.maxHoney !== undefined && object.maxHoney !== null) {
-      message.maxHoney = String(object.maxHoney);
+    if (object.max_honey !== undefined && object.max_honey !== null) {
+      message.max_honey = String(object.max_honey);
     } else {
-      message.maxHoney = "";
+      message.max_honey = "";
     }
-    if (object.deleteReward !== undefined && object.deleteReward !== null) {
-      for (const e of object.deleteReward) {
-        message.deleteReward.push(Coin.fromJSON(e));
+    if (object.delete_reward !== undefined && object.delete_reward !== null) {
+      for (const e of object.delete_reward) {
+        message.delete_reward.push(Coin.fromJSON(e));
       }
+    }
+    if (object.fertility !== undefined && object.fertility !== null) {
+      message.fertility = String(object.fertility);
+    } else {
+      message.fertility = "";
     }
     return message;
   },
 
   toJSON(message: ApiaryParams): unknown {
     const obj: any = {};
-    message.apiaryType !== undefined && (obj.apiaryType = message.apiaryType);
+    message.apiary_type !== undefined &&
+      (obj.apiary_type = message.apiary_type);
     if (message.price) {
       obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.price = [];
     }
-    message.spaceAvailable !== undefined &&
-      (obj.spaceAvailable = message.spaceAvailable);
-    message.maxHoney !== undefined && (obj.maxHoney = message.maxHoney);
-    if (message.deleteReward) {
-      obj.deleteReward = message.deleteReward.map((e) =>
+    message.space_available !== undefined &&
+      (obj.space_available = message.space_available);
+    message.max_honey !== undefined && (obj.max_honey = message.max_honey);
+    if (message.delete_reward) {
+      obj.delete_reward = message.delete_reward.map((e) =>
         e ? Coin.toJSON(e) : undefined
       );
     } else {
-      obj.deleteReward = [];
+      obj.delete_reward = [];
     }
+    message.fertility !== undefined && (obj.fertility = message.fertility);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ApiaryParams>): ApiaryParams {
     const message = { ...baseApiaryParams } as ApiaryParams;
     message.price = [];
-    message.deleteReward = [];
-    if (object.apiaryType !== undefined && object.apiaryType !== null) {
-      message.apiaryType = object.apiaryType;
+    message.delete_reward = [];
+    if (object.apiary_type !== undefined && object.apiary_type !== null) {
+      message.apiary_type = object.apiary_type;
     } else {
-      message.apiaryType = "";
+      message.apiary_type = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromPartial(e));
       }
     }
-    if (object.spaceAvailable !== undefined && object.spaceAvailable !== null) {
-      message.spaceAvailable = object.spaceAvailable;
+    if (
+      object.space_available !== undefined &&
+      object.space_available !== null
+    ) {
+      message.space_available = object.space_available;
     } else {
-      message.spaceAvailable = 0;
+      message.space_available = 0;
     }
-    if (object.maxHoney !== undefined && object.maxHoney !== null) {
-      message.maxHoney = object.maxHoney;
+    if (object.max_honey !== undefined && object.max_honey !== null) {
+      message.max_honey = object.max_honey;
     } else {
-      message.maxHoney = "";
+      message.max_honey = "";
     }
-    if (object.deleteReward !== undefined && object.deleteReward !== null) {
-      for (const e of object.deleteReward) {
-        message.deleteReward.push(Coin.fromPartial(e));
+    if (object.delete_reward !== undefined && object.delete_reward !== null) {
+      for (const e of object.delete_reward) {
+        message.delete_reward.push(Coin.fromPartial(e));
       }
+    }
+    if (object.fertility !== undefined && object.fertility !== null) {
+      message.fertility = object.fertility;
+    } else {
+      message.fertility = "";
     }
     return message;
   },
@@ -262,7 +289,12 @@ export const CycleHistory = {
   },
 };
 
-const baseApiaries: object = { id: 0, spaceOccupied: 0, honeyFromPast: "" };
+const baseApiaries: object = {
+  id: 0,
+  spaceOccupied: 0,
+  honeyFromPast: "",
+  fieldFertility: "",
+};
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
@@ -286,6 +318,9 @@ export const Apiaries = {
     }
     if (message.honeyFromPast !== "") {
       writer.uint32(58).string(message.honeyFromPast);
+    }
+    if (message.fieldFertility !== "") {
+      writer.uint32(66).string(message.fieldFertility);
     }
     return writer;
   },
@@ -320,6 +355,9 @@ export const Apiaries = {
           break;
         case 7:
           message.honeyFromPast = reader.string();
+          break;
+        case 8:
+          message.fieldFertility = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -367,6 +405,11 @@ export const Apiaries = {
     } else {
       message.honeyFromPast = "";
     }
+    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
+      message.fieldFertility = String(object.fieldFertility);
+    } else {
+      message.fieldFertility = "";
+    }
     return message;
   },
 
@@ -396,6 +439,8 @@ export const Apiaries = {
       (obj.spaceOccupied = message.spaceOccupied);
     message.honeyFromPast !== undefined &&
       (obj.honeyFromPast = message.honeyFromPast);
+    message.fieldFertility !== undefined &&
+      (obj.fieldFertility = message.fieldFertility);
     return obj;
   },
 
@@ -436,6 +481,11 @@ export const Apiaries = {
       message.honeyFromPast = object.honeyFromPast;
     } else {
       message.honeyFromPast = "";
+    }
+    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
+      message.fieldFertility = object.fieldFertility;
+    } else {
+      message.fieldFertility = "";
     }
     return message;
   },

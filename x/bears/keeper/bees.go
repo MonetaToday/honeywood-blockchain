@@ -217,9 +217,11 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 	}
 
 	newBee := types.Bees{
-		Name:      beeName,
-		BearOwner: &types.BearOwner{Id: bearId},
-		Params:    beeParams,
+		Name:      				beeName,
+		BearOwner: 				&types.BearOwner{Id: bearId},
+		Params:    				beeParams,
+		FieldFertility:   sdk.ZeroDec(),
+		ApiaryFertility:  sdk.ZeroDec(),
 	}
 	newBeeId := k.AppendBees(ctx, newBee)
 
@@ -272,6 +274,10 @@ func (k Keeper) SetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uint6
 	bee.ApiaryHouse = &types.ApiaryHouse{
 		Id: apiary.Id,
 	}
+
+	bee.FieldFertility = apiary.FieldFertility
+	bee.ApiaryFertility = apiary.Params.Fertility
+
 	k.SetBees(ctx, bee)
 
 	apiary, _ = k.GetApiaryWithAddedBee(ctx, apiary, bee)
@@ -309,6 +315,10 @@ func (k Keeper) UnsetBeeInApiaryHouse(ctx sdk.Context, creator string, beeId uin
 	k.SetApiaries(ctx, apiary)
 
 	bee.ApiaryHouse = nil
+
+	bee.FieldFertility = sdk.ZeroDec()
+	bee.ApiaryFertility = sdk.ZeroDec()
+
 	k.SetBees(ctx, bee)
 
 	// // emit bee apiary house unset event

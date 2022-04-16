@@ -27,6 +27,8 @@ func (k Keeper) ShowHoneyPowerByBeeType(goCtx context.Context, req *types.QueryS
 	lastLoadedBees := []types.Bees{
 		types.Bees{
 			Params: beeParams,
+			FieldFertility: sdk.OneDec(),
+			ApiaryFertility: sdk.OneDec(),
 		},
 	}
 

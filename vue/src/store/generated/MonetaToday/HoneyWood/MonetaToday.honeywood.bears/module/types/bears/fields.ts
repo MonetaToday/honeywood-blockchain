@@ -18,8 +18,9 @@ export interface ItemPosition {
 }
 
 export interface FieldParams {
-  fieldType: string;
-  priceTile: Coin[];
+  field_type: string;
+  fertility: string;
+  price_tile: Coin[];
 }
 
 export interface Fields {
@@ -183,15 +184,18 @@ export const ItemPosition = {
   },
 };
 
-const baseFieldParams: object = { fieldType: "" };
+const baseFieldParams: object = { field_type: "", fertility: "" };
 
 export const FieldParams = {
   encode(message: FieldParams, writer: Writer = Writer.create()): Writer {
-    if (message.fieldType !== "") {
-      writer.uint32(10).string(message.fieldType);
+    if (message.field_type !== "") {
+      writer.uint32(10).string(message.field_type);
     }
-    for (const v of message.priceTile) {
-      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
+    if (message.fertility !== "") {
+      writer.uint32(18).string(message.fertility);
+    }
+    for (const v of message.price_tile) {
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -200,15 +204,18 @@ export const FieldParams = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseFieldParams } as FieldParams;
-    message.priceTile = [];
+    message.price_tile = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.fieldType = reader.string();
+          message.field_type = reader.string();
           break;
         case 2:
-          message.priceTile.push(Coin.decode(reader, reader.uint32()));
+          message.fertility = reader.string();
+          break;
+        case 3:
+          message.price_tile.push(Coin.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -220,15 +227,20 @@ export const FieldParams = {
 
   fromJSON(object: any): FieldParams {
     const message = { ...baseFieldParams } as FieldParams;
-    message.priceTile = [];
-    if (object.fieldType !== undefined && object.fieldType !== null) {
-      message.fieldType = String(object.fieldType);
+    message.price_tile = [];
+    if (object.field_type !== undefined && object.field_type !== null) {
+      message.field_type = String(object.field_type);
     } else {
-      message.fieldType = "";
+      message.field_type = "";
     }
-    if (object.priceTile !== undefined && object.priceTile !== null) {
-      for (const e of object.priceTile) {
-        message.priceTile.push(Coin.fromJSON(e));
+    if (object.fertility !== undefined && object.fertility !== null) {
+      message.fertility = String(object.fertility);
+    } else {
+      message.fertility = "";
+    }
+    if (object.price_tile !== undefined && object.price_tile !== null) {
+      for (const e of object.price_tile) {
+        message.price_tile.push(Coin.fromJSON(e));
       }
     }
     return message;
@@ -236,28 +248,34 @@ export const FieldParams = {
 
   toJSON(message: FieldParams): unknown {
     const obj: any = {};
-    message.fieldType !== undefined && (obj.fieldType = message.fieldType);
-    if (message.priceTile) {
-      obj.priceTile = message.priceTile.map((e) =>
+    message.field_type !== undefined && (obj.field_type = message.field_type);
+    message.fertility !== undefined && (obj.fertility = message.fertility);
+    if (message.price_tile) {
+      obj.price_tile = message.price_tile.map((e) =>
         e ? Coin.toJSON(e) : undefined
       );
     } else {
-      obj.priceTile = [];
+      obj.price_tile = [];
     }
     return obj;
   },
 
   fromPartial(object: DeepPartial<FieldParams>): FieldParams {
     const message = { ...baseFieldParams } as FieldParams;
-    message.priceTile = [];
-    if (object.fieldType !== undefined && object.fieldType !== null) {
-      message.fieldType = object.fieldType;
+    message.price_tile = [];
+    if (object.field_type !== undefined && object.field_type !== null) {
+      message.field_type = object.field_type;
     } else {
-      message.fieldType = "";
+      message.field_type = "";
     }
-    if (object.priceTile !== undefined && object.priceTile !== null) {
-      for (const e of object.priceTile) {
-        message.priceTile.push(Coin.fromPartial(e));
+    if (object.fertility !== undefined && object.fertility !== null) {
+      message.fertility = object.fertility;
+    } else {
+      message.fertility = "";
+    }
+    if (object.price_tile !== undefined && object.price_tile !== null) {
+      for (const e of object.price_tile) {
+        message.price_tile.push(Coin.fromPartial(e));
       }
     }
     return message;

@@ -15,6 +15,8 @@ message ApiaryParams {
   string max_honey = 4 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.moretags) = "yaml:\"max_honey\""];
   repeated cosmos.base.v1beta1.Coin delete_reward = 5
     [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"delete_reward\""];
+  string fertility = 6
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"fertility\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }
 
 message CycleHistory {
@@ -30,4 +32,5 @@ message Apiaries {
   repeated CycleHistory cycleHistory = 5 [(gogoproto.nullable) = false];
   uint64 spaceOccupied = 6;
   string honeyFromPast = 7 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
+  string fieldFertility = 8 [(gogoproto.nullable) = false, (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }

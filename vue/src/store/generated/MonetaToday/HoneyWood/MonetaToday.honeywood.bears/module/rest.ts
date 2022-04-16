@@ -53,6 +53,16 @@ export interface BearsAddressBears {
   bears?: string[];
 }
 
+export interface BearsAirHistory {
+  /** @format uint64 */
+  id?: string;
+
+  /** @format uint64 */
+  height?: string;
+  count?: string;
+  purity?: string;
+}
+
 export interface BearsAirInfo {
   supply?: string;
   consume?: string;
@@ -69,6 +79,7 @@ export interface BearsApiaries {
   /** @format uint64 */
   spaceOccupied?: string;
   honeyFromPast?: string;
+  fieldFertility?: string;
 }
 
 export interface BearsApiaryHouse {
@@ -77,13 +88,14 @@ export interface BearsApiaryHouse {
 }
 
 export interface BearsApiaryParams {
-  apiaryType?: string;
+  apiary_type?: string;
   price?: V1Beta1Coin[];
 
   /** @format uint64 */
-  spaceAvailable?: string;
-  maxHoney?: string;
-  deleteReward?: V1Beta1Coin[];
+  space_available?: string;
+  max_honey?: string;
+  delete_reward?: V1Beta1Coin[];
+  fertility?: string;
 }
 
 export interface BearsBearNames {
@@ -111,14 +123,14 @@ export interface BearsBears {
 }
 
 export interface BearsBeeParams {
-  beeType?: string;
+  bee_type?: string;
   price?: V1Beta1Coin[];
-  honeyPerBlock?: string;
+  honey_per_block?: string;
 
   /** @format uint64 */
-  bodySize?: string;
-  airCountDependency?: string;
-  airConsume?: string;
+  body_size?: string;
+  air_count_dependency?: string;
+  air_consume?: string;
 }
 
 export interface BearsBees {
@@ -128,6 +140,8 @@ export interface BearsBees {
   bearOwner?: BearsBearOwner;
   apiaryHouse?: BearsApiaryHouse;
   params?: BearsBeeParams;
+  fieldFertility?: string;
+  apiaryFertility?: string;
 }
 
 export interface BearsCycleHistory {
@@ -137,7 +151,7 @@ export interface BearsCycleHistory {
 }
 
 export interface BearsDecorationParams {
-  decorationType?: string;
+  decoration_type?: string;
   price?: V1Beta1Coin[];
 }
 
@@ -150,8 +164,9 @@ export interface BearsDecorations {
 }
 
 export interface BearsFieldParams {
-  fieldType?: string;
-  priceTile?: V1Beta1Coin[];
+  field_type?: string;
+  fertility?: string;
+  price_tile?: V1Beta1Coin[];
 }
 
 export interface BearsFieldRows {
@@ -255,22 +270,37 @@ export type BearsMsgUnsetDecorationPositionResponse = object;
  */
 export interface BearsParams {
   /** @format uint64 */
-  blocksPerHour?: string;
+  blocks_per_hour?: string;
 
   /** @format uint64 */
-  airHistoryLength?: string;
-  burnRate?: string;
-  priceSetName?: V1Beta1Coin[];
-  fieldTypes?: BearsFieldParams[];
-  treeTypes?: BearsTreeParams[];
-  decorationTypes?: BearsDecorationParams[];
-  apiaryTypes?: BearsApiaryParams[];
-  beeTypes?: BearsBeeParams[];
-  honeyDenom?: string;
+  air_history_length?: string;
+  burn_rate?: string;
+  price_set_name?: V1Beta1Coin[];
+  field_types?: BearsFieldParams[];
+  tree_types?: BearsTreeParams[];
+  decoration_types?: BearsDecorationParams[];
+  apiary_types?: BearsApiaryParams[];
+  bee_types?: BearsBeeParams[];
+  honey_denom?: string;
 }
 
 export interface BearsQueryAllAddressBearsResponse {
   addressBears?: BearsAddressBears[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface BearsQueryAllAirHistoryResponse {
+  airHistory?: BearsAirHistory[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -479,10 +509,10 @@ export interface BearsTiles {
 }
 
 export interface BearsTreeParams {
-  treeType?: string;
+  tree_type?: string;
   price?: V1Beta1Coin[];
   reward?: V1Beta1Coin[];
-  airSupply?: string;
+  air_supply?: string;
 }
 
 export interface BearsTrees {
@@ -551,7 +581,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  countTotal?: boolean;
+  count_total?: boolean;
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
@@ -572,7 +602,7 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  nextKey?: string;
+  next_key?: string;
 
   /** @format uint64 */
   total?: string;
@@ -787,7 +817,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -812,6 +842,32 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     this.request<BearsQueryGetAddressBearsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/address_bears/${address}`,
       method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryAirHistoryAll
+   * @summary Queries a list of AirHistory items.
+   * @request GET:/MonetaToday/honeywood/bears/air_history
+   */
+  queryAirHistoryAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BearsQueryAllAirHistoryResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/air_history`,
+      method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -845,7 +901,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -887,7 +943,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -929,7 +985,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -971,7 +1027,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1029,7 +1085,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1071,7 +1127,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1257,7 +1313,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.countTotal"?: boolean;
+      "pagination.count_total"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},

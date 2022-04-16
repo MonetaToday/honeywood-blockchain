@@ -15,10 +15,10 @@ validator:
   name: alice
   staked: "10000000cone"
 client:
-  # openapi:
-  #   path: "docs/static/openapi.yml"
-  # vuex:
-  #   path: "vue/src/store"
+  openapi:
+    path: "docs/static/openapi.yml"
+  vuex:
+    path: "vue/src/store"
 # faucet:
 #   name: bob
 #   coins: ["5uhoney", "100000stake"]
@@ -84,6 +84,7 @@ genesis:
 
         field_types:
           - field_type: "DEFAULT"
+            fertility: "1"
             price_tile:
               - denom: "uhoney"
                 amount: "100000000"
@@ -152,6 +153,7 @@ genesis:
         apiary_types:
           - apiary_type: "BEE_HOUSE"
             space_available: 5
+            fertility: "1"
             max_honey: "5000000"
             price:
             - denom: "uhoney"
@@ -161,6 +163,7 @@ genesis:
               amount: "250000000"
           - apiary_type: "APIARY"
             space_available: 8
+            fertility: "1"
             max_honey: "15000000"
             price:
             - denom: "uhoney"
@@ -170,6 +173,7 @@ genesis:
               amount: "450000000"
           - apiary_type: "ALVEARY"
             space_available: 12
+            fertility: "1"
             max_honey: "25000000"
             price:
             - denom: "uhoney"

@@ -8,10 +8,10 @@ import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface TreeParams {
-  treeType: string;
+  tree_type: string;
   price: Coin[];
   reward: Coin[];
-  airSupply: string;
+  air_supply: string;
 }
 
 export interface Trees {
@@ -21,12 +21,12 @@ export interface Trees {
   position: ItemPosition | undefined;
 }
 
-const baseTreeParams: object = { treeType: "", airSupply: "" };
+const baseTreeParams: object = { tree_type: "", air_supply: "" };
 
 export const TreeParams = {
   encode(message: TreeParams, writer: Writer = Writer.create()): Writer {
-    if (message.treeType !== "") {
-      writer.uint32(10).string(message.treeType);
+    if (message.tree_type !== "") {
+      writer.uint32(10).string(message.tree_type);
     }
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -34,8 +34,8 @@ export const TreeParams = {
     for (const v of message.reward) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    if (message.airSupply !== "") {
-      writer.uint32(34).string(message.airSupply);
+    if (message.air_supply !== "") {
+      writer.uint32(34).string(message.air_supply);
     }
     return writer;
   },
@@ -50,7 +50,7 @@ export const TreeParams = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.treeType = reader.string();
+          message.tree_type = reader.string();
           break;
         case 2:
           message.price.push(Coin.decode(reader, reader.uint32()));
@@ -59,7 +59,7 @@ export const TreeParams = {
           message.reward.push(Coin.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.airSupply = reader.string();
+          message.air_supply = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -73,10 +73,10 @@ export const TreeParams = {
     const message = { ...baseTreeParams } as TreeParams;
     message.price = [];
     message.reward = [];
-    if (object.treeType !== undefined && object.treeType !== null) {
-      message.treeType = String(object.treeType);
+    if (object.tree_type !== undefined && object.tree_type !== null) {
+      message.tree_type = String(object.tree_type);
     } else {
-      message.treeType = "";
+      message.tree_type = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
@@ -88,17 +88,17 @@ export const TreeParams = {
         message.reward.push(Coin.fromJSON(e));
       }
     }
-    if (object.airSupply !== undefined && object.airSupply !== null) {
-      message.airSupply = String(object.airSupply);
+    if (object.air_supply !== undefined && object.air_supply !== null) {
+      message.air_supply = String(object.air_supply);
     } else {
-      message.airSupply = "";
+      message.air_supply = "";
     }
     return message;
   },
 
   toJSON(message: TreeParams): unknown {
     const obj: any = {};
-    message.treeType !== undefined && (obj.treeType = message.treeType);
+    message.tree_type !== undefined && (obj.tree_type = message.tree_type);
     if (message.price) {
       obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
@@ -109,7 +109,7 @@ export const TreeParams = {
     } else {
       obj.reward = [];
     }
-    message.airSupply !== undefined && (obj.airSupply = message.airSupply);
+    message.air_supply !== undefined && (obj.air_supply = message.air_supply);
     return obj;
   },
 
@@ -117,10 +117,10 @@ export const TreeParams = {
     const message = { ...baseTreeParams } as TreeParams;
     message.price = [];
     message.reward = [];
-    if (object.treeType !== undefined && object.treeType !== null) {
-      message.treeType = object.treeType;
+    if (object.tree_type !== undefined && object.tree_type !== null) {
+      message.tree_type = object.tree_type;
     } else {
-      message.treeType = "";
+      message.tree_type = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
@@ -132,10 +132,10 @@ export const TreeParams = {
         message.reward.push(Coin.fromPartial(e));
       }
     }
-    if (object.airSupply !== undefined && object.airSupply !== null) {
-      message.airSupply = object.airSupply;
+    if (object.air_supply !== undefined && object.air_supply !== null) {
+      message.air_supply = object.air_supply;
     } else {
-      message.airSupply = "";
+      message.air_supply = "";
     }
     return message;
   },
