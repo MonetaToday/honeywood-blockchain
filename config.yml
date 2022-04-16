@@ -15,10 +15,10 @@ validator:
   name: alice
   staked: "10000000cone"
 client:
-  openapi:
-    path: "docs/static/openapi.yml"
-  vuex:
-    path: "vue/src/store"
+  # openapi:
+  #   path: "docs/static/openapi.yml"
+  # vuex:
+  #   path: "vue/src/store"
 # faucet:
 #   name: bob
 #   coins: ["5uhoney", "100000stake"]
