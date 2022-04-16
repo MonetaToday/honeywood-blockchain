@@ -24,12 +24,14 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears create-apiary 0 0 1 3 APIARY --from bob --fees 10000uhoney --yes
 ////
 
-~/go/bin/honeyd tx bears init-game-and-create-bee bears13h2ds577xq0unue5lucjj5ywu55m08qs58mnl9 BEE BEE --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee bears1gz7l0td9ar7vujvf5s5su3fxscnnzswdsqjyuy 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-bee bears1d6nu90p7rxqavahc8m88yaa8ky28s997hfzz43 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears1d6nu90p7rxqavahc8m88yaa8ky28s997hfzz43 0 BEE BEE --from bob --fees 10000uhoney --yes
 
-~/go/bin/honeyd tx bears init-game-and-create-bee bears1sv7lxdnsv9ghcylsz0rc3253dkxp32as2mhqyt BEE BEE --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-apiary bears1sv7lxdnsv9ghcylsz0rc3253dkxp32as2mhqyt 0 0 0 0 APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes 
+~/go/bin/honeyd tx bears init-game-and-create-bee bears1d6nu90p7rxqavahc8m88yaa8ky28s997hfzz43 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-apiary bears1d6nu90p7rxqavahc8m88yaa8ky28s997hfzz43 0 0 0 0 APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears unset-apiary-house-for-bee 0 --from bob --fees 10000uhoney --yes
+
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 1 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd tx bears set-apiary-house-for-bee 2 0 --from bob --fees 10000uhoney --yes
 
