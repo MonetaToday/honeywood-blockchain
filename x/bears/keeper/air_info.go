@@ -86,6 +86,10 @@ func (k Keeper) SetAirInfo(ctx sdk.Context, airInfo types.AirInfo) {
 	lastAirHistory, found := k.GetAirHistory(ctx, lastIndex)
 
 	if !found || !lastAirHistory.Count.Equal(airCount) || !lastAirHistory.Purity.Equal(airPurity) {
+		if found && lastAirHistory.Height == height {
+			k.RemoveAirHistory(ctx, lastIndex)
+		}
+
 		lastIndex = k.AppendAirHistory(ctx, types.AirHistory{
 			Height: height,
 			Count:  airCount,

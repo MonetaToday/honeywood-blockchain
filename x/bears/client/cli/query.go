@@ -60,6 +60,8 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 
 	cmd.AddCommand(CmdShowBeesInfoByBearId())
 
+	cmd.AddCommand(CmdListAirHistory())
+
 	// this line is used by starport scaffolding # 1
 
 	return cmd
