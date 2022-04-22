@@ -15,6 +15,19 @@ export enum ItemsItemTypes {
   DECORATION = "DECORATION",
 }
 
+export interface QueryListAddressesStatisticResponseAddressesStatistic {
+  address?: string;
+  balances?: V1Beta1Coin[];
+}
+
+export interface QueryListBearsStatisticResponseBearsStatistic {
+  /** @format uint64 */
+  id?: string;
+  owner?: string;
+  name?: string;
+  honeyPower?: string;
+}
+
 export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
   /** @format uint64 */
   id?: string;
@@ -457,6 +470,36 @@ export interface BearsQueryGetFieldsResponse {
 
 export interface BearsQueryGetTreesResponse {
   Trees?: BearsTrees;
+}
+
+export interface BearsQueryListAddressesStatisticResponse {
+  Addresses?: QueryListAddressesStatisticResponseAddressesStatistic[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface BearsQueryListBearsStatisticResponse {
+  Bears?: QueryListBearsStatisticResponseBearsStatistic[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 /**
@@ -1152,6 +1195,58 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     this.request<BearsQueryGetFieldsResponse, RpcStatus>({
       path: `/MonetaToday/honeywood/bears/fields/${id}`,
       method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryListAddressesStatistic
+   * @summary Queries a list of ListAddressesStatistic items.
+   * @request GET:/MonetaToday/honeywood/bears/list_addresses_statistic
+   */
+  queryListAddressesStatistic = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BearsQueryListAddressesStatisticResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/list_addresses_statistic`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryListBearsStatistic
+   * @summary Queries a list of ListBearsStatistic items.
+   * @request GET:/MonetaToday/honeywood/bears/list_bears_statistic
+   */
+  queryListBearsStatistic = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BearsQueryListBearsStatisticResponse, RpcStatus>({
+      path: `/MonetaToday/honeywood/bears/list_bears_statistic`,
+      method: "GET",
+      query: query,
       format: "json",
       ...params,
     });

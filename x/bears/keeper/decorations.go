@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // GetDecorationsCount get the total number of decorations
@@ -134,12 +135,12 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, receiver strin
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, decorationParams.Price)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, authtypes.FeeCollectorName, decorationParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, decorationParams.Price)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, decorationParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}

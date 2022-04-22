@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // GetApiariesCount get the total number of apiaries
@@ -143,12 +144,12 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, apiaryParams.Price)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, authtypes.FeeCollectorName, apiaryParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, apiaryParams.Price)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, apiaryParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}
@@ -160,10 +161,10 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		Params:        apiaryParams,
-		CycleHistory:  []types.CycleHistory{},
-		SpaceOccupied: 0,
-		HoneyFromPast: sdk.ZeroDec(),
+		Params:         apiaryParams,
+		CycleHistory:   []types.CycleHistory{},
+		SpaceOccupied:  0,
+		HoneyFromPast:  sdk.ZeroDec(),
 		FieldFertility: field.Params.Fertility,
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
@@ -252,22 +253,22 @@ func (k Keeper) GetAllCurrentBeesFromApiary(ctx sdk.Context, apiary types.Apiari
 func (k Keeper) CalculateBeesHoneyPower(ctx sdk.Context, bees []types.Bees, airPurity sdk.Dec, airCount sdk.Dec) sdk.Dec {
 	honeyPower := sdk.ZeroDec()
 	for _, bee := range bees {
-		beeHoneyPower := 
-		bee.FieldFertility.Mul(
-			bee.ApiaryFertility.Mul(
-				airPurity.Mul(
-					bee.Params.HoneyPerBlock.Mul(
-						sdk.OneDec().Add(
-							airCount.Sub(
-								sdk.OneDec(),
-							).Mul(
-								bee.Params.AirCountDependency,
+		beeHoneyPower :=
+			bee.FieldFertility.Mul(
+				bee.ApiaryFertility.Mul(
+					airPurity.Mul(
+						bee.Params.HoneyPerBlock.Mul(
+							sdk.OneDec().Add(
+								airCount.Sub(
+									sdk.OneDec(),
+								).Mul(
+									bee.Params.AirCountDependency,
+								),
 							),
 						),
 					),
 				),
-			),
-		)
+			)
 
 		honeyPower = honeyPower.Add(beeHoneyPower)
 	}
@@ -371,7 +372,7 @@ func (k Keeper) CollectHoneyFromApiary(ctx sdk.Context, creator string, apiary t
 }
 
 // Collect honey and Clear apiary from bees
-func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) ( []uint64, error) {
+func (k Keeper) ClearApiaryFromBees(ctx sdk.Context, creator string, apiary types.Apiaries) ([]uint64, error) {
 	bees := k.GetAllCurrentBeesFromApiary(ctx, apiary)
 	if len(bees) == 0 {
 		return bees, types.ErrApiaryHasNoBees

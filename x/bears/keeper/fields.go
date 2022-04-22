@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // GetFieldsCount get the total number of fields
@@ -157,12 +158,12 @@ func (k Keeper) ExtendField(ctx sdk.Context, creator string, receiver string, fi
 		))
 	}
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, priceForExtending)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, authtypes.FeeCollectorName, priceForExtending)
 	if err != nil {
 		return nil, &field, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceForExtending)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, priceForExtending)
 	if errBurn != nil {
 		return nil, &field, errBurn
 	}

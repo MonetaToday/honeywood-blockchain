@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // GetBeesCount get the total number of bees
@@ -206,22 +207,22 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, beeParams.Price)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, authtypes.FeeCollectorName, beeParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, beeParams.Price)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, beeParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}
 
 	newBee := types.Bees{
-		Name:      				beeName,
-		BearOwner: 				&types.BearOwner{Id: bearId},
-		Params:    				beeParams,
-		FieldFertility:   sdk.ZeroDec(),
-		ApiaryFertility:  sdk.ZeroDec(),
+		Name:            beeName,
+		BearOwner:       &types.BearOwner{Id: bearId},
+		Params:          beeParams,
+		FieldFertility:  sdk.ZeroDec(),
+		ApiaryFertility: sdk.ZeroDec(),
 	}
 	newBeeId := k.AppendBees(ctx, newBee)
 

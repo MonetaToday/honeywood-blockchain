@@ -79,9 +79,9 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 
 
 
-~/go/bin/honeyd tx bears init-game-and-create-apiary bears1r8yx53zyp4n9d8fazj60uws5kfe8l5kshxesa8 APIARY --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears create-bee bears1r8yx53zyp4n9d8fazj60uws5kfe8l5kshxesa8 0 BEE BEE --from bob --fees 10000uhoney --yes
-~/go/bin/honeyd tx bears set-apiary-house-for-bee 0 0 --from bob --fees 10000uhoney --yes 
+~/go/bin/honeyd tx bears init-game-and-create-apiary bears1hrgzwkse3ezqn5sdn3su4a6meqsyzsdpcwp4lz APIARY --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears create-bee bears1hrgzwkse3ezqn5sdn3su4a6meqsyzsdpcwp4lz 0 BEE BEE --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears set-apiary-house-for-bee 1 1 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd tx bears unset-apiary-house-for-bee 0 --from bob --fees 10000uhoney --yes 
 ~/go/bin/honeyd query bears list-apiaries
 
@@ -100,7 +100,7 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0
 
 
-~/go/bin/honeyd tx bears init-game-and-create-tree OAK --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-tree OAK --from bob --fees 100000uhoney --yes
 ~/go/bin/honeyd query bears show-trees-info-by-bear-id 0
 
 ~/go/bin/honeyd tx bears init-game-and-create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes

@@ -16,9 +16,10 @@ type (
 		cdc              codec.BinaryCodec
 		storeKey         sdk.StoreKey
 		memKey           sdk.StoreKey
+		authStoreKey  sdk.StoreKey
 		paramstore       paramtypes.Subspace
+		accountKeeper       types.AccountKeeper
 		bankKeeper       types.BankKeeper
-		feeCollectorName string // name of the FeeCollector ModuleAccount
 	}
 )
 
@@ -26,9 +27,10 @@ func NewKeeper(
 	cdc codec.BinaryCodec,
 	storeKey,
 	memKey sdk.StoreKey,
+	authStoreKey sdk.StoreKey,
 	ps paramtypes.Subspace,
+	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
-	feeCollectorName string,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {
@@ -39,9 +41,10 @@ func NewKeeper(
 		cdc:              cdc,
 		storeKey:         storeKey,
 		memKey:           memKey,
+		authStoreKey: authStoreKey,
 		paramstore:       ps,
+		accountKeeper:       accountKeeper,
 		bankKeeper:       bankKeeper,
-		feeCollectorName: feeCollectorName,
 	}
 }
 

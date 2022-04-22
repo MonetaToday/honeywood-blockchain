@@ -5,6 +5,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // SetBearNames set a specific bearNames in the store from its index
@@ -82,12 +83,12 @@ func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name s
 	buyerAcc, _ := sdk.AccAddressFromBech32(buyer)
 	priceSetName := k.PriceSetName(ctx)
 
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, k.feeCollectorName, priceSetName)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, buyerAcc, authtypes.FeeCollectorName, priceSetName)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, priceSetName)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, priceSetName)
 	if errBurn != nil {
 		return errBurn
 	}

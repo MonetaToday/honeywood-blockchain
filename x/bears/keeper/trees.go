@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 // GetTreesCount get the total number of trees
@@ -163,12 +164,12 @@ func (k Keeper) CreateTreeOnField(ctx sdk.Context, creator string, bearId uint64
 	}
 
 	creatorAcc, _ := sdk.AccAddressFromBech32(creator)
-	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, k.feeCollectorName, treeParams.Price)
+	err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, creatorAcc, authtypes.FeeCollectorName, treeParams.Price)
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrInsufficientFunds, err.Error())
 	}
 
-	errBurn := k.BurnCoinsByBurnRate(ctx, k.feeCollectorName, treeParams.Price)
+	errBurn := k.BurnCoinsByBurnRate(ctx, authtypes.FeeCollectorName, treeParams.Price)
 	if errBurn != nil {
 		return nil, errBurn
 	}

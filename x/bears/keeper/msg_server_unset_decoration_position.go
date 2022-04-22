@@ -45,7 +45,7 @@ func (k msgServer) UnsetDecorationPosition(goCtx context.Context, msg *types.Msg
 			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
 			sdk.NewAttribute(types.AttributeKeyDecorationId, strconv.FormatUint(decorationId, 10)),
 			sdk.NewAttribute(types.AttributeKeyDecorationType, decoration.Params.DecorationType),
-			
+
 			sdk.NewAttribute(types.AttributeKeyOldFieldId, strconv.FormatUint(fieldId, 10)),
 			sdk.NewAttribute(types.AttributeKeyOldRowId, strconv.FormatUint(rowId, 10)),
 			sdk.NewAttribute(types.AttributeKeyOldColumnId, strconv.FormatUint(columnId, 10)),

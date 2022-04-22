@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"context"
+	"strconv"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -9,12 +9,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListAirHistory() *cobra.Command {
+var _ = strconv.Itoa(0)
+
+func CmdListBearsStatistic() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-air-history",
-		Short: "list all airHistory",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			clientCtx := client.GetClientContextFromCmd(cmd)
+		Use:   "list-bears-statistic",
+		Short: "List bears statistic",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
 
 			pageReq, err := client.ReadPageRequest(cmd.Flags())
 			if err != nil {
@@ -23,11 +30,11 @@ func CmdListAirHistory() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllAirHistoryRequest{
+			params := &types.QueryListBearsStatisticRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.AirHistoryAll(context.Background(), params)
+			res, err := queryClient.ListBearsStatistic(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

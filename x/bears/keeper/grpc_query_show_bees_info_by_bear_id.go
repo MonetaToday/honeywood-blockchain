@@ -30,9 +30,9 @@ func (k Keeper) ShowBeesInfoByBearId(goCtx context.Context, req *types.QueryShow
 		}
 
 		beesInfo = append(beesInfo, types.QueryShowBeesInfoByBearIdResponse_BeeInfo{
-			Id:     beeId,
+			Id:          beeId,
 			ApiaryHouse: bee.ApiaryHouse,
-			Params: bee.Params,
+			Params:      bee.Params,
 		})
 	}
 
