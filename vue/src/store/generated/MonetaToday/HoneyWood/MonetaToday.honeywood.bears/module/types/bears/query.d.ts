@@ -235,6 +235,7 @@ export interface QueryListAddressesStatisticResponse {
 export interface QueryListAddressesStatisticResponse_AddressesStatistic {
     address: string;
     balances: Coin[];
+    module: boolean;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;

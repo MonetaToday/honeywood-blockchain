@@ -30,13 +30,16 @@ func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryLi
 			panic(err)
 		}
 
+		_, isModuleAccount := account.(authtypes.ModuleAccountI)
 		addresses = append(addresses, types.QueryListAddressesStatisticResponse_AddressesStatistic{
 			Address: account.GetAddress().String(),
 			Balances: k.bankKeeper.SpendableCoins(ctx, account.GetAddress()),
+			Module: isModuleAccount,
 		})
-		
+
 		return nil
 	})
+
 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "paginate: %v", err)

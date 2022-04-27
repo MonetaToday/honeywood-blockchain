@@ -4257,6 +4257,7 @@ export const QueryListAddressesStatisticResponse = {
 };
 const baseQueryListAddressesStatisticResponse_AddressesStatistic = {
     address: "",
+    module: false,
 };
 export const QueryListAddressesStatisticResponse_AddressesStatistic = {
     encode(message, writer = Writer.create()) {
@@ -4265,6 +4266,9 @@ export const QueryListAddressesStatisticResponse_AddressesStatistic = {
         }
         for (const v of message.balances) {
             Coin.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.module === true) {
+            writer.uint32(24).bool(message.module);
         }
         return writer;
     },
@@ -4283,6 +4287,9 @@ export const QueryListAddressesStatisticResponse_AddressesStatistic = {
                     break;
                 case 2:
                     message.balances.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.module = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4307,6 +4314,12 @@ export const QueryListAddressesStatisticResponse_AddressesStatistic = {
                 message.balances.push(Coin.fromJSON(e));
             }
         }
+        if (object.module !== undefined && object.module !== null) {
+            message.module = Boolean(object.module);
+        }
+        else {
+            message.module = false;
+        }
         return message;
     },
     toJSON(message) {
@@ -4318,6 +4331,7 @@ export const QueryListAddressesStatisticResponse_AddressesStatistic = {
         else {
             obj.balances = [];
         }
+        message.module !== undefined && (obj.module = message.module);
         return obj;
     },
     fromPartial(object) {
@@ -4335,6 +4349,12 @@ export const QueryListAddressesStatisticResponse_AddressesStatistic = {
             for (const e of object.balances) {
                 message.balances.push(Coin.fromPartial(e));
             }
+        }
+        if (object.module !== undefined && object.module !== null) {
+            message.module = object.module;
+        }
+        else {
+            message.module = false;
         }
         return message;
     },

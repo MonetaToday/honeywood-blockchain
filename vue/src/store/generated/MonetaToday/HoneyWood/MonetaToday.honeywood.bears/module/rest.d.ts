@@ -6,6 +6,7 @@ export declare enum ItemsItemTypes {
 export interface QueryListAddressesStatisticResponseAddressesStatistic {
     address?: string;
     balances?: V1Beta1Coin[];
+    module?: boolean;
 }
 export interface QueryListBearsStatisticResponseBearsStatistic {
     /** @format uint64 */
