@@ -9,7 +9,8 @@ import { Trees, TreeParams } from "../bears/trees";
 import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees, ApiaryHouse, BeeParams } from "../bears/bees";
-import { AirInfo } from "../bears/air_info";
+import { AirInfo, AirHistory } from "../bears/air_info";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "MonetaToday.honeywood.bears";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -203,6 +204,37 @@ export interface QueryShowBeesInfoByBearIdResponse_BeeInfo {
     id: number;
     apiaryHouse: ApiaryHouse | undefined;
     params: BeeParams | undefined;
+}
+export interface QueryAllAirHistoryRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllAirHistoryResponse {
+    airHistory: AirHistory[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryListBearsStatisticRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryListBearsStatisticResponse {
+    Bears: QueryListBearsStatisticResponse_BearsStatistic[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryListBearsStatisticResponse_BearsStatistic {
+    id: number;
+    owner: string;
+    name: string;
+    honeyPower: string;
+}
+export interface QueryListAddressesStatisticRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryListAddressesStatisticResponse {
+    Addresses: QueryListAddressesStatisticResponse_AddressesStatistic[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryListAddressesStatisticResponse_AddressesStatistic {
+    address: string;
+    balances: Coin[];
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: Writer): Writer;
@@ -610,6 +642,62 @@ export declare const QueryShowBeesInfoByBearIdResponse_BeeInfo: {
     toJSON(message: QueryShowBeesInfoByBearIdResponse_BeeInfo): unknown;
     fromPartial(object: DeepPartial<QueryShowBeesInfoByBearIdResponse_BeeInfo>): QueryShowBeesInfoByBearIdResponse_BeeInfo;
 };
+export declare const QueryAllAirHistoryRequest: {
+    encode(message: QueryAllAirHistoryRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAirHistoryRequest;
+    fromJSON(object: any): QueryAllAirHistoryRequest;
+    toJSON(message: QueryAllAirHistoryRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllAirHistoryRequest>): QueryAllAirHistoryRequest;
+};
+export declare const QueryAllAirHistoryResponse: {
+    encode(message: QueryAllAirHistoryResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAirHistoryResponse;
+    fromJSON(object: any): QueryAllAirHistoryResponse;
+    toJSON(message: QueryAllAirHistoryResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllAirHistoryResponse>): QueryAllAirHistoryResponse;
+};
+export declare const QueryListBearsStatisticRequest: {
+    encode(message: QueryListBearsStatisticRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListBearsStatisticRequest;
+    fromJSON(object: any): QueryListBearsStatisticRequest;
+    toJSON(message: QueryListBearsStatisticRequest): unknown;
+    fromPartial(object: DeepPartial<QueryListBearsStatisticRequest>): QueryListBearsStatisticRequest;
+};
+export declare const QueryListBearsStatisticResponse: {
+    encode(message: QueryListBearsStatisticResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListBearsStatisticResponse;
+    fromJSON(object: any): QueryListBearsStatisticResponse;
+    toJSON(message: QueryListBearsStatisticResponse): unknown;
+    fromPartial(object: DeepPartial<QueryListBearsStatisticResponse>): QueryListBearsStatisticResponse;
+};
+export declare const QueryListBearsStatisticResponse_BearsStatistic: {
+    encode(message: QueryListBearsStatisticResponse_BearsStatistic, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListBearsStatisticResponse_BearsStatistic;
+    fromJSON(object: any): QueryListBearsStatisticResponse_BearsStatistic;
+    toJSON(message: QueryListBearsStatisticResponse_BearsStatistic): unknown;
+    fromPartial(object: DeepPartial<QueryListBearsStatisticResponse_BearsStatistic>): QueryListBearsStatisticResponse_BearsStatistic;
+};
+export declare const QueryListAddressesStatisticRequest: {
+    encode(message: QueryListAddressesStatisticRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListAddressesStatisticRequest;
+    fromJSON(object: any): QueryListAddressesStatisticRequest;
+    toJSON(message: QueryListAddressesStatisticRequest): unknown;
+    fromPartial(object: DeepPartial<QueryListAddressesStatisticRequest>): QueryListAddressesStatisticRequest;
+};
+export declare const QueryListAddressesStatisticResponse: {
+    encode(message: QueryListAddressesStatisticResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListAddressesStatisticResponse;
+    fromJSON(object: any): QueryListAddressesStatisticResponse;
+    toJSON(message: QueryListAddressesStatisticResponse): unknown;
+    fromPartial(object: DeepPartial<QueryListAddressesStatisticResponse>): QueryListAddressesStatisticResponse;
+};
+export declare const QueryListAddressesStatisticResponse_AddressesStatistic: {
+    encode(message: QueryListAddressesStatisticResponse_AddressesStatistic, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryListAddressesStatisticResponse_AddressesStatistic;
+    fromJSON(object: any): QueryListAddressesStatisticResponse_AddressesStatistic;
+    toJSON(message: QueryListAddressesStatisticResponse_AddressesStatistic): unknown;
+    fromPartial(object: DeepPartial<QueryListAddressesStatisticResponse_AddressesStatistic>): QueryListAddressesStatisticResponse_AddressesStatistic;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
@@ -666,6 +754,12 @@ export interface Query {
     ShowDecorationsInfoByBearId(request: QueryShowDecorationsInfoByBearIdRequest): Promise<QueryShowDecorationsInfoByBearIdResponse>;
     /** Queries a list of ShowBeesInfoByBearId items. */
     ShowBeesInfoByBearId(request: QueryShowBeesInfoByBearIdRequest): Promise<QueryShowBeesInfoByBearIdResponse>;
+    /** Queries a list of AirHistory items. */
+    AirHistoryAll(request: QueryAllAirHistoryRequest): Promise<QueryAllAirHistoryResponse>;
+    /** Queries a list of ListBearsStatistic items. */
+    ListBearsStatistic(request: QueryListBearsStatisticRequest): Promise<QueryListBearsStatisticResponse>;
+    /** Queries a list of ListAddressesStatistic items. */
+    ListAddressesStatistic(request: QueryListAddressesStatisticRequest): Promise<QueryListAddressesStatisticResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -697,6 +791,9 @@ export declare class QueryClientImpl implements Query {
     ShowTreesInfoByBearId(request: QueryShowTreesInfoByBearIdRequest): Promise<QueryShowTreesInfoByBearIdResponse>;
     ShowDecorationsInfoByBearId(request: QueryShowDecorationsInfoByBearIdRequest): Promise<QueryShowDecorationsInfoByBearIdResponse>;
     ShowBeesInfoByBearId(request: QueryShowBeesInfoByBearIdRequest): Promise<QueryShowBeesInfoByBearIdResponse>;
+    AirHistoryAll(request: QueryAllAirHistoryRequest): Promise<QueryAllAirHistoryResponse>;
+    ListBearsStatistic(request: QueryListBearsStatisticRequest): Promise<QueryListBearsStatisticResponse>;
+    ListAddressesStatistic(request: QueryListAddressesStatisticRequest): Promise<QueryListAddressesStatisticResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -151,14 +151,17 @@ export const ItemPosition = {
         return message;
     },
 };
-const baseFieldParams = { fieldType: "" };
+const baseFieldParams = { fieldType: "", fertility: "" };
 export const FieldParams = {
     encode(message, writer = Writer.create()) {
         if (message.fieldType !== "") {
             writer.uint32(10).string(message.fieldType);
         }
+        if (message.fertility !== "") {
+            writer.uint32(18).string(message.fertility);
+        }
         for (const v of message.priceTile) {
-            Coin.encode(v, writer.uint32(18).fork()).ldelim();
+            Coin.encode(v, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -174,6 +177,9 @@ export const FieldParams = {
                     message.fieldType = reader.string();
                     break;
                 case 2:
+                    message.fertility = reader.string();
+                    break;
+                case 3:
                     message.priceTile.push(Coin.decode(reader, reader.uint32()));
                     break;
                 default:
@@ -192,6 +198,12 @@ export const FieldParams = {
         else {
             message.fieldType = "";
         }
+        if (object.fertility !== undefined && object.fertility !== null) {
+            message.fertility = String(object.fertility);
+        }
+        else {
+            message.fertility = "";
+        }
         if (object.priceTile !== undefined && object.priceTile !== null) {
             for (const e of object.priceTile) {
                 message.priceTile.push(Coin.fromJSON(e));
@@ -202,6 +214,7 @@ export const FieldParams = {
     toJSON(message) {
         const obj = {};
         message.fieldType !== undefined && (obj.fieldType = message.fieldType);
+        message.fertility !== undefined && (obj.fertility = message.fertility);
         if (message.priceTile) {
             obj.priceTile = message.priceTile.map((e) => e ? Coin.toJSON(e) : undefined);
         }
@@ -218,6 +231,12 @@ export const FieldParams = {
         }
         else {
             message.fieldType = "";
+        }
+        if (object.fertility !== undefined && object.fertility !== null) {
+            message.fertility = object.fertility;
+        }
+        else {
+            message.fertility = "";
         }
         if (object.priceTile !== undefined && object.priceTile !== null) {
             for (const e of object.priceTile) {

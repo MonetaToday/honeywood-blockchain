@@ -11,7 +11,8 @@ import { Trees, TreeParams } from "../bears/trees";
 import { Decorations, DecorationParams } from "../bears/decorations";
 import { Apiaries, ApiaryParams } from "../bears/apiaries";
 import { Bees, ApiaryHouse, BeeParams } from "../bears/bees";
-import { AirInfo } from "../bears/air_info";
+import { AirInfo, AirHistory } from "../bears/air_info";
+import { Coin } from "../cosmos/base/v1beta1/coin";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 const baseQueryParamsRequest = {};
 export const QueryParamsRequest = {
@@ -3698,6 +3699,646 @@ export const QueryShowBeesInfoByBearIdResponse_BeeInfo = {
         return message;
     },
 };
+const baseQueryAllAirHistoryRequest = {};
+export const QueryAllAirHistoryRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllAirHistoryRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllAirHistoryRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllAirHistoryRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllAirHistoryResponse = {};
+export const QueryAllAirHistoryResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.airHistory) {
+            AirHistory.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllAirHistoryResponse,
+        };
+        message.airHistory = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.airHistory.push(AirHistory.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllAirHistoryResponse,
+        };
+        message.airHistory = [];
+        if (object.airHistory !== undefined && object.airHistory !== null) {
+            for (const e of object.airHistory) {
+                message.airHistory.push(AirHistory.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.airHistory) {
+            obj.airHistory = message.airHistory.map((e) => e ? AirHistory.toJSON(e) : undefined);
+        }
+        else {
+            obj.airHistory = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllAirHistoryResponse,
+        };
+        message.airHistory = [];
+        if (object.airHistory !== undefined && object.airHistory !== null) {
+            for (const e of object.airHistory) {
+                message.airHistory.push(AirHistory.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryListBearsStatisticRequest = {};
+export const QueryListBearsStatisticRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListBearsStatisticRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListBearsStatisticRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListBearsStatisticRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryListBearsStatisticResponse = {};
+export const QueryListBearsStatisticResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Bears) {
+            QueryListBearsStatisticResponse_BearsStatistic.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListBearsStatisticResponse,
+        };
+        message.Bears = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Bears.push(QueryListBearsStatisticResponse_BearsStatistic.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListBearsStatisticResponse,
+        };
+        message.Bears = [];
+        if (object.Bears !== undefined && object.Bears !== null) {
+            for (const e of object.Bears) {
+                message.Bears.push(QueryListBearsStatisticResponse_BearsStatistic.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Bears) {
+            obj.Bears = message.Bears.map((e) => e ? QueryListBearsStatisticResponse_BearsStatistic.toJSON(e) : undefined);
+        }
+        else {
+            obj.Bears = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListBearsStatisticResponse,
+        };
+        message.Bears = [];
+        if (object.Bears !== undefined && object.Bears !== null) {
+            for (const e of object.Bears) {
+                message.Bears.push(QueryListBearsStatisticResponse_BearsStatistic.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryListBearsStatisticResponse_BearsStatistic = {
+    id: 0,
+    owner: "",
+    name: "",
+    honeyPower: "",
+};
+export const QueryListBearsStatisticResponse_BearsStatistic = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (message.owner !== "") {
+            writer.uint32(18).string(message.owner);
+        }
+        if (message.name !== "") {
+            writer.uint32(26).string(message.name);
+        }
+        if (message.honeyPower !== "") {
+            writer.uint32(34).string(message.honeyPower);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListBearsStatisticResponse_BearsStatistic,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.owner = reader.string();
+                    break;
+                case 3:
+                    message.name = reader.string();
+                    break;
+                case 4:
+                    message.honeyPower = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListBearsStatisticResponse_BearsStatistic,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = String(object.owner);
+        }
+        else {
+            message.owner = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = String(object.name);
+        }
+        else {
+            message.name = "";
+        }
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = String(object.honeyPower);
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.name !== undefined && (obj.name = message.name);
+        message.honeyPower !== undefined && (obj.honeyPower = message.honeyPower);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListBearsStatisticResponse_BearsStatistic,
+        };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.owner !== undefined && object.owner !== null) {
+            message.owner = object.owner;
+        }
+        else {
+            message.owner = "";
+        }
+        if (object.name !== undefined && object.name !== null) {
+            message.name = object.name;
+        }
+        else {
+            message.name = "";
+        }
+        if (object.honeyPower !== undefined && object.honeyPower !== null) {
+            message.honeyPower = object.honeyPower;
+        }
+        else {
+            message.honeyPower = "";
+        }
+        return message;
+    },
+};
+const baseQueryListAddressesStatisticRequest = {};
+export const QueryListAddressesStatisticRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListAddressesStatisticRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryListAddressesStatisticResponse = {};
+export const QueryListAddressesStatisticResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Addresses) {
+            QueryListAddressesStatisticResponse_AddressesStatistic.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListAddressesStatisticResponse,
+        };
+        message.Addresses = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Addresses.push(QueryListAddressesStatisticResponse_AddressesStatistic.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticResponse,
+        };
+        message.Addresses = [];
+        if (object.Addresses !== undefined && object.Addresses !== null) {
+            for (const e of object.Addresses) {
+                message.Addresses.push(QueryListAddressesStatisticResponse_AddressesStatistic.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Addresses) {
+            obj.Addresses = message.Addresses.map((e) => e
+                ? QueryListAddressesStatisticResponse_AddressesStatistic.toJSON(e)
+                : undefined);
+        }
+        else {
+            obj.Addresses = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticResponse,
+        };
+        message.Addresses = [];
+        if (object.Addresses !== undefined && object.Addresses !== null) {
+            for (const e of object.Addresses) {
+                message.Addresses.push(QueryListAddressesStatisticResponse_AddressesStatistic.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryListAddressesStatisticResponse_AddressesStatistic = {
+    address: "",
+};
+export const QueryListAddressesStatisticResponse_AddressesStatistic = {
+    encode(message, writer = Writer.create()) {
+        if (message.address !== "") {
+            writer.uint32(10).string(message.address);
+        }
+        for (const v of message.balances) {
+            Coin.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryListAddressesStatisticResponse_AddressesStatistic,
+        };
+        message.balances = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.address = reader.string();
+                    break;
+                case 2:
+                    message.balances.push(Coin.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticResponse_AddressesStatistic,
+        };
+        message.balances = [];
+        if (object.address !== undefined && object.address !== null) {
+            message.address = String(object.address);
+        }
+        else {
+            message.address = "";
+        }
+        if (object.balances !== undefined && object.balances !== null) {
+            for (const e of object.balances) {
+                message.balances.push(Coin.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.address !== undefined && (obj.address = message.address);
+        if (message.balances) {
+            obj.balances = message.balances.map((e) => e ? Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.balances = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryListAddressesStatisticResponse_AddressesStatistic,
+        };
+        message.balances = [];
+        if (object.address !== undefined && object.address !== null) {
+            message.address = object.address;
+        }
+        else {
+            message.address = "";
+        }
+        if (object.balances !== undefined && object.balances !== null) {
+            for (const e of object.balances) {
+                message.balances.push(Coin.fromPartial(e));
+            }
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3836,6 +4477,21 @@ export class QueryClientImpl {
         const data = QueryShowBeesInfoByBearIdRequest.encode(request).finish();
         const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ShowBeesInfoByBearId", data);
         return promise.then((data) => QueryShowBeesInfoByBearIdResponse.decode(new Reader(data)));
+    }
+    AirHistoryAll(request) {
+        const data = QueryAllAirHistoryRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "AirHistoryAll", data);
+        return promise.then((data) => QueryAllAirHistoryResponse.decode(new Reader(data)));
+    }
+    ListBearsStatistic(request) {
+        const data = QueryListBearsStatisticRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ListBearsStatistic", data);
+        return promise.then((data) => QueryListBearsStatisticResponse.decode(new Reader(data)));
+    }
+    ListAddressesStatistic(request) {
+        const data = QueryListAddressesStatisticRequest.encode(request).finish();
+        const promise = this.rpc.request("MonetaToday.honeywood.bears.Query", "ListAddressesStatistic", data);
+        return promise.then((data) => QueryListAddressesStatisticResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

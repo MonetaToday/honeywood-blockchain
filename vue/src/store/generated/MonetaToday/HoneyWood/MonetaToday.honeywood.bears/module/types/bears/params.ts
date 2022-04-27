@@ -12,56 +12,56 @@ export const protobufPackage = "MonetaToday.honeywood.bears";
 
 /** Params defines the parameters for the module. */
 export interface Params {
-  blocks_per_hour: number;
-  air_history_length: number;
-  burn_rate: string;
-  price_set_name: Coin[];
-  field_types: FieldParams[];
-  tree_types: TreeParams[];
-  decoration_types: DecorationParams[];
-  apiary_types: ApiaryParams[];
-  bee_types: BeeParams[];
-  honey_denom: string;
+  blocksPerHour: number;
+  airHistoryLength: number;
+  burnRate: string;
+  priceSetName: Coin[];
+  fieldTypes: FieldParams[];
+  treeTypes: TreeParams[];
+  decorationTypes: DecorationParams[];
+  apiaryTypes: ApiaryParams[];
+  beeTypes: BeeParams[];
+  honeyDenom: string;
 }
 
 const baseParams: object = {
-  blocks_per_hour: 0,
-  air_history_length: 0,
-  burn_rate: "",
-  honey_denom: "",
+  blocksPerHour: 0,
+  airHistoryLength: 0,
+  burnRate: "",
+  honeyDenom: "",
 };
 
 export const Params = {
   encode(message: Params, writer: Writer = Writer.create()): Writer {
-    if (message.blocks_per_hour !== 0) {
-      writer.uint32(8).uint64(message.blocks_per_hour);
+    if (message.blocksPerHour !== 0) {
+      writer.uint32(8).uint64(message.blocksPerHour);
     }
-    if (message.air_history_length !== 0) {
-      writer.uint32(16).uint64(message.air_history_length);
+    if (message.airHistoryLength !== 0) {
+      writer.uint32(16).uint64(message.airHistoryLength);
     }
-    if (message.burn_rate !== "") {
-      writer.uint32(26).string(message.burn_rate);
+    if (message.burnRate !== "") {
+      writer.uint32(26).string(message.burnRate);
     }
-    for (const v of message.price_set_name) {
+    for (const v of message.priceSetName) {
       Coin.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    for (const v of message.field_types) {
+    for (const v of message.fieldTypes) {
       FieldParams.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    for (const v of message.tree_types) {
+    for (const v of message.treeTypes) {
       TreeParams.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    for (const v of message.decoration_types) {
+    for (const v of message.decorationTypes) {
       DecorationParams.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    for (const v of message.apiary_types) {
+    for (const v of message.apiaryTypes) {
       ApiaryParams.encode(v!, writer.uint32(66).fork()).ldelim();
     }
-    for (const v of message.bee_types) {
+    for (const v of message.beeTypes) {
       BeeParams.encode(v!, writer.uint32(74).fork()).ldelim();
     }
-    if (message.honey_denom !== "") {
-      writer.uint32(82).string(message.honey_denom);
+    if (message.honeyDenom !== "") {
+      writer.uint32(82).string(message.honeyDenom);
     }
     return writer;
   },
@@ -70,48 +70,48 @@ export const Params = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseParams } as Params;
-    message.price_set_name = [];
-    message.field_types = [];
-    message.tree_types = [];
-    message.decoration_types = [];
-    message.apiary_types = [];
-    message.bee_types = [];
+    message.priceSetName = [];
+    message.fieldTypes = [];
+    message.treeTypes = [];
+    message.decorationTypes = [];
+    message.apiaryTypes = [];
+    message.beeTypes = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.blocks_per_hour = longToNumber(reader.uint64() as Long);
+          message.blocksPerHour = longToNumber(reader.uint64() as Long);
           break;
         case 2:
-          message.air_history_length = longToNumber(reader.uint64() as Long);
+          message.airHistoryLength = longToNumber(reader.uint64() as Long);
           break;
         case 3:
-          message.burn_rate = reader.string();
+          message.burnRate = reader.string();
           break;
         case 4:
-          message.price_set_name.push(Coin.decode(reader, reader.uint32()));
+          message.priceSetName.push(Coin.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.field_types.push(FieldParams.decode(reader, reader.uint32()));
+          message.fieldTypes.push(FieldParams.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.tree_types.push(TreeParams.decode(reader, reader.uint32()));
+          message.treeTypes.push(TreeParams.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.decoration_types.push(
+          message.decorationTypes.push(
             DecorationParams.decode(reader, reader.uint32())
           );
           break;
         case 8:
-          message.apiary_types.push(
+          message.apiaryTypes.push(
             ApiaryParams.decode(reader, reader.uint32())
           );
           break;
         case 9:
-          message.bee_types.push(BeeParams.decode(reader, reader.uint32()));
+          message.beeTypes.push(BeeParams.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.honey_denom = reader.string();
+          message.honeyDenom = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -123,194 +123,187 @@ export const Params = {
 
   fromJSON(object: any): Params {
     const message = { ...baseParams } as Params;
-    message.price_set_name = [];
-    message.field_types = [];
-    message.tree_types = [];
-    message.decoration_types = [];
-    message.apiary_types = [];
-    message.bee_types = [];
-    if (
-      object.blocks_per_hour !== undefined &&
-      object.blocks_per_hour !== null
-    ) {
-      message.blocks_per_hour = Number(object.blocks_per_hour);
+    message.priceSetName = [];
+    message.fieldTypes = [];
+    message.treeTypes = [];
+    message.decorationTypes = [];
+    message.apiaryTypes = [];
+    message.beeTypes = [];
+    if (object.blocksPerHour !== undefined && object.blocksPerHour !== null) {
+      message.blocksPerHour = Number(object.blocksPerHour);
     } else {
-      message.blocks_per_hour = 0;
+      message.blocksPerHour = 0;
     }
     if (
-      object.air_history_length !== undefined &&
-      object.air_history_length !== null
+      object.airHistoryLength !== undefined &&
+      object.airHistoryLength !== null
     ) {
-      message.air_history_length = Number(object.air_history_length);
+      message.airHistoryLength = Number(object.airHistoryLength);
     } else {
-      message.air_history_length = 0;
+      message.airHistoryLength = 0;
     }
-    if (object.burn_rate !== undefined && object.burn_rate !== null) {
-      message.burn_rate = String(object.burn_rate);
+    if (object.burnRate !== undefined && object.burnRate !== null) {
+      message.burnRate = String(object.burnRate);
     } else {
-      message.burn_rate = "";
+      message.burnRate = "";
     }
-    if (object.price_set_name !== undefined && object.price_set_name !== null) {
-      for (const e of object.price_set_name) {
-        message.price_set_name.push(Coin.fromJSON(e));
+    if (object.priceSetName !== undefined && object.priceSetName !== null) {
+      for (const e of object.priceSetName) {
+        message.priceSetName.push(Coin.fromJSON(e));
       }
     }
-    if (object.field_types !== undefined && object.field_types !== null) {
-      for (const e of object.field_types) {
-        message.field_types.push(FieldParams.fromJSON(e));
+    if (object.fieldTypes !== undefined && object.fieldTypes !== null) {
+      for (const e of object.fieldTypes) {
+        message.fieldTypes.push(FieldParams.fromJSON(e));
       }
     }
-    if (object.tree_types !== undefined && object.tree_types !== null) {
-      for (const e of object.tree_types) {
-        message.tree_types.push(TreeParams.fromJSON(e));
+    if (object.treeTypes !== undefined && object.treeTypes !== null) {
+      for (const e of object.treeTypes) {
+        message.treeTypes.push(TreeParams.fromJSON(e));
       }
     }
     if (
-      object.decoration_types !== undefined &&
-      object.decoration_types !== null
+      object.decorationTypes !== undefined &&
+      object.decorationTypes !== null
     ) {
-      for (const e of object.decoration_types) {
-        message.decoration_types.push(DecorationParams.fromJSON(e));
+      for (const e of object.decorationTypes) {
+        message.decorationTypes.push(DecorationParams.fromJSON(e));
       }
     }
-    if (object.apiary_types !== undefined && object.apiary_types !== null) {
-      for (const e of object.apiary_types) {
-        message.apiary_types.push(ApiaryParams.fromJSON(e));
+    if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
+      for (const e of object.apiaryTypes) {
+        message.apiaryTypes.push(ApiaryParams.fromJSON(e));
       }
     }
-    if (object.bee_types !== undefined && object.bee_types !== null) {
-      for (const e of object.bee_types) {
-        message.bee_types.push(BeeParams.fromJSON(e));
+    if (object.beeTypes !== undefined && object.beeTypes !== null) {
+      for (const e of object.beeTypes) {
+        message.beeTypes.push(BeeParams.fromJSON(e));
       }
     }
-    if (object.honey_denom !== undefined && object.honey_denom !== null) {
-      message.honey_denom = String(object.honey_denom);
+    if (object.honeyDenom !== undefined && object.honeyDenom !== null) {
+      message.honeyDenom = String(object.honeyDenom);
     } else {
-      message.honey_denom = "";
+      message.honeyDenom = "";
     }
     return message;
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
-    message.blocks_per_hour !== undefined &&
-      (obj.blocks_per_hour = message.blocks_per_hour);
-    message.air_history_length !== undefined &&
-      (obj.air_history_length = message.air_history_length);
-    message.burn_rate !== undefined && (obj.burn_rate = message.burn_rate);
-    if (message.price_set_name) {
-      obj.price_set_name = message.price_set_name.map((e) =>
+    message.blocksPerHour !== undefined &&
+      (obj.blocksPerHour = message.blocksPerHour);
+    message.airHistoryLength !== undefined &&
+      (obj.airHistoryLength = message.airHistoryLength);
+    message.burnRate !== undefined && (obj.burnRate = message.burnRate);
+    if (message.priceSetName) {
+      obj.priceSetName = message.priceSetName.map((e) =>
         e ? Coin.toJSON(e) : undefined
       );
     } else {
-      obj.price_set_name = [];
+      obj.priceSetName = [];
     }
-    if (message.field_types) {
-      obj.field_types = message.field_types.map((e) =>
+    if (message.fieldTypes) {
+      obj.fieldTypes = message.fieldTypes.map((e) =>
         e ? FieldParams.toJSON(e) : undefined
       );
     } else {
-      obj.field_types = [];
+      obj.fieldTypes = [];
     }
-    if (message.tree_types) {
-      obj.tree_types = message.tree_types.map((e) =>
+    if (message.treeTypes) {
+      obj.treeTypes = message.treeTypes.map((e) =>
         e ? TreeParams.toJSON(e) : undefined
       );
     } else {
-      obj.tree_types = [];
+      obj.treeTypes = [];
     }
-    if (message.decoration_types) {
-      obj.decoration_types = message.decoration_types.map((e) =>
+    if (message.decorationTypes) {
+      obj.decorationTypes = message.decorationTypes.map((e) =>
         e ? DecorationParams.toJSON(e) : undefined
       );
     } else {
-      obj.decoration_types = [];
+      obj.decorationTypes = [];
     }
-    if (message.apiary_types) {
-      obj.apiary_types = message.apiary_types.map((e) =>
+    if (message.apiaryTypes) {
+      obj.apiaryTypes = message.apiaryTypes.map((e) =>
         e ? ApiaryParams.toJSON(e) : undefined
       );
     } else {
-      obj.apiary_types = [];
+      obj.apiaryTypes = [];
     }
-    if (message.bee_types) {
-      obj.bee_types = message.bee_types.map((e) =>
+    if (message.beeTypes) {
+      obj.beeTypes = message.beeTypes.map((e) =>
         e ? BeeParams.toJSON(e) : undefined
       );
     } else {
-      obj.bee_types = [];
+      obj.beeTypes = [];
     }
-    message.honey_denom !== undefined &&
-      (obj.honey_denom = message.honey_denom);
+    message.honeyDenom !== undefined && (obj.honeyDenom = message.honeyDenom);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Params>): Params {
     const message = { ...baseParams } as Params;
-    message.price_set_name = [];
-    message.field_types = [];
-    message.tree_types = [];
-    message.decoration_types = [];
-    message.apiary_types = [];
-    message.bee_types = [];
-    if (
-      object.blocks_per_hour !== undefined &&
-      object.blocks_per_hour !== null
-    ) {
-      message.blocks_per_hour = object.blocks_per_hour;
+    message.priceSetName = [];
+    message.fieldTypes = [];
+    message.treeTypes = [];
+    message.decorationTypes = [];
+    message.apiaryTypes = [];
+    message.beeTypes = [];
+    if (object.blocksPerHour !== undefined && object.blocksPerHour !== null) {
+      message.blocksPerHour = object.blocksPerHour;
     } else {
-      message.blocks_per_hour = 0;
+      message.blocksPerHour = 0;
     }
     if (
-      object.air_history_length !== undefined &&
-      object.air_history_length !== null
+      object.airHistoryLength !== undefined &&
+      object.airHistoryLength !== null
     ) {
-      message.air_history_length = object.air_history_length;
+      message.airHistoryLength = object.airHistoryLength;
     } else {
-      message.air_history_length = 0;
+      message.airHistoryLength = 0;
     }
-    if (object.burn_rate !== undefined && object.burn_rate !== null) {
-      message.burn_rate = object.burn_rate;
+    if (object.burnRate !== undefined && object.burnRate !== null) {
+      message.burnRate = object.burnRate;
     } else {
-      message.burn_rate = "";
+      message.burnRate = "";
     }
-    if (object.price_set_name !== undefined && object.price_set_name !== null) {
-      for (const e of object.price_set_name) {
-        message.price_set_name.push(Coin.fromPartial(e));
+    if (object.priceSetName !== undefined && object.priceSetName !== null) {
+      for (const e of object.priceSetName) {
+        message.priceSetName.push(Coin.fromPartial(e));
       }
     }
-    if (object.field_types !== undefined && object.field_types !== null) {
-      for (const e of object.field_types) {
-        message.field_types.push(FieldParams.fromPartial(e));
+    if (object.fieldTypes !== undefined && object.fieldTypes !== null) {
+      for (const e of object.fieldTypes) {
+        message.fieldTypes.push(FieldParams.fromPartial(e));
       }
     }
-    if (object.tree_types !== undefined && object.tree_types !== null) {
-      for (const e of object.tree_types) {
-        message.tree_types.push(TreeParams.fromPartial(e));
+    if (object.treeTypes !== undefined && object.treeTypes !== null) {
+      for (const e of object.treeTypes) {
+        message.treeTypes.push(TreeParams.fromPartial(e));
       }
     }
     if (
-      object.decoration_types !== undefined &&
-      object.decoration_types !== null
+      object.decorationTypes !== undefined &&
+      object.decorationTypes !== null
     ) {
-      for (const e of object.decoration_types) {
-        message.decoration_types.push(DecorationParams.fromPartial(e));
+      for (const e of object.decorationTypes) {
+        message.decorationTypes.push(DecorationParams.fromPartial(e));
       }
     }
-    if (object.apiary_types !== undefined && object.apiary_types !== null) {
-      for (const e of object.apiary_types) {
-        message.apiary_types.push(ApiaryParams.fromPartial(e));
+    if (object.apiaryTypes !== undefined && object.apiaryTypes !== null) {
+      for (const e of object.apiaryTypes) {
+        message.apiaryTypes.push(ApiaryParams.fromPartial(e));
       }
     }
-    if (object.bee_types !== undefined && object.bee_types !== null) {
-      for (const e of object.bee_types) {
-        message.bee_types.push(BeeParams.fromPartial(e));
+    if (object.beeTypes !== undefined && object.beeTypes !== null) {
+      for (const e of object.beeTypes) {
+        message.beeTypes.push(BeeParams.fromPartial(e));
       }
     }
-    if (object.honey_denom !== undefined && object.honey_denom !== null) {
-      message.honey_denom = object.honey_denom;
+    if (object.honeyDenom !== undefined && object.honeyDenom !== null) {
+      message.honeyDenom = object.honeyDenom;
     } else {
-      message.honey_denom = "";
+      message.honeyDenom = "";
     }
     return message;
   },

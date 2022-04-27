@@ -3,6 +3,17 @@ export declare enum ItemsItemTypes {
     TREE = "TREE",
     DECORATION = "DECORATION"
 }
+export interface QueryListAddressesStatisticResponseAddressesStatistic {
+    address?: string;
+    balances?: V1Beta1Coin[];
+}
+export interface QueryListBearsStatisticResponseBearsStatistic {
+    /** @format uint64 */
+    id?: string;
+    owner?: string;
+    name?: string;
+    honeyPower?: string;
+}
 export interface QueryShowApiariesInfoByBearIdResponseApiaryInfo {
     /** @format uint64 */
     id?: string;
@@ -35,6 +46,14 @@ export interface BearsAddressBears {
     address?: string;
     bears?: string[];
 }
+export interface BearsAirHistory {
+    /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
+    height?: string;
+    count?: string;
+    purity?: string;
+}
 export interface BearsAirInfo {
     supply?: string;
     consume?: string;
@@ -49,6 +68,7 @@ export interface BearsApiaries {
     /** @format uint64 */
     spaceOccupied?: string;
     honeyFromPast?: string;
+    fieldFertility?: string;
 }
 export interface BearsApiaryHouse {
     /** @format uint64 */
@@ -61,6 +81,7 @@ export interface BearsApiaryParams {
     spaceAvailable?: string;
     maxHoney?: string;
     deleteReward?: V1Beta1Coin[];
+    fertility?: string;
 }
 export interface BearsBearNames {
     name?: string;
@@ -98,6 +119,8 @@ export interface BearsBees {
     bearOwner?: BearsBearOwner;
     apiaryHouse?: BearsApiaryHouse;
     params?: BearsBeeParams;
+    fieldFertility?: string;
+    apiaryFertility?: string;
 }
 export interface BearsCycleHistory {
     /** @format uint64 */
@@ -117,6 +140,7 @@ export interface BearsDecorations {
 }
 export interface BearsFieldParams {
     fieldType?: string;
+    fertility?: string;
     priceTile?: V1Beta1Coin[];
 }
 export interface BearsFieldRows {
@@ -208,6 +232,19 @@ export interface BearsParams {
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface BearsQueryAllAirHistoryResponse {
+    airHistory?: BearsAirHistory[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -339,6 +376,32 @@ export interface BearsQueryGetFieldsResponse {
 }
 export interface BearsQueryGetTreesResponse {
     Trees?: BearsTrees;
+}
+export interface BearsQueryListAddressesStatisticResponse {
+    Addresses?: QueryListAddressesStatisticResponseAddressesStatistic[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface BearsQueryListBearsStatisticResponse {
+    Bears?: QueryListBearsStatisticResponseBearsStatistic[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
@@ -553,6 +616,21 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * No description
      *
      * @tags Query
+     * @name QueryAirHistoryAll
+     * @summary Queries a list of AirHistory items.
+     * @request GET:/MonetaToday/honeywood/bears/air_history
+     */
+    queryAirHistoryAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryAllAirHistoryResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
      * @name QueryAirInfo
      * @summary Queries a AirInfo by index.
      * @request GET:/MonetaToday/honeywood/bears/air_info
@@ -711,6 +789,36 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/MonetaToday/honeywood/bears/fields/{id}
      */
     queryFields: (id: string, params?: RequestParams) => Promise<HttpResponse<BearsQueryGetFieldsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryListAddressesStatistic
+     * @summary Queries a list of ListAddressesStatistic items.
+     * @request GET:/MonetaToday/honeywood/bears/list_addresses_statistic
+     */
+    queryListAddressesStatistic: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryListAddressesStatisticResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryListBearsStatistic
+     * @summary Queries a list of ListBearsStatistic items.
+     * @request GET:/MonetaToday/honeywood/bears/list_bears_statistic
+     */
+    queryListBearsStatistic: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<BearsQueryListBearsStatisticResponse, RpcStatus>>;
     /**
      * No description
      *

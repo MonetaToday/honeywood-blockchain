@@ -101,13 +101,13 @@ export interface BearsApiaryHouse {
 }
 
 export interface BearsApiaryParams {
-  apiary_type?: string;
+  apiaryType?: string;
   price?: V1Beta1Coin[];
 
   /** @format uint64 */
-  space_available?: string;
-  max_honey?: string;
-  delete_reward?: V1Beta1Coin[];
+  spaceAvailable?: string;
+  maxHoney?: string;
+  deleteReward?: V1Beta1Coin[];
   fertility?: string;
 }
 
@@ -136,14 +136,14 @@ export interface BearsBears {
 }
 
 export interface BearsBeeParams {
-  bee_type?: string;
+  beeType?: string;
   price?: V1Beta1Coin[];
-  honey_per_block?: string;
+  honeyPerBlock?: string;
 
   /** @format uint64 */
-  body_size?: string;
-  air_count_dependency?: string;
-  air_consume?: string;
+  bodySize?: string;
+  airCountDependency?: string;
+  airConsume?: string;
 }
 
 export interface BearsBees {
@@ -164,7 +164,7 @@ export interface BearsCycleHistory {
 }
 
 export interface BearsDecorationParams {
-  decoration_type?: string;
+  decorationType?: string;
   price?: V1Beta1Coin[];
 }
 
@@ -177,9 +177,9 @@ export interface BearsDecorations {
 }
 
 export interface BearsFieldParams {
-  field_type?: string;
+  fieldType?: string;
   fertility?: string;
-  price_tile?: V1Beta1Coin[];
+  priceTile?: V1Beta1Coin[];
 }
 
 export interface BearsFieldRows {
@@ -283,18 +283,18 @@ export type BearsMsgUnsetDecorationPositionResponse = object;
  */
 export interface BearsParams {
   /** @format uint64 */
-  blocks_per_hour?: string;
+  blocksPerHour?: string;
 
   /** @format uint64 */
-  air_history_length?: string;
-  burn_rate?: string;
-  price_set_name?: V1Beta1Coin[];
-  field_types?: BearsFieldParams[];
-  tree_types?: BearsTreeParams[];
-  decoration_types?: BearsDecorationParams[];
-  apiary_types?: BearsApiaryParams[];
-  bee_types?: BearsBeeParams[];
-  honey_denom?: string;
+  airHistoryLength?: string;
+  burnRate?: string;
+  priceSetName?: V1Beta1Coin[];
+  fieldTypes?: BearsFieldParams[];
+  treeTypes?: BearsTreeParams[];
+  decorationTypes?: BearsDecorationParams[];
+  apiaryTypes?: BearsApiaryParams[];
+  beeTypes?: BearsBeeParams[];
+  honeyDenom?: string;
 }
 
 export interface BearsQueryAllAddressBearsResponse {
@@ -552,10 +552,10 @@ export interface BearsTiles {
 }
 
 export interface BearsTreeParams {
-  tree_type?: string;
+  treeType?: string;
   price?: V1Beta1Coin[];
   reward?: V1Beta1Coin[];
-  air_supply?: string;
+  airSupply?: string;
 }
 
 export interface BearsTrees {
@@ -624,7 +624,7 @@ export interface V1Beta1PageRequest {
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
-  count_total?: boolean;
+  countTotal?: boolean;
 
   /**
    * reverse is set to true if results are to be returned in the descending order.
@@ -645,7 +645,7 @@ corresponding request message has used PageRequest.
 */
 export interface V1Beta1PageResponse {
   /** @format byte */
-  next_key?: string;
+  nextKey?: string;
 
   /** @format uint64 */
   total?: string;
@@ -860,7 +860,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -902,7 +902,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -944,7 +944,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -986,7 +986,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1028,7 +1028,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1070,7 +1070,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1128,7 +1128,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1170,7 +1170,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1212,7 +1212,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1238,7 +1238,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
@@ -1408,7 +1408,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
+      "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},

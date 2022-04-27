@@ -13,6 +13,7 @@ export interface ItemPosition {
 }
 export interface FieldParams {
     fieldType: string;
+    fertility: string;
     priceTile: Coin[];
 }
 export interface Fields {

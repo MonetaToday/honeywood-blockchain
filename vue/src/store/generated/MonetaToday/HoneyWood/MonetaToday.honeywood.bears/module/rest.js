@@ -175,6 +175,21 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryAirHistoryAll
+         * @summary Queries a list of AirHistory items.
+         * @request GET:/MonetaToday/honeywood/bears/air_history
+         */
+        this.queryAirHistoryAll = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/air_history`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryAirInfo
          * @summary Queries a AirInfo by index.
          * @request GET:/MonetaToday/honeywood/bears/air_info
@@ -370,6 +385,36 @@ export class Api extends HttpClient {
         this.queryFields = (id, params = {}) => this.request({
             path: `/MonetaToday/honeywood/bears/fields/${id}`,
             method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryListAddressesStatistic
+         * @summary Queries a list of ListAddressesStatistic items.
+         * @request GET:/MonetaToday/honeywood/bears/list_addresses_statistic
+         */
+        this.queryListAddressesStatistic = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/list_addresses_statistic`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryListBearsStatistic
+         * @summary Queries a list of ListBearsStatistic items.
+         * @request GET:/MonetaToday/honeywood/bears/list_bears_statistic
+         */
+        this.queryListBearsStatistic = (query, params = {}) => this.request({
+            path: `/MonetaToday/honeywood/bears/list_bears_statistic`,
+            method: "GET",
+            query: query,
             format: "json",
             ...params,
         });

@@ -21,10 +21,12 @@ import { QueryShowApiariesInfoByBearIdResponse_ApiaryInfo } from "./module/types
 import { QueryShowTreesInfoByBearIdResponse_TreeInfo } from "./module/types/bears/query";
 import { QueryShowDecorationsInfoByBearIdResponse_DecorationInfo } from "./module/types/bears/query";
 import { QueryShowBeesInfoByBearIdResponse_BeeInfo } from "./module/types/bears/query";
+import { QueryListBearsStatisticResponse_BearsStatistic } from "./module/types/bears/query";
+import { QueryListAddressesStatisticResponse_AddressesStatistic } from "./module/types/bears/query";
 import { Tiles } from "./module/types/bears/tiles";
 import { Tiles_Items } from "./module/types/bears/tiles";
 import { TreeParams } from "./module/types/bears/trees";
 import { Trees } from "./module/types/bears/trees";
-export { AddressBears, AirHistory, AirInfo, ApiaryParams, CycleHistory, Apiaries, BearNames, BearOwner, Bears, BeeParams, ApiaryHouse, Bees, DecorationParams, Decorations, FieldRows, ItemPosition, FieldParams, Fields, Params, QueryShowApiariesInfoByBearIdResponse_ApiaryInfo, QueryShowTreesInfoByBearIdResponse_TreeInfo, QueryShowDecorationsInfoByBearIdResponse_DecorationInfo, QueryShowBeesInfoByBearIdResponse_BeeInfo, Tiles, Tiles_Items, TreeParams, Trees };
+export { AddressBears, AirHistory, AirInfo, ApiaryParams, CycleHistory, Apiaries, BearNames, BearOwner, Bears, BeeParams, ApiaryHouse, Bees, DecorationParams, Decorations, FieldRows, ItemPosition, FieldParams, Fields, Params, QueryShowApiariesInfoByBearIdResponse_ApiaryInfo, QueryShowTreesInfoByBearIdResponse_TreeInfo, QueryShowDecorationsInfoByBearIdResponse_DecorationInfo, QueryShowBeesInfoByBearIdResponse_BeeInfo, QueryListBearsStatisticResponse_BearsStatistic, QueryListAddressesStatisticResponse_AddressesStatistic, Tiles, Tiles_Items, TreeParams, Trees };
 declare const _default;
 export default _default;

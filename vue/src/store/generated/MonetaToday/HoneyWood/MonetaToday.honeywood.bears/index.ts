@@ -1,4 +1,6 @@
 import { txClient, queryClient, MissingWalletError , registry} from './module'
+// @ts-ignore
+import { SpVuexError } from '@starport/vuex'
 
 import { AddressBears } from "./module/types/bears/address_bears"
 import { AirHistory } from "./module/types/bears/air_info"
@@ -367,7 +369,7 @@ export default {
 					const sub=JSON.parse(subscription)
 					await dispatch(sub.action, sub.payload)
 				}catch(e) {
-					throw new Error('Subscriptions: ' + e.message)
+					throw new SpVuexError('Subscriptions: ' + e.message)
 				}
 			})
 		},
@@ -388,7 +390,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryParams', payload: { options: { all }, params: {...key},query }})
 				return getters['getParams']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryParams API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryParams', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -410,7 +412,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBearNames', payload: { options: { all }, params: {...key},query }})
 				return getters['getBearNames']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBearNames API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBearNames', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -436,7 +438,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBearNamesAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getBearNamesAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBearNamesAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBearNamesAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -458,7 +460,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBears', payload: { options: { all }, params: {...key},query }})
 				return getters['getBears']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBears API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBears', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -484,7 +486,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBearsAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getBearsAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBearsAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBearsAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -506,7 +508,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryAddressBears', payload: { options: { all }, params: {...key},query }})
 				return getters['getAddressBears']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryAddressBears API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryAddressBears', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -532,7 +534,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryAddressBearsAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getAddressBearsAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryAddressBearsAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryAddressBearsAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -554,7 +556,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryFields', payload: { options: { all }, params: {...key},query }})
 				return getters['getFields']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryFields API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryFields', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -580,7 +582,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryFieldsAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getFieldsAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryFieldsAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryFieldsAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -602,7 +604,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryTrees', payload: { options: { all }, params: {...key},query }})
 				return getters['getTrees']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryTrees API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryTrees', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -628,7 +630,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryTreesAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getTreesAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryTreesAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryTreesAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -650,7 +652,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryDecorations', payload: { options: { all }, params: {...key},query }})
 				return getters['getDecorations']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryDecorations API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryDecorations', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -676,7 +678,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryDecorationsAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getDecorationsAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryDecorationsAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryDecorationsAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -698,7 +700,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryApiaries', payload: { options: { all }, params: {...key},query }})
 				return getters['getApiaries']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryApiaries API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryApiaries', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -724,7 +726,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryApiariesAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getApiariesAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryApiariesAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryApiariesAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -746,7 +748,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBees', payload: { options: { all }, params: {...key},query }})
 				return getters['getBees']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBees API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBees', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -772,7 +774,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryBeesAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getBeesAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryBeesAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryBeesAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -794,7 +796,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryCalculateHoneyInApiary', payload: { options: { all }, params: {...key},query }})
 				return getters['getCalculateHoneyInApiary']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryCalculateHoneyInApiary API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryCalculateHoneyInApiary', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -816,7 +818,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryAirInfo', payload: { options: { all }, params: {...key},query }})
 				return getters['getAirInfo']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryAirInfo API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryAirInfo', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -838,7 +840,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowLastAirInfo', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowLastAirInfo']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowLastAirInfo API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowLastAirInfo', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -860,7 +862,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowApiariesInfoByBearId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowApiariesInfoByBearId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowApiariesInfoByBearId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowApiariesInfoByBearId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -882,7 +884,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowHoneyPowerByApiaryId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowHoneyPowerByApiaryId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowHoneyPowerByApiaryId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowHoneyPowerByApiaryId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -904,7 +906,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowHoneyPowerByBeeType', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowHoneyPowerByBeeType']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowHoneyPowerByBeeType API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowHoneyPowerByBeeType', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -926,7 +928,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowHoneyPowerByBearId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowHoneyPowerByBearId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowHoneyPowerByBearId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowHoneyPowerByBearId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -948,7 +950,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowTreesInfoByBearId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowTreesInfoByBearId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowTreesInfoByBearId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowTreesInfoByBearId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -970,7 +972,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowDecorationsInfoByBearId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowDecorationsInfoByBearId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowDecorationsInfoByBearId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowDecorationsInfoByBearId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -992,7 +994,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowBeesInfoByBearId', payload: { options: { all }, params: {...key},query }})
 				return getters['getShowBeesInfoByBearId']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryShowBeesInfoByBearId API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryShowBeesInfoByBearId', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -1018,7 +1020,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryAirHistoryAll', payload: { options: { all }, params: {...key},query }})
 				return getters['getAirHistoryAll']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryAirHistoryAll API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryAirHistoryAll', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -1044,7 +1046,7 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryListBearsStatistic', payload: { options: { all }, params: {...key},query }})
 				return getters['getListBearsStatistic']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryListBearsStatistic API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryListBearsStatistic', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
@@ -1070,207 +1072,12 @@ export default {
 				if (subscribe) commit('SUBSCRIBE', { action: 'QueryListAddressesStatistic', payload: { options: { all }, params: {...key},query }})
 				return getters['getListAddressesStatistic']( { params: {...key}, query}) ?? {}
 			} catch (e) {
-				throw new Error('QueryClient:QueryListAddressesStatistic API Node Unavailable. Could not perform query: ' + e.message)
+				throw new SpVuexError('QueryClient:QueryListAddressesStatistic', 'API Node Unavailable. Could not perform query: ' + e.message)
 				
 			}
 		},
 		
 		
-		async sendMsgSetApiaryHouseForBee({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetApiaryHouseForBee(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetApiaryHouseForBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetApiaryHouseForBee:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgInitGameAndCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateDecoration(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateDecoration:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateDecoration:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgSetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetDecorationPosition(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetDecorationPosition:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetDecorationPosition:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgClearApiaryFromBees({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgClearApiaryFromBees(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgClearApiaryFromBees:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgClearApiaryFromBees:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateTree(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateTree:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateTree:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgDeleteApiary({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteApiary(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDeleteApiary:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgExtendField({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgExtendField(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgExtendField:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgExtendField:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateApiary({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateApiary(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateApiary:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateDecoration(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateDecoration:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateDecoration:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgInitGameAndCreateBee({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateBee(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateBee:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUnsetApiaryHouseForBee({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUnsetApiaryHouseForBee(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUnsetApiaryHouseForBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgUnsetApiaryHouseForBee:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgSetName({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetName(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetName:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetName:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCollectHoneyFromApiary({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCollectHoneyFromApiary(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCollectHoneyFromApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCollectHoneyFromApiary:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgInitGameAndExtendField({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -1280,24 +1087,9 @@ export default {
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndExtendField:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndExtendField:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgInitGameAndCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateTree(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateTree:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateTree:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -1310,24 +1102,69 @@ export default {
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgMoveItemOnField:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgMoveItemOnField:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgMoveItemOnField:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async sendMsgUnsetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgExtendField({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUnsetDecorationPosition(value)
+				const msg = await txClient.msgExtendField(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUnsetDecorationPosition:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgExtendField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgUnsetDecorationPosition:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgExtendField:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgClearApiaryFromBees({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgClearApiaryFromBees(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgClearApiaryFromBees:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgClearApiaryFromBees:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgSetApiaryHouseForBee({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetApiaryHouseForBee(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetApiaryHouseForBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetApiaryHouseForBee:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateDecoration(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateDecoration:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -1340,9 +1177,9 @@ export default {
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndSetName:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndSetName:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndSetName:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndSetName:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -1355,9 +1192,144 @@ export default {
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateBee:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreateBee:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCreateBee:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgCreateBee:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgInitGameAndCreateDecoration({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateDecoration(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateApiary({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateApiary(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateApiary:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateTree(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateTree:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateTree:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgSetName({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetName(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetName:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetName:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgInitGameAndCreateBee({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateBee(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateBee:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgInitGameAndCreateTree({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateTree(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgUnsetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUnsetDecorationPosition(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgUnsetDecorationPosition:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUnsetDecorationPosition:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgCollectHoneyFromApiary({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCollectHoneyFromApiary(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCollectHoneyFromApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCollectHoneyFromApiary:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgUnsetApiaryHouseForBee({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUnsetApiaryHouseForBee(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgUnsetApiaryHouseForBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUnsetApiaryHouseForBee:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -1370,182 +1342,43 @@ export default {
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateApiary:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateApiary:Send Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgSetDecorationPosition({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetDecorationPosition(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetDecorationPosition:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetDecorationPosition:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDeleteApiary({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteApiary(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgDeleteApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeleteApiary:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
 		
-		async MsgSetApiaryHouseForBee({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetApiaryHouseForBee(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetApiaryHouseForBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetApiaryHouseForBee:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgInitGameAndCreateDecoration({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateDecoration(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateDecoration:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateDecoration:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgSetDecorationPosition({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetDecorationPosition(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetDecorationPosition:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetDecorationPosition:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgClearApiaryFromBees({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgClearApiaryFromBees(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgClearApiaryFromBees:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgClearApiaryFromBees:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateTree({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateTree(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateTree:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateTree:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgDeleteApiary({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteApiary(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgDeleteApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgDeleteApiary:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgExtendField({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgExtendField(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgExtendField:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgExtendField:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateApiary({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateApiary(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateApiary:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCreateDecoration({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateDecoration(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateDecoration:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCreateDecoration:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgInitGameAndCreateBee({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateBee(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateBee:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgUnsetApiaryHouseForBee({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUnsetApiaryHouseForBee(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUnsetApiaryHouseForBee:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgUnsetApiaryHouseForBee:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgSetName({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgSetName(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgSetName:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgSetName:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgCollectHoneyFromApiary({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCollectHoneyFromApiary(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCollectHoneyFromApiary:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgCollectHoneyFromApiary:Create Could not create message: ' + e.message)
-				}
-			}
-		},
 		async MsgInitGameAndExtendField({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -1553,22 +1386,10 @@ export default {
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndExtendField:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndExtendField:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgInitGameAndCreateTree({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgInitGameAndCreateTree(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateTree:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateTree:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndExtendField:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
@@ -1579,22 +1400,66 @@ export default {
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgMoveItemOnField:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgMoveItemOnField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgMoveItemOnField:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgMoveItemOnField:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
-		async MsgUnsetDecorationPosition({ rootGetters }, { value }) {
+		async MsgExtendField({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUnsetDecorationPosition(value)
+				const msg = await txClient.msgExtendField(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgUnsetDecorationPosition:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgExtendField:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgUnsetDecorationPosition:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgExtendField:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgClearApiaryFromBees({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgClearApiaryFromBees(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgClearApiaryFromBees:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgClearApiaryFromBees:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgSetApiaryHouseForBee({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetApiaryHouseForBee(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetApiaryHouseForBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetApiaryHouseForBee:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgCreateDecoration({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateDecoration(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateDecoration:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
@@ -1605,9 +1470,10 @@ export default {
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndSetName:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndSetName:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndSetName:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndSetName:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
@@ -1618,9 +1484,136 @@ export default {
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgCreateBee:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreateBee:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgCreateBee:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgCreateBee:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgInitGameAndCreateDecoration({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateDecoration(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateDecoration:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgCreateApiary({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateApiary(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateApiary:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgCreateTree({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateTree(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateTree:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateTree:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgSetName({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetName(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetName:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetName:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgInitGameAndCreateBee({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateBee(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateBee:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgInitGameAndCreateTree({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgInitGameAndCreateTree(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateTree:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgUnsetDecorationPosition({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUnsetDecorationPosition(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgUnsetDecorationPosition:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUnsetDecorationPosition:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgCollectHoneyFromApiary({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCollectHoneyFromApiary(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCollectHoneyFromApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCollectHoneyFromApiary:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgUnsetApiaryHouseForBee({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUnsetApiaryHouseForBee(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgUnsetApiaryHouseForBee:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUnsetApiaryHouseForBee:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
@@ -1631,9 +1624,38 @@ export default {
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgInitGameAndCreateApiary:Init Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new Error('TxClient:MsgInitGameAndCreateApiary:Create Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgInitGameAndCreateApiary:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgSetDecorationPosition({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgSetDecorationPosition(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgSetDecorationPosition:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgSetDecorationPosition:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgDeleteApiary({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteApiary(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgDeleteApiary:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeleteApiary:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},

@@ -7,12 +7,12 @@ import { BearOwner } from "../bears/bears";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface BeeParams {
-  bee_type: string;
+  beeType: string;
   price: Coin[];
-  honey_per_block: string;
-  body_size: number;
-  air_count_dependency: string;
-  air_consume: string;
+  honeyPerBlock: string;
+  bodySize: number;
+  airCountDependency: string;
+  airConsume: string;
 }
 
 export interface ApiaryHouse {
@@ -30,32 +30,32 @@ export interface Bees {
 }
 
 const baseBeeParams: object = {
-  bee_type: "",
-  honey_per_block: "",
-  body_size: 0,
-  air_count_dependency: "",
-  air_consume: "",
+  beeType: "",
+  honeyPerBlock: "",
+  bodySize: 0,
+  airCountDependency: "",
+  airConsume: "",
 };
 
 export const BeeParams = {
   encode(message: BeeParams, writer: Writer = Writer.create()): Writer {
-    if (message.bee_type !== "") {
-      writer.uint32(10).string(message.bee_type);
+    if (message.beeType !== "") {
+      writer.uint32(10).string(message.beeType);
     }
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.honey_per_block !== "") {
-      writer.uint32(26).string(message.honey_per_block);
+    if (message.honeyPerBlock !== "") {
+      writer.uint32(26).string(message.honeyPerBlock);
     }
-    if (message.body_size !== 0) {
-      writer.uint32(32).uint64(message.body_size);
+    if (message.bodySize !== 0) {
+      writer.uint32(32).uint64(message.bodySize);
     }
-    if (message.air_count_dependency !== "") {
-      writer.uint32(42).string(message.air_count_dependency);
+    if (message.airCountDependency !== "") {
+      writer.uint32(42).string(message.airCountDependency);
     }
-    if (message.air_consume !== "") {
-      writer.uint32(50).string(message.air_consume);
+    if (message.airConsume !== "") {
+      writer.uint32(50).string(message.airConsume);
     }
     return writer;
   },
@@ -69,22 +69,22 @@ export const BeeParams = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bee_type = reader.string();
+          message.beeType = reader.string();
           break;
         case 2:
           message.price.push(Coin.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.honey_per_block = reader.string();
+          message.honeyPerBlock = reader.string();
           break;
         case 4:
-          message.body_size = longToNumber(reader.uint64() as Long);
+          message.bodySize = longToNumber(reader.uint64() as Long);
           break;
         case 5:
-          message.air_count_dependency = reader.string();
+          message.airCountDependency = reader.string();
           break;
         case 6:
-          message.air_consume = reader.string();
+          message.airConsume = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -97,101 +97,94 @@ export const BeeParams = {
   fromJSON(object: any): BeeParams {
     const message = { ...baseBeeParams } as BeeParams;
     message.price = [];
-    if (object.bee_type !== undefined && object.bee_type !== null) {
-      message.bee_type = String(object.bee_type);
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = String(object.beeType);
     } else {
-      message.bee_type = "";
+      message.beeType = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromJSON(e));
       }
     }
-    if (
-      object.honey_per_block !== undefined &&
-      object.honey_per_block !== null
-    ) {
-      message.honey_per_block = String(object.honey_per_block);
+    if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+      message.honeyPerBlock = String(object.honeyPerBlock);
     } else {
-      message.honey_per_block = "";
+      message.honeyPerBlock = "";
     }
-    if (object.body_size !== undefined && object.body_size !== null) {
-      message.body_size = Number(object.body_size);
+    if (object.bodySize !== undefined && object.bodySize !== null) {
+      message.bodySize = Number(object.bodySize);
     } else {
-      message.body_size = 0;
+      message.bodySize = 0;
     }
     if (
-      object.air_count_dependency !== undefined &&
-      object.air_count_dependency !== null
+      object.airCountDependency !== undefined &&
+      object.airCountDependency !== null
     ) {
-      message.air_count_dependency = String(object.air_count_dependency);
+      message.airCountDependency = String(object.airCountDependency);
     } else {
-      message.air_count_dependency = "";
+      message.airCountDependency = "";
     }
-    if (object.air_consume !== undefined && object.air_consume !== null) {
-      message.air_consume = String(object.air_consume);
+    if (object.airConsume !== undefined && object.airConsume !== null) {
+      message.airConsume = String(object.airConsume);
     } else {
-      message.air_consume = "";
+      message.airConsume = "";
     }
     return message;
   },
 
   toJSON(message: BeeParams): unknown {
     const obj: any = {};
-    message.bee_type !== undefined && (obj.bee_type = message.bee_type);
+    message.beeType !== undefined && (obj.beeType = message.beeType);
     if (message.price) {
       obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
       obj.price = [];
     }
-    message.honey_per_block !== undefined &&
-      (obj.honey_per_block = message.honey_per_block);
-    message.body_size !== undefined && (obj.body_size = message.body_size);
-    message.air_count_dependency !== undefined &&
-      (obj.air_count_dependency = message.air_count_dependency);
-    message.air_consume !== undefined &&
-      (obj.air_consume = message.air_consume);
+    message.honeyPerBlock !== undefined &&
+      (obj.honeyPerBlock = message.honeyPerBlock);
+    message.bodySize !== undefined && (obj.bodySize = message.bodySize);
+    message.airCountDependency !== undefined &&
+      (obj.airCountDependency = message.airCountDependency);
+    message.airConsume !== undefined && (obj.airConsume = message.airConsume);
     return obj;
   },
 
   fromPartial(object: DeepPartial<BeeParams>): BeeParams {
     const message = { ...baseBeeParams } as BeeParams;
     message.price = [];
-    if (object.bee_type !== undefined && object.bee_type !== null) {
-      message.bee_type = object.bee_type;
+    if (object.beeType !== undefined && object.beeType !== null) {
+      message.beeType = object.beeType;
     } else {
-      message.bee_type = "";
+      message.beeType = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
         message.price.push(Coin.fromPartial(e));
       }
     }
-    if (
-      object.honey_per_block !== undefined &&
-      object.honey_per_block !== null
-    ) {
-      message.honey_per_block = object.honey_per_block;
+    if (object.honeyPerBlock !== undefined && object.honeyPerBlock !== null) {
+      message.honeyPerBlock = object.honeyPerBlock;
     } else {
-      message.honey_per_block = "";
+      message.honeyPerBlock = "";
     }
-    if (object.body_size !== undefined && object.body_size !== null) {
-      message.body_size = object.body_size;
+    if (object.bodySize !== undefined && object.bodySize !== null) {
+      message.bodySize = object.bodySize;
     } else {
-      message.body_size = 0;
+      message.bodySize = 0;
     }
     if (
-      object.air_count_dependency !== undefined &&
-      object.air_count_dependency !== null
+      object.airCountDependency !== undefined &&
+      object.airCountDependency !== null
     ) {
-      message.air_count_dependency = object.air_count_dependency;
+      message.airCountDependency = object.airCountDependency;
     } else {
-      message.air_count_dependency = "";
+      message.airCountDependency = "";
     }
-    if (object.air_consume !== undefined && object.air_consume !== null) {
-      message.air_consume = object.air_consume;
+    if (object.airConsume !== undefined && object.airConsume !== null) {
+      message.airConsume = object.airConsume;
     } else {
-      message.air_consume = "";
+      message.airConsume = "";
     }
     return message;
   },

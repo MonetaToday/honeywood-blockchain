@@ -44,7 +44,7 @@ func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryLi
 		return nil
 	})
 
-	if (req.Pagination.CountTotal) {
+	if (pageRes.Total > 0) {
 		pageRes.Total -= missingCount
 	}
 

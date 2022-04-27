@@ -8,7 +8,7 @@ import { ItemPosition } from "../bears/fields";
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
 export interface DecorationParams {
-  decoration_type: string;
+  decorationType: string;
   price: Coin[];
 }
 
@@ -19,12 +19,12 @@ export interface Decorations {
   position: ItemPosition | undefined;
 }
 
-const baseDecorationParams: object = { decoration_type: "" };
+const baseDecorationParams: object = { decorationType: "" };
 
 export const DecorationParams = {
   encode(message: DecorationParams, writer: Writer = Writer.create()): Writer {
-    if (message.decoration_type !== "") {
-      writer.uint32(10).string(message.decoration_type);
+    if (message.decorationType !== "") {
+      writer.uint32(10).string(message.decorationType);
     }
     for (const v of message.price) {
       Coin.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -41,7 +41,7 @@ export const DecorationParams = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.decoration_type = reader.string();
+          message.decorationType = reader.string();
           break;
         case 2:
           message.price.push(Coin.decode(reader, reader.uint32()));
@@ -57,13 +57,10 @@ export const DecorationParams = {
   fromJSON(object: any): DecorationParams {
     const message = { ...baseDecorationParams } as DecorationParams;
     message.price = [];
-    if (
-      object.decoration_type !== undefined &&
-      object.decoration_type !== null
-    ) {
-      message.decoration_type = String(object.decoration_type);
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = String(object.decorationType);
     } else {
-      message.decoration_type = "";
+      message.decorationType = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
@@ -75,8 +72,8 @@ export const DecorationParams = {
 
   toJSON(message: DecorationParams): unknown {
     const obj: any = {};
-    message.decoration_type !== undefined &&
-      (obj.decoration_type = message.decoration_type);
+    message.decorationType !== undefined &&
+      (obj.decorationType = message.decorationType);
     if (message.price) {
       obj.price = message.price.map((e) => (e ? Coin.toJSON(e) : undefined));
     } else {
@@ -88,13 +85,10 @@ export const DecorationParams = {
   fromPartial(object: DeepPartial<DecorationParams>): DecorationParams {
     const message = { ...baseDecorationParams } as DecorationParams;
     message.price = [];
-    if (
-      object.decoration_type !== undefined &&
-      object.decoration_type !== null
-    ) {
-      message.decoration_type = object.decoration_type;
+    if (object.decorationType !== undefined && object.decorationType !== null) {
+      message.decorationType = object.decorationType;
     } else {
-      message.decoration_type = "";
+      message.decorationType = "";
     }
     if (object.price !== undefined && object.price !== null) {
       for (const e of object.price) {
