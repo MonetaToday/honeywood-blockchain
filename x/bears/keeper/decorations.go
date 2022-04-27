@@ -150,6 +150,7 @@ func (k Keeper) CreateDecoration(ctx sdk.Context, creator string, receiver strin
 		Params:    decorationParams,
 	}
 	newDecorationId := k.AppendDecorations(ctx, newDecoration)
+	newDecoration.Id = newDecorationId
 
 	bear.Decorations = append(bear.Decorations, newDecorationId)
 	k.SetBears(ctx, bear)

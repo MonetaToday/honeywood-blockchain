@@ -225,6 +225,7 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 		ApiaryFertility: sdk.ZeroDec(),
 	}
 	newBeeId := k.AppendBees(ctx, newBee)
+	newBee.Id = newBeeId
 
 	bear.Bees = append(bear.Bees, newBeeId)
 	k.SetBears(ctx, bear)

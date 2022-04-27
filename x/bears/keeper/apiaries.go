@@ -168,6 +168,7 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 		FieldFertility: field.Params.Fertility,
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
+	newApiary.Id = newApiaryId
 
 	field.Rows[rowId].Columns[columnId].Item = &types.Tiles_Items{
 		ItemId:   newApiaryId,
