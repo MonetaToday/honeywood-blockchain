@@ -23,7 +23,6 @@ func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryLi
 	var addresses []types.QueryListAddressesStatisticResponse_AddressesStatistic
 	store := ctx.KVStore(k.authStoreKey)
 	accountsStore := prefix.NewStore(store, authtypes.AddressStoreKeyPrefix)
-	missingCount := uint64(0)
 
 	pageRes, err := query.Paginate(accountsStore, req.Pagination, func(key, value []byte) error {
 		account, err := k.accountKeeper.UnmarshalAccount(value)
@@ -31,22 +30,13 @@ func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryLi
 			panic(err)
 		}
 
-		_, ok := account.(authtypes.ModuleAccountI)
-		if !ok {
-			addresses = append(addresses, types.QueryListAddressesStatisticResponse_AddressesStatistic{
-				Address: account.GetAddress().String(),
-				Balances: k.bankKeeper.SpendableCoins(ctx, account.GetAddress()),
-			})
-		} else {
-			missingCount++
-		}
+		addresses = append(addresses, types.QueryListAddressesStatisticResponse_AddressesStatistic{
+			Address: account.GetAddress().String(),
+			Balances: k.bankKeeper.SpendableCoins(ctx, account.GetAddress()),
+		})
 		
 		return nil
 	})
-
-	if (pageRes.Total > 0) {
-		pageRes.Total -= missingCount
-	}
 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "paginate: %v", err)
