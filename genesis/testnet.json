@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2022-03-25T12:27:29.014102814Z",
+  "genesis_time": "2022-04-28T15:26:20.590403883Z",
   "chain_id": "HoneyWood",
   "initial_height": "1",
   "consensus_params": {
@@ -33,14 +33,14 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "bears104c3cu7qusz5hkc2cs4t3jvue7ymhlzn3nf8ye",
+          "address": "bears1dqpuvwyyekay3qvyx8u40ugjwk3vecea2e6tum",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
         },
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "bears1xr5x0p59tl89wl93p5gfm2wruv7v0esq5vmkqc",
+          "address": "bears10k0txlm8rwq5pw3cwgrsppcz08zxehejwatn9f",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
@@ -54,20 +54,24 @@
       },
       "balances": [
         {
-          "address": "bears1xr5x0p59tl89wl93p5gfm2wruv7v0esq5vmkqc",
-          "coins": [
-            {
-              "denom": "uhoney",
-              "amount": "287966667000000"
-            }
-          ]
-        },
-        {
-          "address": "bears104c3cu7qusz5hkc2cs4t3jvue7ymhlzn3nf8ye",
+          "address": "bears1dqpuvwyyekay3qvyx8u40ugjwk3vecea2e6tum",
           "coins": [
             {
               "denom": "cone",
               "amount": "19993665"
+            },
+            {
+              "denom": "uhoney",
+              "amount": "667000000"
+            }
+          ]
+        },
+        {
+          "address": "bears10k0txlm8rwq5pw3cwgrsppcz08zxehejwatn9f",
+          "coins": [
+            {
+              "denom": "uhoney",
+              "amount": "287966000000000"
             }
           ]
         }
@@ -137,6 +141,7 @@
                 "denom": "uhoney"
               }
             ],
+            "fertility": "1",
             "max_honey": "5000000",
             "price": [
               {
@@ -154,6 +159,7 @@
                 "denom": "uhoney"
               }
             ],
+            "fertility": "1",
             "max_honey": "15000000",
             "price": [
               {
@@ -171,6 +177,7 @@
                 "denom": "uhoney"
               }
             ],
+            "fertility": "1",
             "max_honey": "25000000",
             "price": [
               {
@@ -364,6 +371,7 @@
         ],
         "field_types": [
           {
+            "fertility": "1",
             "field_type": "DEFAULT",
             "price_tile": [
               {
@@ -515,11 +523,11 @@
                   "max_change_rate": "0.010000000000000000"
                 },
                 "min_self_delegation": "1",
-                "delegator_address": "bears104c3cu7qusz5hkc2cs4t3jvue7ymhlzn3nf8ye",
-                "validator_address": "bearsvaloper104c3cu7qusz5hkc2cs4t3jvue7ymhlzn7a6xww",
+                "delegator_address": "bears1dqpuvwyyekay3qvyx8u40ugjwk3vecea2e6tum",
+                "validator_address": "bearsvaloper1dqpuvwyyekay3qvyx8u40ugjwk3vecea9hf2kv",
                 "pubkey": {
                   "@type": "/cosmos.crypto.ed25519.PubKey",
-                  "key": "2afzrHpDJTbR2AsRgcMmOQr9kOPyNIslS2mGkXkxpVQ="
+                  "key": "t4H8r1acx3qvG/AqeyUY9HDDY4+B/BQhdLoqBSFazXU="
                 },
                 "value": {
                   "denom": "cone",
@@ -527,7 +535,7 @@
                 }
               }
             ],
-            "memo": "781713b748f7d98ae79072ba0f313cce040d24a9@172.105.64.39:26656",
+            "memo": "8687d9986bc046804e1f46193a15a4e26667fa73@172.105.64.39:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -537,7 +545,7 @@
               {
                 "public_key": {
                   "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  "key": "AnznnIm2JjC+lMBHiTUH01NCim32JeuIS8j0SoaaHGvI"
+                  "key": "AraYxelMgVvX/Zfp4RV7v32lTv8COWOMpXoNkh0imfa8"
                 },
                 "mode_info": {
                   "single": {
@@ -555,7 +563,7 @@
             }
           },
           "signatures": [
-            "IvBkNvusYGRd7nOLoZ50On5qzfWhWorNVsU2JYaNefwJLWAiiRaqpAb3076eodI0KLKsKcqmNT2LjVppaxqzeA=="
+            "UTDgoFjfIP6JCRFJIr/0lleBYqhXSaJuljeA9J7KwqZGbgGUayiGC5ciBZEZ1Yplep5xLVC/2CNXYomFmUnHww=="
           ]
         }
       ]

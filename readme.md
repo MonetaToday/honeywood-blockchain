@@ -42,7 +42,7 @@ Change configs chain:
 ```sh
   cp ./genesis/testnet.json $DAEMON_HOME/config/genesis.json
   sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
-  sed -i'' 's/seeds = ""/seeds = "781713b748f7d98ae79072ba0f313cce040d24a9@172.105.64.39:26656"/' $DAEMON_HOME/config/config.toml
+  sed -i'' 's/seeds = ""/seeds = "8687d9986bc046804e1f46193a15a4e26667fa73@172.105.64.39:26656"/' $DAEMON_HOME/config/config.toml
 ```
 
 Init cosmovisor:
