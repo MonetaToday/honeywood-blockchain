@@ -27,7 +27,7 @@ Set envs:
 
 Init chain:
 ```sh
-  git clone https://github.com/MonetaToday/honeywood-blockchain.git -b v0.1.2
+  git clone https://github.com/MonetaToday/honeywood-blockchain.git -b v0.1.4
   cd honeywood-blockchain
   curl https://get.starport.network/starport! | bash
   starport chain init
