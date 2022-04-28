@@ -11,7 +11,7 @@ import (
 func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitGameAndSetName) (*types.MsgInitGameAndSetNameResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	newBear, _, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
+	newBear, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Creator)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}
@@ -27,6 +27,7 @@ func (k msgServer) InitGameAndSetName(goCtx context.Context, msg *types.MsgInitG
 			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
 			sdk.NewAttribute(types.AttributeKeyBearName, msg.Name),
 			sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(newBear.Id, 10)),
+			sdk.NewAttribute(types.AttributeKeyFieldId, strconv.FormatUint(newField.Id, 10)),
 		),
 	})
 

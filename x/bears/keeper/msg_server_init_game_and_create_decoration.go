@@ -11,7 +11,7 @@ import (
 func (k msgServer) InitGameAndCreateDecoration(goCtx context.Context, msg *types.MsgInitGameAndCreateDecoration) (*types.MsgInitGameAndCreateDecorationResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	newBear, _, initGameErr := k.Keeper.InitGame(ctx, msg.Receiver)
+	newBear, newField, initGameErr := k.Keeper.InitGame(ctx, msg.Receiver)
 	if initGameErr != nil {
 		return nil, initGameErr
 	}
@@ -27,6 +27,7 @@ func (k msgServer) InitGameAndCreateDecoration(goCtx context.Context, msg *types
 			sdk.NewAttribute(types.AttributeKeyCreator, msg.Creator),
 			sdk.NewAttribute(types.AttributeKeyReceiver, msg.Receiver),
 			sdk.NewAttribute(types.AttributeKeyBearId, strconv.FormatUint(newBear.Id, 10)),
+			sdk.NewAttribute(types.AttributeKeyFieldId, strconv.FormatUint(newField.Id, 10)),
 			sdk.NewAttribute(types.AttributeKeyDecorationId, strconv.FormatUint(decoration.Id, 10)),
 			sdk.NewAttribute(types.AttributeKeyDecorationType, msg.DecorationType),
 		),
