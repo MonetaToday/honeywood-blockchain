@@ -25,8 +25,6 @@ export interface Bees {
   bearOwner: BearOwner | undefined;
   apiaryHouse: ApiaryHouse | undefined;
   params: BeeParams | undefined;
-  fieldFertility: string;
-  apiaryFertility: string;
 }
 
 const baseBeeParams: object = {
@@ -245,12 +243,7 @@ export const ApiaryHouse = {
   },
 };
 
-const baseBees: object = {
-  id: 0,
-  name: "",
-  fieldFertility: "",
-  apiaryFertility: "",
-};
+const baseBees: object = { id: 0, name: "" };
 
 export const Bees = {
   encode(message: Bees, writer: Writer = Writer.create()): Writer {
@@ -271,12 +264,6 @@ export const Bees = {
     }
     if (message.params !== undefined) {
       BeeParams.encode(message.params, writer.uint32(42).fork()).ldelim();
-    }
-    if (message.fieldFertility !== "") {
-      writer.uint32(50).string(message.fieldFertility);
-    }
-    if (message.apiaryFertility !== "") {
-      writer.uint32(58).string(message.apiaryFertility);
     }
     return writer;
   },
@@ -302,12 +289,6 @@ export const Bees = {
           break;
         case 5:
           message.params = BeeParams.decode(reader, reader.uint32());
-          break;
-        case 6:
-          message.fieldFertility = reader.string();
-          break;
-        case 7:
-          message.apiaryFertility = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -344,19 +325,6 @@ export const Bees = {
     } else {
       message.params = undefined;
     }
-    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
-      message.fieldFertility = String(object.fieldFertility);
-    } else {
-      message.fieldFertility = "";
-    }
-    if (
-      object.apiaryFertility !== undefined &&
-      object.apiaryFertility !== null
-    ) {
-      message.apiaryFertility = String(object.apiaryFertility);
-    } else {
-      message.apiaryFertility = "";
-    }
     return message;
   },
 
@@ -376,10 +344,6 @@ export const Bees = {
       (obj.params = message.params
         ? BeeParams.toJSON(message.params)
         : undefined);
-    message.fieldFertility !== undefined &&
-      (obj.fieldFertility = message.fieldFertility);
-    message.apiaryFertility !== undefined &&
-      (obj.apiaryFertility = message.apiaryFertility);
     return obj;
   },
 
@@ -409,19 +373,6 @@ export const Bees = {
       message.params = BeeParams.fromPartial(object.params);
     } else {
       message.params = undefined;
-    }
-    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
-      message.fieldFertility = object.fieldFertility;
-    } else {
-      message.fieldFertility = "";
-    }
-    if (
-      object.apiaryFertility !== undefined &&
-      object.apiaryFertility !== null
-    ) {
-      message.apiaryFertility = object.apiaryFertility;
-    } else {
-      message.apiaryFertility = "";
     }
     return message;
   },

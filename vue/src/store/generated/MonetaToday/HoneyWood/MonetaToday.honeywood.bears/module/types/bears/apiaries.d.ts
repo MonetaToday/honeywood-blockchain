@@ -9,7 +9,6 @@ export interface ApiaryParams {
     spaceAvailable: number;
     maxHoney: string;
     deleteReward: Coin[];
-    fertility: string;
 }
 export interface CycleHistory {
     height: number;
@@ -23,7 +22,6 @@ export interface Apiaries {
     cycleHistory: CycleHistory[];
     spaceOccupied: number;
     honeyFromPast: string;
-    fieldFertility: string;
 }
 export declare const ApiaryParams: {
     encode(message: ApiaryParams, writer?: Writer): Writer;

@@ -25,6 +25,29 @@ client:
 genesis:
   app_state:
     bank:
+      params:
+        send_enabled:
+          - denom: "uhoney"
+            enabled: false
+          - denom: "cone"
+            enabled: false
+        # locked_senders:
+        #   - address: "bears1uzn334k00zt8l70j2jd4f5jzs4kp4a8uxfcjyj"
+        #     denoms:
+        #       - "uhoney"
+        # locked_receivers:
+        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
+        #     denoms:
+        #       - "uhoney"
+        # unlocked_receivers:
+        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
+        #     denoms:
+        #       - "uhoney"
+        # locked_receivers:
+        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
+        #     denoms:
+        #       - "uhoney"
+        #       - "cone"
       denom_metadata:
         - name: "HoneyCoin"
           description: "HoneyCoin is a native coin which is used to play"
@@ -68,7 +91,8 @@ genesis:
             amount: "10000"
         max_deposit_period: "172800s"
       voting_params:
-        voting_period: "172800s"
+        # voting_period: "60s"
+        voting_period: "43200s"
     bears:
       airInfo:
         supply: "1"
@@ -84,7 +108,6 @@ genesis:
 
         field_types:
           - field_type: "DEFAULT"
-            fertility: "1"
             price_tile:
               - denom: "uhoney"
                 amount: "100000000"
@@ -153,7 +176,6 @@ genesis:
         apiary_types:
           - apiary_type: "BEE_HOUSE"
             space_available: 5
-            fertility: "1"
             max_honey: "5000000"
             price:
             - denom: "uhoney"
@@ -163,7 +185,6 @@ genesis:
               amount: "250000000"
           - apiary_type: "APIARY"
             space_available: 8
-            fertility: "1"
             max_honey: "15000000"
             price:
             - denom: "uhoney"
@@ -173,7 +194,6 @@ genesis:
               amount: "450000000"
           - apiary_type: "ALVEARY"
             space_available: 12
-            fertility: "1"
             max_honey: "25000000"
             price:
             - denom: "uhoney"

@@ -13,7 +13,6 @@ export interface ApiaryParams {
   spaceAvailable: number;
   maxHoney: string;
   deleteReward: Coin[];
-  fertility: string;
 }
 
 export interface CycleHistory {
@@ -29,14 +28,12 @@ export interface Apiaries {
   cycleHistory: CycleHistory[];
   spaceOccupied: number;
   honeyFromPast: string;
-  fieldFertility: string;
 }
 
 const baseApiaryParams: object = {
   apiaryType: "",
   spaceAvailable: 0,
   maxHoney: "",
-  fertility: "",
 };
 
 export const ApiaryParams = {
@@ -55,9 +52,6 @@ export const ApiaryParams = {
     }
     for (const v of message.deleteReward) {
       Coin.encode(v!, writer.uint32(42).fork()).ldelim();
-    }
-    if (message.fertility !== "") {
-      writer.uint32(50).string(message.fertility);
     }
     return writer;
   },
@@ -85,9 +79,6 @@ export const ApiaryParams = {
           break;
         case 5:
           message.deleteReward.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 6:
-          message.fertility = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -126,11 +117,6 @@ export const ApiaryParams = {
         message.deleteReward.push(Coin.fromJSON(e));
       }
     }
-    if (object.fertility !== undefined && object.fertility !== null) {
-      message.fertility = String(object.fertility);
-    } else {
-      message.fertility = "";
-    }
     return message;
   },
 
@@ -152,7 +138,6 @@ export const ApiaryParams = {
     } else {
       obj.deleteReward = [];
     }
-    message.fertility !== undefined && (obj.fertility = message.fertility);
     return obj;
   },
 
@@ -184,11 +169,6 @@ export const ApiaryParams = {
       for (const e of object.deleteReward) {
         message.deleteReward.push(Coin.fromPartial(e));
       }
-    }
-    if (object.fertility !== undefined && object.fertility !== null) {
-      message.fertility = object.fertility;
-    } else {
-      message.fertility = "";
     }
     return message;
   },
@@ -282,12 +262,7 @@ export const CycleHistory = {
   },
 };
 
-const baseApiaries: object = {
-  id: 0,
-  spaceOccupied: 0,
-  honeyFromPast: "",
-  fieldFertility: "",
-};
+const baseApiaries: object = { id: 0, spaceOccupied: 0, honeyFromPast: "" };
 
 export const Apiaries = {
   encode(message: Apiaries, writer: Writer = Writer.create()): Writer {
@@ -311,9 +286,6 @@ export const Apiaries = {
     }
     if (message.honeyFromPast !== "") {
       writer.uint32(58).string(message.honeyFromPast);
-    }
-    if (message.fieldFertility !== "") {
-      writer.uint32(66).string(message.fieldFertility);
     }
     return writer;
   },
@@ -348,9 +320,6 @@ export const Apiaries = {
           break;
         case 7:
           message.honeyFromPast = reader.string();
-          break;
-        case 8:
-          message.fieldFertility = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -398,11 +367,6 @@ export const Apiaries = {
     } else {
       message.honeyFromPast = "";
     }
-    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
-      message.fieldFertility = String(object.fieldFertility);
-    } else {
-      message.fieldFertility = "";
-    }
     return message;
   },
 
@@ -432,8 +396,6 @@ export const Apiaries = {
       (obj.spaceOccupied = message.spaceOccupied);
     message.honeyFromPast !== undefined &&
       (obj.honeyFromPast = message.honeyFromPast);
-    message.fieldFertility !== undefined &&
-      (obj.fieldFertility = message.fieldFertility);
     return obj;
   },
 
@@ -474,11 +436,6 @@ export const Apiaries = {
       message.honeyFromPast = object.honeyFromPast;
     } else {
       message.honeyFromPast = "";
-    }
-    if (object.fieldFertility !== undefined && object.fieldFertility !== null) {
-      message.fieldFertility = object.fieldFertility;
-    } else {
-      message.fieldFertility = "";
     }
     return message;
   },

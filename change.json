@@ -1,14 +1,22 @@
 {
-  "title": "Bears Param Change",
-  "description": "Update PriceSetName",
+  "title": "Bears Locked Param Change",
+  "description": "Remove bears1uzn334k00zt8l70j2jd4f5jzs4kp4a8uxfcjyj",
   "changes": [
     {
-      "subspace": "bears",
-      "key": "PriceSetName",
-      "value": {
-        "denom": "honey",
-        "amount": "300"
-      }
+      "subspace": "bank",
+      "key": "UnlockedReceivers",
+      "value": [{
+        "address": "bears17gm8zxt2wnfxh9cq9jqunu5hw77m5fe2v868zu",
+        "denoms": ["cone", "uhoney"]
+      }]
+    },
+    {
+      "subspace": "bank",
+      "key": "UnlockedSenders",
+      "value": [{
+        "address": "bears17gm8zxt2wnfxh9cq9jqunu5hw77m5fe2v868zu",
+        "denoms": ["uhoney"]
+      }]
     }
   ],
   "deposit": "10000cone"

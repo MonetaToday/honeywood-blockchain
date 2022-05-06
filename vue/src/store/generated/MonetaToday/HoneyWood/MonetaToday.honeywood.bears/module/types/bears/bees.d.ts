@@ -19,8 +19,6 @@ export interface Bees {
     bearOwner: BearOwner | undefined;
     apiaryHouse: ApiaryHouse | undefined;
     params: BeeParams | undefined;
-    fieldFertility: string;
-    apiaryFertility: string;
 }
 export declare const BeeParams: {
     encode(message: BeeParams, writer?: Writer): Writer;

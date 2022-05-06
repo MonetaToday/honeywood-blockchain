@@ -165,7 +165,6 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 		CycleHistory:   []types.CycleHistory{},
 		SpaceOccupied:  0,
 		HoneyFromPast:  sdk.ZeroDec(),
-		FieldFertility: field.Params.Fertility,
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
 	newApiary.Id = newApiaryId
@@ -255,17 +254,13 @@ func (k Keeper) CalculateBeesHoneyPower(ctx sdk.Context, bees []types.Bees, airP
 	honeyPower := sdk.ZeroDec()
 	for _, bee := range bees {
 		beeHoneyPower :=
-			bee.FieldFertility.Mul(
-				bee.ApiaryFertility.Mul(
-					airPurity.Mul(
-						bee.Params.HoneyPerBlock.Mul(
-							sdk.OneDec().Add(
-								airCount.Sub(
-									sdk.OneDec(),
-								).Mul(
-									bee.Params.AirCountDependency,
-								),
-							),
+			airPurity.Mul(
+				bee.Params.HoneyPerBlock.Mul(
+					sdk.OneDec().Add(
+						airCount.Sub(
+							sdk.OneDec(),
+						).Mul(
+							bee.Params.AirCountDependency,
 						),
 					),
 				),

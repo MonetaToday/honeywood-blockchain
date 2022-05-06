@@ -3,8 +3,8 @@ module github.com/MonetaToday/HoneyWood
 go 1.16
 
 require (
-	github.com/cosmos/cosmos-sdk v0.45.4
-	// github.com/cosmos/cosmos-sdk v0.45.4-honeywood-sdk
+	// github.com/cosmos/cosmos-sdk v0.45.4
+	github.com/cosmos/cosmos-sdk v0.45.4-honeywood-sdk
 	github.com/cosmos/ibc-go v1.2.2
 	github.com/gogo/protobuf v1.3.3
 	github.com/golang/protobuf v1.5.2
@@ -25,6 +25,7 @@ require (
 
 replace (
 	// github.com/cosmos/cosmos-sdk => ../honeywood-sdk
+	github.com/cosmos/cosmos-sdk => github.com/MonetaToday/honeywood-blockchain-sdk v0.45.4-honeywood-sdk
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/keybase/go-keychain => github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
