@@ -1,6 +1,7 @@
 package types
 
 import "encoding/binary"
+import "strings"
 
 var _ binary.ByteOrder
 
@@ -15,7 +16,7 @@ func BearNamesKey(
 ) []byte {
 	var key []byte
 
-	nameBytes := []byte(name)
+	nameBytes := []byte(strings.ToLower(name))
 	key = append(key, nameBytes...)
 	key = append(key, []byte("/")...)
 

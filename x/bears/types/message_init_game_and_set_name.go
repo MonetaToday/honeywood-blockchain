@@ -4,6 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"strings"
+	"regexp"
 )
 
 const TypeMsgInitGameAndSetName = "init_game_and_set_name"
@@ -23,8 +24,8 @@ func ValidateNameInput(name string) error {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name must not have any spaces around")
 	}
 
-	if !sdk.IsAlphaNumeric(name) {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name can only contain alphanumeric characters")
+	if !regexp.MustCompile(`^[a-zA-Z0-9]+( {1}[a-zA-Z0-9]+)*$`).MatchString(name) {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Name can only contain alphanumeric characters with a single space between them")
 	}
 
 	_, errName := sdk.AccAddressFromBech32(name)
