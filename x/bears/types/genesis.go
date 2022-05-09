@@ -139,6 +139,19 @@ func (gs GenesisState) Validate() error {
 		return fmt.Errorf("airInfo.Supply must be greater than or equal 0")
 	}
 
+	// Check for duplicated ID in airHistory
+	airHistoryIdMap := make(map[uint64]bool)
+	airHistoryLastIndex := gs.GetAirHistoryLastIndex()
+	for _, elem := range gs.AirHistory {
+		if _, ok := airHistoryIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for airHistory")
+		}
+		if elem.Id >= airHistoryLastIndex {
+			return fmt.Errorf("airHistory id should be lower or equal than the last id")
+		}
+		airHistoryIdMap[elem.Id] = true
+	}
+
 	// this line is used by starport scaffolding # genesis/types/validate
 
 	return gs.Params.Validate()

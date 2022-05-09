@@ -94,9 +94,19 @@ genesis:
         # voting_period: "60s"
         voting_period: "43200s"
     bears:
+      # airHistoryLastIndex: 2
+      # airHistory:
+      #   - count: "100"
+      #     height: "100"
+      #     id: 0
+      #     purity: "100"
+      #   - count: "100"
+      #     height: "100"
+      #     id: 1
+      #     purity: "100"
       airInfo:
         supply: "1"
-        consume: "1"
+        consume: "100"
       params:
         honey_denom: "uhoney"
         air_history_length: "518400"

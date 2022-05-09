@@ -70,11 +70,36 @@ func (k Keeper) GetAirHistory(ctx sdk.Context, id uint64) (val types.AirHistory,
 	return val, true
 }
 
+// SetAirHistory set a specific airHistory in the store
+func (k Keeper) SetAirHistory(ctx sdk.Context, airHistory types.AirHistory) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.AirHistoryKey))
+	b := k.cdc.MustMarshal(&airHistory)
+	store.Set(GetAirHistoryIDBytes(airHistory.Id), b)
+}
+
 // RemoveAirHistory removes an air history from the store
 func (k Keeper) RemoveAirHistory(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.AirHistoryKey))
 	store.Delete(GetAirHistoryIDBytes(id))
 }
+
+// GetAllAirHistory returns all airHistory
+func (k Keeper) GetAllAirHistory(ctx sdk.Context) (list []types.AirHistory) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.AirHistoryKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AirHistory
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
+		list = append(list, val)
+	}
+
+	return
+}
+
+
 
 // SetAirInfo set airInfo in the store
 func (k Keeper) SetAirInfo(ctx sdk.Context, airInfo types.AirInfo) {
@@ -84,6 +109,10 @@ func (k Keeper) SetAirInfo(ctx sdk.Context, airInfo types.AirInfo) {
 
 	lastIndex := k.GetAirHistoryLastIndex(ctx) - 1
 	lastAirHistory, found := k.GetAirHistory(ctx, lastIndex)
+
+	if found && lastAirHistory.Height > height {
+		height = lastAirHistory.Height
+	}
 
 	if !found || !lastAirHistory.Count.Equal(airCount) || !lastAirHistory.Purity.Equal(airPurity) {
 		if found && lastAirHistory.Height == height {

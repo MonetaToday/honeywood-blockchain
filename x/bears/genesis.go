@@ -60,8 +60,17 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	// Set bees count
 	k.SetBeesCount(ctx, genState.BeesCount)
 	k.SetParams(ctx, genState.Params)
+
+	// Set airHistoryLastIndex
+	k.SetAirHistoryLastIndex(ctx, genState.AirHistoryLastIndex)
+	// Set all the airHistory
+	for _, elem := range genState.AirHistory {
+		k.SetAirHistory(ctx, elem)
+	}
+
 	// Set air info
 	k.SetAirInfo(ctx, genState.AirInfo)
+
 	// this line is used by starport scaffolding # genesis/module/init
 
 }
@@ -90,6 +99,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	if found {
 		genesis.AirInfo = airInfo
 	}
+	genesis.AirHistory = k.GetAllAirHistory(ctx)
+	genesis.AirHistoryLastIndex = k.GetAirHistoryLastIndex(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

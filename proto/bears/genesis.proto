@@ -34,5 +34,7 @@ message GenesisState {
   repeated Bees beesList = 14 [(gogoproto.nullable) = false];
   uint64 beesCount = 15;
   AirInfo airInfo = 16 [(gogoproto.nullable) = false];
+  repeated AirHistory airHistory = 17 [(gogoproto.nullable) = false];
+  uint64 airHistoryLastIndex = 18;
   // this line is used by starport scaffolding # genesis/proto/state
 }
