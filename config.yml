@@ -2,18 +2,72 @@ build:
   binary: "honeyd"
 init:
   config:
+    moniker: "cone-company-stake"
     consensus:
       timeout_commit: "5s"
   app:
     minimum-gas-prices: "0.05uhoney"
 accounts:
-  - name: alice
-    coins: ["19993665cone", "667000000uhoney"]
-  - name: bob
-    coins: ["287966000000000uhoney"]
+  - name: "honey-pre-private"
+    address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
+    coins: ["15000000000000uhoney"]
+  - name: "honey-team"
+    address: "bears1sqvyny30arlm4538ayu4d8urw8yzhtjtpkql28"
+    coins: ["15000000000000uhoney"]
+  - name: "honey-advisory"
+    address: "bears13tpvdg8xqx0q08lfnve6w8kqx3s4fpw074p4jt"
+    coins: ["1800000000000uhoney"]
+  - name: "honey-rewards"
+    address: "bears1smpurvyfg008k606nfs5jr7024xf4zlvf0934f"
+    coins: ["500000000000uhoney"]
+  - name: "honey-marketing"
+    address: "bears1yckxajewmy2yrzapr9yv5ey8txpxck6552n42d"
+    coins: ["4000000000000uhoney"]
+  - name: "honey-web-sale"
+    address: "bears1ucqjfkcf8wer4lglsg062hpjmnupm9y68ylzgw"
+    coins: ["25000000000000uhoney"]
+  - name: "honey-igo"
+    address: "bears1nc6hqyl8ujeqcefkndurjj3h7njf09jwwcx3a8"
+    coins: ["41666667000000uhoney"]
+  - name: "honey-liquidity"
+    address: "bears1fqepqpwhsn0zlu5ydvzwkq6pszejcfsy92qw2y"
+    coins: ["185000000000000uhoney"]
+
+  - name: "cone-pre-private"
+    address: "bears1n4hrlxmyc6nwzqh0f0hhq3ahlaga5h20wxphfv"
+    coins: ["1500000cone"]
+  - name: "cone-private-1"
+    address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
+    coins: ["1923077cone"]
+  - name: "cone-private-2"
+    address: "bears1f0rmz8z22zmjpg4cysuky50mgaw6782dq7gz3d"
+    coins: ["1470588cone"]
+  - name: "cone-company-stake-1"
+    coins: ["3400000cone"]
+  - name: "cone-company-stake-2"
+    address: "bears1ktszane2hq4rc3khgj9pkrxhszeetqpxf8my7a"
+    coins: ["3400000cone"]
+  - name: "cone-company-stake-3"
+    address: "bears1k2hhnm4dj6klkcgglzmaqpqtypllg4rf3jy06a"
+    coins: ["3400000cone"]
+  - name: "cone-rewards"
+    address: "bears1rvtvnk7pdtxwn5gteu6slxfylkyzxmfjg4elht"
+    coins: ["900000cone"]
+  - name: "cone-team"
+    address: "bears1ww27cag59sunfuvqmntkk38n76a639r46gy70e"
+    coins: ["1000000cone"]
+  - name: "cone-advisory"
+    address: "bears1ky92wllu6h7wgqtadem764kh40ynzwa0pndyx9"
+    coins: ["200000cone"]
+  - name: "cone-marketing"
+    address: "bears15jnxsqty699ma05pxkhecvrpfux0aehcgxlxcq"
+    coins: ["300000cone"]
+  - name: "cone-liquidity"
+    address: "bears1p5ym6hugkgvc9zvwd6hj36s5h7n7w92zthet5g"
+    coins: ["2500000cone"]
 validator:
-  name: alice
-  staked: "10000000cone"
+  name: "cone-company-stake-1"
+  staked: "3400000cone"
 client:
   # openapi:
   #   path: "docs/static/openapi.yml"
@@ -31,23 +85,22 @@ genesis:
             enabled: false
           - denom: "cone"
             enabled: false
-        # locked_senders:
-        #   - address: "bears1uzn334k00zt8l70j2jd4f5jzs4kp4a8uxfcjyj"
-        #     denoms:
-        #       - "uhoney"
-        # locked_receivers:
-        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
-        #     denoms:
-        #       - "uhoney"
-        # unlocked_receivers:
-        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
-        #     denoms:
-        #       - "uhoney"
-        # locked_receivers:
-        #   - address: "bears1e8asl44jwzlh9078lfu6u2k44u4ywh4kwcyxc5"
-        #     denoms:
-        #       - "uhoney"
-        #       - "cone"
+        unlocked_senders:
+          - address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
+            denoms:
+              - "cone"
+          - address: "bears1f0rmz8z22zmjpg4cysuky50mgaw6782dq7gz3d"
+            denoms:
+              - "cone"
+          - address: "bears1ww27cag59sunfuvqmntkk38n76a639r46gy70e"
+            denoms:
+              - "cone"
+          - address: "bears1ky92wllu6h7wgqtadem764kh40ynzwa0pndyx9"
+            denoms:
+              - "cone"
+          - address: "bears1fqepqpwhsn0zlu5ydvzwkq6pszejcfsy92qw2y"
+            denoms:
+              - "uhoney"
       denom_metadata:
         - name: "HoneyCoin"
           description: "HoneyCoin is a native coin which is used to play"
@@ -91,22 +144,11 @@ genesis:
             amount: "10000"
         max_deposit_period: "172800s"
       voting_params:
-        # voting_period: "60s"
         voting_period: "43200s"
     bears:
-      # airHistoryLastIndex: 2
-      # airHistory:
-      #   - count: "100"
-      #     height: "100"
-      #     id: 0
-      #     purity: "100"
-      #   - count: "100"
-      #     height: "100"
-      #     id: 1
-      #     purity: "100"
       airInfo:
-        supply: "1"
-        consume: "100"
+        supply: "1000"
+        consume: "1000"
       params:
         honey_denom: "uhoney"
         air_history_length: "518400"
@@ -114,7 +156,7 @@ genesis:
         burn_rate: "0.5"
         price_set_name: 
           - denom: "uhoney"
-            amount: "5000000000"
+            amount: "100000000"
 
         field_types:
           - field_type: "DEFAULT"
