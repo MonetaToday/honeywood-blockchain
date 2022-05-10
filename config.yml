@@ -276,7 +276,7 @@ genesis:
 
         bee_types:
           - bee_type: "SMALL_BEE"
-            honey_per_block: "972"
+            honey_per_block: "792"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -284,7 +284,7 @@ genesis:
             - denom: "uhoney"
               amount: "1100000000"
           - bee_type: "BEE"
-            honey_per_block: "1042"
+            honey_per_block: "875"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -292,7 +292,7 @@ genesis:
             - denom: "uhoney"
               amount: "1200000000"
           - bee_type: "LUCKY_BEE"
-            honey_per_block: "1125"
+            honey_per_block: "944"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -300,7 +300,7 @@ genesis:
             - denom: "uhoney"
               amount: "1280000000"
           - bee_type: "HONEY_BEE"
-            honey_per_block: "1208"
+            honey_per_block: "1028"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -308,7 +308,7 @@ genesis:
             - denom: "uhoney"
               amount: "1370000000"
           - bee_type: "SKILLED_BEE"
-            honey_per_block: "1375"
+            honey_per_block: "1139"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -316,7 +316,7 @@ genesis:
             - denom: "uhoney"
               amount: "1500000000"
           - bee_type: "CURIOUS_BEE"
-            honey_per_block: "1528"
+            honey_per_block: "1264"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -324,7 +324,7 @@ genesis:
             - denom: "uhoney"
               amount: "1650000000"
           - bee_type: "HONEY_EXPLORER"
-            honey_per_block: "1667"
+            honey_per_block: "1375"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -332,7 +332,7 @@ genesis:
             - denom: "uhoney"
               amount: "1780000000"
           - bee_type: "HONEY_HUNTER"
-            honey_per_block: "1806"
+            honey_per_block: "1486"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -340,7 +340,7 @@ genesis:
             - denom: "uhoney"
               amount: "1800000000"
           - bee_type: "WONDER_BEE"
-            honey_per_block: "2083"
+            honey_per_block: "1667"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -348,7 +348,7 @@ genesis:
             - denom: "uhoney"
               amount: "2100000000"
           - bee_type: "DIAMOND_STING"
-            honey_per_block: "2500"
+            honey_per_block: "1917"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -356,7 +356,7 @@ genesis:
             - denom: "uhoney"
               amount: "2350000000"
           - bee_type: "FOREST_BEE"
-            honey_per_block: "1000"
+            honey_per_block: "847"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -364,7 +364,7 @@ genesis:
             - denom: "uhoney"
               amount: "1150000000"
           - bee_type: "FOREST_EXPLORER"
-            honey_per_block: "1667"
+            honey_per_block: "1389"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
@@ -372,7 +372,7 @@ genesis:
             - denom: "uhoney"
               amount: "1780000000"
           - bee_type: "FOREST_ACE"
-            honey_per_block: "2639"
+            honey_per_block: "1986"
             body_size: 1
             air_count_dependency: "1"
             air_consume: "0.5"
