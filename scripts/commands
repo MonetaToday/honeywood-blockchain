@@ -106,7 +106,7 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears init-game-and-create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes
 
 
-~/go/bin/honeyd tx bears init-game-and-set-name asdasd --from bob --fees 10000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-set-name assd --from bob --fees 10000uhoney --yes
 
 ~/go/bin/honeyd tx bears init-game-and-create-decoration bears14cxpjprh2jjv4m0zhl4k62z0vf7769q0568ggw FOUNTAIN --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-decoration-position 0 0 0 0 --from bob --fees 10000uhoney --yes

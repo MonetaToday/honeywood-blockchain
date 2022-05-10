@@ -23,6 +23,9 @@ var (
 	DefaultPriceSetName sdk.Coins = sdk.NewCoins(sdk.NewCoin("uhoney", sdk.NewInt(100000000)))
 	MaxNameLength                 = 100
 
+	KeyMinNameLength     = []byte("MinNameLength")
+	DefaultMinNameLength = uint64(5)
+
 	KeyFieldTypes     = []byte("FieldTypes")
 	DefaultFieldTypes = []FieldParams{}
 
@@ -54,6 +57,7 @@ func NewParams(
 	apiaryTypes []ApiaryParams,
 	beeTypes []BeeParams,
 	honeyDenom string,
+	minNameLength uint64,
 ) Params {
 	return Params{
 		AirHistoryLength: airHistoryLength,
@@ -66,6 +70,7 @@ func NewParams(
 		ApiaryTypes:      apiaryTypes,
 		BeeTypes:         beeTypes,
 		HoneyDenom:       honeyDenom,
+		MinNameLength: 		minNameLength,
 	}
 }
 
@@ -82,6 +87,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, &p.BeeTypes, validateBeeTypes),
 		paramtypes.NewParamSetPair(KeyHoneyDenom, &p.HoneyDenom, validateHoneyDenom),
+		paramtypes.NewParamSetPair(KeyMinNameLength, &p.MinNameLength, validateMinNameLength),
 	}
 }
 
@@ -127,6 +133,10 @@ func (p Params) Validate() error {
 		return err
 	}
 
+	if err := validateMinNameLength(p.MinNameLength); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -143,6 +153,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, []BeeParams{}, validateBeeTypes),
 		paramtypes.NewParamSetPair(KeyHoneyDenom, DefaultHoneyDenom, validateHoneyDenom),
+		paramtypes.NewParamSetPair(KeyMinNameLength, DefaultMinNameLength, validateMinNameLength),
 	)
 }
 
@@ -159,6 +170,7 @@ func DefaultParams() Params {
 		DefaultApiaryTypes,
 		DefaultBeeTypes,
 		DefaultHoneyDenom,
+		DefaultMinNameLength,
 	)
 }
 
@@ -318,4 +330,17 @@ func validateHoneyDenom(i interface{}) error {
 	}
 
 	return sdk.ValidateDenom(v)
+}
+
+func validateMinNameLength(i interface{}) error {
+	v, ok := i.(uint64)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v <= 0 {
+		return fmt.Errorf("invalid MinNameLength: %d", v)
+	}
+
+	return nil
 }

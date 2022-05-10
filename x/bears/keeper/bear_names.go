@@ -75,6 +75,11 @@ func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name s
 		return types.ErrAddressHasNoRight
 	}
 
+	minNameLength := k.MinNameLength(ctx)
+	if uint64(len(name)) < minNameLength {
+		return types.ErrNameShouldBeShorter
+	}
+
 	loadedBearName, nameFound := k.GetBearNames(ctx, name)
 	if nameFound && loadedBearName.BearId != bear.Id {
 		return types.ErrNameIsAlreadyTaken
