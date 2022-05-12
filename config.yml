@@ -81,6 +81,9 @@ client:
 #   coins: ["5uhoney", "100000stake"]
 genesis:
   app_state:
+    slashing:
+      params:
+        downtime_jail_duration: "3600s"
     bank:
       params:
         send_enabled:
