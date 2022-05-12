@@ -44,7 +44,7 @@ Show your node ID:
 
 Change configs chain:
 ```sh
-  cp ./genesis/testnet.json $DAEMON_HOME/config/genesis.json
+  cp ./genesis/mainnet.json $DAEMON_HOME/config/genesis.json
   sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
   sed -i'' 's/seeds = ""/seeds = "e061db65e7de5f33578794da194b32ceff40a2ea@139.162.241.189:26656"/' $DAEMON_HOME/config/config.toml
 ```
