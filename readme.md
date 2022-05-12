@@ -10,6 +10,10 @@ The coins which are deposited to a proposal will burn either:
 Firstly install Go:
 ```sh
   https://golang.org/doc/install
+  
+  wget https://go.dev/dl/go1.18.2.linux-amd64.tar.gz
+  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.2.linux-amd64.tar.gz
+  export PATH=$PATH:/usr/local/go/bin
 ```
 
 In Ubuntu please install:
