@@ -9,6 +9,7 @@ init:
     minimum-gas-prices: "0.05uhoney"
 accounts:
   - name: "bob"
+    address: "bears1k85vfgkuhfsg99l7f3xgvvuervh5654zr2kwgw"
     coins: ["15000000000000uhoney"]
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
@@ -88,6 +89,9 @@ genesis:
           - denom: "cone"
             enabled: false
         unlocked_senders:
+          - address: "bears1k85vfgkuhfsg99l7f3xgvvuervh5654zr2kwgw"
+            denoms:
+              - "uhoney"
           - address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
             denoms:
               - "cone"
@@ -105,7 +109,7 @@ genesis:
               - "uhoney"
           - address: "bears1ucqjfkcf8wer4lglsg062hpjmnupm9y68ylzgw"
             denoms:
-                - "uhoney"
+              - "uhoney"
       denom_metadata:
         - name: "HoneyCoin"
           description: "HoneyCoin is a native coin which is used to play"
