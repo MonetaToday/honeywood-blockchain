@@ -107,6 +107,10 @@ genesis:
           - address: "bears1ucqjfkcf8wer4lglsg062hpjmnupm9y68ylzgw"
             denoms:
               - "uhoney"
+        unlocked_receivers:
+          - address: "bears17588vth3rrcamljd7hjkxp0jm5y7mvdf222lwy"
+            denoms:
+              - "uhoney"
       denom_metadata:
         - name: "HoneyCoin"
           description: "HoneyCoin is a native coin which is used to play"
