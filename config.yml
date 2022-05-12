@@ -8,6 +8,8 @@ init:
   app:
     minimum-gas-prices: "0.05uhoney"
 accounts:
+  - name: "bob"
+    coins: ["15000000000000uhoney"]
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
     coins: ["15000000000000uhoney"]
@@ -153,7 +155,7 @@ genesis:
         supply: "1000"
         consume: "1000"
       params:
-        honey_denom: "uhoney"
+        bear_air_consume: "1"
         air_history_length: "518400"
         blocks_per_hour: "720"
         burn_rate: "0.5"

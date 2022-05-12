@@ -151,7 +151,6 @@ func networkWithBeesInApiaryObjects(t *testing.T) *network.Network {
 
 	params := types.Params{
 		BlocksPerHour: 3600,
-		HoneyDenom:    "honey",
 		PriceSetName:  sdk.Coins{sdk.NewInt64Coin("honey", 900)},
 		PriceTile:     sdk.Coins{sdk.NewInt64Coin("honey", 900)},
 	}

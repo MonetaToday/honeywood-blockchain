@@ -77,7 +77,7 @@ func (k Keeper) BuyBearName(ctx sdk.Context, buyer string, bearId uint64, name s
 
 	minNameLength := k.MinNameLength(ctx)
 	if uint64(len(name)) < minNameLength {
-		return types.ErrNameShouldBeShorter
+		return types.ErrNameShouldBeLonger
 	}
 
 	loadedBearName, nameFound := k.GetBearNames(ctx, name)

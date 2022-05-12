@@ -10,7 +10,7 @@ import { Trees } from "../bears/trees";
 import { Decorations } from "../bears/decorations";
 import { Apiaries } from "../bears/apiaries";
 import { Bees } from "../bears/bees";
-import { AirInfo } from "../bears/air_info";
+import { AirInfo, AirHistory } from "../bears/air_info";
 
 export const protobufPackage = "MonetaToday.honeywood.bears";
 
@@ -31,8 +31,10 @@ export interface GenesisState {
   apiariesCount: number;
   beesList: Bees[];
   beesCount: number;
-  /** this line is used by starport scaffolding # genesis/proto/state */
   airInfo: AirInfo | undefined;
+  airHistory: AirHistory[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  airHistoryLastIndex: number;
 }
 
 const baseGenesisState: object = {
@@ -42,6 +44,7 @@ const baseGenesisState: object = {
   decorationsCount: 0,
   apiariesCount: 0,
   beesCount: 0,
+  airHistoryLastIndex: 0,
 };
 
 export const GenesisState = {
@@ -94,6 +97,12 @@ export const GenesisState = {
     if (message.airInfo !== undefined) {
       AirInfo.encode(message.airInfo, writer.uint32(130).fork()).ldelim();
     }
+    for (const v of message.airHistory) {
+      AirHistory.encode(v!, writer.uint32(138).fork()).ldelim();
+    }
+    if (message.airHistoryLastIndex !== 0) {
+      writer.uint32(144).uint64(message.airHistoryLastIndex);
+    }
     return writer;
   },
 
@@ -109,6 +118,7 @@ export const GenesisState = {
     message.decorationsList = [];
     message.apiariesList = [];
     message.beesList = [];
+    message.airHistory = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -164,6 +174,12 @@ export const GenesisState = {
         case 16:
           message.airInfo = AirInfo.decode(reader, reader.uint32());
           break;
+        case 17:
+          message.airHistory.push(AirHistory.decode(reader, reader.uint32()));
+          break;
+        case 18:
+          message.airHistoryLastIndex = longToNumber(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -182,6 +198,7 @@ export const GenesisState = {
     message.decorationsList = [];
     message.apiariesList = [];
     message.beesList = [];
+    message.airHistory = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
@@ -271,6 +288,19 @@ export const GenesisState = {
     } else {
       message.airInfo = undefined;
     }
+    if (object.airHistory !== undefined && object.airHistory !== null) {
+      for (const e of object.airHistory) {
+        message.airHistory.push(AirHistory.fromJSON(e));
+      }
+    }
+    if (
+      object.airHistoryLastIndex !== undefined &&
+      object.airHistoryLastIndex !== null
+    ) {
+      message.airHistoryLastIndex = Number(object.airHistoryLastIndex);
+    } else {
+      message.airHistoryLastIndex = 0;
+    }
     return message;
   },
 
@@ -347,6 +377,15 @@ export const GenesisState = {
       (obj.airInfo = message.airInfo
         ? AirInfo.toJSON(message.airInfo)
         : undefined);
+    if (message.airHistory) {
+      obj.airHistory = message.airHistory.map((e) =>
+        e ? AirHistory.toJSON(e) : undefined
+      );
+    } else {
+      obj.airHistory = [];
+    }
+    message.airHistoryLastIndex !== undefined &&
+      (obj.airHistoryLastIndex = message.airHistoryLastIndex);
     return obj;
   },
 
@@ -360,6 +399,7 @@ export const GenesisState = {
     message.decorationsList = [];
     message.apiariesList = [];
     message.beesList = [];
+    message.airHistory = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
@@ -448,6 +488,19 @@ export const GenesisState = {
       message.airInfo = AirInfo.fromPartial(object.airInfo);
     } else {
       message.airInfo = undefined;
+    }
+    if (object.airHistory !== undefined && object.airHistory !== null) {
+      for (const e of object.airHistory) {
+        message.airHistory.push(AirHistory.fromPartial(e));
+      }
+    }
+    if (
+      object.airHistoryLastIndex !== undefined &&
+      object.airHistoryLastIndex !== null
+    ) {
+      message.airHistoryLastIndex = object.airHistoryLastIndex;
+    } else {
+      message.airHistoryLastIndex = 0;
     }
     return message;
   },

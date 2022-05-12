@@ -21,14 +21,16 @@ export interface Params {
   decorationTypes: DecorationParams[];
   apiaryTypes: ApiaryParams[];
   beeTypes: BeeParams[];
-  honeyDenom: string;
+  minNameLength: number;
+  bearAirConsume: string;
 }
 
 const baseParams: object = {
   blocksPerHour: 0,
   airHistoryLength: 0,
   burnRate: "",
-  honeyDenom: "",
+  minNameLength: 0,
+  bearAirConsume: "",
 };
 
 export const Params = {
@@ -60,8 +62,11 @@ export const Params = {
     for (const v of message.beeTypes) {
       BeeParams.encode(v!, writer.uint32(74).fork()).ldelim();
     }
-    if (message.honeyDenom !== "") {
-      writer.uint32(82).string(message.honeyDenom);
+    if (message.minNameLength !== 0) {
+      writer.uint32(80).uint64(message.minNameLength);
+    }
+    if (message.bearAirConsume !== "") {
+      writer.uint32(90).string(message.bearAirConsume);
     }
     return writer;
   },
@@ -111,7 +116,10 @@ export const Params = {
           message.beeTypes.push(BeeParams.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.honeyDenom = reader.string();
+          message.minNameLength = longToNumber(reader.uint64() as Long);
+          break;
+        case 11:
+          message.bearAirConsume = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -180,10 +188,15 @@ export const Params = {
         message.beeTypes.push(BeeParams.fromJSON(e));
       }
     }
-    if (object.honeyDenom !== undefined && object.honeyDenom !== null) {
-      message.honeyDenom = String(object.honeyDenom);
+    if (object.minNameLength !== undefined && object.minNameLength !== null) {
+      message.minNameLength = Number(object.minNameLength);
     } else {
-      message.honeyDenom = "";
+      message.minNameLength = 0;
+    }
+    if (object.bearAirConsume !== undefined && object.bearAirConsume !== null) {
+      message.bearAirConsume = String(object.bearAirConsume);
+    } else {
+      message.bearAirConsume = "";
     }
     return message;
   },
@@ -237,7 +250,10 @@ export const Params = {
     } else {
       obj.beeTypes = [];
     }
-    message.honeyDenom !== undefined && (obj.honeyDenom = message.honeyDenom);
+    message.minNameLength !== undefined &&
+      (obj.minNameLength = message.minNameLength);
+    message.bearAirConsume !== undefined &&
+      (obj.bearAirConsume = message.bearAirConsume);
     return obj;
   },
 
@@ -300,10 +316,15 @@ export const Params = {
         message.beeTypes.push(BeeParams.fromPartial(e));
       }
     }
-    if (object.honeyDenom !== undefined && object.honeyDenom !== null) {
-      message.honeyDenom = object.honeyDenom;
+    if (object.minNameLength !== undefined && object.minNameLength !== null) {
+      message.minNameLength = object.minNameLength;
     } else {
-      message.honeyDenom = "";
+      message.minNameLength = 0;
+    }
+    if (object.bearAirConsume !== undefined && object.bearAirConsume !== null) {
+      message.bearAirConsume = object.bearAirConsume;
+    } else {
+      message.bearAirConsume = "";
     }
     return message;
   },

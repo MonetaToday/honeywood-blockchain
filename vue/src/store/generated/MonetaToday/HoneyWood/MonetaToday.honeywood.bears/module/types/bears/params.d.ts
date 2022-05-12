@@ -17,7 +17,8 @@ export interface Params {
     decorationTypes: DecorationParams[];
     apiaryTypes: ApiaryParams[];
     beeTypes: BeeParams[];
-    honeyDenom: string;
+    minNameLength: number;
+    bearAirConsume: string;
 }
 export declare const Params: {
     encode(message: Params, writer?: Writer): Writer;

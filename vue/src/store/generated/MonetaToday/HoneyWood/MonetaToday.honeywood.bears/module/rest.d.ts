@@ -224,7 +224,9 @@ export interface BearsParams {
     decorationTypes?: BearsDecorationParams[];
     apiaryTypes?: BearsApiaryParams[];
     beeTypes?: BearsBeeParams[];
-    honeyDenom?: string;
+    /** @format uint64 */
+    minNameLength?: string;
+    bearAirConsume?: string;
 }
 export interface BearsQueryAllAddressBearsResponse {
     addressBears?: BearsAddressBears[];

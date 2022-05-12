@@ -40,7 +40,8 @@ message Params {
   repeated BeeParams bee_types = 9
     [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"bee_types\""];
 
-  string honey_denom = 10 [(gogoproto.moretags) = "yaml:\"honey_denom\""];
+  uint64 min_name_length = 10 [(gogoproto.moretags) = "yaml:\"min_name_length\""];
 
-  uint64 min_name_length = 11 [(gogoproto.moretags) = "yaml:\"min_name_length\""];
+  string bear_air_consume = 11
+    [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"bear_air_consume\"", (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];
 }

@@ -41,8 +41,8 @@ var (
 	KeyBeeTypes     = []byte("BeeTypes")
 	DefaultBeeTypes = []BeeParams{}
 
-	KeyHoneyDenom     = []byte("HoneyDenom")
-	DefaultHoneyDenom = "uhoney"
+	KeyBearAirConsume        = []byte("BearAirConsume")
+	DefaultBearAirConsume, _ = sdk.NewDecFromStr("1")
 )
 
 // NewParams creates a new Params instance
@@ -56,8 +56,8 @@ func NewParams(
 	decorationTypes []DecorationParams,
 	apiaryTypes []ApiaryParams,
 	beeTypes []BeeParams,
-	honeyDenom string,
 	minNameLength uint64,
+	bearAirConsume sdk.Dec,
 ) Params {
 	return Params{
 		AirHistoryLength: airHistoryLength,
@@ -69,8 +69,8 @@ func NewParams(
 		DecorationTypes:  decorationTypes,
 		ApiaryTypes:      apiaryTypes,
 		BeeTypes:         beeTypes,
-		HoneyDenom:       honeyDenom,
 		MinNameLength: 		minNameLength,
+		BearAirConsume:		bearAirConsume,
 	}
 }
 
@@ -86,8 +86,8 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyDecorationTypes, &p.DecorationTypes, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, &p.ApiaryTypes, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, &p.BeeTypes, validateBeeTypes),
-		paramtypes.NewParamSetPair(KeyHoneyDenom, &p.HoneyDenom, validateHoneyDenom),
 		paramtypes.NewParamSetPair(KeyMinNameLength, &p.MinNameLength, validateMinNameLength),
+		paramtypes.NewParamSetPair(KeyBearAirConsume, &p.BearAirConsume, validateBearAirConsume),
 	}
 }
 
@@ -129,11 +129,11 @@ func (p Params) Validate() error {
 		return err
 	}
 
-	if err := validateHoneyDenom(p.HoneyDenom); err != nil {
+	if err := validateMinNameLength(p.MinNameLength); err != nil {
 		return err
 	}
 
-	if err := validateMinNameLength(p.MinNameLength); err != nil {
+	if err := validateBearAirConsume(p.BearAirConsume); err != nil {
 		return err
 	}
 
@@ -152,8 +152,8 @@ func ParamKeyTable() paramtypes.KeyTable {
 		paramtypes.NewParamSetPair(KeyDecorationTypes, []DecorationParams{}, validateDecorationTypes),
 		paramtypes.NewParamSetPair(KeyApiaryTypes, []ApiaryParams{}, validateApiaryTypes),
 		paramtypes.NewParamSetPair(KeyBeeTypes, []BeeParams{}, validateBeeTypes),
-		paramtypes.NewParamSetPair(KeyHoneyDenom, DefaultHoneyDenom, validateHoneyDenom),
 		paramtypes.NewParamSetPair(KeyMinNameLength, DefaultMinNameLength, validateMinNameLength),
+		paramtypes.NewParamSetPair(KeyBearAirConsume, DefaultBearAirConsume, validateBearAirConsume),
 	)
 }
 
@@ -169,8 +169,8 @@ func DefaultParams() Params {
 		DefaultDecorationTypes,
 		DefaultApiaryTypes,
 		DefaultBeeTypes,
-		DefaultHoneyDenom,
 		DefaultMinNameLength,
+		DefaultBearAirConsume,
 	)
 }
 
@@ -323,15 +323,6 @@ func validateBeeTypes(i interface{}) error {
 	return nil
 }
 
-func validateHoneyDenom(i interface{}) error {
-	v, ok := i.(string)
-	if !ok {
-		return fmt.Errorf("invalid parameter type: %T", i)
-	}
-
-	return sdk.ValidateDenom(v)
-}
-
 func validateMinNameLength(i interface{}) error {
 	v, ok := i.(uint64)
 	if !ok {
@@ -340,6 +331,19 @@ func validateMinNameLength(i interface{}) error {
 
 	if v <= 0 {
 		return fmt.Errorf("invalid MinNameLength: %d", v)
+	}
+
+	return nil
+}
+
+func validateBearAirConsume(i interface{}) error {
+	v, ok := i.(sdk.Dec)
+	if !ok {
+		return fmt.Errorf("invalid parameter type: %T", i)
+	}
+
+	if v.LT(sdk.ZeroDec()) {
+		return fmt.Errorf("invalid BearAirConsume: %s", v)
 	}
 
 	return nil

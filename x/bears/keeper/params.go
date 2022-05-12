@@ -17,8 +17,8 @@ func (k Keeper) GetParams(ctx sdk.Context) types.Params {
 		k.DecorationTypes(ctx),
 		k.ApiaryTypes(ctx),
 		k.BeeTypes(ctx),
-		k.HoneyDenom(ctx),
 		k.MinNameLength(ctx),
+		k.BearAirConsume(ctx),
 	)
 }
 
@@ -81,14 +81,14 @@ func (k Keeper) BeeTypes(ctx sdk.Context) (res []types.BeeParams) {
 	return
 }
 
-// HoneyDenom returns the HoneyDenom param
-func (k Keeper) HoneyDenom(ctx sdk.Context) (res string) {
-	k.paramstore.Get(ctx, types.KeyHoneyDenom, &res)
-	return
-}
-
 // MinNameLength returns the MinNameLength param
 func (k Keeper) MinNameLength(ctx sdk.Context) (res uint64) {
 	k.paramstore.Get(ctx, types.KeyMinNameLength, &res)
+	return
+}
+
+// BearAirConsume returns the BearAirConsume param
+func (k Keeper) BearAirConsume(ctx sdk.Context) (res sdk.Dec) {
+	k.paramstore.Get(ctx, types.KeyBearAirConsume, &res)
 	return
 }

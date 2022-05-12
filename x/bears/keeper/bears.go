@@ -182,7 +182,8 @@ func (k Keeper) InitGame(ctx sdk.Context, address string) (*types.Bears, *types.
 	// 	types.NewBearCreatedEvent(bearId, address),
 	// )
 
-	airConsume := k.GetTotalAirConsume(ctx).Add(sdk.OneDec())
+	bearAirConsume := k.BearAirConsume(ctx)
+	airConsume := k.GetTotalAirConsume(ctx).Add(bearAirConsume)
 	k.SetTotalAirConsume(ctx, airConsume)
 
 	return &newBear, &newField, nil
