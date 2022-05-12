@@ -8,8 +8,6 @@ init:
   app:
     minimum-gas-prices: "0.05uhoney"
 accounts:
-  - name: "bob"
-    coins: ["15000000000000uhoney"]
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
     coins: ["15000000000000uhoney"]
