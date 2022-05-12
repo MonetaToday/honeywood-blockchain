@@ -35,7 +35,7 @@ accounts:
 
   - name: "cone-pre-private"
     address: "bears1n4hrlxmyc6nwzqh0f0hhq3ahlaga5h20wxphfv"
-    coins: ["1500000cone"]
+    coins: ["500000cone"]
   - name: "cone-private-1"
     address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
     coins: ["1923077cone"]
@@ -90,6 +90,9 @@ genesis:
             enabled: false
         unlocked_senders:
           - address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
+            denoms:
+              - "cone"
+          - address: "bears1n4hrlxmyc6nwzqh0f0hhq3ahlaga5h20wxphfv"
             denoms:
               - "cone"
           - address: "bears1f0rmz8z22zmjpg4cysuky50mgaw6782dq7gz3d"
@@ -157,8 +160,8 @@ genesis:
         voting_period: "43200s"
     bears:
       airInfo:
-        supply: "1000"
-        consume: "1000"
+        supply: "11000"
+        consume: "10000"
       params:
         bear_air_consume: "1"
         air_history_length: "518400"
