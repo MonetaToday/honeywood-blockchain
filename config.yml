@@ -8,6 +8,8 @@ init:
   app:
     minimum-gas-prices: "0.05uhoney"
 accounts:
+  - name: "bob"
+    coins: ["15000000000000uhoney"]
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
     coins: ["15000000000000uhoney"]
@@ -200,11 +202,11 @@ genesis:
             reward:
               - denom: "cone"
                 amount: "150"
-          - tree_type: BUSH
-            air_supply: "1"
-            price:
-              - denom: "uhoney"
-                amount: "200000000"
+          # - tree_type: BUSH
+          #   air_supply: "1"
+          #   price:
+          #     - denom: "uhoney"
+          #       amount: "200000000"
 
         decoration_types:
           - decoration_type: "FLOWERS"
