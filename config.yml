@@ -2,15 +2,12 @@ build:
   binary: "honeyd"
 init:
   config:
-    moniker: "cone-company-stake"
+    moniker: "cone-company-stake-1"
     consensus:
       timeout_commit: "5s"
   app:
     minimum-gas-prices: "0.05uhoney"
 accounts:
-  - name: "bob"
-    address: "bears1k85vfgkuhfsg99l7f3xgvvuervh5654zr2kwgw"
-    coins: ["15000000000000uhoney"]
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"
     coins: ["15000000000000uhoney"]
@@ -92,9 +89,6 @@ genesis:
           - denom: "cone"
             enabled: false
         unlocked_senders:
-          - address: "bears1k85vfgkuhfsg99l7f3xgvvuervh5654zr2kwgw"
-            denoms:
-              - "uhoney"
           - address: "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u"
             denoms:
               - "cone"
