@@ -31,7 +31,7 @@ Set envs:
 
 Init chain:
 ```sh
-  git clone https://github.com/MonetaToday/honeywood-blockchain.git -b v0.1.4
+  git clone https://github.com/MonetaToday/honeywood-blockchain.git -b v0.1.5
   cd honeywood-blockchain
   curl https://get.starport.network/starport! | bash
   starport chain init
@@ -46,7 +46,7 @@ Change configs chain:
 ```sh
   cp ./genesis/testnet.json $DAEMON_HOME/config/genesis.json
   sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
-  sed -i'' 's/seeds = ""/seeds = "8687d9986bc046804e1f46193a15a4e26667fa73@172.105.64.39:26656"/' $DAEMON_HOME/config/config.toml
+  sed -i'' 's/seeds = ""/seeds = "e061db65e7de5f33578794da194b32ceff40a2ea@139.162.241.189:26656"/' $DAEMON_HOME/config/config.toml
 ```
 
 Init cosmovisor:
