@@ -46,7 +46,8 @@ Change configs chain:
 ```sh
   cp ./genesis/mainnet.json $DAEMON_HOME/config/genesis.json
   sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
-  sed -i'' 's/seeds = ""/seeds = "abc0ceacf8d74c6d095e8b9d555ea87e40137f57@139.162.241.189:26656"/' $DAEMON_HOME/config/config.toml
+  sed -i -e 's/timeout_commit = "5s"/timeout_commit = "4s"/' $DAEMON_HOME/config/config.toml
+  sed -i -e 's/seeds = ""/seeds = "abc0ceacf8d74c6d095e8b9d555ea87e40137f57@139.162.241.189:26656"/' $DAEMON_HOME/config/config.toml
 ```
 
 Init cosmovisor:
@@ -111,6 +112,16 @@ You can see logs:
 Or:
 ```sh
   tail -n 100 /var/log/honeyd/honeyd_error.log
+```
+
+Restart process:
+```sh
+  systemctl stop honeyd.service
+  rm /var/log/honeyd/honeyd.log
+  rm /var/log/honeyd/honeyd_error.log
+  touch /var/log/honeyd/honeyd.log
+  touch /var/log/honeyd/honeyd_error.log
+  systemctl start honeyd.service
 ```
 
 ## Security settings
