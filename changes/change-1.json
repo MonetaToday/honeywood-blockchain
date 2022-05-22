@@ -69,7 +69,8 @@
         {
           "address": "bears1e700r3lvp5ln5zpacpyrggce5uy5dxs97he226",
           "denoms": [
-            "uhoney"
+            "uhoney",
+            "cone"
           ]
         }
       ]
