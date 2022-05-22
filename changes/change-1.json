@@ -1,0 +1,79 @@
+{
+  "title": "Bears Locked Param Change",
+  "description": "Added new addresses of the international bee day, added match3 server to unlocked senders",
+  "changes": [
+    {
+      "subspace": "bank",
+      "key": "UnlockedReceivers",
+      "value": [
+        {
+          "address": "bears17588vth3rrcamljd7hjkxp0jm5y7mvdf222lwy",
+          "denoms": [
+            "uhoney"
+          ]
+        }
+      ]
+    },
+    {
+      "subspace": "bank",
+      "key": "UnlockedSenders",
+      "value": [
+        {
+          "address": "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1n4hrlxmyc6nwzqh0f0hhq3ahlaga5h20wxphfv",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1f0rmz8z22zmjpg4cysuky50mgaw6782dq7gz3d",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1ww27cag59sunfuvqmntkk38n76a639r46gy70e",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1ky92wllu6h7wgqtadem764kh40ynzwa0pndyx9",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1fqepqpwhsn0zlu5ydvzwkq6pszejcfsy92qw2y",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears1ucqjfkcf8wer4lglsg062hpjmnupm9y68ylzgw",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears17588vth3rrcamljd7hjkxp0jm5y7mvdf222lwy",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears1e700r3lvp5ln5zpacpyrggce5uy5dxs97he226",
+          "denoms": [
+            "uhoney"
+          ]
+        }
+      ]
+    }
+  ],
+  "deposit": "10000cone"
+}
