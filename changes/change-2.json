@@ -1,19 +1,7 @@
 {
   "title": "Bears Locked Param Change",
-  "description": "Added new addresses of the international bee day, added match3 server to unlocked senders",
+  "description": "Added new addresses of the 1 HoneyCoin helping to unlocked senders",
   "changes": [
-    {
-      "subspace": "bank",
-      "key": "UnlockedReceivers",
-      "value": [
-        {
-          "address": "bears17588vth3rrcamljd7hjkxp0jm5y7mvdf222lwy",
-          "denoms": [
-            "uhoney"
-          ]
-        }
-      ]
-    },
     {
       "subspace": "bank",
       "key": "UnlockedSenders",
