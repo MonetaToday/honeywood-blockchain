@@ -1,0 +1,92 @@
+{
+  "title": "Bears Locked Param Change",
+  "description": "Added new addresses of the 1 HoneyCoin helping to unlocked senders",
+  "changes": [
+    {
+      "subspace": "bank",
+      "key": "UnlockedSenders",
+      "value": [
+        {
+          "address": "bears198zt7w2n5469ncmhzm3l67pahacyeg454a3h5u",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1n4hrlxmyc6nwzqh0f0hhq3ahlaga5h20wxphfv",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1f0rmz8z22zmjpg4cysuky50mgaw6782dq7gz3d",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1ww27cag59sunfuvqmntkk38n76a639r46gy70e",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1ky92wllu6h7wgqtadem764kh40ynzwa0pndyx9",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1fqepqpwhsn0zlu5ydvzwkq6pszejcfsy92qw2y",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears1ucqjfkcf8wer4lglsg062hpjmnupm9y68ylzgw",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears17588vth3rrcamljd7hjkxp0jm5y7mvdf222lwy",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears1e700r3lvp5ln5zpacpyrggce5uy5dxs97he226",
+          "denoms": [
+            "uhoney",
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1dcwssw0349spssys7gurt2lnjjenm9gapzk8r9",
+          "denoms": [
+            "uhoney"
+          ]
+        },
+        {
+          "address": "bears1fq95guv9n2me2y4qd2udqpknlect5222r7yyp3",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1ktszane2hq4rc3khgj9pkrxhszeetqpxf8my7a",
+          "denoms": [
+            "cone"
+          ]
+        },
+        {
+          "address": "bears1k2hhnm4dj6klkcgglzmaqpqtypllg4rf3jy06a",
+          "denoms": [
+            "cone"
+          ]
+        }
+      ]
+    }
+  ],
+  "deposit": "10000cone"
+}
