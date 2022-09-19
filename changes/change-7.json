@@ -1,0 +1,195 @@
+{
+  "title": "Bears Bees Param Change",
+  "description": "Added new bee",
+  "changes": [
+    {
+      "subspace": "bears",
+      "key": "BeeTypes",
+      "value": [
+        {
+          "bee_type": "SMALL_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1100000000"
+            }
+          ],
+          "honey_per_block": "792.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1200000000"
+            }
+          ],
+          "honey_per_block": "875.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "LUCKY_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1280000000"
+            }
+          ],
+          "honey_per_block": "944.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1370000000"
+            }
+          ],
+          "honey_per_block": "1028.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "SKILLED_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "honey_per_block": "1139.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "CURIOUS_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1650000000"
+            }
+          ],
+          "honey_per_block": "1264.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_EXPLORER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1780000000"
+            }
+          ],
+          "honey_per_block": "1375.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_HUNTER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1800000000"
+            }
+          ],
+          "honey_per_block": "1486.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "WONDER_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2100000000"
+            }
+          ],
+          "honey_per_block": "1667.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "DIAMOND_STING",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2350000000"
+            }
+          ],
+          "honey_per_block": "1917.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1150000000"
+            }
+          ],
+          "honey_per_block": "847.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_EXPLORER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1780000000"
+            }
+          ],
+          "honey_per_block": "1389.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_ACE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2400000000"
+            }
+          ],
+          "honey_per_block": "1986.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "GOLDEN_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2400000000"
+            }
+          ],
+          "honey_per_block": "1805.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "0.850000000000000000",
+          "air_consume": "0.500000000000000000"
+        }
+      ]
+    }
+  ],
+  "deposit": "10000cone"
+}
