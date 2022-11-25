@@ -69,8 +69,8 @@ func NewParams(
 		DecorationTypes:  decorationTypes,
 		ApiaryTypes:      apiaryTypes,
 		BeeTypes:         beeTypes,
-		MinNameLength: 		minNameLength,
-		BearAirConsume:		bearAirConsume,
+		MinNameLength:    minNameLength,
+		BearAirConsume:   bearAirConsume,
 	}
 }
 

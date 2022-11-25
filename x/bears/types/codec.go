@@ -28,6 +28,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCollectHoneyFromApiary{}, "bears/CollectHoneyFromApiary", nil)
 	cdc.RegisterConcrete(&MsgClearApiaryFromBees{}, "bears/ClearApiaryFromBees", nil)
 	cdc.RegisterConcrete(&MsgDeleteApiary{}, "bears/DeleteApiary", nil)
+	cdc.RegisterConcrete(&MsgBurnCoins{}, "bears/BurnCoins", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -91,6 +92,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgDeleteApiary{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgBurnCoins{},
 	)
 	// this line is used by starport scaffolding # 3
 

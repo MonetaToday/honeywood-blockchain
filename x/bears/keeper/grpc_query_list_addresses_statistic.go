@@ -4,13 +4,12 @@ import (
 	"context"
 
 	"github.com/MonetaToday/HoneyWood/x/bears/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-
 )
 
 func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryListAddressesStatisticRequest) (*types.QueryListAddressesStatisticResponse, error) {
@@ -32,14 +31,13 @@ func (k Keeper) ListAddressesStatistic(goCtx context.Context, req *types.QueryLi
 
 		_, isModuleAccount := account.(authtypes.ModuleAccountI)
 		addresses = append(addresses, types.QueryListAddressesStatisticResponse_AddressesStatistic{
-			Address: account.GetAddress().String(),
+			Address:  account.GetAddress().String(),
 			Balances: k.bankKeeper.SpendableCoins(ctx, account.GetAddress()),
-			Module: isModuleAccount,
+			Module:   isModuleAccount,
 		})
 
 		return nil
 	})
-
 
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "paginate: %v", err)

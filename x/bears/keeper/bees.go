@@ -218,9 +218,9 @@ func (k Keeper) CreateBee(ctx sdk.Context, creator string, receiver string, bear
 	}
 
 	newBee := types.Bees{
-		Name:            beeName,
-		BearOwner:       &types.BearOwner{Id: bearId},
-		Params:          beeParams,
+		Name:      beeName,
+		BearOwner: &types.BearOwner{Id: bearId},
+		Params:    beeParams,
 	}
 	newBeeId := k.AppendBees(ctx, newBee)
 	newBee.Id = newBeeId

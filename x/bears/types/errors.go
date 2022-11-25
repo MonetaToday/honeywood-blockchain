@@ -37,5 +37,5 @@ var (
 	ErrBeeIsNotExisted            = sdkerrors.Register(ModuleName, 28, "The Bee is not existed")
 	ErrBeeIsInApiary              = sdkerrors.Register(ModuleName, 29, "The Bee is already in the apiary")
 	ErrBeeIsNotInApiary           = sdkerrors.Register(ModuleName, 30, "The Bee is not in the apiary")
-	ErrNameShouldBeLonger        	= sdkerrors.Register(ModuleName, 31, "The Name should be longer")
+	ErrNameShouldBeLonger         = sdkerrors.Register(ModuleName, 31, "The Name should be longer")
 )

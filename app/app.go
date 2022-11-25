@@ -541,6 +541,7 @@ func New(
 
 	app.UpgradeKeeper.SetUpgradeHandler("bears-upgrade-1", func(ctx sdk.Context, plan upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
 		fromVM[minttypes.ModuleName] = 2
+		fromVM[bearsmoduletypes.ModuleName] = 3
 		return app.mm.RunMigrations(ctx, app.configurator, fromVM)
 	})
 

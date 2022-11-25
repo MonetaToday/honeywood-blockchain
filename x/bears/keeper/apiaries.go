@@ -161,10 +161,10 @@ func (k Keeper) CreateApiaryOnField(ctx sdk.Context, creator string, receiver st
 			RowId:    rowId,
 			ColumnId: columnId,
 		},
-		Params:         apiaryParams,
-		CycleHistory:   []types.CycleHistory{},
-		SpaceOccupied:  0,
-		HoneyFromPast:  sdk.ZeroDec(),
+		Params:        apiaryParams,
+		CycleHistory:  []types.CycleHistory{},
+		SpaceOccupied: 0,
+		HoneyFromPast: sdk.ZeroDec(),
 	}
 	newApiaryId := k.AppendApiaries(ctx, newApiary)
 	newApiary.Id = newApiaryId

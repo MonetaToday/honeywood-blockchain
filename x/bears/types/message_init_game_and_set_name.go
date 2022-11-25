@@ -3,8 +3,8 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"strings"
 	"regexp"
+	"strings"
 )
 
 const TypeMsgInitGameAndSetName = "init_game_and_set_name"
