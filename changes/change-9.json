@@ -1,0 +1,107 @@
+{
+  "title": "Tree policy changes, enable honey transferring",
+  "description": "Tree policy changes",
+  "changes": [
+    {
+      "subspace": "bank",
+      "key": "SendEnabled",
+      "value": [
+        {
+          "denom": "uhoney",
+          "enabled": true
+        },
+        {
+          "denom": "cone",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "subspace": "bears",
+      "key": "TreeTypes",
+      "value": [
+        {
+          "tree_type": "BUSH",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "200000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "15"
+            }
+          ],
+          "air_supply": "0.000000000000000000"
+        },
+        {
+          "tree_type": "WILLOW",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "750000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "60"
+            }
+          ],
+          "air_supply": "0.150000000000000000"
+        },
+        {
+          "tree_type": "APPLE_TREE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "120"
+            }
+          ],
+          "air_supply": "0.300000000000000000"
+        },
+        {
+          "tree_type": "SPRUCE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2500000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "230"
+            }
+          ],
+          "air_supply": "0.400000000000000000"
+        },
+        {
+          "tree_type": "OAK",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "5000000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "500"
+            }
+          ],
+          "air_supply": "0.500000000000000000"
+        }
+      ]
+    }
+  ],
+  "deposit": "10000cone"
+}

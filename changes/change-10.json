@@ -1,0 +1,32 @@
+{
+  "title": "Enable CONE staking",
+  "description": "Enable CONE staking",
+  "changes": [
+    {
+      "subspace": "mint",
+      "key": "GoalBonded",
+      "value": "0.67"
+    },
+    {
+      "subspace": "mint",
+      "key": "InflationMax",
+      "value": "3000000.0"
+    },
+    {
+      "subspace": "mint",
+      "key": "InflationMin",
+      "value": "1000000.0"
+    },
+    {
+      "subspace": "mint",
+      "key": "InflationRateChange",
+      "value": "1300000.0"
+    },
+    {
+      "subspace": "mint",
+      "key": "BlocksPerYear",
+      "value": "6307200"
+    }
+  ],
+  "deposit": "10000cone"
+}
