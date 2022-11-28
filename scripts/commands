@@ -100,7 +100,7 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd query bears show-apiaries-info-by-bear-id 0
 
 
-~/go/bin/honeyd tx bears init-game-and-create-tree OAK --from bob --fees 100000uhoney --yes
+~/go/bin/honeyd tx bears init-game-and-create-tree OAK --from cone-company-stake-1 --fees 100000uhoney --yes
 ~/go/bin/honeyd query bears show-trees-info-by-bear-id 0
 
 ~/go/bin/honeyd tx bears init-game-and-create-decoration bears10teyhjekk2wn2945kzj4g73d8jvhklzvw6x05g 0 FOUNTAIN --from bob --fees 10000uhoney --yes
@@ -111,3 +111,38 @@ go test ./x/bears/client/cli/query_calculate_honey_in_apiary_test.go -v
 ~/go/bin/honeyd tx bears init-game-and-create-decoration bears14cxpjprh2jjv4m0zhl4k62z0vf7769q0568ggw FOUNTAIN --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears set-decoration-position 0 0 0 0 --from bob --fees 10000uhoney --yes
 ~/go/bin/honeyd tx bears unset-decoration-position 0 --from bob --fees 10000uhoney --yes
+
+
+
+Created account "cone-company-stake-1" with address "bears13z8a0x0l2dsskn5274hgujz75vnqd5phlp6x6u" with mnemonic: "rent cube odor engine fire sauce grocery oil quiz expose lab dog december tree enjoy zebra miracle donor miss rice purse lady describe judge"
+
+~/go/bin/honeyd tx gov submit-proposal software-upgrade "bears-upgrade-1" --title "123123" --description "123123" --from "cone-company-stake-1" --deposit "10000cone" --upgrade-height 10 --fees "10000uhoney" --yes
+~/go/bin/honeyd tx gov vote 1 yes --from "cone-company-stake-1" --fees 10000uhoney --yes
+~/go/bin/honeyd tx gov submit-proposal param-change ./changes/change-10.json --from cone-company-stake-1 --fees 400000uhoney --gas 2000000 --yes
+~/go/bin/honeyd tx gov vote 2 yes --from "cone-company-stake-1" --fees 10000uhoney --yes
+
+~/go/bin/honeyd query mint annual-provisions
+~/go/bin/honeyd query staking validators
+~/go/bin/honeyd query bank total
+
+~/go/bin/cosmovisor run tx staking delegate bearsvaloper1jr5m6zalr8a2drjjcq2vegmfse3slls4yce28c "100000cone" --from cone-company-stake-2 --fees 100000uhoney --gas 2000000 --yes
+~/go/bin/cosmovisor run tx staking unbond bearsvaloper1jr5m6zalr8a2drjjcq2vegmfse3slls4yce28c "5000cone" --from cone-company-stake-2 --fees 100000uhoney --gas 2000000 --yes
+
+~/go/bin/honeyd query  distribution  validator-outstanding-rewards bearsvaloper1jr5m6zalr8a2drjjcq2vegmfse3slls4yce28c
+~/go/bin/honeyd query  distribution rewards bears1upuxg559kxk03fck64qy7ppl7f6hg8ga8ahm4s bearsvaloper1jr5m6zalr8a2drjjcq2vegmfse3slls4yce28c
+
+
+~/go/bin/honeyd query bank total
+~/go/bin/honeyd query bank balances bears17hhxdyq9lw7rj7s6dr786gx3t3qvllu2hteyae
+~/go/bin/honeyd query bank balances bears17gznjwes9yhjqsmjyvau94t802jnvfzun6slkv
+~/go/bin/honeyd query  distribution rewards bears17hhxdyq9lw7rj7s6dr786gx3t3qvllu2hteyae bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw
+~/go/bin/honeyd query  distribution rewards bears17gznjwes9yhjqsmjyvau94t802jnvfzun6slkv bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw
+~/go/bin/honeyd query  distribution  validator-outstanding-rewards bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw
+~/go/bin/honeyd tx staking unbond bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw "1000000cone" --from cone-company-stake-2 --fees 100000uhoney --gas 2000000 --yes
+
+~/go/bin/honeyd query bank total
+~/go/bin/honeyd query bank balances bears17hhxdyq9lw7rj7s6dr786gx3t3qvllu2hteyae
+~/go/bin/honeyd query bank balances bears17gznjwes9yhjqsmjyvau94t802jnvfzun6slkv
+~/go/bin/honeyd query  distribution rewards bears17hhxdyq9lw7rj7s6dr786gx3t3qvllu2hteyae bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw
+~/go/bin/honeyd query  distribution rewards bears17gznjwes9yhjqsmjyvau94t802jnvfzun6slkv bearsvaloper17hhxdyq9lw7rj7s6dr786gx3t3qvllu2c929hw
+~/go/bin/honeyd query  distribution  validator-outstanding-rewards bearsvaloper1uerqfgrmftp8wcxzag6xrh2ldkzkufhgsj4jrz
