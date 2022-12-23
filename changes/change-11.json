@@ -1,0 +1,548 @@
+{
+  "title": "Christmas update",
+  "description": "Added Christmas pack",
+  "changes": [
+    {
+      "subspace": "bears",
+      "key": "BeeTypes",
+      "value": [
+        {
+          "bee_type": "SMALL_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1100000000"
+            }
+          ],
+          "honey_per_block": "792.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1200000000"
+            }
+          ],
+          "honey_per_block": "875.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "LUCKY_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1280000000"
+            }
+          ],
+          "honey_per_block": "944.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1370000000"
+            }
+          ],
+          "honey_per_block": "1028.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "SKILLED_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "honey_per_block": "1139.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "CURIOUS_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1650000000"
+            }
+          ],
+          "honey_per_block": "1264.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_EXPLORER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1780000000"
+            }
+          ],
+          "honey_per_block": "1375.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_HUNTER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1800000000"
+            }
+          ],
+          "honey_per_block": "1486.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "WONDER_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2100000000"
+            }
+          ],
+          "honey_per_block": "1667.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "DIAMOND_STING",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2350000000"
+            }
+          ],
+          "honey_per_block": "1917.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1150000000"
+            }
+          ],
+          "honey_per_block": "847.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_EXPLORER",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1780000000"
+            }
+          ],
+          "honey_per_block": "1389.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "FOREST_ACE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2400000000"
+            }
+          ],
+          "honey_per_block": "1986.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "GOLDEN_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2400000000"
+            }
+          ],
+          "honey_per_block": "1805.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "0.850000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "HONEY_BAT",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1600000000"
+            }
+          ],
+          "honey_per_block": "1180.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "BABY_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "300000000"
+            }
+          ],
+          "honey_per_block": "208.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        },
+        {
+          "bee_type": "SNOW_BEE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "honey_per_block": "1250.000000000000000000",
+          "body_size": "1",
+          "air_count_dependency": "1.000000000000000000",
+          "air_consume": "0.500000000000000000"
+        }
+      ]
+    },
+    {
+      "subspace": "bears",
+      "key": "ApiaryTypes",
+      "value": [
+        {
+          "apiary_type": "BEE_HOUSE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "500000000"
+            }
+          ],
+          "space_available": "5",
+          "max_honey": "10000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "250000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "APIARY",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "900000000"
+            }
+          ],
+          "space_available": "8",
+          "max_honey": "20000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "450000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "ALVEARY",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "space_available": "12",
+          "max_honey": "35000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "750000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "FOREST_BEEHIVE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1000000000"
+            }
+          ],
+          "space_available": "5",
+          "max_honey": "30000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "500000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "SCARYARY",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1000000000"
+            }
+          ],
+          "space_available": "10",
+          "max_honey": "25000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "500000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "STUMP",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "150000000"
+            }
+          ],
+          "space_available": "2",
+          "max_honey": "5000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "75000000"
+            }
+          ]
+        },
+        {
+          "apiary_type": "COZY_HOUSE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "800000000"
+            }
+          ],
+          "space_available": "8",
+          "max_honey": "20000000.000000000000000000",
+          "delete_reward": [
+            {
+              "denom": "uhoney",
+              "amount": "400000000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subspace": "bears",
+      "key": "DecorationTypes",
+      "value": [
+        {
+          "decoration_type": "FLOWERS",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "100000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "FLAG",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "150000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "LAMP",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "200000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "FLOWER_BARREL",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "220000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "FOUNTAIN",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "300000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "FIRST_BEEHIVE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1000000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "BEE_THE_SAVIOR",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "500000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "PUM_PUM",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "300000000"
+            }
+          ]
+        },
+        {
+          "decoration_type": "CHRISTMAS_BOX",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "300000000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subspace": "bears",
+      "key": "TreeTypes",
+      "value": [
+        {
+          "tree_type": "BUSH",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "200000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "15"
+            }
+          ],
+          "air_supply": "0.000000000000000000"
+        },
+        {
+          "tree_type": "WILLOW",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "750000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "60"
+            }
+          ],
+          "air_supply": "0.150000000000000000"
+        },
+        {
+          "tree_type": "APPLE_TREE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "1500000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "120"
+            }
+          ],
+          "air_supply": "0.300000000000000000"
+        },
+        {
+          "tree_type": "SPRUCE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2500000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "230"
+            }
+          ],
+          "air_supply": "0.400000000000000000"
+        },
+        {
+          "tree_type": "OAK",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "5000000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "500"
+            }
+          ],
+          "air_supply": "0.500000000000000000"
+        },
+        {
+          "tree_type": "CHRISTMAS_TREE",
+          "price": [
+            {
+              "denom": "uhoney",
+              "amount": "2500000000"
+            }
+          ],
+          "reward": [
+            {
+              "denom": "cone",
+              "amount": "250"
+            }
+          ],
+          "air_supply": "0.400000000000000000"
+        }
+      ]
+    }
+  ],
+  "deposit": "10000cone"
+}
