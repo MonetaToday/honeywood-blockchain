@@ -1,0 +1,12 @@
+{
+  "title": "Extending SignedBlocksWindow period to 1000 blocks",
+  "description": "Extending SignedBlocksWindow period to 1000 blocks",
+  "changes": [
+    {
+      "subspace": "slashing",
+      "key": "SignedBlocksWindow",
+      "value": "1000"
+    }
+  ],
+  "deposit": "10000cone"
+}
