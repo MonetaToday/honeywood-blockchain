@@ -5,7 +5,24 @@ The coins which are deposited to a proposal will burn either:
 2) VetoThreshold votes count is greater than 0.334% of voting power.
 
 
-## Take part in the consensus
+## Launch using Docker
+
+Before start the daemon you should set DAEMON_HOME variable
+```sh
+export DAEMON_HOME=~/.HoneyWood
+```
+
+BE CAREFUL! This command should be executed just for the first time. Don't run it if you have already had a sync state.
+```sh
+sh init-node-script.sh MY_NODE_NAME FAST_SYNC
+```
+
+Bulding all versions of the chain and launch node.
+```sh
+sh launch-node-script.sh
+```
+
+## Building from sources
 
 Firstly install Go:
 ```sh
