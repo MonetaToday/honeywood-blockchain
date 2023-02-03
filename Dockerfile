@@ -10,6 +10,8 @@ WORKDIR /go/src/github.com/MonetaToday/honeywood-blockchain
 COPY --chown=tendermint . .
 RUN chmod -R 777 ./
 
+RUN ignite chain build --output ./
+
 EXPOSE 26656 26657 1317 9090
 
 ENTRYPOINT [""]
