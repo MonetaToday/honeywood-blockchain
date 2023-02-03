@@ -17,7 +17,8 @@ if test -f "$FILE"; then
 else
   echo "$FILE doesn't exist, building..."
   mkdir -p $FILE_DIR
-  docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION ignite chain build --output /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin
+  docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION cp ./honeyd /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin/
+  # docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION ignite chain build --output /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin
 fi
 
 # Bears-upgrade-1 bin
@@ -30,7 +31,8 @@ if test -f "$FILE"; then
 else
   echo "$FILE doesn't exist, building..."
   mkdir -p $FILE_DIR
-  docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION ignite chain build --output /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin
+  docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION cp ./honeyd /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin/
+  # docker run -v "$DAEMON_HOME:/home/tendermint/.HoneyWood" monetatoday/honeywood-blockchain:$VERSION ignite chain build --output /home/tendermint/.HoneyWood/$COSMOVISOR_DIR/bin
 fi
 
 if test ! -L "$DAEMON_HOME/cosmovisor/current"; then
