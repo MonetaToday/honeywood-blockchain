@@ -1,11 +1,11 @@
 To make param-change proposal you should run the script below:
 ```sh
-~/go/bin/honeyd tx gov submit-proposal param-change ./changes/change-12.json --from cone-team --fees 400000uhoney --gas 2000000
+~/go/bin/honeyd tx gov submit-proposal param-change ./changes/change-14.json --from cone-team --fees 400000uhoney --gas 2000000
 ```
 
 To approve the proposal the most number of validators have to vote for it:
 ```sh
-~/go/bin/honeyd tx gov vote 12 yes --from "cone-team" --fees 10000uhoney --yes
+~/go/bin/honeyd tx gov vote 14 yes --from "cone-team" --fees 10000uhoney --yes
 ```
 
 To see which proposals are in queue or approved you can run this command:

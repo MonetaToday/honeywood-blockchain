@@ -1,0 +1,14 @@
+{
+  "title": "Reducing voting period",
+  "description": "Reducing voting period",
+  "changes": [
+    {
+      "subspace": "gov",
+      "key": "votingparams",
+      "value": {
+        "voting_period":"600000000000"
+      }
+    }
+  ],
+  "deposit": "10000cone"
+}

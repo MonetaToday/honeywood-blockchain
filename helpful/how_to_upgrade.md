@@ -15,5 +15,7 @@ cp ~/go/bin/honeyd $DAEMON_HOME/cosmovisor/upgrades/bears-upgrade-1/bin/honeyd
 
 Make a proposal:
 ```sh
-~/go/bin/cosmovisor run tx gov submit-proposal software-upgrade "bears-upgrade-1" --title "Bears upgrade 1" --description "Removed staking params limitations, added burning mechanics" --from "cone-company-stake-1" --deposit "10000cone" --upgrade-height HEIGHT --fees "10000uhoney" --yes
+~/go/bin/cosmovisor run tx gov submit-proposal software-upgrade "bears-upgrade-1" --title "Bears upgrade 1" --description "Removed staking params limitations, added burning mechanics" --from "cone-team" --deposit "10000cone" --upgrade-height HEIGHT --fees "10000uhoney" --yes
+
+~/go/bin/cosmovisor run tx gov submit-proposal software-upgrade "bears-upgrade-2" --title "Bears upgrade 2" --description "Added locking coins mechanics" --from "cone-team" --deposit "10000cone" --upgrade-height 50 --fees "1cone" --yes
 ```

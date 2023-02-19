@@ -6,7 +6,7 @@ init:
     consensus:
       timeout_commit: "5s"
   app:
-    minimum-gas-prices: "0.05uhoney"
+    minimum-gas-prices: "0.05uhoney,0.000005cone"
 accounts:
   - name: "honey-pre-private"
     address: "bears1w3txfx67gtuaz3xxf3ttqlxka7mfextzu2aje9"

@@ -20,6 +20,7 @@ MODE="${2:-FULL_MODE}"
 # # Genesis init config
 # starport chain init
 docker run -v "$DAEMON_HOME/../:/home/tendermint/" monetatoday/honeywood-blockchain:genesis ignite chain init
+# docker run -v "$DAEMON_HOME/../:/home/tendermint/" monetatoday/honeywood-blockchain:genesis ./honeyd init $NODE_NAME
 cp ./genesis/mainnet.json $DAEMON_HOME/config/genesis.json
 sed -i -e "/moniker =/ s/= .*/= \"$NODE_NAME\"/" $DAEMON_HOME/config/config.toml
 sed -i -e 's/timeout_commit = "5s"/timeout_commit = "4s"/' $DAEMON_HOME/config/config.toml

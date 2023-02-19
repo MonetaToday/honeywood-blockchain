@@ -545,6 +545,11 @@ func New(
 		return app.mm.RunMigrations(ctx, app.configurator, fromVM)
 	})
 
+	app.UpgradeKeeper.SetUpgradeHandler("bears-upgrade-2", func(ctx sdk.Context, plan upgradetypes.Plan, fromVM module.VersionMap) (module.VersionMap, error) {
+		fromVM[banktypes.ModuleName] = 3
+		return app.mm.RunMigrations(ctx, app.configurator, fromVM)
+	})
+
 	return app
 }
 
